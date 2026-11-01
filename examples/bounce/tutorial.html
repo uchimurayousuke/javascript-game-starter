@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ボールをはね返すゲームの作り方</title><link rel="stylesheet" href="../guide.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>ボールをはね返すゲーム</h1><p class="tag">初心者向け</p><p>変数、if 文、関数と Canvas の基本の描画を知っている人向けです。 座標の更新、キー操作、壁と板での反射を学びます。</p><p>左右の矢印キーで板を動かし、ボールを受け止めます。落としたら R キーで再挑戦できます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
+<section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーします。3つのファイルを同じ場所に置いてください。元のひな型は残しておきます。</p><p>各ステップでは作業用フォルダーの <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存したら作業用の <code>index.html</code> をブラウザで開き、すでに開いている場合は再読み込みしてください。見本は別のページで開けます。</p><p><code>start()</code> は最初の設定、<code>update()</code> は動きや判定、<code>draw()</code> は描画を担当します。最後の <code>gameLoop()</code> は更新と描画を繰り返します。</p></section><section><h2>ステップ 1：ボールを動かす</h2><p><strong>目標：</strong>ボールを動かし、画面の端で反射させます。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -1,24 +1,29 @@
+ &quot;use strict&quot;;
+-
+ const canvas = document.querySelector(&quot;#game-canvas&quot;);
+ const ctx = canvas.getContext(&quot;2d&quot;);
+ 
+-// ゲームを始めるときに、1回だけ呼ばれます。
++let x, y, dx, dy, paddleX;
++const radius = 10, paddleWidth = 110, paddleY = 410;
++
+ function start() {
+-  // ここに初期設定を書く
++  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+ }
+ 
+-// 毎フレーム呼ばれます。
+ function update() {
+-  // ここにキャラクターの移動や当たり判定などを書く
++  x += dx; y += dy;
++  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
++  if (y &lt;= radius) dy = -dy;
++  if (y &gt;= canvas.height - radius) dy = -dy;
+ }
+ 
+-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+ function draw() {
+   ctx.clearRect(0, 0, canvas.width, canvas.height);
+-  // ここに ctx.fillRect() などを使った描画を書く
++  ctx.fillStyle = &quot;#2269b4&quot;;
++  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
++  ctx.fillStyle = &quot;#26334a&quot;;
++  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+ }
+ 
+-// 以下は start → update → draw を動かすための共通処理です。
++
+ function gameLoop() {
+   update();
+@@ -26,5 +31,4 @@
+   requestAnimationFrame(gameLoop);
+ }
+-
+ start();
+ gameLoop();
+</code></pre><h3>コードの意味</h3><p>x と y は中心の座標、dx と dy は一回の更新で進む量です。端に着いたら速度の符号を反転します。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  // ここに初期設定を書く
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><p>変更後：</p><pre><code>function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  // ここにキャラクターの移動や当たり判定などを書く
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><p>変更後：</p><pre><code>function update() {
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (y &gt;= canvas.height - radius) dy = -dy;
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ここに ctx.fillRect() などを使った描画を書く
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+}
+
+
+</code></pre><h4>gameLoop() からファイルの末尾</h4><p>変更前：</p><pre><code>function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><p>変更後：</p><pre><code>function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+start();
+gameLoop();
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+}
+
+function update() {
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (y &gt;= canvas.height - radius) dy = -dy;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+}
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>ボールが四方の端ではね返ることを確かめます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>dx の初期値を変えて速さを比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 2：板を左右に動かす</h2><p><strong>目標：</strong>矢印キーで板を操作します。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -5,4 +5,5 @@
+ let x, y, dx, dy, paddleX;
+ const radius = 10, paddleWidth = 110, paddleY = 410;
++let left = false, right = false;
+ 
+ function start() {
+@@ -11,4 +12,7 @@
+ 
+ function update() {
++  if (left) paddleX -= 7;
++  if (right) paddleX += 7;
++  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+   x += dx; y += dy;
+   if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+@@ -25,5 +29,14 @@
+ }
+ 
+-
++window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
++  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
++  if (event.key === &quot;ArrowLeft&quot;) left = true;
++  if (event.key === &quot;ArrowRight&quot;) right = true;
++});
++window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
++  if (event.key === &quot;ArrowLeft&quot;) left = false;
++  if (event.key === &quot;ArrowRight&quot;) right = false;
++});
++window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+ function gameLoop() {
+   update();
+</code></pre><h3>コードの意味</h3><p>keydown と keyup でキーが押されているかを記録します。Math.max と Math.min は板が画面の外へ出るのを防ぎます。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false;
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (y &gt;= canvas.height - radius) dy = -dy;
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (y &gt;= canvas.height - radius) dy = -dy;
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+}
+
+
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+}
+
+function update() {
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (y &gt;= canvas.height - radius) dy = -dy;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>左右の矢印キーで板が動き、画面の端で止まることを確かめます。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>板の移動量 7 を変えて動かしやすさを比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 3：板で反射して得点する</h2><p><strong>目標：</strong>板で受け止め、落としたら終了します。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -5,11 +5,13 @@
+ let x, y, dx, dy, paddleX;
+ const radius = 10, paddleWidth = 110, paddleY = 410;
+-let left = false, right = false;
++let left = false, right = false, score, over;
+ 
+ function start() {
+   x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
++  score = 0; over = false; left = false; right = false;
+ }
+ 
+ function update() {
++  if (over) return;
+   if (left) paddleX -= 7;
+   if (right) paddleX += 7;
+@@ -18,5 +20,9 @@
+   if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+   if (y &lt;= radius) dy = -dy;
+-  if (y &gt;= canvas.height - radius) dy = -dy;
++  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
++      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
++    y = paddleY - radius; dy = -dy; score++;
++  }
++  if (y - radius &gt; canvas.height) over = true;
+ }
+ 
+@@ -27,4 +33,7 @@
+   ctx.fillStyle = &quot;#26334a&quot;;
+   ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
++  ctx.font = &quot;24px sans-serif&quot;;
++  ctx.fillText(&quot;はね返した回数: &quot; + score, 20, 35);
++  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+ }
+ 
+@@ -39,4 +48,7 @@
+ });
+ window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
++window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
++  if (event.key.toLowerCase() === &quot;r&quot;) start();
++});
+ function gameLoop() {
+   update();
+</code></pre><h3>コードの意味</h3><p>下向きに進むボールと板の範囲が重なると dy を反転し、score を 1 増やします。over が true の間は update を止めます。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false;
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over;
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+}
+
+</code></pre><p>変更後：</p><pre><code>function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; left = false; right = false;
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (y &gt;= canvas.height - radius) dy = -dy;
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  if (over) return;
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    y = paddleY - radius; dy = -dy; score++;
+  }
+  if (y - radius &gt; canvas.height) over = true;
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; left = false; right = false;
+}
+
+function update() {
+  if (over) return;
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    y = paddleY - radius; dy = -dy; score++;
+  }
+  if (y - radius &gt; canvas.height) over = true;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>板に当たると回数が増え、落とすと終了します。R で初期状態に戻ります。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><h3>小さな練習</h3><p>paddleWidth を変えて難しさを比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../index.html">一覧へ戻る</a></p></main></body></html>
