@@ -26,7 +26,7 @@
         <header class="intro">
           <p class="eyebrow">HTML・CSS・JAVASCRIPT を少しずつ</p>
           <h1>コインキャッチを<br />自分で書いて作ろう</h1>
-          <p class="lead">Canvas（キャンバス）は、ブラウザの中に絵を描くための場所です。空の画面にコードを書き足し、絵を描く、動かす、キーで操作する、当たりを調べる、という順番でゲームを作ります。</p>
+          <p class="lead">Canvas（キャンバス）は、ブラウザの中に絵を描くための場所です。用意したひな型のファイルにコードを書き足し、絵を描く、動かす、キーで操作する、当たりを調べる、という順番でゲームを作ります。</p>
           <p>この教材で使うのは、ブラウザと3つのファイルだけです。ライブラリ（追加の機能をまとめた道具）、ビルド（実行前にコードを変換する作業）、開発用サーバー（確認用にページを表示する仕組み）は必要ありません。ゲームを動かすためのインストールも不要です。操作にはパソコンのキーボードを使います。</p>
           <a class="primary-link" href="#preparation">準備から始める ↓</a>
         </header>
@@ -54,7 +54,10 @@
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p><code>&lt;canvas&gt;</code> は絵を描く場所を作ります。<code>id="game-canvas"</code> は JavaScript がその場所を見つけるための名前です。<code>width="800"</code> と <code>height="450"</code> は、絵を描くときに使う横幅と高さをピクセル（画面上の小さな点）で決めています。絵を描く場所は、横と縦の位置を数字で表した「座標」で指定します。<code>&lt;link&gt;</code> は同じフォルダーの CSS を、<code>&lt;script&gt;</code> は JavaScript を読み込みます。<code>defer</code> を付けると、HTML を読み終えてから JavaScript が動くので、Canvas を見つけられます。<code>charset="UTF-8"</code> は日本語の文字を正しく扱う指定です。</p>
+<p><code>&lt;canvas&gt;</code> は絵を描く場所を作ります。<code>id="game-canvas"</code> は JavaScript がその場所を見つけるための名前です。</p>
+<p><code>width="800"</code> と <code>height="450"</code> は、絵を描くときに使う横幅と高さをピクセル（画面上の小さな点）で決めています。絵を描く場所は、横と縦の位置を数字で表した「座標」で指定します。</p>
+<p><code>&lt;link&gt;</code> は同じフォルダーの CSS を、<code>&lt;script&gt;</code> は JavaScript を読み込みます。<code>defer</code> を付けると、HTML を読み終えてから JavaScript が動くので、Canvas を見つけられます。</p>
+<p><code>charset="UTF-8"</code> は日本語の文字を正しく扱う指定です。</p>
 <p>次に、コピー先の <code>style.css</code> 全体を次のコードに置き換えます。元のひな型から Canvas の背景色だけを変えています。</p>
 <pre><code data-file="style.css" data-action="replace-file">body {
   min-height: 100vh;
@@ -115,7 +118,10 @@ let coinY = 80;
   ctx.fillText(&quot;コイン: 0&quot;, 24, 38);
 }
 </code></pre>
-<h3>4. コードの意味</h3><p>変数は、数値などのデータに名前を付けて保存するものです。たとえば <code>let coinY = 80;</code> は、コインの縦の位置として <code>80</code> を保存します。<code>const</code> はあとから別の値を入れ直さない変数、<code>let</code> は入れ直せる変数を作ります。幅や半径は <code>const</code>、これから動かす位置は <code>let</code> にします。<code>=</code> は右の値を左の変数に入れる「代入」です。行末の <code>;</code> は文の区切り、<code>//</code> から右はメモとして書くコメントです。</p>
+<h3>4. コードの意味</h3><p>変数は、数値などのデータに名前を付けて保存するものです。たとえば <code>let coinY = 80;</code> は、コインの縦の位置として <code>80</code> を保存します。</p>
+<p><code>const</code> はあとから別の値を入れ直さない変数、<code>let</code> は入れ直せる変数を作ります。幅や半径は <code>const</code>、これから動かす位置は <code>let</code> にします。</p>
+<p><code>=</code> は右の値を左の変数に入れる「代入」です。</p>
+<p>行末の <code>;</code> は文の区切り、<code>//</code> から右はメモとして書くコメントです。</p>
 <p><code>canvas.width</code> は Canvas に設定した横幅で、ここでは800ピクセルです。<code>(canvas.width - playerWidth) / 2</code> は、受け皿を中央に置く計算です。<code>-</code> は引き算、<code>/</code> は割り算で、丸括弧の中を先に計算します。座標は場所を表す数字の組です。Canvas の左上は <code>(0, 0)</code> で、横の <code>x</code> は右へ、縦の <code>y</code> は下へ進むほど増えます。受け皿は左上の座標で、コインは中心の座標で置きます。</p>
 <p>ひな型の <code>document.querySelector("#game-canvas")</code> は HTML の同じ id を持つ Canvas を見つけます。<code>getContext("2d")</code> で取り出した <code>ctx</code> を使い、2D（平面）の画面に絵を描きます。文字は引用符で囲み、数値は引用符なしで書きます。</p>
 <table><thead><tr><th>命令・設定</th><th>このコードでの意味</th></tr></thead><tbody>
@@ -339,7 +345,7 @@ window.addEventListener(&quot;blur&quot;, clearKeys);
 }
 </code></pre>
 <h3>4. コードの意味</h3><p><code>score</code> は集めた枚数です。<code>start()</code> で0に戻し、キャッチしたときに <code>score += 1</code> で1点増やします。<code>"コイン: " + score</code> の <code>+</code> は、片方が文字列なので文字をつなげます。得点の数値も文字に変わって表示されます。</p>
-<p>当たり判定は、コインと受け皿が触れたかを調べる処理です。ここでは丸いコインを囲む四角と、受け皿の四角が重なったかを調べます。コインそのものが触れていない四隅でも、囲む四角が重なればキャッチになります。<code>return</code> は計算結果を呼び出した場所に返します。4つの条件を <code>&amp;&amp;</code> でつなぐと、全部が成り立つときだけ <code>true</code> になります。<code>&gt;=</code> は「以上」、<code>&lt;=</code> は「以下」なので、端が接したときもキャッチです。</p>
+<p>当たり判定は、コインと受け皿が触れたかを調べる処理です。ここでは丸いコインを囲む四角と、受け皿の四角が重なったかを調べます。コインを囲む四角の角が受け皿と重なると、丸いコインそのものが触れていなくてもキャッチになります。<code>return</code> は計算結果を呼び出した場所に返します。4つの条件を <code>&amp;&amp;</code> でつなぐと、全部が成り立つときだけ <code>true</code> になります。<code>&gt;=</code> は「以上」、<code>&lt;=</code> は「以下」なので、端が接したときもキャッチです。</p>
 <table><thead><tr><th>条件</th><th>調べること</th></tr></thead><tbody>
 <tr><td><code>coinY + coinRadius &gt;= playerY</code></td><td>コインの下端が受け皿の上端に届いている。</td></tr>
 <tr><td><code>coinY - coinRadius &lt;= playerY + playerHeight</code></td><td>コインの上端が受け皿の下端を通り過ぎていない。</td></tr>
