@@ -6,7 +6,8 @@ const path = require("node:path");
 const vm = require("node:vm");
 const root = __dirname;
 const games = ["target", "bounce", "breakout", "shooting", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"];
-const read = (...parts) => fs.readFileSync(path.join(root, ...parts), "utf8").replace(/\r\n/g, "\n");
+const levelOf = game => (["target", "bounce", "timing", "typing", "number-guess"].includes(game) ? "beginner" : ["breakout", "shooting", "snake", "memory", "shop"].includes(game) ? "intermediate" : "advanced");
+const read = (...parts) => fs.readFileSync(path.join(root, levelOf(parts[0]), ...parts), "utf8").replace(/\r\n/g, "\n");
 const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#x27);/g, (x) => ({"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"', "&#x27;":"'"}[x]));
 
 test("手順の置換を順に適用すると各段階の3ファイルと一致する", () => {
@@ -14,7 +15,7 @@ test("手順の置換を順に適用すると各段階の3ファイルと一致�
     const tutorial = read(game, "tutorial.html");
     const sections = [...tutorial.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
     assert.equal(sections.length, ["escape", "tower-defense", "card-battle", "racing"].includes(game) ? 5 : game === "memory" || game === "shop" ? 4 : 3);
-    let script = fs.readFileSync(path.join(root, "..", "script.js"), "utf8").replace(/\r\n/g, "\n");
+    let script = fs.readFileSync(path.join(root, "..", "template", "script.js"), "utf8").replace(/\r\n/g, "\n");
     for (const [index, section] of sections.entries()) {
       const replacements = [...section[0].matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
       assert.ok(replacements.length);
@@ -26,7 +27,7 @@ test("手順の置換を順に適用すると各段階の3ファイルと一致�
       }
       const step = "step" + (index + 1);
       assert.equal(script, read(game, step, "script.js"));
-      for (const file of ["index.html", "style.css"]) assert.equal(read(game, step, file), fs.readFileSync(path.join(root, "..", file), "utf8").replace(/\r\n/g, "\n"));
+      for (const file of ["index.html", "style.css"]) assert.equal(read(game, step, file), fs.readFileSync(path.join(root, "..", "template", file), "utf8").replace(/\r\n/g, "\n"));
       new vm.Script(script);
     }
     for (const file of ["index.html", "style.css", "script.js"]) assert.equal(read(game, "complete", file), read(game, "step" + sections.length, file));

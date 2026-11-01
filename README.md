@@ -1,6 +1,6 @@
 # JavaScript ゲーム制作ひな型
 
-HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始めるための最小限のひな型です。`index.html` をブラウザで開くと、空のゲーム画面が表示されます。インストールやビルドは必要ありません。
+HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始めるための最小限のひな型です。`template/index.html` をブラウザで開くと、空のゲーム画面が表示されます。インストールやビルドは必要ありません。
 
 ## 用意しているもの
 
@@ -11,23 +11,26 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 
 ## 自分で作るもの
 
-一番上のフォルダーにあるひな型には、キャラクター、操作、得点、勝敗条件、タイトル画面、画像や音など、ゲーム固有の要素は入れていません。必要なものを少しずつ追加してください。
+`template/` にあるひな型には、キャラクター、操作、得点、勝敗条件、タイトル画面、画像や音など、ゲーム固有の要素は入れていません。必要なものを少しずつ追加してください。
 
-## ルートのファイル構成
+## フォルダー構成
 
-| ファイル | 役割 |
+| 場所 | 役割 |
 | --- | --- |
-| `index.html` | Canvas を配置し、CSS と JavaScript を読み込む |
-| `style.css` | Canvas の表示位置と大きさを決める |
-| `script.js` | `start()`・`update()`・`draw()` にゲームの処理を書く |
+| [template/](template/index.html) | 共通のスタート地点。3ファイルを作業用フォルダーへコピーする |
+| [tutorial/](tutorial/index.html) | コインキャッチの教材と5段階の見本 |
+| [examples/index.html](examples/index.html) | 制作例の一覧。教材と完成版を開く |
+| `examples/beginner/` | 初心者向けの5ゲーム |
+| `examples/intermediate/` | 中級者向けの5ゲーム |
+| `examples/advanced/` | 上級者向けの5ゲームと発展課題 |
 
-まずは `script.js` の `draw()` に図形を描き、次に `update()` でその位置を変えると、動きを確認できます。変更したらブラウザを再読み込みしてください。
+`template/` の3ファイルは [index.html](template/index.html)、[style.css](template/style.css)、[script.js](template/script.js) です。ゲームを作るときは3つとも自分の作業用フォルダーにコピーし、元のひな型を残します。まずコピー先の `script.js` の `draw()` に図形を描き、次に `update()` で位置を変えると、動きを確認できます。変更したらコピー先の `index.html` を再読み込みしてください。
 
 ## ステップ別チュートリアル
 
 [教材を読むページ](tutorial/index.html)と、各段階のゲームを動かすページを分けています。描画 → 更新 → 入力 → 当たり判定 → クリアと再挑戦の5段階で、「コインキャッチ」を作ります。
 
-ゲームのファイルをまとめたリポジトリをダウンロードするかクローンしたら、パソコンに保存した `tutorial/index.html` をブラウザで開いてください。空のひな型を自分の作業用フォルダーへコピーし、教材のコードを順番に書き足したり、書き換えたりして進めます。各ステップに、編集位置、必要なコード、コードの意味、動作確認、小さな練習があります。GitHub 上のリンクを開くと HTML のコードが表示されます。ゲームを動かすときはパソコンに保存したファイルを開きます。
+ゲームのファイルをまとめたリポジトリをダウンロードするかクローンしたら、パソコンに保存した `tutorial/index.html` をブラウザで開いてください。`template/` の3ファイルを自分の作業用フォルダーへコピーし、教材のコードを順番に書き足したり、書き換えたりして進めます。各ステップに、編集位置、必要なコード、コードの意味、動作確認、小さな練習があります。GitHub 上のリンクを開くと HTML のコードが表示されます。ゲームを動かすときはパソコンに保存したファイルを開きます。
 
 | 入口 | 用途 |
 | --- | --- |
@@ -44,26 +47,26 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 
 初心者向けは、次の5本です。
 
-- [クリックで的あて](examples/target/tutorial.html)：クリックした位置と的の距離を調べます。
-- [ボールをはね返すゲーム](examples/bounce/tutorial.html)：板を動かし、ボールをはね返します。
-- [タイミングストップ](examples/timing/tutorial.html)：動く線を目標の範囲で止めます。
-- [タイピングゲーム](examples/typing/tutorial.html)：英字や短い単語を、正確に速く打ちます。
-- [ヒントで数あて](examples/number-guess/tutorial.html)：大小のヒントを使い、かくれた数を探します。
+- [クリックで的あて](examples/beginner/target/tutorial.html)：クリックした位置と的の距離を調べます。
+- [ボールをはね返すゲーム](examples/beginner/bounce/tutorial.html)：板を動かし、ボールをはね返します。
+- [タイミングストップ](examples/beginner/timing/tutorial.html)：動く線を目標の範囲で止めます。
+- [タイピングゲーム](examples/beginner/typing/tutorial.html)：英字や短い単語を、正確に速く打ちます。
+- [ヒントで数あて](examples/beginner/number-guess/tutorial.html)：大小のヒントを使い、かくれた数を探します。
 
 中級者向けは、次の5本です。
 
-- [ブロックくずし](examples/breakout/tutorial.html)：ボールを当ててブロックを消します。
-- [シンプルなシューティング](examples/shooting/tutorial.html)：弾を飛ばして敵を倒します。
-- [スネークゲーム](examples/snake/tutorial.html)：マス目を進み、食べ物を取って体を伸ばします。
-- [神経衰弱](examples/memory/tutorial.html)：2枚のカードをめくり、同じ文字の組を探します。
-- [小さなお店の経営ゲーム](examples/shop/tutorial.html)：商品を仕入れて売り、3日間の所持金を増やします。
+- [ブロックくずし](examples/intermediate/breakout/tutorial.html)：ボールを当ててブロックを消します。
+- [シンプルなシューティング](examples/intermediate/shooting/tutorial.html)：弾を飛ばして敵を倒します。
+- [スネークゲーム](examples/intermediate/snake/tutorial.html)：マス目を進み、食べ物を取って体を伸ばします。
+- [神経衰弱](examples/intermediate/memory/tutorial.html)：2枚のカードをめくり、同じ文字の組を探します。
+- [小さなお店の経営ゲーム](examples/intermediate/shop/tutorial.html)：商品を仕入れて売り、3日間の所持金を増やします。
 
 上級者向けは、次の5本です。
 
-- [横スクロールのジャンプアクション](examples/platformer/tutorial.html)：地形を進み、ゴールを目指します。
-- [クリックで脱出ゲーム](examples/escape/tutorial.html)：番号の謎と持ち物を使って部屋から脱出します。
-- [タワーディフェンス](examples/tower-defense/tutorial.html)：タワーを置き、3回の敵の波を防ぎます。
-- [小さなカードバトル](examples/card-battle/tutorial.html)：攻撃・防御・回復のカードで敵と戦います。
-- [周回タイムアタック](examples/racing/tutorial.html)：車で4地点を順に通り、2周のタイムを記録します。
+- [横スクロールのジャンプアクション](examples/advanced/platformer/tutorial.html)：地形を進み、ゴールを目指します。
+- [クリックで脱出ゲーム](examples/advanced/escape/tutorial.html)：番号の謎と持ち物を使って部屋から脱出します。
+- [タワーディフェンス](examples/advanced/tower-defense/tutorial.html)：タワーを置き、3回の敵の波を防ぎます。
+- [小さなカードバトル](examples/advanced/card-battle/tutorial.html)：攻撃・防御・回復のカードで敵と戦います。
+- [周回タイムアタック](examples/advanced/racing/tutorial.html)：車で4地点を順に通り、2周のタイムを記録します。
 
-[横スクロールゲームの発展課題](examples/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。
+[横スクロールゲームの発展課題](examples/advanced/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。

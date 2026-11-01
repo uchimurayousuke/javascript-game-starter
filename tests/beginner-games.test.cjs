@@ -14,7 +14,7 @@ function setup(game,stage="complete",randomValues=[0.55,0]) {
   const canvas={width:800,height:450,getContext:()=>ctx};
   const math=Object.create(Math);math.random=()=>randoms.length?randoms.shift():0;
   const context=vm.createContext({document:{querySelector:()=>canvas},window:{addEventListener:on},performance:{now:()=>clock.now},requestAnimationFrame(){},Math:math});
-  vm.runInContext(read(`examples/${game}/${stage}/script.js`),context);
+  vm.runInContext(read(`examples/beginner/${game}/${stage}/script.js`),context);
   return {run:s=>vm.runInContext(s,context), clock, drawn,
     fire:(key,extra={})=>{let prevented=false;const event={key,code:key===" "?"Space":"",repeat:false,ctrlKey:false,altKey:false,metaKey:false,isComposing:false,preventDefault(){prevented=true;},...extra};for(const fn of listeners.keydown||[])fn(event);return prevented;},
     show:()=>{drawn.length=0;vm.runInContext("draw()",context);return drawn.join(" ");}};
@@ -23,14 +23,14 @@ const type=(g,text)=>{for(const key of text)g.fire(key);};
 
 test("初心者3教材の各段階には目標・説明・確認・練習と独立した見本がある",()=>{
   for(const game of ["timing","typing","number-guess"]){
-    const page=read(`examples/${game}/tutorial.html`), sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
+    const page=read(`examples/beginner/${game}/tutorial.html`), sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
     assert.equal(sections.length,3,game);assert.doesNotMatch(page,/<(?:canvas|iframe|script)\b/i);
     for(const [i,section] of sections.entries()){
       for(const part of ["目標","コードの意味","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"])assert.ok(section[0].includes(part),`${game}: ${part}`);
       const headings=["目標","書く場所と置き換えるコード","コードの意味","保存後の確かめ方","小さな練習"].map(part=>section[0].indexOf(`<h3>${part}</h3>`));
       assert.ok(headings.every((at,index)=>at>=0 && (index===0 || at>headings[index-1])),`${game}: 説明の順番`);
       assert.match(section[0],new RegExp(`href="step${i+1}/index.html"`));
-      for(const file of ["index.html","style.css","script.js"]) assert.ok(fs.existsSync(path.join(root,`examples/${game}/step${i+1}/${file}`)));
+      for(const file of ["index.html","style.css","script.js"]) assert.ok(fs.existsSync(path.join(root,`examples/beginner/${game}/step${i+1}/${file}`)));
     }
   }
 });
@@ -39,9 +39,9 @@ test("制作例一覧と README は完成した3本だけを新たに紹介す�
   const page=read("examples/index.html"), beginner=page.split("<h2>初心者向け</h2>")[1].split("<h2>中級者向け</h2>")[0];
   assert.equal((beginner.match(/<article>/g)||[]).length,5);
   for(const game of ["timing","typing","number-guess"]){
-    assert.ok(beginner.includes(`href="${game}/tutorial.html"`));
-    assert.ok(beginner.includes(`href="${game}/complete/index.html"`));
-    assert.ok(read("README.md").includes(`examples/${game}/tutorial.html`));
+    assert.ok(beginner.includes(`href="beginner/${game}/tutorial.html"`));
+    assert.ok(beginner.includes(`href="beginner/${game}/complete/index.html"`));
+    assert.ok(read("README.md").includes(`examples/beginner/${game}/tutorial.html`));
   }
 });
 

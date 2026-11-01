@@ -12,6 +12,19 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
 const tutorial = read("tutorial/index.html");
 
+test("共通ひな型は同じフォルダーの3ファイルだけで動く", () => {
+  const html = read("template/index.html");
+  assert.match(html, /href="style\.css"/);
+  assert.match(html, /src="script\.js"/);
+  assert.match(html, /<canvas id="game-canvas" width="800" height="450"/);
+  const cleared = [], frames = [];
+  const canvas = { width: 800, height: 450, getContext: () => ({ clearRect: (...args) => cleared.push(args) }) };
+  const context = vm.createContext({ document: { querySelector: selector => { assert.equal(selector, "#game-canvas"); return canvas; } }, requestAnimationFrame: callback => frames.push(callback) });
+  vm.runInContext(read("template/script.js"), context);
+  assert.deepEqual(cleared, [[0, 0, 800, 450]]);
+  assert.equal(frames.length, 1);
+});
+
 function decode(text) {
   const entities = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" };
   return text.replace(/&(amp|lt|gt|quot|#39);/g, (_, name) => entities[name]);
@@ -63,7 +76,7 @@ const lessons = Array.from(tutorial.matchAll(/<section\b[^>]*data-step="([^"]+)"
 
 test("the published instructions reproduce all three files at every step", async (t) => {
   assert.deepEqual(lessons.map((lesson) => lesson[1]), steps);
-  const files = Object.fromEntries(["index.html", "style.css", "script.js"].map((file) => [file, normalize(read(file))]));
+  const files = Object.fromEntries(["index.html", "style.css", "script.js"].map((file) => [file, normalize(read("template/" + file))]));
   const preparation = tutorial.match(/<section id="preparation"[^>]*>([\s\S]*?)<\/section>/)[1];
   const preparationBlocks = codeBlocks(preparation);
   assert.equal(preparationBlocks.length, 2, "HTML and CSS preparation must be present");
@@ -85,7 +98,7 @@ test("the published instructions reproduce all three files at every step", async
         assert.equal(normalize(files[file]), normalize(read("tutorial/" + lesson[1] + "/" + file)), lesson[1] + "/" + file);
       }
       new vm.Script(files["script.js"], { filename: lesson[1] + "/script.js" });
-      assert.equal(functionSource(files["script.js"], "gameLoop")[0], functionSource(normalize(read("script.js")), "gameLoop")[0]);
+      assert.equal(functionSource(files["script.js"], "gameLoop")[0], functionSource(normalize(read("template/script.js")), "gameLoop")[0]);
     });
   }
 });
@@ -117,7 +130,7 @@ function checkLink(file, link) {
 }
 
 test("HTML, source-code links, README links and anchors resolve locally", () => {
-  const pages = ["index.html", "tutorial/index.html", ...steps.map((step) => "tutorial/" + step + "/index.html")];
+  const pages = ["template/index.html", "tutorial/index.html", ...steps.map((step) => "tutorial/" + step + "/index.html")];
   for (const file of pages) {
     const html = read(file).replace(/<pre>[\s\S]*?<\/pre>/g, "");
     for (const match of html.matchAll(/(?:href|src)="([^"]*)"/g)) checkLink(file, decode(match[1]));

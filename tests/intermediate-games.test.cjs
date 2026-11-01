@@ -13,7 +13,7 @@ function setup(game,stage="complete",values=[0]){
  const canvas={width:800,height:450,getContext:()=>ctx,getBoundingClientRect:()=>({left:10,top:20,width:400,height:225}),addEventListener(name,fn){(listeners[name]??=[]).push(fn);}};
  const math=Object.create(Math);math.random=()=>randoms.length?randoms.shift():0;
  const context=vm.createContext({document:{querySelector:()=>canvas},window:{addEventListener(name,fn){(listeners[name]??=[]).push(fn);}},performance:{now:()=>clock.now},requestAnimationFrame(){},Math:math});
- vm.runInContext(read(`examples/${game}/${stage}/script.js`),context);
+ vm.runInContext(read(`examples/intermediate/${game}/${stage}/script.js`),context);
  return {clock,rects,run:s=>vm.runInContext(s,context),fire:(key,extra={})=>{let prevented=false;const e={key,repeat:false,ctrlKey:false,altKey:false,metaKey:false,isComposing:false,preventDefault(){prevented=true;},...extra};for(const fn of listeners.keydown||[])fn(e);return prevented;},click:(x,y)=>{for(const fn of listeners.click||[])fn({clientX:10+x/2,clientY:20+y/2});},tick:ms=>{clock.now+=ms;vm.runInContext("update()",context);},show:()=>{shown.length=0;rects.length=0;vm.runInContext("draw()",context);return shown.join(" ");}};
 }
 
@@ -28,18 +28,18 @@ test("スネークの頭は各段階で体と区別され、移動後も先頭�
 
 test("中級3教材は各段階と完成版、手順・確認・練習を備える",()=>{
  for(const game of ["snake","memory","shop"]){
-  const page=read(`examples/${game}/tutorial.html`),sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
+  const page=read(`examples/intermediate/${game}/tutorial.html`),sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
   assert.equal(sections.length,game==="snake"?3:4,game);assert.doesNotMatch(page,/<(?:canvas|iframe|script)\b/i);
   for(const [i,section] of sections.entries()){
    const heads=["目標","書く場所と置き換えるコード","コードの意味","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
    assert.ok(heads.every((at,j)=>at>=0&&(j===0||at>heads[j-1])),`${game}: 説明の順番`);
    assert.match(section[0],new RegExp(`href="step${i+1}/index.html"`));
-   for(const name of ["index.html","style.css","script.js"])assert.ok(fs.existsSync(path.join(root,`examples/${game}/step${i+1}/${name}`)));
+   for(const name of ["index.html","style.css","script.js"])assert.ok(fs.existsSync(path.join(root,`examples/intermediate/${game}/step${i+1}/${name}`)));
   }
  }
  const page=read("examples/index.html"), middle=page.split("<h2>中級者向け</h2>")[1].split("<h2>上級者向け</h2>")[0];
  assert.equal((middle.match(/<article>/g)||[]).length,5);
- for(const game of ["snake","memory","shop"]){assert.ok(middle.includes(`href="${game}/tutorial.html"`));assert.ok(read("README.md").includes(`examples/${game}/tutorial.html`));}
+ for(const game of ["snake","memory","shop"]){assert.ok(middle.includes(`href="intermediate/${game}/tutorial.html"`));assert.ok(read("README.md").includes(`examples/intermediate/${game}/tutorial.html`));}
 });
 
 test("スネークは入力で伸び、空きマスに食べ物を置き、5個でクリアする",()=>{

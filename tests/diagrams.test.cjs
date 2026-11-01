@@ -8,22 +8,22 @@ const root = path.resolve(__dirname, "..");
 const read = p => fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 const pages = {
   "tutorial/index.html": {"coin-coordinates":"coin-position", "coin-arc":"coin-arc", "coin-hit":"coin-catch"},
-  "examples/target/tutorial.html": {"target-coordinate":"target-coordinate", "target-distance":"target-distance"},
-  "examples/bounce/tutorial.html": {"bounce-wall":"bounce-wall", "bounce-paddle":"bounce-paddle"},
-  "examples/breakout/tutorial.html": {"brick-grid":"brick-grid", "brick-hit":"brick-hit"},
-  "examples/shooting/tutorial.html": {"shoot-motion":"shoot-motion", "shoot-hit":"shoot-hit"},
-  "examples/platformer/tutorial.html": {"platformer-gravity":"platformer-gravity", "platformer-collision":"platformer-collision", "platformer-camera":"platformer-camera", "platformer-instances":"platformer-instances"},
-  "examples/platformer/extensions/tutorial.html": {"extension-stomp":"extension-stomp", "extension-dash":"extension-dash", "extension-retry":"extension-retry"},
-  "examples/timing/tutorial.html": {"timing-range":"timing-range", "timing-state":"timing-state"},
-  "examples/typing/tutorial.html": {"typing-index":"typing-index", "typing-key":"typing-key"},
-  "examples/number-guess/tutorial.html": {"number-compare":"number-compare", "number-range":"number-range"},
-  "examples/snake/tutorial.html": {"snake-move":"snake-move", "snake-grow":"snake-grow"},
-  "examples/memory/tutorial.html": {"memory-pair":"memory-pair", "memory-wait":"memory-wait", "memory-position":"memory-position"},
-  "examples/shop/tutorial.html": {"shop-product":"shop-product", "shop-money":"shop-money"},
-  "examples/escape/tutorial.html": {"escape-classes":"escape-classes", "escape-flow":"escape-flow", "escape-items":"escape-items"},
-  "examples/tower-defense/tutorial.html": {"tower-route":"tower-route", "tower-money":"tower-money", "tower-range":"tower-range"},
-  "examples/card-battle/tutorial.html": {"card-effect":"card-effect", "card-turn":"card-turn", "card-piles":"card-piles"},
-  "examples/racing/tutorial.html": {"race-direction":"race-direction", "race-checkpoints":"race-checkpoints", "race-classes":"race-classes"}
+  "examples/beginner/target/tutorial.html": {"target-coordinate":"target-coordinate", "target-distance":"target-distance"},
+  "examples/beginner/bounce/tutorial.html": {"bounce-wall":"bounce-wall", "bounce-paddle":"bounce-paddle"},
+  "examples/intermediate/breakout/tutorial.html": {"brick-grid":"brick-grid", "brick-hit":"brick-hit"},
+  "examples/intermediate/shooting/tutorial.html": {"shoot-motion":"shoot-motion", "shoot-hit":"shoot-hit"},
+  "examples/advanced/platformer/tutorial.html": {"platformer-gravity":"platformer-gravity", "platformer-collision":"platformer-collision", "platformer-camera":"platformer-camera", "platformer-instances":"platformer-instances"},
+  "examples/advanced/platformer/extensions/tutorial.html": {"extension-stomp":"extension-stomp", "extension-dash":"extension-dash", "extension-retry":"extension-retry"},
+  "examples/beginner/timing/tutorial.html": {"timing-range":"timing-range", "timing-state":"timing-state"},
+  "examples/beginner/typing/tutorial.html": {"typing-index":"typing-index", "typing-key":"typing-key"},
+  "examples/beginner/number-guess/tutorial.html": {"number-compare":"number-compare", "number-range":"number-range"},
+  "examples/intermediate/snake/tutorial.html": {"snake-move":"snake-move", "snake-grow":"snake-grow"},
+  "examples/intermediate/memory/tutorial.html": {"memory-pair":"memory-pair", "memory-wait":"memory-wait", "memory-position":"memory-position"},
+  "examples/intermediate/shop/tutorial.html": {"shop-product":"shop-product", "shop-money":"shop-money"},
+  "examples/advanced/escape/tutorial.html": {"escape-classes":"escape-classes", "escape-flow":"escape-flow", "escape-items":"escape-items"},
+  "examples/advanced/tower-defense/tutorial.html": {"tower-route":"tower-route", "tower-money":"tower-money", "tower-range":"tower-range"},
+  "examples/advanced/card-battle/tutorial.html": {"card-effect":"card-effect", "card-turn":"card-turn", "card-piles":"card-piles"},
+  "examples/advanced/racing/tutorial.html": {"race-direction":"race-direction", "race-checkpoints":"race-checkpoints", "race-classes":"race-classes"}
 };
 const illustration = name => read(`tutorial/illustrations/astra/${name}.svg`);
 const figure = (file,id) => {
@@ -139,7 +139,7 @@ test("的の座標変換と円周の当たりは図と実際の処理で合う",
   const s=illustration("target-distance");
   for(const [n,edge] of [[35,true],[36,false]]){const c=attrs(s,`center-${n}`),point=attrs(s,`click-${n}`),target=attrs(s,`target-${n}`); assert.equal(point.cx-c.cx===target.r,edge); if(!edge) assert.ok(point.cx-c.cx>target.r);}
   assertLabels("target-distance",["距離35","距離36","35≤35","36≤35","1だけ外"]);
-  const g=setup("examples/target/complete/script.js",{left:100,top:50,width:400,height:225});
+  const g=setup("examples/beginner/target/complete/script.js",{left:100,top:50,width:400,height:225});
   for(const [x,score] of [[300,1],[317.5,1],[318,0]]){g.run("start()");g.fire("click",{clientX:x,clientY:162.5});assert.equal(g.run("score"),score);}
 });
 
@@ -149,9 +149,9 @@ test("壁・板の反射とブロックの配置・当たりは数値例と合�
   assertLabels("bounce-wall",["横786","横790","壁800","半径10"]);
   const p=illustration("bounce-paddle"),bounds=attrs(p,"ball-bounds"),board=attrs(p,"paddle");assert.equal(bounds.y+bounds.height,board.y);
   assertLabels("bounce-paddle",["下向き","ボールの下410","板の上410","同じ高さでもOK"]);
-  const explanation=words(figure("examples/bounce/tutorial.html","bounce-paddle"));
+  const explanation=words(figure("examples/beginner/bounce/tutorial.html","bounce-paddle"));
   for(const term of ["dy > 0","y + radius >= paddleY","y - radius <= paddleY + 14","x + radius >= paddleX","x - radius <= paddleX + paddleWidth"]) assert.ok(explanation.includes(term),term);
-  const bounce=setup("examples/bounce/complete/script.js");bounce.run("start(); x=786; y=225; dx=4; dy=0; update()");assert.equal(bounce.run("x"),790);assert.equal(bounce.run("dx"),-4);
+  const bounce=setup("examples/beginner/bounce/complete/script.js");bounce.run("start(); x=786; y=225; dx=4; dy=0; update()");assert.equal(bounce.run("x"),790);assert.equal(bounce.run("dx"),-4);
   bounce.run("start(); x=400; y=396; dx=0; dy=4; update()");assert.equal(bounce.run("dy"),-4);assert.equal(bounce.run("score"),1);
   bounce.run("start(); x=400; y=404; dx=0; dy=-4; update()");assert.equal(bounce.run("score"),0);
   const grid=illustration("brick-grid"),a=attrs(grid,"brick-r0-c0"),b=attrs(grid,"brick-r0-c1"),c=attrs(grid,"brick-r1-c0"),scale=a.width/70;
@@ -160,7 +160,7 @@ test("壁・板の反射とブロックの配置・当たりは数値例と合�
   const hit=illustration("brick-hit"),brick=attrs(hit,"brick"),ball=attrs(hit,"ball"),box=attrs(hit,"ball-bounds"),k=brick.width/70;
   near(k,7);near(brick.height/k,20);near(ball.r/k,10);near((ball.cx-brick.x)/k,1);near((ball.cy-brick.y)/k,10);near(box.y+box.height,brick.y+brick.height);
   assertLabels("brick-hit",["右251≥ブロックの左240","左231≤右310","下105≥ブロックの上85","上85≤下105","7倍"]);
-  const g=setup("examples/breakout/complete/script.js");g.run("start()");assert.equal(g.run("bricks[10].x"),240);assert.equal(g.run("bricks[10].y"),85);
+  const g=setup("examples/intermediate/breakout/complete/script.js");g.run("start()");assert.equal(g.run("bricks[10].x"),240);assert.equal(g.run("bricks[10].y"),85);
   g.run("x=241; y=95; dx=0; dy=0; update()");assert.equal(g.run("bricks[10].alive"),false);assert.equal(g.run("score"),1);
   g.run("start(); bricks=[{x:240,y:85,alive:true}]; x=230; y=95; dx=0; dy=0; update()");assert.equal(g.run("bricks[0].alive"),false);
 });
@@ -177,14 +177,14 @@ test("弾と敵の移動、重なりと端だけの接触は図と処理が合�
     assert.equal(bullet.x+bullet.width>enemy.x,overlap);
   }
   assertLabels("shoot-hit",["弾の左100・上100","弾の右106","弾の左99・上100","弾の右105","106>105","105>105","8倍"]);
-  const text=words(figure("examples/shooting/tutorial.html","shoot-hit"));
+  const text=words(figure("examples/intermediate/shooting/tutorial.html","shoot-hit"));
   for(const term of ["bullet.x < enemy.x + 30","bullet.x + 6 > enemy.x","bullet.y < enemy.y + 30","bullet.y + 12 > enemy.y","!bullet.hit","!enemy.hit"]) assert.ok(text.includes(term),term);
-  const g=setup("examples/shooting/complete/script.js");
+  const g=setup("examples/intermediate/shooting/complete/script.js");
   for(const [x,score] of [[100,1],[99,0]]){g.run(`start(); bullets=[{x:${x},y:108}]; enemies=[{x:105,y:103}]; spawnTimer=30; update()`);assert.equal(g.run("score"),score);}
 });
 
 test("ジャンプ・地形との衝突・カメラと敵の位置は実際の処理と合う", () => {
-  const jump=setup("examples/platformer/step3/script.js");
+  const jump=setup("examples/advanced/platformer/step3/script.js");
   jump.run("start(); player.onGround=true; jumpPressed=true; player.update(terrain)");assert.equal(jump.run("player.vy"),-10.5);assert.equal(jump.run("player.y"),339.5);
   assertLabels("platformer-gravity",["-11","+0.5","-10.5","最初の移動","上へ10.5進む"]);
   jump.run("start(); player.x=268; player.onGround=true; right=true; player.update(terrain)");assert.equal(jump.run("player.x"),270);
@@ -197,7 +197,7 @@ test("ジャンプ・地形との衝突・カメラと敵の位置は実際の�
   const camera=illustration("platformer-camera"),world=attrs(camera,"world"),view=attrs(camera,"visible-range"),wp=attrs(camera,"world-player"),screen=attrs(camera,"screen"),sp=attrs(camera,"screen-player"),k=world.width/2400;
   near((view.x-world.x)/k,500);near(view.width/k,800);near((wp.x-world.x)/k,885);near((sp.x-screen.x)/screen.width*800,385);
   assertLabels("platformer-camera",["横500","横1300","左端885","左端は横385","885-500=385"]);
-  const g=setup("examples/platformer/complete/script.js");g.run("start(); player.x=885; update()");assert.equal(g.run("cameraX"),500);assert.equal(g.run("player.x-cameraX"),385);
+  const g=setup("examples/advanced/platformer/complete/script.js");g.run("start(); player.x=885; update()");assert.equal(g.run("cameraX"),500);assert.equal(g.run("player.x-cameraX"),385);
   g.run("start(); update()");assert.equal(g.run("cameraX"),0);g.run("start(); player.x=2370; update()");assert.equal(g.run("cameraX"),1600);
   g.run("start(); enemies[0].update()");assert.equal(g.run("enemies[0].x"),901);assert.equal(g.run("enemies[1].x"),1700);
   assertLabels("platformer-instances",["横900","横1700","850","990","1640","1780"]);
@@ -213,7 +213,7 @@ test("踏みつけ・ダッシュ・中間地点からの再開は図と処理�
   const dash=illustration("extension-dash"),a=attrs(dash,"start-0"),b=attrs(dash,"end-0"),c=attrs(dash,"start-1"),d=attrs(dash,"end-1");
   near((d.x-c.x)/(b.x-a.x),6/4);assertLabels("extension-dash",["速さ4","速さ6","両方でも速さ6"]);
   assertLabels("extension-retry",["失敗している","中間地点を通過済み","中間から再開","最初から開始","横1200","縦350","左端815"]);
-  const g=setup("examples/platformer/extensions/complete/script.js");
+  const g=setup("examples/advanced/platformer/extensions/complete/script.js");
   g.run("start(); player.x=900; player.y=310; player.vy=11.5; player.onGround=false; update()");assert.equal(g.run("enemies[0].alive"),false);assert.equal(g.run("player.y"),320);assert.equal(g.run("player.vy"),-8);
   g.run("start(); player.x=900; player.y=320; player.vy=0; player.onGround=false; update()");assert.equal(g.run("enemies[0].alive"),false);assert.equal(g.run("player.vy"),-8);
   g.run("start(); player.x=900; player.y=340; player.vy=0; update()");assert.equal(g.run("state"),"over");
@@ -230,10 +230,10 @@ test("新しい初心者3教材の図は、説明例と図形の位置関係が�
   assert.equal(point.cx,success.x+success.width);assert.ok(outsidePoint.cx>outside.x+outside.width);
   assertLabels("timing-range",["中心は横500","中心は横501","成功!","範囲外","1の間隔を広げています"]);
   assertLabels("timing-state",["Space","300〜500","やり直す"]);
-  assert.match(words(figure("examples/timing/tutorial.html","timing-state")),/やり直しはRキー/);
+  assert.match(words(figure("examples/beginner/timing/tutorial.html","timing-state")),/やり直しはRキー/);
   assertLabels("typing-index",["番号0","番号1","番号2","入力済み3文字","全部入力できた"]);
   assertLabels("typing-key",["次の文字はc","入力済み1文字","入力済み0文字","次はcのまま"]);
-  const typing=words(figure("examples/typing/tutorial.html","typing-index"));assert.match(typing,/3文字目.*0に戻ります/);
+  const typing=words(figure("examples/beginner/typing/tutorial.html","typing-index"));assert.match(typing,/3文字目.*0に戻ります/);
   const compare=illustration("number-compare"), low=attrs(compare,"guess-point-8"),high=attrs(compare,"guess-point-15"),answer=attrs(compare,"answer-8");
   assert.ok(low.cx<answer.x+answer.width/2);assert.ok(high.cx>answer.x+answer.width/2);
   assertLabels("number-compare",["もっと大きい","もっと小さい","正解!","説明用の正解"]);
@@ -252,7 +252,7 @@ test("中級3教材の図は、体・カード・お金の説明例と合う", (
   assertLabels("memory-position",["横410","縦245","番号6","幅100・高さ110","すき間"]);
   assertLabels("shop-money",["所持金100・在庫0","所持金40・在庫3","所持金110・在庫1"]);
   assertLabels("shop-product",["仕入れ20","売値35","在庫3個","オブジェクト"]);
-  assert.match(words(figure("examples/memory/tutorial.html","memory-pair")),/ステップ3では固定.*ステップ4では毎回混ぜます/);
+  assert.match(words(figure("examples/intermediate/memory/tutorial.html","memory-pair")),/ステップ3では固定.*ステップ4では毎回混ぜます/);
 });
 
 test("上級4教材の図はクラス・値・手順の具体例と合う", () => {
@@ -268,7 +268,7 @@ test("上級4教材の図はクラス・値・手順の具体例と合う", () =
   assertLabels("race-direction",["横142・縦110","横140・縦112","横138・縦110","Math.PI"]);
   assertLabels("race-checkpoints",["横660・縦110","横660・縦350","横140・縦350","横140・縦110","2周"]);
   assertLabels("race-classes",["Checkpoint","Car","横140・縦110","nextCheckpoint = 0","laps = 0"]);
-  const card=read("examples/card-battle/complete/script.js"),tower=read("examples/tower-defense/complete/script.js"),race=read("examples/racing/complete/script.js");
+  const card=read("examples/advanced/card-battle/complete/script.js"),tower=read("examples/advanced/tower-defense/complete/script.js"),race=read("examples/advanced/racing/complete/script.js");
   assert.match(card,/while \(hand\.length > 0\) discard\.push\(hand\.pop\(\)\)/);
   assert.match(tower,/distance <= 120/);assert.match(race,/Math\.hypot\(x - this\.x, y - this\.y\) <= 45/);
 });

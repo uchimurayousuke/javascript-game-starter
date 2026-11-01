@@ -6,7 +6,9 @@ const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 const read = (p) => fs.readFileSync(path.join(root, p), "utf8").replace(/\r\n/g, "\n");
 const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#39|#x27);/g, (x) => ({"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"', "&#39;":"'", "&#x27;":"'"}[x]));
-const pages = ["tutorial/index.html", ...["target", "bounce", "breakout", "shooting", "platformer", "platformer/extensions", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"].map((p) => `examples/${p}/tutorial.html`)];
+const levelOf = game => (["target", "bounce", "timing", "typing", "number-guess"].includes(game) ? "beginner" : ["breakout", "shooting", "snake", "memory", "shop"].includes(game) ? "intermediate" : "advanced");
+const examplePath = p => `${levelOf(p.split("/")[0])}/${p}`;
+const pages = ["tutorial/index.html", ...["target", "bounce", "breakout", "shooting", "platformer", "platformer/extensions", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"].map((p) => `examples/${examplePath(p)}/tutorial.html`)];
 const rowPattern = /<div class="change-row change-(removed|added|same|hunk)"><span class="change-label">([^<]*)<\/span><span class="change-code">([^<]*)<\/span><\/div>/g;
 const rowSource = '(?:<div class="change-row change-(?:removed|added|same|hunk)"><span class="change-label">[^<]*</span><span class="change-code">[^<]*</span></div>)*';
 const viewSource = `<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p>(${rowSource})</div>`;
@@ -72,15 +74,15 @@ test("全17ページに読み方と安全なコピー欄があり、比較の各
 
 test("各ステップ全体の差分も実際の前後のコードに対応する", () => {
   for (const game of ["target", "bounce", "breakout", "shooting", "platformer", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"]) {
-    const page = read(`examples/${game}/tutorial.html`);
+    const page = read(`examples/${examplePath(game)}/tutorial.html`);
     const sections = [...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
-    let previous = read("script.js");
+    let previous = read("template/script.js");
     for (const section of sections) {
       const step = section[1];
       assert.match(section[0], /<h3>この段階で変えるところ<\/h3><p>[\s\S]*?<\/p><details class="change-fold">/, `${game}: ${step} 全体は折りたたむ`);
       const match = section[0].match(new RegExp(viewSource));
       assert.ok(match, `${game}: ${step}`);
-      const next = read(`examples/${game}/step${step}/script.js`);
+      const next = read(`examples/${examplePath(game)}/step${step}/script.js`);
       checkComparison(previous, next, match[1], `${game}: ${step} 全体`);
       const reference = section[0].match(/<details><summary>この段階の script\.js 全文を確認する<\/summary><pre><code>([\s\S]*?)<\/code><\/pre><\/details>/);
       assert.ok(reference, `${game}: ${step} 全文の見本`);
@@ -95,7 +97,7 @@ test("コインキャッチの比較は各手順の変更範囲と一致する",
   const instruction = new RegExp(viewSource + '(?:</details>)?<p class="copy-label">[^<]+</p><pre><code\\b([^>]*)>([\\s\\S]*?)</code></pre>', 'g');
   const matches = [...page.matchAll(instruction)];
   assert.equal(matches.length, 26);
-  const files = Object.fromEntries(["index.html", "style.css", "script.js"].map((name) => [name, read(name).trimEnd() + "\n"]));
+  const files = Object.fromEntries(["index.html", "style.css", "script.js"].map((name) => [name, read(`template/${name}`).trimEnd() + "\n"]));
   for (const [i, match] of matches.entries()) {
     const attrs = Object.fromEntries([...match[2].matchAll(/([\w-]+)="([^"]*)"/g)].map(([, k, v]) => [k, decode(v)]));
     const code = decode(match[3]).replace(/\n$/, ""), file = attrs["data-file"], action = attrs["data-action"];

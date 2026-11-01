@@ -1,6 +1,7 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
+const levelOf = game => (["timing","typing","number-guess"].includes(game) ? "beginner" : ["snake","memory","shop"].includes(game) ? "intermediate" : "advanced");
 test("制作例の一覧とREADMEは難易度ごとに5本ずつ紹介する",()=>{
  const page=fs.readFileSync(path.join(root,"examples/index.html"),"utf8"),readme=fs.readFileSync(path.join(root,"README.md"),"utf8");
  const groups=["初心者向け","中級者向け","上級者向け"];
@@ -9,10 +10,10 @@ test("制作例の一覧とREADMEは難易度ごとに5本ずつ紹介する",()
   assert.ok(start>=0&&end>start);assert.equal((page.slice(start,end).match(/<article>/g)||[]).length,5,groups[i]);
  }
  for(const game of ["timing","typing","number-guess","snake","memory","shop","escape","tower-defense","card-battle","racing"]){
-  assert.ok(page.includes(`${game}/tutorial.html`),game);assert.ok(readme.includes(`examples/${game}/tutorial.html`),game);
+  assert.ok(page.includes(`${levelOf(game)}/${game}/tutorial.html`),game);assert.ok(readme.includes(`examples/${levelOf(game)}/${game}/tutorial.html`),game);
  }
  for(const game of ["escape","tower-defense","card-battle","racing"]){
-  const html=fs.readFileSync(path.join(root,"examples",game,"tutorial.html"),"utf8"),sections=[...html.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
+  const html=fs.readFileSync(path.join(root,"examples","advanced",game,"tutorial.html"),"utf8"),sections=[...html.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
   assert.equal(sections.length,5,game);
   for(const [i,section] of sections.entries()){
    const headings=["目標","書く場所と置き換えるコード","コードの意味","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
@@ -26,7 +27,7 @@ function setup(game,stage="complete",randoms=[]){
  const canvas={width:800,height:450,getContext:()=>ctx,getBoundingClientRect:()=>({left:10,top:20,width:400,height:225}),addEventListener(type,fn){(listeners[type]??=[]).push(fn);}};
  const math=Object.create(Math);math.random=()=>randoms.length?randoms.shift():0;
  const context=vm.createContext({document:{querySelector:()=>canvas},window:{addEventListener(type,fn){(listeners[type]??=[]).push(fn);}},performance:{now:()=>clock.value},requestAnimationFrame(){},Math:math});
- vm.runInContext(fs.readFileSync(path.join(root,"examples",game,stage,"script.js"),"utf8"),context);
+ vm.runInContext(fs.readFileSync(path.join(root,"examples","advanced",game,stage,"script.js"),"utf8"),context);
  return {clock,rects,run:s=>vm.runInContext(s,context),click:(x,y)=>{for(const fn of listeners.click||[])fn({clientX:10+x/2,clientY:20+y/2});},key:(key,type="keydown")=>{for(const fn of listeners[type]||[])fn({key,repeat:false,ctrlKey:false,altKey:false,metaKey:false,isComposing:false,preventDefault(){}});},tick:(n=1)=>{for(let i=0;i<n;i++)vm.runInContext("update()",context);},show:()=>{shown.length=0;rects.length=0;vm.runInContext("draw()",context);return shown.join(" ");}};
 }
 

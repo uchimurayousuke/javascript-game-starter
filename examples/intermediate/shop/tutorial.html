@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>小さなお店の経営ゲームの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">← 一覧へ</a></p><h1>小さなお店の経営ゲーム</h1><p class="tag">中級者向け</p><p>3日間、今日の需要と予算を見て仕入れます。販売へ進むと、需要と在庫の少ない数だけ自動で売れます。最終日の所持金160以上を目指します。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p><code>template/</code> の <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。元のひな型は残してください。</p><p>各ステップでは作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存後、作業用の <code>index.html</code> を開くか再読み込みします。</p><p><code>document.querySelector("#game-canvas")</code> はHTMLのCanvasを選び、<code>getContext("2d")</code> で絵を描く道具を取り出します。<code>start()</code> は最初の設定、<code>update()</code> は更新、<code>draw()</code> は描画です。<code>gameLoop()</code> は <code>requestAnimationFrame</code> で更新と描画を繰り返します。</p></section><section><h2>ステップ 1：商品を並べる</h2><h3>目標</h3><p>3商品の仕入れ値、売値、在庫と所持金を表示します。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 18 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let products, money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  products = [</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  money = 100;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // この段階ではまだ売買しません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; products.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = products[i];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(line, 125, 145 + i * 55);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let products, money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  products = [</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  money = 100;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  // ここに初期設定を書く
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // この段階ではまだ売買しません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // ここにキャラクターの移動や当たり判定などを書く
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  // この段階ではまだ売買しません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; products.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = products[i];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(line, 125, 145 + i * 55);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ここに ctx.fillRect() などを使った描画を書く
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);
+  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);
+}
+
+</code></pre><h3>コードの意味</h3><p><code>products</code> は商品オブジェクトの配列です。各商品は <code>name</code>、仕入れ値の <code>cost</code>、売値の <code>price</code>、<code>stock</code>、その日に売った数の <code>soldToday</code> を持ちます。</p><figure class="learning-diagram" id="shop-product" aria-labelledby="shop-product-title"><figcaption id="shop-product-title">図：パンの名前・価格・在庫を、まとめて持つ</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="パンの名前・価格・在庫を、まとめて持つ。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/shop-product.svg" width="1200" height="900" alt="パンの商品に名前、仕入れ20、売値35、在庫3をまとめています。"></div><p>パンという1つの商品に、名前・仕入れ値・売値・在庫をまとめます。この例では、仕入れ20、売値35、在庫3です。商品の配列には、このような商品のまとまりを入れます。パンが売れたら、パンのまとまりの中の在庫を更新します。</p><p>図は3個仕入れた後の例です。コードの <code>products</code> は商品を並べ、パンの <code>name</code>、<code>cost</code>、<code>price</code>、<code>stock</code> と <code>soldToday</code> をまとめます。</p></figure><p>パンは仕入れ20、売値35なので、1個売ると仕入れとの差は15です。ジュースとりんごも値段を見比べて、どれを仕入れるか考えます。最初の <code>money</code> は100です。</p><p><code>for</code> の <code>i</code> で商品を順に取り出し、<code>products[i]</code> を <code>item</code> に入れます。<code>item.name</code> のように、オブジェクトの名前を指定して値を使います。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  // この段階ではまだ売買しません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);
+  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>パン、ジュース、りんごの値段と所持金100が表示されます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>商品の名前や値段を一時的に変えて表示を確かめます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 2：商品を仕入れる</h2><h3>目標</h3><p>1〜3で商品を選び、Bで1個ずつ仕入れます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 22 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let products, money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let products, money, selected, message;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  selected = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // この段階ではまだ売買しません。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // キー入力は keydown で受け取ります。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(message, 125, 355);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    selected = Number(event.key) - 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (event.key.toLowerCase() === &quot;b&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (money &gt;= item.cost) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      money -= item.cost;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      item.stock++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = item.name + &quot;を1個仕入れた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;お金が足りません&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let products, money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let products, money, selected, message;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money, selected, message;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  selected = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  selected = 0;
+  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // この段階ではまだ売買しません。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // キー入力は keydown で受け取ります。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // この段階ではまだ売買しません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  // キー入力は keydown で受け取ります。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(message, 125, 355);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    selected = Number(event.key) - 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (event.key.toLowerCase() === &quot;b&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (money &gt;= item.cost) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      money -= item.cost;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      item.stock++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = item.name + &quot;を1個仕入れた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;お金が足りません&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);
+  ctx.fillText(&quot;3つの商品を並べます&quot;, 125, 355);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);
+  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);
+  ctx.fillText(message, 125, 355);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {
+    selected = Number(event.key) - 1;
+  } else if (event.key.toLowerCase() === &quot;b&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p>キー1〜3を <code>Number(event.key) - 1</code> で配列の番号0〜2に直し、<code>selected</code> に入れます。表示の1番は <code>products[0]</code> です。</p><p>Bを押すと、選んだ商品の <code>cost</code> と <code>money</code> を比べます。<code>money &gt;= item.cost</code> のときだけ、<code>money -= item.cost</code> で代金を引き、<code>item.stock++</code> で在庫を1増やします。</p><p>パンは1個20です。所持金100から3個仕入れると、100 - 20 - 20 - 20 = 40、在庫は3。足りないときはメッセージだけを変え、所持金と在庫は変えません。</p><p>押しっぱなしの <code>repeat</code>、Ctrl・Alt・Metaとの組み合わせ、変換中の入力を無視します。<code>toLowerCase()</code> によりBとbは同じ操作です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money, selected, message;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  selected = 0;
+  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  // キー入力は keydown で受け取ります。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);
+  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);
+  ctx.fillText(message, 125, 355);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {
+    selected = Number(event.key) - 1;
+  } else if (event.key.toLowerCase() === &quot;b&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>パンを3個仕入れると所持金40、在庫3になります。お金が足りない仕入れはできません。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>パンの仕入れ値を変え、残る所持金を計算して確かめます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 3：販売と日数を加える</h2><h3>目標</h3><p>仕入れから販売へ進み、3日後の所持金で結果を決めます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 7 行・追加 59 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let products, money, selected, message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let products, money, revenue, selected, message, day, phase, state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  revenue = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  selected = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  day = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  phase = &quot;buy&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // キー入力は keydown で受け取ります。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // 売買と日付の変更は keydown で受け取ります。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(line, 125, 145 + i * 55);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(message, 125, 355);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(message, 125, 380);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    selected = Number(event.key) - 1;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  } else if (event.key.toLowerCase() === &quot;b&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    selected = Number(key) - 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    message = products[selected].name + &quot;を選んだ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (money &gt;= item.cost) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      message = &quot;お金が足りません&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (item.stock &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;在庫がありません&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (item.soldToday &gt;= 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;今日はこの商品を3個売りました&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      item.stock--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      item.soldToday++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      money += item.price;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      revenue += item.price;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = item.name + &quot;を1個売った&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (event.key === &quot;Enter&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      phase = &quot;sell&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (day === 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (money &gt;= 160) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        message = &quot;目標達成！ 所持金 &quot; + money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        message = &quot;目標に届かなかった。所持金 &quot; + money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      day++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      phase = &quot;buy&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const item of products) item.soldToday = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;次の日。Bで仕入れよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let products, money, selected, message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let products, money, revenue, selected, message, day, phase, state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money, selected, message;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money, revenue, selected, message, day, phase, state;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  revenue = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  selected = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  day = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  phase = &quot;buy&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  selected = 0;
+  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  revenue = 0;
+  selected = 0;
+  day = 1;
+  phase = &quot;buy&quot;;
+  state = &quot;playing&quot;;
+  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // キー入力は keydown で受け取ります。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // 売買と日付の変更は keydown で受け取ります。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // キー入力は keydown で受け取ります。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  // 売買と日付の変更は keydown で受け取ります。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(line, 125, 145 + i * 55);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(message, 125, 355);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(message, 125, 380);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    selected = Number(event.key) - 1;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  } else if (event.key.toLowerCase() === &quot;b&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    selected = Number(key) - 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    message = products[selected].name + &quot;を選んだ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (money &gt;= item.cost) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      message = &quot;お金が足りません&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (item.stock &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;在庫がありません&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (item.soldToday &gt;= 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;今日はこの商品を3個売りました&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      item.stock--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      item.soldToday++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      money += item.price;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      revenue += item.price;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = item.name + &quot;を1個売った&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (event.key === &quot;Enter&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      phase = &quot;sell&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (day === 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (money &gt;= 160) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        message = &quot;目標達成！ 所持金 &quot; + money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        message = &quot;目標に届かなかった。所持金 &quot; + money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      day++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      phase = &quot;buy&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const item of products) item.soldToday = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;次の日。Bで仕入れよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;所持金: &quot; + money, 125, 70);
+  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);
+  ctx.fillText(message, 125, 355);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key &gt;= &quot;1&quot; &amp;&amp; event.key &lt;= &quot;3&quot; &amp;&amp; event.key.length === 1) {
+    selected = Number(event.key) - 1;
+  } else if (event.key.toLowerCase() === &quot;b&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  }
+});
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);
+  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);
+  if (state === &quot;playing&quot;) {
+    if (phase === &quot;buy&quot;) {
+      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);
+    } else {
+      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);
+    }
+    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);
+  } else {
+    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);
+  }
+  ctx.fillText(message, 125, 380);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  const key = event.key.toLowerCase();
+  if (state !== &quot;playing&quot;) {
+    if (key === &quot;r&quot;) start();
+    return;
+  }
+  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {
+    selected = Number(key) - 1;
+    message = products[selected].name + &quot;を選んだ&quot;;
+  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {
+    const item = products[selected];
+    if (item.stock &lt;= 0) {
+      message = &quot;在庫がありません&quot;;
+    } else if (item.soldToday &gt;= 3) {
+      message = &quot;今日はこの商品を3個売りました&quot;;
+    } else {
+      item.stock--;
+      item.soldToday++;
+      money += item.price;
+      revenue += item.price;
+      message = item.name + &quot;を1個売った&quot;;
+    }
+  } else if (event.key === &quot;Enter&quot;) {
+    event.preventDefault();
+    if (phase === &quot;buy&quot;) {
+      phase = &quot;sell&quot;;
+      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;
+    } else if (day === 3) {
+      if (money &gt;= 160) {
+        state = &quot;clear&quot;;
+        message = &quot;目標達成！ 所持金 &quot; + money;
+      } else {
+        state = &quot;over&quot;;
+        message = &quot;目標に届かなかった。所持金 &quot; + money;
+      }
+    } else {
+      day++;
+      phase = &quot;buy&quot;;
+      for (const item of products) item.soldToday = 0;
+      message = &quot;次の日。Bで仕入れよう&quot;;
+    }
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p><code>phase</code> は <code>&quot;buy&quot;</code> が仕入れ、<code>&quot;sell&quot;</code> が販売です。Enterで仕入れから販売へ、もう一度で次の日へ進みます。販売中はSで選んだ商品を1個売ります。</p><p>パン3個を仕入れた後は所持金40、在庫3。売値35で2個売ると、40 + 35 + 35 = 110、在庫1です。<code>money</code> は使えるお金、<code>revenue</code> は売った金額の合計です。</p><figure class="learning-diagram" id="shop-money" aria-labelledby="shop-money-title"><figcaption id="shop-money-title">図：お金が動くと、パンの数も変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="お金が動くと、パンの数も変わる。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/shop-money.svg" width="1200" height="900" alt="所持金100でパンを3個仕入れて40、2個売って110、在庫は1になります。"></div><p>所持金100から、1個20のパンを3個仕入れると、60を払って所持金40・在庫3になります。そのうち2個が1個35で売れると、70を受け取ります。結果は所持金110・在庫1です。お金だけでなく、棚に残るパンの数も一緒に確かめましょう。</p><p>仕入れ中はBで1個ずつ買い、Enterで販売に進みます。販売中はSで1個ずつ売ります。</p></figure><p><code>stock &lt;= 0</code> なら売らず、在庫は負になりません。<code>soldToday</code> は各商品についてその日に売った数です。1商品につき3個まで売れ、次の日に0へ戻ります。</p><p>3日目の販売を終えたとき、所持金が160以上なら <code>&quot;clear&quot;</code>、足りなければ <code>&quot;over&quot;</code>。残った在庫は所持金に加えません。</p><p>終了後のRで <code>start()</code> を呼び、日数1、所持金100、売上0、在庫0から再開します。<code>state</code> が <code>&quot;playing&quot;</code> の間だけ売買できます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money, revenue, selected, message, day, phase, state;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  revenue = 0;
+  selected = 0;
+  day = 1;
+  phase = &quot;buy&quot;;
+  state = &quot;playing&quot;;
+  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  // 売買と日付の変更は keydown で受け取ります。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);
+  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);
+  if (state === &quot;playing&quot;) {
+    if (phase === &quot;buy&quot;) {
+      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);
+    } else {
+      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);
+    }
+    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);
+  } else {
+    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);
+  }
+  ctx.fillText(message, 125, 380);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  const key = event.key.toLowerCase();
+  if (state !== &quot;playing&quot;) {
+    if (key === &quot;r&quot;) start();
+    return;
+  }
+  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {
+    selected = Number(key) - 1;
+    message = products[selected].name + &quot;を選んだ&quot;;
+  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {
+    const item = products[selected];
+    if (item.stock &lt;= 0) {
+      message = &quot;在庫がありません&quot;;
+    } else if (item.soldToday &gt;= 3) {
+      message = &quot;今日はこの商品を3個売りました&quot;;
+    } else {
+      item.stock--;
+      item.soldToday++;
+      money += item.price;
+      revenue += item.price;
+      message = item.name + &quot;を1個売った&quot;;
+    }
+  } else if (event.key === &quot;Enter&quot;) {
+    event.preventDefault();
+    if (phase === &quot;buy&quot;) {
+      phase = &quot;sell&quot;;
+      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;
+    } else if (day === 3) {
+      if (money &gt;= 160) {
+        state = &quot;clear&quot;;
+        message = &quot;目標達成！ 所持金 &quot; + money;
+      } else {
+        state = &quot;over&quot;;
+        message = &quot;目標に届かなかった。所持金 &quot; + money;
+      }
+    } else {
+      day++;
+      phase = &quot;buy&quot;;
+      for (const item of products) item.soldToday = 0;
+      message = &quot;次の日。Bで仕入れよう&quot;;
+    }
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>パン3個を仕入れ、販売で2個売ると所持金110、在庫1です。3日間を終え、Rで再挑戦します。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><h3>小さな練習</h3><p>目標額160を別の数に変え、結果の表示と比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 4：需要を見て仕入れ、自動で売る</h2><h3>目標</h3><p>今日の需要を見て仕入れ、在庫と需要の少ない数だけ自動で販売します。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 32 行・追加 61 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  phase = &quot;buy&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  setDemand();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  message = &quot;需要を見て1〜3で選び、Bで仕入れ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 80, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売&quot;, 80, 82);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;販売終了。Enterで次へ&quot;, 80, 82);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 80, 82);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (let i = 0; i &lt; products.length; i++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const item = products[i];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(line, 125, 145 + i * 55);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const y = 120 + i * 75;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#e5d3b0&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(80, y + 45, 625, 8);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (i === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#c58b42&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(112, y + 15, 38, 28);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.arc(131, y + 15, 19, Math.PI, 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (i === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#55a4c7&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(115, y + 7, 32, 36);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#f5f7e9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(121, y + 19, 20, 9);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#355a75&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(123, y + 2, 16, 5);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#d65b50&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.arc(131, y + 25, 18, 0, Math.PI * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#416a47&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(129, y + 3, 5, 8);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (i === selected) ctx.fillText(&quot;→&quot;, 78, y + 32);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText((i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price, 170, y + 18);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;在庫 &quot; + item.stock + &quot; / 今日の需要 &quot; + item.demand + &quot; / 販売 &quot; + item.soldToday, 170, y + 45);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state === &quot;playing&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(message, 80, 385);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function setDemand() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const item of products) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.demand = Math.floor(Math.random() * 3) + 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.soldToday = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(message, 125, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function sellToday() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const item of products) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const sold = Math.min(item.stock, item.demand);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.stock -= sold;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.soldToday = sold;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const income = sold * item.price;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    money += income;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    revenue += income;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1 &amp;&amp; phase === &quot;buy&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    selected = Number(key) - 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    message = products[selected].name + &quot;を選んだ&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      message = &quot;お金が足りません&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (item.stock &lt;= 0) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;在庫がありません&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    } else if (item.soldToday &gt;= 3) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;今日はこの商品を3個売りました&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      item.stock--;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      item.soldToday++;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      money += item.price;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      revenue += item.price;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = item.name + &quot;を1個売った&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (event.key === &quot;Enter&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      sellToday();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      phase = &quot;sell&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;販売しました。売れ残りは翌日に持ち越します&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else if (day === 3) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (money &gt;= 160) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      day++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      phase = &quot;buy&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      for (const item of products) item.soldToday = 0;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;次の日。Bで仕入れよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      setDemand();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;次の日。需要を見て仕入れよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  phase = &quot;buy&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  setDemand();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  message = &quot;需要を見て1〜3で選び、Bで仕入れ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  revenue = 0;
+  selected = 0;
+  day = 1;
+  phase = &quot;buy&quot;;
+  state = &quot;playing&quot;;
+  message = &quot;1〜3で商品を選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  revenue = 0;
+  selected = 0;
+  day = 1;
+  phase = &quot;buy&quot;;
+  state = &quot;playing&quot;;
+  setDemand();
+  message = &quot;需要を見て1〜3で選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 80, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売&quot;, 80, 82);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;販売終了。Enterで次へ&quot;, 80, 82);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 80, 82);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (let i = 0; i &lt; products.length; i++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const item = products[i];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(line, 125, 145 + i * 55);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const y = 120 + i * 75;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#e5d3b0&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(80, y + 45, 625, 8);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (i === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#c58b42&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(112, y + 15, 38, 28);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.arc(131, y + 15, 19, Math.PI, 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (i === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#55a4c7&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(115, y + 7, 32, 36);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#f5f7e9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(121, y + 19, 20, 9);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#355a75&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(123, y + 2, 16, 5);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#d65b50&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.arc(131, y + 25, 18, 0, Math.PI * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#416a47&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillRect(129, y + 3, 5, 8);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (i === selected) ctx.fillText(&quot;→&quot;, 78, y + 32);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText((i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price, 170, y + 18);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;在庫 &quot; + item.stock + &quot; / 今日の需要 &quot; + item.demand + &quot; / 販売 &quot; + item.soldToday, 170, y + 45);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state === &quot;playing&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(message, 80, 385);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function setDemand() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const item of products) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.demand = Math.floor(Math.random() * 3) + 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.soldToday = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(message, 125, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function sellToday() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const item of products) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const sold = Math.min(item.stock, item.demand);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.stock -= sold;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    item.soldToday = sold;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const income = sold * item.price;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    money += income;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    revenue += income;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1 &amp;&amp; phase === &quot;buy&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    selected = Number(key) - 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    message = products[selected].name + &quot;を選んだ&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      message = &quot;お金が足りません&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const item = products[selected];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (item.stock &lt;= 0) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;在庫がありません&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    } else if (item.soldToday &gt;= 3) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;今日はこの商品を3個売りました&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      item.stock--;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      item.soldToday++;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      money += item.price;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      revenue += item.price;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = item.name + &quot;を1個売った&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (event.key === &quot;Enter&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (phase === &quot;buy&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      sellToday();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      phase = &quot;sell&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;販売しました。売れ残りは翌日に持ち越します&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else if (day === 3) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (money &gt;= 160) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      day++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      phase = &quot;buy&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      for (const item of products) item.soldToday = 0;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;次の日。Bで仕入れよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      setDemand();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;次の日。需要を見て仕入れよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const line = (i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price + &quot; / 在庫 &quot; + item.stock;
+    ctx.fillText(line, 125, 145 + i * 55);
+  }
+  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 125, 50);
+  ctx.fillText(&quot;→&quot;, 85, 145 + selected * 55);
+  if (state === &quot;playing&quot;) {
+    if (phase === &quot;buy&quot;) {
+      ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売へ&quot;, 125, 95);
+    } else {
+      ctx.fillText(&quot;販売中: Sで1個 / Enterで次の日へ&quot;, 125, 95);
+    }
+    ctx.fillText(&quot;1商品につき1日3個まで売れます&quot;, 125, 330);
+  } else {
+    ctx.fillText(&quot;R キーでもう一度&quot;, 125, 330);
+  }
+  ctx.fillText(message, 125, 380);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  const key = event.key.toLowerCase();
+  if (state !== &quot;playing&quot;) {
+    if (key === &quot;r&quot;) start();
+    return;
+  }
+  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1) {
+    selected = Number(key) - 1;
+    message = products[selected].name + &quot;を選んだ&quot;;
+  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  } else if (key === &quot;s&quot; &amp;&amp; phase === &quot;sell&quot;) {
+    const item = products[selected];
+    if (item.stock &lt;= 0) {
+      message = &quot;在庫がありません&quot;;
+    } else if (item.soldToday &gt;= 3) {
+      message = &quot;今日はこの商品を3個売りました&quot;;
+    } else {
+      item.stock--;
+      item.soldToday++;
+      money += item.price;
+      revenue += item.price;
+      message = item.name + &quot;を1個売った&quot;;
+    }
+  } else if (event.key === &quot;Enter&quot;) {
+    event.preventDefault();
+    if (phase === &quot;buy&quot;) {
+      phase = &quot;sell&quot;;
+      message = &quot;Sで売ろう。売れるのは1商品3個まで&quot;;
+    } else if (day === 3) {
+      if (money &gt;= 160) {
+        state = &quot;clear&quot;;
+        message = &quot;目標達成！ 所持金 &quot; + money;
+      } else {
+        state = &quot;over&quot;;
+        message = &quot;目標に届かなかった。所持金 &quot; + money;
+      }
+    } else {
+      day++;
+      phase = &quot;buy&quot;;
+      for (const item of products) item.soldToday = 0;
+      message = &quot;次の日。Bで仕入れよう&quot;;
+    }
+  }
+});
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 80, 45);
+  if (state === &quot;playing&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売&quot;, 80, 82);
+  } else if (state === &quot;playing&quot;) {
+    ctx.fillText(&quot;販売終了。Enterで次へ&quot;, 80, 82);
+  } else {
+    ctx.fillText(&quot;R キーでもう一度&quot;, 80, 82);
+  }
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const y = 120 + i * 75;
+    ctx.fillStyle = &quot;#e5d3b0&quot;;
+    ctx.fillRect(80, y + 45, 625, 8);
+    if (i === 0) {
+      ctx.fillStyle = &quot;#c58b42&quot;;
+      ctx.fillRect(112, y + 15, 38, 28);
+      ctx.beginPath();
+      ctx.arc(131, y + 15, 19, Math.PI, 0);
+      ctx.fill();
+    } else if (i === 1) {
+      ctx.fillStyle = &quot;#55a4c7&quot;;
+      ctx.fillRect(115, y + 7, 32, 36);
+      ctx.fillStyle = &quot;#f5f7e9&quot;;
+      ctx.fillRect(121, y + 19, 20, 9);
+      ctx.fillStyle = &quot;#355a75&quot;;
+      ctx.fillRect(123, y + 2, 16, 5);
+    } else {
+      ctx.fillStyle = &quot;#d65b50&quot;;
+      ctx.beginPath();
+      ctx.arc(131, y + 25, 18, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = &quot;#416a47&quot;;
+      ctx.fillRect(129, y + 3, 5, 8);
+    }
+    ctx.fillStyle = &quot;#26334a&quot;;
+    if (i === selected) ctx.fillText(&quot;→&quot;, 78, y + 32);
+    ctx.fillText((i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price, 170, y + 18);
+    ctx.fillText(&quot;在庫 &quot; + item.stock + &quot; / 今日の需要 &quot; + item.demand + &quot; / 販売 &quot; + item.soldToday, 170, y + 45);
+  }
+  ctx.fillText(message, 80, 385);
+}
+
+function setDemand() {
+  for (const item of products) {
+    item.demand = Math.floor(Math.random() * 3) + 1;
+    item.soldToday = 0;
+  }
+}
+
+function sellToday() {
+  for (const item of products) {
+    const sold = Math.min(item.stock, item.demand);
+    item.stock -= sold;
+    item.soldToday = sold;
+    const income = sold * item.price;
+    money += income;
+    revenue += income;
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  const key = event.key.toLowerCase();
+  if (state !== &quot;playing&quot;) {
+    if (key === &quot;r&quot;) start();
+    return;
+  }
+  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1 &amp;&amp; phase === &quot;buy&quot;) {
+    selected = Number(key) - 1;
+    message = products[selected].name + &quot;を選んだ&quot;;
+  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  } else if (event.key === &quot;Enter&quot;) {
+    event.preventDefault();
+    if (phase === &quot;buy&quot;) {
+      sellToday();
+      phase = &quot;sell&quot;;
+      message = &quot;販売しました。売れ残りは翌日に持ち越します&quot;;
+    } else if (day === 3) {
+      if (money &gt;= 160) {
+        state = &quot;clear&quot;;
+        message = &quot;目標達成！ 所持金 &quot; + money;
+      } else {
+        state = &quot;over&quot;;
+        message = &quot;目標に届かなかった。所持金 &quot; + money;
+      }
+    } else {
+      day++;
+      phase = &quot;buy&quot;;
+      setDemand();
+      message = &quot;次の日。需要を見て仕入れよう&quot;;
+    }
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p>ステップ3はSで1個ずつ販売して会計を練習しました。完成版では仕入れ中に表示される <code>demand</code> が、その日にその商品を欲しいお客さんの数です。Enterで販売へ進むと、全商品をまとめて自動販売します。</p><p><code>Math.floor(Math.random() * 3) + 1</code> は1、2、3のどれかです。<code>setDemand()</code> で商品ごとに新しい需要を決め、その日の販売数 <code>soldToday</code> を0にします。仕入れる前に、画面で各商品の需要を確認できます。</p><p><code>Math.min(item.stock, item.demand)</code> は在庫と需要の少ない方です。パンの在庫3、需要2なら2個売れ、在庫1が残ります。先ほどの図の例と同じで、所持金40から2 × 35を受け取り110になります。</p><p><code>item.stock -= sold</code> で売れた分を引き、<code>income = sold * item.price</code> で売上を計算します。売上は <code>money</code> と <code>revenue</code> に足します。在庫が0なら販売数も0で、在庫は負になりません。</p><p>販売後にEnterで次の日へ進むと需要を決め直します。売れ残った在庫は消えず翌日へ持ち越します。3日目の販売後は所持金160以上でクリアし、残った在庫の値段は所持金に加えません。Rで初日・所持金100・在庫0からやり直します。</p><p>パン、ジュース、りんごを、四角い <code>fillRect()</code> と円弧の <code>arc()</code> を組み合わせて描きます。画面の「今日の需要」と「在庫」を見て、所持金の範囲で何を何個仕入れるか考えます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let products, money, revenue, selected, message, day, phase, state;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  products = [
+    {name: &quot;パン&quot;, cost: 20, price: 35, stock: 0, soldToday: 0},
+    {name: &quot;ジュース&quot;, cost: 15, price: 25, stock: 0, soldToday: 0},
+    {name: &quot;りんご&quot;, cost: 10, price: 18, stock: 0, soldToday: 0}
+  ];
+  money = 100;
+  revenue = 0;
+  selected = 0;
+  day = 1;
+  phase = &quot;buy&quot;;
+  state = &quot;playing&quot;;
+  setDemand();
+  message = &quot;需要を見て1〜3で選び、Bで仕入れ&quot;;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  // 売買と日付の変更は keydown で受け取ります。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;日: &quot; + day + &quot; / 3  所持金: &quot; + money + &quot;  売上: &quot; + revenue, 80, 45);
+  if (state === &quot;playing&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    ctx.fillText(&quot;仕入れ中: Bで1個 / Enterで販売&quot;, 80, 82);
+  } else if (state === &quot;playing&quot;) {
+    ctx.fillText(&quot;販売終了。Enterで次へ&quot;, 80, 82);
+  } else {
+    ctx.fillText(&quot;R キーでもう一度&quot;, 80, 82);
+  }
+  for (let i = 0; i &lt; products.length; i++) {
+    const item = products[i];
+    const y = 120 + i * 75;
+    ctx.fillStyle = &quot;#e5d3b0&quot;;
+    ctx.fillRect(80, y + 45, 625, 8);
+    if (i === 0) {
+      ctx.fillStyle = &quot;#c58b42&quot;;
+      ctx.fillRect(112, y + 15, 38, 28);
+      ctx.beginPath();
+      ctx.arc(131, y + 15, 19, Math.PI, 0);
+      ctx.fill();
+    } else if (i === 1) {
+      ctx.fillStyle = &quot;#55a4c7&quot;;
+      ctx.fillRect(115, y + 7, 32, 36);
+      ctx.fillStyle = &quot;#f5f7e9&quot;;
+      ctx.fillRect(121, y + 19, 20, 9);
+      ctx.fillStyle = &quot;#355a75&quot;;
+      ctx.fillRect(123, y + 2, 16, 5);
+    } else {
+      ctx.fillStyle = &quot;#d65b50&quot;;
+      ctx.beginPath();
+      ctx.arc(131, y + 25, 18, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = &quot;#416a47&quot;;
+      ctx.fillRect(129, y + 3, 5, 8);
+    }
+    ctx.fillStyle = &quot;#26334a&quot;;
+    if (i === selected) ctx.fillText(&quot;→&quot;, 78, y + 32);
+    ctx.fillText((i + 1) + &quot;: &quot; + item.name + &quot; 仕入 &quot; + item.cost + &quot; / 売値 &quot; + item.price, 170, y + 18);
+    ctx.fillText(&quot;在庫 &quot; + item.stock + &quot; / 今日の需要 &quot; + item.demand + &quot; / 販売 &quot; + item.soldToday, 170, y + 45);
+  }
+  ctx.fillText(message, 80, 385);
+}
+
+function setDemand() {
+  for (const item of products) {
+    item.demand = Math.floor(Math.random() * 3) + 1;
+    item.soldToday = 0;
+  }
+}
+
+function sellToday() {
+  for (const item of products) {
+    const sold = Math.min(item.stock, item.demand);
+    item.stock -= sold;
+    item.soldToday = sold;
+    const income = sold * item.price;
+    money += income;
+    revenue += income;
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  const key = event.key.toLowerCase();
+  if (state !== &quot;playing&quot;) {
+    if (key === &quot;r&quot;) start();
+    return;
+  }
+  if (key &gt;= &quot;1&quot; &amp;&amp; key &lt;= &quot;3&quot; &amp;&amp; key.length === 1 &amp;&amp; phase === &quot;buy&quot;) {
+    selected = Number(key) - 1;
+    message = products[selected].name + &quot;を選んだ&quot;;
+  } else if (key === &quot;b&quot; &amp;&amp; phase === &quot;buy&quot;) {
+    const item = products[selected];
+    if (money &gt;= item.cost) {
+      money -= item.cost;
+      item.stock++;
+      message = item.name + &quot;を1個仕入れた&quot;;
+    } else {
+      message = &quot;お金が足りません&quot;;
+    }
+  } else if (event.key === &quot;Enter&quot;) {
+    event.preventDefault();
+    if (phase === &quot;buy&quot;) {
+      sellToday();
+      phase = &quot;sell&quot;;
+      message = &quot;販売しました。売れ残りは翌日に持ち越します&quot;;
+    } else if (day === 3) {
+      if (money &gt;= 160) {
+        state = &quot;clear&quot;;
+        message = &quot;目標達成！ 所持金 &quot; + money;
+      } else {
+        state = &quot;over&quot;;
+        message = &quot;目標に届かなかった。所持金 &quot; + money;
+      }
+    } else {
+      day++;
+      phase = &quot;buy&quot;;
+      setDemand();
+      message = &quot;次の日。需要を見て仕入れよう&quot;;
+    }
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>需要が2のパンを3個仕入れて販売に進むと、所持金は40から110、在庫は1になります。3日後に160以上ならクリアです。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><h3>小さな練習</h3><p>需要の上限を3から別の数に変え、目標を達成できるか確かめます。 練習後はこのステップのコードに戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../../index.html">一覧へ戻る</a></p></main></body></html>
