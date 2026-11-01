@@ -42,4 +42,28 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 
 [制作例の一覧](examples/index.html)には、初心者向けから上級者向けまでのゲームと作り方があります。パソコンに保存した `examples/index.html` をブラウザで開くと、各教材と完成版へ進めます。
 
+初心者向けは、次の5本です。
+
+- [クリックで的あて](examples/target/tutorial.html)：クリックした位置と的の距離を調べます。
+- [ボールをはね返すゲーム](examples/bounce/tutorial.html)：板を動かし、ボールをはね返します。
+- [タイミングストップ](examples/timing/tutorial.html)：動く線を目標の範囲で止めます。
+- [タイピングゲーム](examples/typing/tutorial.html)：英字や短い単語を、正確に速く打ちます。
+- [ヒントで数あて](examples/number-guess/tutorial.html)：大小のヒントを使い、かくれた数を探します。
+
+中級者向けは、次の5本です。
+
+- [ブロックくずし](examples/breakout/tutorial.html)：ボールを当ててブロックを消します。
+- [シンプルなシューティング](examples/shooting/tutorial.html)：弾を飛ばして敵を倒します。
+- [スネークゲーム](examples/snake/tutorial.html)：マス目を進み、食べ物を取って体を伸ばします。
+- [神経衰弱](examples/memory/tutorial.html)：2枚のカードをめくり、同じ文字の組を探します。
+- [小さなお店の経営ゲーム](examples/shop/tutorial.html)：商品を仕入れて売り、3日間の所持金を増やします。
+
+上級者向けは、次の5本です。
+
+- [横スクロールのジャンプアクション](examples/platformer/tutorial.html)：地形を進み、ゴールを目指します。
+- [クリックで脱出ゲーム](examples/escape/tutorial.html)：番号の謎と持ち物を使って部屋から脱出します。
+- [タワーディフェンス](examples/tower-defense/tutorial.html)：タワーを置き、3回の敵の波を防ぎます。
+- [小さなカードバトル](examples/card-battle/tutorial.html)：攻撃・防御・回復のカードで敵と戦います。
+- [周回タイムアタック](examples/racing/tutorial.html)：車で4地点を順に通り、2周のタイムを記録します。
+
 [横スクロールゲームの発展課題](examples/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。

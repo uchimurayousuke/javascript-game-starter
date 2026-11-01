@@ -1,0 +1,1877 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>タワーディフェンスの作り方</title><link rel="stylesheet" href="../guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>タワーディフェンス</h1><p class="tag">上級者向け</p><p>5つの場所から選んでタワーを置き、3回の敵の波からゴールを守ります。クリックで設置し、Rで再挑戦します。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。元のひな型は残してください。</p><p>各ステップでは作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存後、作業用の <code>index.html</code> を開くか再読み込みします。</p><p><code>document.querySelector("#game-canvas")</code> はHTMLのCanvasを選び、<code>getContext("2d")</code> で絵を描く道具を取り出します。<code>start()</code> は最初の設定、<code>update()</code> は更新、<code>draw()</code> は描画です。<code>gameLoop()</code> は <code>requestAnimationFrame</code> で更新と描画を繰り返します。</p></section><section><h2>ステップ 1：敵をクラスで作り道を進む</h2><h3>目標</h3><p>敵を作って、曲がり角の点を順に進ませます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 54 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Enemy {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = path[0].x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = path[0].y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.nextPoint = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.hp = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.alive = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.reached = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.alive) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const target = path[this.nextPoint];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = target.x - this.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dy = target.y - this.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const distance = Math.hypot(dx, dy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 2) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x = target.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y = target.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.nextPoint++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.nextPoint === path.length) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.reached = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x += dx / distance * 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y += dy / distance * 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#db6258&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = [new Enemy()];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#d9c8a4&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(100, 285, 200, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(285, 100, 30, 200);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(300, 85, 400, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;入口&quot;, 80, 345);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ゴール&quot;, 670, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) if (enemy.alive) enemy.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Enemy {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = path[0].x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = path[0].y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.nextPoint = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.hp = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.alive = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.reached = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.alive) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const target = path[this.nextPoint];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = target.x - this.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dy = target.y - this.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const distance = Math.hypot(dx, dy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 2) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x = target.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y = target.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.nextPoint++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.nextPoint === path.length) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.reached = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x += dx / distance * 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y += dy / distance * 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#db6258&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+let enemies;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = [new Enemy()];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  // ここに初期設定を書く
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  enemies = [new Enemy()];
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // ここにキャラクターの移動や当たり判定などを書く
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  for (const enemy of enemies) enemy.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#d9c8a4&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(100, 285, 200, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(285, 100, 30, 200);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(300, 85, 400, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;入口&quot;, 80, 345);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ゴール&quot;, 670, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) if (enemy.alive) enemy.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ここに ctx.fillRect() などを使った描画を書く
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);
+}
+
+</code></pre><h3>コードの意味</h3><p>道の始点に「入口」、終点に「ゴール」と表示します。敵は入口からゴールへ進みます。</p><p><code>class Enemy</code> は敵の設計図です。<code>new Enemy()</code> が呼ぶ <code>constructor()</code> は、その敵自身の <code>this.x</code>、<code>this.y</code>、体力、次の経路点を初期化します。複数作れば、それぞれ別々の位置と体力を持ちます。</p><p><code>path</code> は(100,300)、(300,300)、(300,100)、(700,100)の順にたどる点です。<code>nextPoint</code> は次の目標の番号です。敵の <code>update()</code> が毎回、目標との差 <code>dx</code> と <code>dy</code> を計算します。</p><figure class="learning-diagram" id="tower-route" aria-labelledby="tower-route-title"><figcaption id="tower-route-title">図：敵は、目標の点を順番にたどる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="敵は、目標の点を順番にたどる。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/tower-route.svg" width="1200" height="850" alt="敵が横300・縦300の角に着いた後、横300・縦100へ進みます。"></div><p>敵は、まず横300・縦300の曲がり角を目指して右へ進みます。そこに着くと、次の目標は横300・縦100に変わります。今度は上へ進みます。このように、経由点を順番に目指すと道に沿って進めます。</p><p>図は最初の2区間です。実際はその後、横700・縦100のゴールまで進みます。</p></figure><p><code>Math.hypot(dx, dy)</code> は2点間の距離です。距離が2以下なら目標にぴったり置いて次の点を選び、それ以外は方向を距離で割って2ピクセル進めます。最後の点に着くと <code>reached</code> が <code>true</code> になります。</p><p><code>enemy.update()</code> と <code>enemy.draw()</code> は配列の各実体のメソッドです。その呼び出しの <code>this</code> はそれぞれの敵自身を指します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+let enemies;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  enemies = [new Enemy()];
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  for (const enemy of enemies) enemy.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>赤い敵が左から進み、曲がって右側へ向かいます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>移動の2ピクセルを1にして速さを比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 2：タワーを置く</h2><h3>目標</h3><p>枠をクリックして、1基20のお金でタワーを置きます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 50 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let enemies;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Tower {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#3f78a9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  {x: 220, y: 220}, {x: 500, y: 200}];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies, towers, money;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  enemies = [new Enemy()];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  towers = [];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  money = 60;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;入口&quot;, 80, 345);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;ゴール&quot;, 670, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const spot of spots) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeStyle = &quot;#3f78a9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.lineWidth = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const tower of towers) tower.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) if (enemy.alive) enemy.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function pointFromClick(event) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    x: (event.clientX - rect.left) * canvas.width / rect.width,</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y: (event.clientY - rect.top) * canvas.height / rect.height</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const point = pointFromClick(event);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const spot of spots) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (money &lt; 20) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      money -= 20;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      towers.push(new Tower(spot.x, spot.y));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let enemies;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Tower {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#3f78a9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  {x: 220, y: 220}, {x: 500, y: 200}];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies, towers, money;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+let enemies;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  enemies = [new Enemy()];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  towers = [];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  money = 60;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  enemies = [new Enemy()];
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;入口&quot;, 80, 345);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;ゴール&quot;, 670, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const spot of spots) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeStyle = &quot;#3f78a9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.lineWidth = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const tower of towers) tower.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) if (enemy.alive) enemy.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function pointFromClick(event) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    x: (event.clientX - rect.left) * canvas.width / rect.width,</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y: (event.clientY - rect.top) * canvas.height / rect.height</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const point = pointFromClick(event);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const spot of spots) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (money &lt; 20) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      money -= 20;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      towers.push(new Tower(spot.x, spot.y));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;敵が道の点を順に進みます&quot;, 100, 45);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p><code>class Tower</code> はタワーの設計図です。<code>new Tower(spot.x, spot.y)</code> で作った各タワーは自分の <code>this.x</code> と <code>this.y</code> を持ちます。</p><p><code>spots</code> は置いてよい5か所です。画面上のクリックを <code>getBoundingClientRect()</code> でCanvas座標に直し、表示した40×40ピクセルの四角い枠の内側かを調べます。左端と上端は含み、右端と下端は含みません。</p><p><code>towers.some(...)</code> は同じ場所のタワーが1つでもあるか調べます。設置済みや所持金20未満なら何も変えず、買えるときだけ20を引いて <code>push()</code> します。</p><figure class="learning-diagram" id="tower-money" aria-labelledby="tower-money-title"><figcaption id="tower-money-title">図：タワーを置くと、お金が20ずつ減る</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="タワーを置くと、お金が20ずつ減る。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/tower-money.svg" width="1200" height="950" alt="所持金60から20ずつ払い、3基で0になり、4基目にはお金が足りません。"></div><p>所持金60から、1基20のタワーを置いてみましょう。1基置くと40、もう1基で20、3基目で0になります。お金が0になったら、次の1基を置くための20が足りません。</p><p>図は報酬がまだないときの例です。完成版では敵を倒すと5を受け取り、20たまれば空いた枠にも置けます。</p></figure><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  for (const enemy of enemies) enemy.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>枠をクリックすると青いタワーが置かれ、所持金60から20減ります。同じ枠には重ねて置けません。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>タワーの色を変えてみます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 3：射程内の敵を探す</h2><h3>目標</h3><p>タワーが射程内の敵を見つけ、一定間隔で攻撃します。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 17 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.cooldown &gt; 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of enemies) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (enemy.alive &amp;&amp; distance &lt;= 120) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        enemy.hp--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (enemy.hp &lt;= 0) enemy.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.cooldown = 30;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const tower of towers) tower.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.cooldown &gt; 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of enemies) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (enemy.alive &amp;&amp; distance &lt;= 120) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        enemy.hp--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (enemy.hp &lt;= 0) enemy.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.cooldown = 30;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        enemy.hp--;
+        if (enemy.hp &lt;= 0) enemy.alive = false;
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const tower of towers) tower.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  for (const enemy of enemies) enemy.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h3>コードの意味</h3><p><code>Tower.update()</code> はそのタワーから各敵までの距離を調べ、<code>distance &lt;= 120</code> なら射程内です。ちょうど120も含みます。</p><figure class="learning-diagram" id="tower-range" aria-labelledby="tower-range-title"><figcaption id="tower-range-title">図：攻撃範囲は、中心どうしの距離で比べる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="攻撃範囲は、中心どうしの距離で比べる。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/tower-range.svg" width="1200" height="840" alt="タワー中心からの距離120は射程内、121は射程外です。"></div><p>タワーは、自分の中心から敵の中心までの距離を調べます。攻撃半径が120なら、距離120の敵は境目と同じなので範囲内です。距離121の敵は1だけ外にいるので範囲外です。敵の端ではなく、中心どうしを比べてください。</p><p>コードの <code>Math.hypot(enemy.x - this.x, enemy.y - this.y)</code> が中心どうしの距離です。</p></figure><p><code>this.cooldown</code> が正の間は1ずつ減らして待ちます。攻撃すると30に戻すので、毎回続けて攻撃しません。この段階は分かりやすく敵の体力を直接1減らします。</p><p><code>enemy.hp &lt;= 0</code> で <code>enemy.alive = false</code>。<code>new Enemy()</code> ごとに体力は2なので、1体への攻撃が2回当たると消えます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        enemy.hp--;
+        if (enemy.hp &lt;= 0) enemy.alive = false;
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>タワーを敵の近くに置くと、体力がなくなった敵が消えます。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><h3>小さな練習</h3><p>射程120を短くして、どこで攻撃するか比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 4：弾を飛ばす</h2><h3>目標</h3><p>攻撃を弾の実体に変え、敵へ向かって飛ばします。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 38 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (enemy.alive &amp;&amp; distance &lt;= 120) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        enemy.hp--;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        if (enemy.hp &lt;= 0) enemy.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        bullets.push(new Bullet(this.x, this.y, enemy));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.cooldown = 30;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Bullet {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, target) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.target = target;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.active = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.target.alive) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.active = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = this.target.x - this.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dy = this.target.y - this.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const distance = Math.hypot(dx, dy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 8) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.target.hp--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.target.hp &lt;= 0) this.target.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.active = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x += dx / distance * 8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y += dy / distance * 8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#edb73e&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  {x: 220, y: 220}, {x: 500, y: 200}];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let enemies, towers, money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies, towers, money, bullets;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  towers = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 60;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const tower of towers) tower.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) bullet.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = bullets.filter(bullet =&gt; bullet.active);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const tower of towers) tower.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) if (enemy.alive) enemy.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) bullet.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (enemy.alive &amp;&amp; distance &lt;= 120) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        enemy.hp--;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        if (enemy.hp &lt;= 0) enemy.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        bullets.push(new Bullet(this.x, this.y, enemy));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.cooldown = 30;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Bullet {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, target) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.target = target;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.active = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.target.alive) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.active = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = this.target.x - this.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dy = this.target.y - this.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const distance = Math.hypot(dx, dy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 8) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.target.hp--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.target.hp &lt;= 0) this.target.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.active = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x += dx / distance * 8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y += dy / distance * 8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#edb73e&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  {x: 220, y: 220}, {x: 500, y: 200}];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let enemies, towers, money;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies, towers, money, bullets;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        enemy.hp--;
+        if (enemy.hp &lt;= 0) enemy.alive = false;
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        bullets.push(new Bullet(this.x, this.y, enemy));
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+class Bullet {
+  constructor(x, y, target) {
+    this.x = x;
+    this.y = y;
+    this.target = target;
+    this.active = true;
+  }
+
+  update() {
+    if (!this.target.alive) {
+      this.active = false;
+      return;
+    }
+    const dx = this.target.x - this.x;
+    const dy = this.target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 8) {
+      this.target.hp--;
+      if (this.target.hp &lt;= 0) this.target.alive = false;
+      this.active = false;
+    } else {
+      this.x += dx / distance * 8;
+      this.y += dy / distance * 8;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#edb73e&quot;;
+    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);
+  }
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money, bullets;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  towers = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 60;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+  bullets = [];
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const tower of towers) tower.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) bullet.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = bullets.filter(bullet =&gt; bullet.active);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+  for (const bullet of bullets) bullet.update();
+  bullets = bullets.filter(bullet =&gt; bullet.active);
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const tower of towers) tower.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) if (enemy.alive) enemy.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) bullet.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  for (const bullet of bullets) bullet.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p><code>class Bullet</code> は弾の設計図です。発射時に <code>new Bullet(this.x, this.y, enemy)</code> とし、位置と目標の敵を弾自身の <code>this</code> に保存します。</p><p><code>Bullet.update()</code> は現在の敵の位置を目指します。距離が8以下なら飛び越さずに命中させ、体力を1減らして <code>active = false</code> にします。そうでなければ方向に8ピクセル進みます。</p><p>すでに目標の敵が倒れていれば弾を消します。<code>filter(bullet =&gt; bullet.active)</code> は有効な弾だけを残すので、同じ弾が何度も命中しません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        bullets.push(new Bullet(this.x, this.y, enemy));
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+class Bullet {
+  constructor(x, y, target) {
+    this.x = x;
+    this.y = y;
+    this.target = target;
+    this.active = true;
+  }
+
+  update() {
+    if (!this.target.alive) {
+      this.active = false;
+      return;
+    }
+    const dx = this.target.x - this.x;
+    const dy = this.target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 8) {
+      this.target.hp--;
+      if (this.target.hp &lt;= 0) this.target.alive = false;
+      this.active = false;
+    } else {
+      this.x += dx / distance * 8;
+      this.y += dy / distance * 8;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#edb73e&quot;;
+    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);
+  }
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money, bullets;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+  bullets = [];
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+  for (const bullet of bullets) bullet.update();
+  bullets = bullets.filter(bullet =&gt; bullet.active);
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  for (const bullet of bullets) bullet.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>敵が射程に入ると黄色い弾が飛び、2回当たると敵が消えます。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><h3>小さな練習</h3><p>弾の速さ8を4にして、弾が追いつく様子を比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 5：3回の波と結果を作る</h2><h3>目標</h3><p>敵の波、残り回数、所持金、クリアと再挑戦を加えます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 5 行・追加 43 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  {x: 220, y: 220}, {x: 500, y: 200}];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let enemies, towers, money, bullets;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  enemies = [new Enemy()];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  towers = [];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 60;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  bullets = [];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  lives = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  wave = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  spawned = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  spawnTimer = 40;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (spawned &lt; 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    spawnTimer--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (spawnTimer &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      enemies.push(new Enemy());</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawned++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawnTimer = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const tower of towers) tower.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const bullet of bullets) bullet.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  bullets = bullets.filter(bullet =&gt; bullet.active);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!enemy.alive) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (enemy.reached) lives--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else money += 5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = enemies.filter(enemy =&gt; enemy.alive);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (lives &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (spawned === 3 &amp;&amp; enemies.length === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (wave === 3) state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      wave++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawned = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawnTimer = 90;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;敵の集団 &quot; + wave + &quot; / 3  拠点の残り &quot; + lives + &quot;  所持金 &quot; + money, 80, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot;) ctx.fillText(&quot;枠をクリック: 1基20&quot;, 80, 410);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (state === &quot;clear&quot;) ctx.fillText(&quot;守りきった！ R でもう一度&quot;, 80, 410);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else ctx.fillText(&quot;突破された！ R でもう一度&quot;, 80, 410);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const point = pointFromClick(event);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const spot of spots) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  {x: 220, y: 220}, {x: 500, y: 200}];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let enemies, towers, money, bullets;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        bullets.push(new Bullet(this.x, this.y, enemy));
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+class Bullet {
+  constructor(x, y, target) {
+    this.x = x;
+    this.y = y;
+    this.target = target;
+    this.active = true;
+  }
+
+  update() {
+    if (!this.target.alive) {
+      this.active = false;
+      return;
+    }
+    const dx = this.target.x - this.x;
+    const dy = this.target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 8) {
+      this.target.hp--;
+      if (this.target.hp &lt;= 0) this.target.alive = false;
+      this.active = false;
+    } else {
+      this.x += dx / distance * 8;
+      this.y += dy / distance * 8;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#edb73e&quot;;
+    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);
+  }
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money, bullets;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        bullets.push(new Bullet(this.x, this.y, enemy));
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+class Bullet {
+  constructor(x, y, target) {
+    this.x = x;
+    this.y = y;
+    this.target = target;
+    this.active = true;
+  }
+
+  update() {
+    if (!this.target.alive) {
+      this.active = false;
+      return;
+    }
+    const dx = this.target.x - this.x;
+    const dy = this.target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 8) {
+      this.target.hp--;
+      if (this.target.hp &lt;= 0) this.target.alive = false;
+      this.active = false;
+    } else {
+      this.x += dx / distance * 8;
+      this.y += dy / distance * 8;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#edb73e&quot;;
+    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);
+  }
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  enemies = [new Enemy()];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  towers = [];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  money = 60;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  bullets = [];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  lives = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  wave = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  spawned = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  spawnTimer = 40;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  enemies = [new Enemy()];
+  towers = [];
+  money = 60;
+  bullets = [];
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  enemies = [];
+  towers = [];
+  bullets = [];
+  money = 60;
+  lives = 3;
+  wave = 1;
+  spawned = 0;
+  spawnTimer = 40;
+  state = &quot;playing&quot;;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (spawned &lt; 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    spawnTimer--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (spawnTimer &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      enemies.push(new Enemy());</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawned++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawnTimer = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) enemy.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const tower of towers) tower.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const bullet of bullets) bullet.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  bullets = bullets.filter(bullet =&gt; bullet.active);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!enemy.alive) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (enemy.reached) lives--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else money += 5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = enemies.filter(enemy =&gt; enemy.alive);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (lives &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (spawned === 3 &amp;&amp; enemies.length === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (wave === 3) state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      wave++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawned = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      spawnTimer = 90;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+  for (const bullet of bullets) bullet.update();
+  bullets = bullets.filter(bullet =&gt; bullet.active);
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  if (state !== &quot;playing&quot;) return;
+  if (spawned &lt; 3) {
+    spawnTimer--;
+    if (spawnTimer &lt;= 0) {
+      enemies.push(new Enemy());
+      spawned++;
+      spawnTimer = 80;
+    }
+  }
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+  for (const bullet of bullets) bullet.update();
+  bullets = bullets.filter(bullet =&gt; bullet.active);
+  for (const enemy of enemies) {
+    if (!enemy.alive) {
+      if (enemy.reached) lives--;
+      else money += 5;
+    }
+  }
+  enemies = enemies.filter(enemy =&gt; enemy.alive);
+  if (lives &lt;= 0) {
+    state = &quot;over&quot;;
+  } else if (spawned === 3 &amp;&amp; enemies.length === 0) {
+    if (wave === 3) state = &quot;clear&quot;;
+    else {
+      wave++;
+      spawned = 0;
+      spawnTimer = 90;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;21px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;敵の集団 &quot; + wave + &quot; / 3  拠点の残り &quot; + lives + &quot;  所持金 &quot; + money, 80, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot;) ctx.fillText(&quot;枠をクリック: 1基20&quot;, 80, 410);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (state === &quot;clear&quot;) ctx.fillText(&quot;守りきった！ R でもう一度&quot;, 80, 410);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else ctx.fillText(&quot;突破された！ R でもう一度&quot;, 80, 410);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const point = pointFromClick(event);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const spot of spots) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  for (const bullet of bullets) bullet.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;枠をクリックしてタワーを置く / 所持金: &quot; + money, 70, 45);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  for (const bullet of bullets) bullet.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;敵の集団 &quot; + wave + &quot; / 3  拠点の残り &quot; + lives + &quot;  所持金 &quot; + money, 80, 45);
+  if (state === &quot;playing&quot;) ctx.fillText(&quot;枠をクリック: 1基20&quot;, 80, 410);
+  else if (state === &quot;clear&quot;) ctx.fillText(&quot;守りきった！ R でもう一度&quot;, 80, 410);
+  else ctx.fillText(&quot;突破された！ R でもう一度&quot;, 80, 410);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot;) return;
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+</code></pre><h3>コードの意味</h3><p><code>wave</code> は画面の「敵の集団」、<code>lives</code> は「拠点の残り」です。拠点の残りが0になると失敗します。</p><p><code>wave</code> は現在の波、<code>spawned</code> はその波で出した敵の数です。40更新後に最初の敵を出し、80更新ごとに合計3体出します。全員いなくなれば次の波まで90更新待ち、3波を守りきればクリアです。</p><p>各更新は <code>requestAnimationFrame</code> の1回です。更新の速さは環境により変わるので、ここでは秒ではなく更新回数で数えています。敵がゴールに着くと <code>lives</code> が1減り、倒すと所持金が5増えます。</p><p><code>enemies.filter(enemy =&gt; enemy.alive)</code> で終了した敵を取り除きます。同じ敵の到着や報酬は1度だけ数えます。残り0なら失敗、3波を防げばクリアです。最初の60では3基まで置け、報酬がたまれば5か所の残りにも置けます。</p><p>Rで <code>start()</code> を呼ぶと、敵・弾・タワーの配列、波、残り3、所持金60、生成までの待ち時間を戻します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];
+
+class Enemy {
+  constructor() {
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.nextPoint = 1;
+    this.hp = 2;
+    this.alive = true;
+    this.reached = false;
+  }
+
+  update() {
+    if (!this.alive) return;
+    const target = path[this.nextPoint];
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 2) {
+      this.x = target.x;
+      this.y = target.y;
+      this.nextPoint++;
+      if (this.nextPoint === path.length) {
+        this.reached = true;
+        this.alive = false;
+      }
+    } else {
+      this.x += dx / distance * 2;
+      this.y += dy / distance * 2;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#db6258&quot;;
+    ctx.fillRect(this.x - 12, this.y - 12, 24, 24);
+  }
+}
+
+class Tower {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.cooldown = 0;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#3f78a9&quot;;
+    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+  }
+
+  update() {
+    if (this.cooldown &gt; 0) {
+      this.cooldown--;
+      return;
+    }
+    for (const enemy of enemies) {
+      const distance = Math.hypot(enemy.x - this.x, enemy.y - this.y);
+      if (enemy.alive &amp;&amp; distance &lt;= 120) {
+        bullets.push(new Bullet(this.x, this.y, enemy));
+        this.cooldown = 30;
+        return;
+      }
+    }
+  }
+
+}
+
+class Bullet {
+  constructor(x, y, target) {
+    this.x = x;
+    this.y = y;
+    this.target = target;
+    this.active = true;
+  }
+
+  update() {
+    if (!this.target.alive) {
+      this.active = false;
+      return;
+    }
+    const dx = this.target.x - this.x;
+    const dy = this.target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 8) {
+      this.target.hp--;
+      if (this.target.hp &lt;= 0) this.target.alive = false;
+      this.active = false;
+    } else {
+      this.x += dx / distance * 8;
+      this.y += dy / distance * 8;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#edb73e&quot;;
+    ctx.fillRect(this.x - 4, this.y - 4, 8, 8);
+  }
+}
+
+const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
+  {x: 220, y: 220}, {x: 500, y: 200}];
+
+let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  enemies = [];
+  towers = [];
+  bullets = [];
+  money = 60;
+  lives = 3;
+  wave = 1;
+  spawned = 0;
+  spawnTimer = 40;
+  state = &quot;playing&quot;;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  if (state !== &quot;playing&quot;) return;
+  if (spawned &lt; 3) {
+    spawnTimer--;
+    if (spawnTimer &lt;= 0) {
+      enemies.push(new Enemy());
+      spawned++;
+      spawnTimer = 80;
+    }
+  }
+  for (const enemy of enemies) enemy.update();
+  for (const tower of towers) tower.update();
+  for (const bullet of bullets) bullet.update();
+  bullets = bullets.filter(bullet =&gt; bullet.active);
+  for (const enemy of enemies) {
+    if (!enemy.alive) {
+      if (enemy.reached) lives--;
+      else money += 5;
+    }
+  }
+  enemies = enemies.filter(enemy =&gt; enemy.alive);
+  if (lives &lt;= 0) {
+    state = &quot;over&quot;;
+  } else if (spawned === 3 &amp;&amp; enemies.length === 0) {
+    if (wave === 3) state = &quot;clear&quot;;
+    else {
+      wave++;
+      spawned = 0;
+      spawnTimer = 90;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9c8a4&quot;;
+  ctx.fillRect(100, 285, 200, 30);
+  ctx.fillRect(285, 100, 30, 200);
+  ctx.fillRect(300, 85, 400, 30);
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;入口&quot;, 80, 345);
+  ctx.fillText(&quot;ゴール&quot;, 670, 70);
+  for (const spot of spots) {
+    ctx.strokeStyle = &quot;#3f78a9&quot;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(spot.x - 20, spot.y - 20, 40, 40);
+  }
+  for (const tower of towers) tower.draw();
+  for (const enemy of enemies) if (enemy.alive) enemy.draw();
+  for (const bullet of bullets) bullet.draw();
+  ctx.fillStyle = &quot;#24354a&quot;;
+  ctx.font = &quot;21px sans-serif&quot;;
+  ctx.fillText(&quot;敵の集団 &quot; + wave + &quot; / 3  拠点の残り &quot; + lives + &quot;  所持金 &quot; + money, 80, 45);
+  if (state === &quot;playing&quot;) ctx.fillText(&quot;枠をクリック: 1基20&quot;, 80, 410);
+  else if (state === &quot;clear&quot;) ctx.fillText(&quot;守りきった！ R でもう一度&quot;, 80, 410);
+  else ctx.fillText(&quot;突破された！ R でもう一度&quot;, 80, 410);
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot;) return;
+  const point = pointFromClick(event);
+  for (const spot of spots) {
+    if (point.x &gt;= spot.x - 20 &amp;&amp; point.x &lt; spot.x + 20 &amp;&amp;
+        point.y &gt;= spot.y - 20 &amp;&amp; point.y &lt; spot.y + 20) {
+      if (towers.some(tower =&gt; tower.x === spot.x &amp;&amp; tower.y === spot.y)) return;
+      if (money &lt; 20) return;
+      money -= 20;
+      towers.push(new Tower(spot.x, spot.y));
+      return;
+    }
+  }
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>3つの枠にタワーを置き、3回の波を防ぐとクリアです。3体通すと失敗し、Rで最初からやり直せます。 <a href="step5/index.html">ステップ 5 の見本を開く</a></p><h3>小さな練習</h3><p>開始時の所持金を変え、置けるタワーの数を確かめます。 練習後はこのステップのコードに戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../index.html">一覧へ戻る</a></p></main></body></html>

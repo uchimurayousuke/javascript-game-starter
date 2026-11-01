@@ -6,7 +6,7 @@ const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 const read = (p) => fs.readFileSync(path.join(root, p), "utf8").replace(/\r\n/g, "\n");
 const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#39|#x27);/g, (x) => ({"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"', "&#39;":"'", "&#x27;":"'"}[x]));
-const pages = ["tutorial/index.html", ...["target", "bounce", "breakout", "shooting", "platformer", "platformer/extensions"].map((p) => `examples/${p}/tutorial.html`)];
+const pages = ["tutorial/index.html", ...["target", "bounce", "breakout", "shooting", "platformer", "platformer/extensions", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"].map((p) => `examples/${p}/tutorial.html`)];
 const rowPattern = /<div class="change-row change-(removed|added|same|hunk)"><span class="change-label">([^<]*)<\/span><span class="change-code">([^<]*)<\/span><\/div>/g;
 const rowSource = '(?:<div class="change-row change-(?:removed|added|same|hunk)"><span class="change-label">[^<]*</span><span class="change-code">[^<]*</span></div>)*';
 const viewSource = `<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p>(${rowSource})</div>`;
@@ -44,7 +44,7 @@ function checkComparison(oldCode, newCode, view, location) {
   assert.ok(equal(oldLines.slice(oi), newLines.slice(ni)), `${location}: 変更行が省略されています`);
 }
 
-test("全7ページに読み方と安全なコピー欄があり、比較の各行がコードと一致する", () => {
+test("全17ページに読み方と安全なコピー欄があり、比較の各行がコードと一致する", () => {
   const pair = new RegExp(viewSource + '(?:</details>)?<details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details><p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>', 'g');
   for (const page of pages) {
     const html = read(page);
@@ -71,7 +71,7 @@ test("全7ページに読み方と安全なコピー欄があり、比較の各�
 });
 
 test("各ステップ全体の差分も実際の前後のコードに対応する", () => {
-  for (const game of ["target", "bounce", "breakout", "shooting", "platformer"]) {
+  for (const game of ["target", "bounce", "breakout", "shooting", "platformer", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"]) {
     const page = read(`examples/${game}/tutorial.html`);
     const sections = [...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
     let previous = read("script.js");

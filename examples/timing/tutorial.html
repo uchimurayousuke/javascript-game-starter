@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>タイミングストップの作り方</title><link rel="stylesheet" href="../guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>タイミングストップ</h1><p class="tag">初心者向け</p><p>左右に動く青い線をスペースキーで止めます。線の中心が緑の範囲に入れば成功です。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。元のひな型は残してください。</p><p>各ステップでは作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存後、作業用の <code>index.html</code> を開くか再読み込みします。</p><p><code>document.querySelector("#game-canvas")</code> はHTMLのCanvasを選び、<code>getContext("2d")</code> で絵を描く道具を取り出します。<code>start()</code> は最初の設定、<code>update()</code> は更新、<code>draw()</code> は描画です。<code>gameLoop()</code> は <code>requestAnimationFrame</code> で更新と描画を繰り返します。</p></section><section><h2>ステップ 1：画面に目標と線を描く</h2><h3>目標</h3><p>緑の目標と青い線を描き、線の横の位置を変数で持ちます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 13 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let markerX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  markerX = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // この段階ではまだ動かしません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#d9e8f9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(80, 200, 640, 24);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#50a76b&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(300, 200, 200, 24);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#204a84&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(markerX - 5, 180, 10, 64);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let markerX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  markerX = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  // ここに初期設定を書く
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  markerX = 80;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // この段階ではまだ動かしません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // ここにキャラクターの移動や当たり判定などを書く
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  // この段階ではまだ動かしません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#d9e8f9&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(80, 200, 640, 24);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#50a76b&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(300, 200, 200, 24);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#204a84&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(markerX - 5, 180, 10, 64);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ここに ctx.fillRect() などを使った描画を書く
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);
+}
+
+</code></pre><h3>コードの意味</h3><p><code>let markerX</code> は、青い線の中心の横の位置を覚える変数です。<code>start()</code> の <code>markerX = 80</code> で最初の位置を決めます。</p><p><code>fillRect(300, 200, 200, 24)</code> は、左上が横300・縦200で、幅200・高さ24の緑の帯を描きます。右端は300 + 200で500です。</p><p>青い線の幅は10です。<code>markerX - 5</code> は中心から幅の半分だけ左へ戻り、四角の左端を求めます。たとえば中心が80なら左端は75です。</p><p><code>fillStyle</code> は色、<code>font</code> は文字の大きさ、<code>fillText</code> は文字と表示する位置を決めます。<code>clearRect</code> は前の絵を消します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  markerX = 80;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  // この段階ではまだ動かしません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>緑の帯と、その左側に青い線が表示されます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>markerX の初期値を 200 に変え、線の位置が変わるか試します。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 2：線を左右に動かす</h2><h3>目標</h3><p>更新するたびに位置を変え、両端では向きを変えます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 7 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let markerX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let markerX, speed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  markerX = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  speed = 4;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // この段階ではまだ動かしません。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  markerX += speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (markerX &gt;= 720 || markerX &lt;= 80) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    speed = -speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let markerX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let markerX, speed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX, speed;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  markerX = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  speed = 4;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  markerX = 80;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  markerX = 80;
+  speed = 4;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // この段階ではまだ動かしません。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  markerX += speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (markerX &gt;= 720 || markerX &lt;= 80) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    speed = -speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // この段階ではまだ動かしません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  markerX += speed;
+  if (markerX &gt;= 720 || markerX &lt;= 80) {
+    speed = -speed;
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;青い線を緑の中で止めよう&quot;, 190, 120);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);
+}
+
+</code></pre><h3>コードの意味</h3><p><code>speed</code> は1回の更新で進む量です。<code>markerX += speed</code> は、今の位置に速さを足して <code>markerX</code> に戻す書き方です。位置100で速さ4なら次は104です。</p><p><code>markerX &gt;= 720 || markerX &lt;= 80</code> の <code>||</code> は「または」です。右端720以上、または左端80以下なら <code>if</code> の中へ進みます。</p><p><code>speed = -speed</code> は速さの符号を反転します。右向きの4は左向きの-4になり、-4は4に戻ります。次の更新では逆向きに動きます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX, speed;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  markerX = 80;
+  speed = 4;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  markerX += speed;
+  if (markerX &gt;= 720 || markerX &lt;= 80) {
+    speed = -speed;
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>青い線が左右に動き、端で折り返します。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>speed を 2 に変え、動く速さを比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 3：止めて成功を判定する</h2><h3>目標</h3><p>スペースで止め、緑の範囲なら成功にします。R で再挑戦します。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 5 行・追加 30 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let markerX, speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let markerX, speed, state, success;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  markerX = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  speed = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;moving&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  success = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  markerX += speed;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (markerX &gt;= 720 || markerX &lt;= 80) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    speed = -speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;moving&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    markerX += speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (markerX &gt;= 720 || markerX &lt;= 80) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      speed = -speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;スペースで止める&quot;, 270, 120);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;stopped&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (success) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;成功！ 緑の中で止まった&quot;, 220, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;おしい！ 緑の外で止まった&quot;, 205, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 260, 350);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;moving&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      state = &quot;stopped&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      success = markerX &gt;= 300 &amp;&amp; markerX &lt;= 500;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; state === &quot;stopped&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let markerX, speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let markerX, speed, state, success;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX, speed;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX, speed, state, success;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  markerX = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  speed = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;moving&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  success = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  markerX = 80;
+  speed = 4;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  markerX = 80;
+  speed = 4;
+  state = &quot;moving&quot;;
+  success = false;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  markerX += speed;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (markerX &gt;= 720 || markerX &lt;= 80) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    speed = -speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;moving&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    markerX += speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (markerX &gt;= 720 || markerX &lt;= 80) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      speed = -speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  markerX += speed;
+  if (markerX &gt;= 720 || markerX &lt;= 80) {
+    speed = -speed;
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  if (state === &quot;moving&quot;) {
+    markerX += speed;
+    if (markerX &gt;= 720 || markerX &lt;= 80) {
+      speed = -speed;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;スペースで止める&quot;, 270, 120);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;stopped&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (success) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;成功！ 緑の中で止まった&quot;, 220, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(&quot;おしい！ 緑の外で止まった&quot;, 205, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;R キーでもう一度&quot;, 260, 350);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;moving&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      state = &quot;stopped&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      success = markerX &gt;= 300 &amp;&amp; markerX &lt;= 500;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; state === &quot;stopped&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;青い線が左右に動きます&quot;, 220, 120);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;スペースで止める&quot;, 270, 120);
+  if (state === &quot;stopped&quot;) {
+    if (success) {
+      ctx.fillText(&quot;成功！ 緑の中で止まった&quot;, 220, 300);
+    } else {
+      ctx.fillText(&quot;おしい！ 緑の外で止まった&quot;, 205, 300);
+    }
+    ctx.fillText(&quot;R キーでもう一度&quot;, 260, 350);
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (state === &quot;moving&quot;) {
+      state = &quot;stopped&quot;;
+      success = markerX &gt;= 300 &amp;&amp; markerX &lt;= 500;
+    }
+  } else if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; state === &quot;stopped&quot;) {
+    start();
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p><code>state</code> は動作の状態を文字列で覚えます。<code>&quot;moving&quot;</code> は動いている状態、<code>&quot;stopped&quot;</code> は止まった状態です。<code>===</code> は左右が同じか調べ、<code>update()</code> は <code>state === &quot;moving&quot;</code> の間だけ動かします。</p><p><code>success</code> は成功かどうかを表す変数です。<code>true</code> は成功、<code>false</code> は失敗です。再開時は <code>start()</code> で位置、速さ、状態、成功の記録を初期化します。</p><p><code>markerX &gt;= 300 &amp;&amp; markerX &lt;= 500</code> の <code>&amp;&amp;</code> は「両方」です。中心が300以上で、かつ500以下なら <code>true</code>。500は成功、501は範囲外です。幅全体ではなく線の中心を比べます。</p><figure class="learning-diagram" id="timing-range" aria-labelledby="timing-range-title"><figcaption id="timing-range-title">図：止めた目印の「中心」はゾーンの中？</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="止めた目印の「中心」はゾーンの中？。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/timing-range.svg" width="1200" height="815" alt="中心が300から500なら成功。500は成功、501は範囲外。"></div><p>止めた目印の中心が、横300から500までに入っていれば成功です。中心が500なら、ゾーンの境目と同じなので成功します。501なら1だけ外にあるので範囲外です。目印の端や幅ではなく、中心の数を見てください。</p><p><code>markerX</code> が中心の横位置です。<code>markerX &gt;= 300 &amp;&amp; markerX &lt;= 500</code> で範囲を調べます。</p></figure><p><code>window.addEventListener(&quot;keydown&quot;, ...)</code> は、キーが押されたときの処理を登録します。<code>event.code === &quot;Space&quot;</code> でスペースキーを調べ、<code>preventDefault()</code> でページのスクロールを止めます。</p><p><code>event.repeat</code> は押しっぱなしの繰り返しです。<code>ctrlKey</code>・<code>altKey</code>・<code>metaKey</code> は他のキーとの組み合わせ、<code>isComposing</code> は日本語などの変換中を表します。どれかが当てはまると <code>return</code> でその回の処理を終えます。</p><p><code>else if</code> は前の条件が違う場合に次の条件を調べます。<code>event.key.toLowerCase()</code> は英字を小文字にして、止まった後のRキーを受け取ります。</p><figure class="learning-diagram" id="timing-state" aria-labelledby="timing-state-title"><figcaption id="timing-state-title">図：動かす → 止める → 調べる → もう一度</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="動かす → 止める → 調べる → もう一度。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/timing-state.svg" width="1200" height="855" alt="スペースで目印を止めて結果を調べ、Rで最初からやり直します。"></div><p>動いている目印をSpaceで止め、その瞬間の中心の位置を調べます。300から500までなら成功、それ以外なら範囲外です。結果を見てやり直すと、前の結果をリセットして、また目印が動きます。</p><p>コードでは <code>state</code> が <code>&quot;moving&quot;</code> のときだけ動き、スペースで <code>&quot;stopped&quot;</code> に変わります。やり直しはRキーです。</p></figure><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let markerX, speed, state, success;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  markerX = 80;
+  speed = 4;
+  state = &quot;moving&quot;;
+  success = false;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  if (state === &quot;moving&quot;) {
+    markerX += speed;
+    if (markerX &gt;= 720 || markerX &lt;= 80) {
+      speed = -speed;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#d9e8f9&quot;;
+  ctx.fillRect(80, 200, 640, 24);
+  ctx.fillStyle = &quot;#50a76b&quot;;
+  ctx.fillRect(300, 200, 200, 24);
+  ctx.fillStyle = &quot;#204a84&quot;;
+  ctx.fillRect(markerX - 5, 180, 10, 64);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;スペースで止める&quot;, 270, 120);
+  if (state === &quot;stopped&quot;) {
+    if (success) {
+      ctx.fillText(&quot;成功！ 緑の中で止まった&quot;, 220, 300);
+    } else {
+      ctx.fillText(&quot;おしい！ 緑の外で止まった&quot;, 205, 300);
+    }
+    ctx.fillText(&quot;R キーでもう一度&quot;, 260, 350);
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (state === &quot;moving&quot;) {
+      state = &quot;stopped&quot;;
+      success = markerX &gt;= 300 &amp;&amp; markerX &lt;= 500;
+    }
+  } else if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; state === &quot;stopped&quot;) {
+    start();
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>スペースで緑の中と外に止めて結果を確かめ、R で左端から再開します。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><h3>小さな練習</h3><p>緑の幅と判定する数を両方変えて、成功しやすさを調整します。 練習後はこのステップのコードに戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../index.html">一覧へ戻る</a></p></main></body></html>

@@ -13,7 +13,17 @@ const pages = {
   "examples/breakout/tutorial.html": {"brick-grid":"brick-grid", "brick-hit":"brick-hit"},
   "examples/shooting/tutorial.html": {"shoot-motion":"shoot-motion", "shoot-hit":"shoot-hit"},
   "examples/platformer/tutorial.html": {"platformer-gravity":"platformer-gravity", "platformer-collision":"platformer-collision", "platformer-camera":"platformer-camera", "platformer-instances":"platformer-instances"},
-  "examples/platformer/extensions/tutorial.html": {"extension-stomp":"extension-stomp", "extension-dash":"extension-dash", "extension-retry":"extension-retry"}
+  "examples/platformer/extensions/tutorial.html": {"extension-stomp":"extension-stomp", "extension-dash":"extension-dash", "extension-retry":"extension-retry"},
+  "examples/timing/tutorial.html": {"timing-range":"timing-range", "timing-state":"timing-state"},
+  "examples/typing/tutorial.html": {"typing-index":"typing-index", "typing-key":"typing-key"},
+  "examples/number-guess/tutorial.html": {"number-compare":"number-compare", "number-range":"number-range"},
+  "examples/snake/tutorial.html": {"snake-move":"snake-move", "snake-grow":"snake-grow"},
+  "examples/memory/tutorial.html": {"memory-pair":"memory-pair", "memory-wait":"memory-wait", "memory-position":"memory-position"},
+  "examples/shop/tutorial.html": {"shop-product":"shop-product", "shop-money":"shop-money"},
+  "examples/escape/tutorial.html": {"escape-classes":"escape-classes", "escape-flow":"escape-flow", "escape-items":"escape-items"},
+  "examples/tower-defense/tutorial.html": {"tower-route":"tower-route", "tower-money":"tower-money", "tower-range":"tower-range"},
+  "examples/card-battle/tutorial.html": {"card-effect":"card-effect", "card-turn":"card-turn", "card-piles":"card-piles"},
+  "examples/racing/tutorial.html": {"race-direction":"race-direction", "race-checkpoints":"race-checkpoints", "race-classes":"race-classes"}
 };
 const illustration = name => read(`tutorial/illustrations/astra/${name}.svg`);
 const figure = (file,id) => {
@@ -70,6 +80,8 @@ test("全教材の図は説明と代替テキストを備え、ローカルの�
       const svg=illustration(asset); assert.match(svg,/<title\b[^>]*>[^<]+<\/title>/); assert.match(svg,/<desc\b[^>]*>[^<]+<\/desc>/);
       assert.doesNotMatch(svg,/(?:href|src)="(?:https?:|\/\/)/i);
       const vb=svg.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/); assert.ok(vb);
+      const width=img[0].match(/\bwidth="(\d+)"/), height=img[0].match(/\bheight="(\d+)"/);
+      assert.ok(width && height && Number(width[1])===Number(vb[1]) && Number(height[1])===Number(vb[2]),`${asset}: 画像の寸法`);
       const sizes=[...svg.matchAll(/font-size(?:=":?|:\s*)(\d+)(?:px)?"?/g)].map(m=>Number(m[1]));
       assert.ok(sizes.length>0,`${asset}: フォントサイズ`);
       const primarySizes=sizes.filter(size=>size>=23); assert.ok(primarySizes.length>0,`${asset}: 主な文字`);
@@ -211,4 +223,52 @@ test("踏みつけ・ダッシュ・中間地点からの再開は図と処理�
   g.run("start(); checkpoint.active=true; coins[0].taken=true; score=1; enemies[0].stomp(); defeated=1; state='over'");
   g.fire("keydown",{code:"KeyR"});assert.equal(g.run("player.x"),1200);assert.equal(g.run("player.y"),350);assert.equal(g.run("cameraX"),815);assert.equal(g.run("score"),1);assert.equal(g.run("defeated"),1);assert.equal(g.run("enemies[0].alive"),false);
   g.fire("keydown",{code:"KeyR",repeat:true});assert.equal(g.run("player.x"),1200);g.fire("keydown",{code:"KeyR"});assert.equal(g.run("player.x"),80);assert.equal(g.run("score"),0);
+});
+
+test("新しい初心者3教材の図は、説明例と図形の位置関係が合う", () => {
+  const timing=illustration("timing-range"), success=attrs(timing,"zone-500"), point=attrs(timing,"marker-center-500"), outside=attrs(timing,"zone-501"), outsidePoint=attrs(timing,"marker-center-501");
+  assert.equal(point.cx,success.x+success.width);assert.ok(outsidePoint.cx>outside.x+outside.width);
+  assertLabels("timing-range",["中心は横500","中心は横501","成功!","範囲外","1の間隔を広げています"]);
+  assertLabels("timing-state",["Space","300〜500","やり直す"]);
+  assert.match(words(figure("examples/timing/tutorial.html","timing-state")),/やり直しはRキー/);
+  assertLabels("typing-index",["番号0","番号1","番号2","入力済み3文字","全部入力できた"]);
+  assertLabels("typing-key",["次の文字はc","入力済み1文字","入力済み0文字","次はcのまま"]);
+  const typing=words(figure("examples/typing/tutorial.html","typing-index"));assert.match(typing,/3文字目.*0に戻ります/);
+  const compare=illustration("number-compare"), low=attrs(compare,"guess-point-8"),high=attrs(compare,"guess-point-15"),answer=attrs(compare,"answer-8");
+  assert.ok(low.cx<answer.x+answer.width/2);assert.ok(high.cx>answer.x+answer.width/2);
+  assertLabels("number-compare",["もっと大きい","もっと小さい","正解!","説明用の正解"]);
+  assertLabels("number-range",["9〜20が候補","9〜14が候補","自動表示するという意味ではありません"]);
+});
+
+test("中級3教材の図は、体・カード・お金の説明例と合う", () => {
+  const move=illustration("snake-move"), grow=illustration("snake-grow");
+  for(const x of [2,3,4]) assert.ok(attrs(move,`before-segment-${x}`));
+  for(const x of [3,4,5]) assert.ok(attrs(move,`after-segment-${x}`));
+  for(const x of [2,3,4,5]) assert.ok(attrs(grow,`after-segment-${x}`));
+  assertLabels("snake-move",["長さ3のまま","横5・縦4","Canvasのピクセル位置ではありません"]);
+  assertLabels("snake-grow",["長さ4","食べ物","しっぽを残す"]);
+  assertLabels("memory-pair",["AとA","AとB","一致","不一致","1秒待って2枚を閉じる"]);
+  assertLabels("memory-wait",["3枚目","1000ミリ秒","1秒","選べない"]);
+  assertLabels("memory-position",["横410","縦245","番号6","幅100・高さ110","すき間"]);
+  assertLabels("shop-money",["所持金100・在庫0","所持金40・在庫3","所持金110・在庫1"]);
+  assertLabels("shop-product",["仕入れ20","売値35","在庫3個","オブジェクト"]);
+  assert.match(words(figure("examples/memory/tutorial.html","memory-pair")),/ステップ3では固定.*ステップ4では毎回混ぜます/);
+});
+
+test("上級4教材の図はクラス・値・手順の具体例と合う", () => {
+  assertLabels("escape-classes",["RoomObject","横60・縦105","横300・縦130","unlocked","ventOpen"]);
+  assertLabels("escape-flow",["241","ドライバー","換気口","鍵"]);
+  assertLabels("escape-items",["間違えても消えない","鍵"]);
+  assertLabels("tower-route",["横100・縦300","横300・縦300","横300・縦100"]);
+  assertLabels("tower-range",["距離120","範囲内","距離121","範囲外"]);
+  assertLabels("tower-money",["60 → 40 → 20 → 0","1基20","所持金0"]);
+  assertLabels("card-effect",["前18","後12","行動力","攻撃6","最大30"]);
+  assertLabels("card-turn",["行動力2","手札3枚","攻撃6","倒れた敵は行動しません"]);
+  assertLabels("card-piles",["合計9枚","残り2枚も捨てた後","山札3・手札3・捨て札3"]);
+  assertLabels("race-direction",["横142・縦110","横140・縦112","横138・縦110","Math.PI"]);
+  assertLabels("race-checkpoints",["横660・縦110","横660・縦350","横140・縦350","横140・縦110","2周"]);
+  assertLabels("race-classes",["Checkpoint","Car","横140・縦110","nextCheckpoint = 0","laps = 0"]);
+  const card=read("examples/card-battle/complete/script.js"),tower=read("examples/tower-defense/complete/script.js"),race=read("examples/racing/complete/script.js");
+  assert.match(card,/while \(hand\.length > 0\) discard\.push\(hand\.pop\(\)\)/);
+  assert.match(tower,/distance <= 120/);assert.match(race,/Math\.hypot\(x - this\.x, y - this\.y\) <= 45/);
 });

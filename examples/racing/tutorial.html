@@ -1,0 +1,1470 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>周回タイムアタックの作り方</title><link rel="stylesheet" href="../guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>周回タイムアタック</h1><p class="tag">上級者向け</p><p>矢印キーで車を運転し、順番に4地点を通って2周します。記録は完走までの時間です。Rで再挑戦します。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。元のひな型は残してください。</p><p>各ステップでは作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存後、作業用の <code>index.html</code> を開くか再読み込みします。</p><p><code>document.querySelector("#game-canvas")</code> はHTMLのCanvasを選び、<code>getContext("2d")</code> で絵を描く道具を取り出します。<code>start()</code> は最初の設定、<code>update()</code> は更新、<code>draw()</code> は描画です。<code>gameLoop()</code> は <code>requestAnimationFrame</code> で更新と描画を繰り返します。</p></section><section><h2>ステップ 1：コースと車をクラスで描く</h2><h3>目標</h3><p>上から見たコースと車を表示します。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 46 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Course {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  contains(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return outer &amp;&amp; !inside;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#71888c&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(90, 60, 620, 340);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#d1e6bd&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(190, 160, 420, 140);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Car {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.angle = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.speed = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.save();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.translate(this.x, this.y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.rotate(this.angle);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#305f9a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(-12, -8, 24, 16);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#f7e7a3&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(3, -6, 6, 12);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.restore();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  course = new Course();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  car = new Car(140, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // この段階ではまだ車を動かしません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  course.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  car.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Course {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  contains(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return outer &amp;&amp; !inside;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#71888c&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(90, 60, 620, 340);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#d1e6bd&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(190, 160, 420, 140);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Car {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.angle = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.speed = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.save();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.translate(this.x, this.y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.rotate(this.angle);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#305f9a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(-12, -8, 24, 16);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#f7e7a3&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(3, -6, 6, 12);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.restore();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+}
+
+let course, car;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  course = new Course();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  car = new Car(140, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  // ここに初期設定を書く
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  // この段階ではまだ車を動かしません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // ここにキャラクターの移動や当たり判定などを書く
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  // この段階ではまだ車を動かしません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  course.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  car.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ここに ctx.fillRect() などを使った描画を書く
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+</code></pre><h3>コードの意味</h3><p><code>class Course</code> は道路の設計図、<code>class Car</code> は車の設計図です。<code>new Course()</code> と <code>new Car(140, 110)</code> でそれぞれの実体を作り、<code>course.draw()</code> と <code>car.draw()</code> を呼びます。</p><p><code>Car</code> の <code>constructor</code> はこの車自身の <code>this.x</code>、<code>this.y</code>、向き <code>this.angle</code>、速さ <code>this.speed</code> を保存します。別の車を <code>new Car(...)</code> で作れば、座標と速さは別々です。</p><p><code>translate</code> と <code>rotate</code> は描画の原点と向きを一時的に変えます。<code>save()</code> と <code>restore()</code> で、車を描いた後に元の描画設定へ戻します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+}
+
+let course, car;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  course = new Course();
+  car = new Car(140, 110);
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  // この段階ではまだ車を動かしません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>道路と、左上に右向きの車が見えます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>車の色を変えてみます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 2：加速して向きに進む</h2><h3>目標</h3><p>矢印キーで加速、減速、ハンドルを操作します。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 34 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else this.speed *= 0.98;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (Math.abs(this.speed) &gt; 0.01) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (keys.ArrowLeft) this.angle -= 0.06;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (keys.ArrowRight) this.angle += 0.06;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const nextX = this.x + Math.cos(this.angle) * this.speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const nextY = this.y + Math.sin(this.angle) * this.speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = nextX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = nextY;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let course, car;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car, keys;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  course = new Course();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car = new Car(140, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  keys = {};</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // この段階ではまだ車を動かしません。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  car.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    keys[event.key] = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    keys[event.key] = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else this.speed *= 0.98;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (Math.abs(this.speed) &gt; 0.01) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (keys.ArrowLeft) this.angle -= 0.06;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (keys.ArrowRight) this.angle += 0.06;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const nextX = this.x + Math.cos(this.angle) * this.speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const nextY = this.y + Math.sin(this.angle) * this.speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = nextX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = nextY;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let course, car;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car, keys;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+}
+
+let course, car;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    this.x = nextX;
+    this.y = nextY;
+  }
+
+}
+
+let course, car, keys;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  course = new Course();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car = new Car(140, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  keys = {};</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // この段階ではまだ車を動かしません。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  car.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  // この段階ではまだ車を動かしません。
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  car.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    keys[event.key] = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    keys[event.key] = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p>上キーは速さに0.1を足し、<code>Math.min(3, ...)</code> で最高3にします。下キーは0.1ずつ減らし、最低-1まで後退します。加減速キーを離すと速さを0.98倍にして徐々に減らします。</p><p>左右キーは <code>angle</code> を0.06ずつ変えます。角度はラジアンで、0は右、<code>Math.PI / 2</code> は下、<code>Math.PI</code> は左です。Canvasは右へxが増え、下へyが増えます。</p><p><code>Math.cos(angle) * speed</code> をxに、<code>Math.sin(angle) * speed</code> をyに足します。中心(140,110)、速さ2の例では、向き0なら(142,110)、<code>Math.PI / 2</code> なら(140,112)、<code>Math.PI</code> なら(138,110)です。実際の計算には小さな端数が出ることがあります。</p><figure class="learning-diagram" id="race-direction" aria-labelledby="race-direction-title"><figcaption id="race-direction-title">図：車の向きで、横と縦の増え方が変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="車の向きで、横と縦の増え方が変わる。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/race-direction.svg" width="1200" height="815" alt="中心140・110から距離2進むと、右は142・110、下は140・112、左は138・110です。"></div><p>車の中心が横140・縦110にあり、この1回に進む距離が2だとします。右向きの0度なら横142・縦110、下向きの90度なら横140・縦112へ進みます。左向きの180度なら横138・縦110です。画面では、下へ進むほど縦の数が増えます。</p><p>この距離2は1回の更新の例です。実際の <code>speed</code> は矢印キーによって変わります。</p></figure><p>キーを押した間は <code>keydown</code> で <code>keys</code> に <code>true</code>、離したら <code>keyup</code> で <code>false</code> を入れます。<code>update()</code> の1回ごとに速さと位置を更新します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    this.x = nextX;
+    this.y = nextY;
+  }
+
+}
+
+let course, car, keys;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  car.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>上で加速し、左右で曲がります。キーを離すと少しずつ減速します。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>最高速度3を2に変え、曲がりやすさを比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 3：道路の外へ出ない</h2><h3>目標</h3><p>車の中心が道路の外へ出る動きを止めます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const nextX = this.x + Math.cos(this.angle) * this.speed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const nextY = this.y + Math.sin(this.angle) * this.speed;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.x = nextX;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.y = nextY;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (course.contains(nextX, nextY)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x = nextX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y = nextY;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.speed = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const nextX = this.x + Math.cos(this.angle) * this.speed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const nextY = this.y + Math.sin(this.angle) * this.speed;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.x = nextX;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.y = nextY;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (course.contains(nextX, nextY)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x = nextX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.y = nextY;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.speed = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    this.x = nextX;
+    this.y = nextY;
+  }
+
+}
+
+let course, car, keys;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+let course, car, keys;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h3>コードの意味</h3><p><code>Course.contains(x, y)</code> は外側の長方形の中で、内側の長方形の外かを返します。<code>outer &amp;&amp; !inside</code> は、両方の条件を満たす車の中心を道路上とみなします。</p><p>まず <code>nextX</code> と <code>nextY</code> を計算し、道路なら車の座標を更新します。道路でなければ位置を直前の道路上に残し、速さを0にします。ハンドルを切って道路内へ進めば再び走れます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+let course, car, keys;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  car.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>道路の端に進もうとすると、車は直前の位置に残り速さが0になります。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><h3>小さな練習</h3><p>道路幅を変えて、走りやすさを確かめます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 4：4地点を順に通る</h2><h3>目標</h3><p>右上、右下、左下、左上を順に通り、1周を数えます。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 38 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let course, car, keys;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Checkpoint {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  contains(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return Math.hypot(x - this.x, y - this.y) &lt;= 45;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw(number, active) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.lineWidth = active ? 4 : 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(String(number), this.x - 5, this.y + 6);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car, keys, checkpoints, nextCheckpoint, laps;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car = new Car(140, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  keys = {};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    new Checkpoint(140, 350), new Checkpoint(140, 110)];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  nextCheckpoint = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  laps = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    nextCheckpoint++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (nextCheckpoint === checkpoints.length) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      laps++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      nextCheckpoint = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  course.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; checkpoints.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    checkpoints[i].draw(i + 1, i === nextCheckpoint);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let course, car, keys;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Checkpoint {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  contains(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return Math.hypot(x - this.x, y - this.y) &lt;= 45;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw(number, active) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.lineWidth = active ? 4 : 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(String(number), this.x - 5, this.y + 6);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car, keys, checkpoints, nextCheckpoint, laps;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+let course, car, keys;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+class Checkpoint {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  contains(x, y) {
+    return Math.hypot(x - this.x, y - this.y) &lt;= 45;
+  }
+
+  draw(number, active) {
+    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;
+    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;
+    ctx.lineWidth = active ? 4 : 2;
+    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(String(number), this.x - 5, this.y + 6);
+  }
+}
+
+let course, car, keys, checkpoints, nextCheckpoint, laps;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car = new Car(140, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  keys = {};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    new Checkpoint(140, 350), new Checkpoint(140, 110)];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  nextCheckpoint = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  laps = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),
+    new Checkpoint(140, 350), new Checkpoint(140, 110)];
+  nextCheckpoint = 0;
+  laps = 0;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car.update();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    nextCheckpoint++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (nextCheckpoint === checkpoints.length) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      laps++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      nextCheckpoint = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  car.update();
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  car.update();
+  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {
+    nextCheckpoint++;
+    if (nextCheckpoint === checkpoints.length) {
+      laps++;
+      nextCheckpoint = 0;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  course.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; checkpoints.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    checkpoints[i].draw(i + 1, i === nextCheckpoint);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;矢印キーで走る車を作ります&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  for (let i = 0; i &lt; checkpoints.length; i++) {
+    checkpoints[i].draw(i + 1, i === nextCheckpoint);
+  }
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p>各通過点の <code>draw(number, active)</code> に番号と、次に通る点かを渡します。<code>i + 1</code> は画面の番号1〜4、<code>i === nextCheckpoint</code> は次の点だけ <code>true</code> になり、その印を黄色で強調します。</p><p><code>class Checkpoint</code> の実体はそれぞれ自分の中心を持ちます。<code>contains</code> は車の中心から45ピクセル以内かを <code>Math.hypot()</code> で調べます。</p><figure class="learning-diagram" id="race-classes" aria-labelledby="race-classes-title"><figcaption id="race-classes-title">図：車と通過点は、それぞれの設計図からつくる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="車と通過点は、それぞれの設計図からつくる。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/race-classes.svg" width="1200" height="1155" alt="Carの車1台とCheckpointの4つの実体を作り、次の点と周回数を別に記録します。"></div><p>車はCarという設計図からつくり、自分の位置・向き・速さを持ちます。4つの通過点は、同じCheckpointという設計図からつくった別々の実体で、それぞれの中心の位置を持ちます。次に通る点はnextCheckpoint、何周したかはlapsという別の変数で記録します。最初は次の点の番号が0、周回数も0です。</p><p><code>new Checkpoint(...)</code> で作る4点は、同じクラスから生まれた別々の実体です。車とは別に <code>nextCheckpoint</code> と <code>laps</code> で進行を記録します。</p></figure><p>次に通るべき地点は <code>nextCheckpoint</code> です。(660,110)→(660,350)→(140,350)→(140,110)の順に通ると番号が進み、最後の地点で <code>laps</code> を1増やして次を0に戻します。順番より先の地点は数えません。</p><figure class="learning-diagram" id="race-checkpoints" aria-labelledby="race-checkpoints-title"><figcaption id="race-checkpoints-title">図：チェックポイントを順番に通って、1周する</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="チェックポイントを順番に通って、1周する。図を横にスクロールできます"><img src="../../tutorial/illustrations/astra/race-checkpoints.svg" width="1200" height="895" alt="右上、右下、左下、左上の順に通って1周し、2周で終了します。"></div><p>最初は右上の横660・縦110を目指します。そこから右下、左下、左上の順にチェックポイントを通ると1周です。途中の点を飛ばし、ゴールの近くを往復するだけでは周回は増えません。このゲームは2周すると終了します。</p><p><code>nextCheckpoint</code> の地点から車の中心まで45ピクセル以内になると、その地点を通過したと数えます。</p></figure><p>最初にいる左上の地点は4番目です。ゴール付近を往復しても最初に必要な右上を通らなければ、1周は増えません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+class Checkpoint {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  contains(x, y) {
+    return Math.hypot(x - this.x, y - this.y) &lt;= 45;
+  }
+
+  draw(number, active) {
+    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;
+    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;
+    ctx.lineWidth = active ? 4 : 2;
+    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(String(number), this.x - 5, this.y + 6);
+  }
+}
+
+let course, car, keys, checkpoints, nextCheckpoint, laps;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),
+    new Checkpoint(140, 350), new Checkpoint(140, 110)];
+  nextCheckpoint = 0;
+  laps = 0;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  car.update();
+  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {
+    nextCheckpoint++;
+    if (nextCheckpoint === checkpoints.length) {
+      laps++;
+      nextCheckpoint = 0;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  for (let i = 0; i &lt; checkpoints.length; i++) {
+    checkpoints[i].draw(i + 1, i === nextCheckpoint);
+  }
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>右上から順に4地点を通ると周回が1増えます。ゴール近くを往復するだけでは増えません。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><h3>小さな練習</h3><p>地点の判定半径45を変えて通りやすさを比べます。 練習後はこのステップのコードに戻してください。</p></section><section><h2>ステップ 5：2周の時間を記録する</h2><h3>目標</h3><p>2周した時刻を記録し、Rで再挑戦できるようにします。</p><h3>この段階で変えるところ</h3><p>比較を開くと、変更する行とそのままの行を確認できます。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let course, car, keys, checkpoints, nextCheckpoint, laps;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car, keys, checkpoints, nextCheckpoint, laps, state, startTime, elapsed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  nextCheckpoint = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  laps = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  startTime = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  elapsed = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  elapsed = performance.now() - startTime;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (laps &gt;= 2) state = &quot;clear&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;時間 &quot; + (elapsed / 1000).toFixed(1) + &quot; 秒&quot;, 205, 240);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;clear&quot;) ctx.fillText(&quot;2周完走！ R でもう一度&quot;, 205, 275);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else ctx.fillText(&quot;↑加速 ↓減速・後退 ←→ハンドル&quot;, 205, 275);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {</span></div></div></details><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の変更前の範囲を探し、コピー用のコード全体に置き換えます。空行も含めて示しています。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let course, car, keys, checkpoints, nextCheckpoint, laps;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let course, car, keys, checkpoints, nextCheckpoint, laps, state, startTime, elapsed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+class Checkpoint {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  contains(x, y) {
+    return Math.hypot(x - this.x, y - this.y) &lt;= 45;
+  }
+
+  draw(number, active) {
+    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;
+    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;
+    ctx.lineWidth = active ? 4 : 2;
+    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(String(number), this.x - 5, this.y + 6);
+  }
+}
+
+let course, car, keys, checkpoints, nextCheckpoint, laps;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+class Checkpoint {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  contains(x, y) {
+    return Math.hypot(x - this.x, y - this.y) &lt;= 45;
+  }
+
+  draw(number, active) {
+    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;
+    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;
+    ctx.lineWidth = active ? 4 : 2;
+    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(String(number), this.x - 5, this.y + 6);
+  }
+}
+
+let course, car, keys, checkpoints, nextCheckpoint, laps, state, startTime, elapsed;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  nextCheckpoint = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  laps = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  startTime = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  elapsed = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),
+    new Checkpoint(140, 350), new Checkpoint(140, 110)];
+  nextCheckpoint = 0;
+  laps = 0;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),
+    new Checkpoint(140, 350), new Checkpoint(140, 110)];
+  nextCheckpoint = 0;
+  laps = 0;
+  state = &quot;playing&quot;;
+  startTime = performance.now();
+  elapsed = 0;
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  elapsed = performance.now() - startTime;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  car.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (laps &gt;= 2) state = &quot;clear&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  car.update();
+  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {
+    nextCheckpoint++;
+    if (nextCheckpoint === checkpoints.length) {
+      laps++;
+      nextCheckpoint = 0;
+    }
+  }
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  if (state !== &quot;playing&quot;) return;
+  elapsed = performance.now() - startTime;
+  car.update();
+  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {
+    nextCheckpoint++;
+    if (nextCheckpoint === checkpoints.length) {
+      laps++;
+      nextCheckpoint = 0;
+    }
+  }
+  if (laps &gt;= 2) state = &quot;clear&quot;;
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><h4>draw() から共通処理の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;時間 &quot; + (elapsed / 1000).toFixed(1) + &quot; 秒&quot;, 205, 240);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;clear&quot;) ctx.fillText(&quot;2周完走！ R でもう一度&quot;, 205, 275);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else ctx.fillText(&quot;↑加速 ↓減速・後退 ←→ハンドル&quot;, 205, 275);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  for (let i = 0; i &lt; checkpoints.length; i++) {
+    checkpoints[i].draw(i + 1, i === nextCheckpoint);
+  }
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  for (let i = 0; i &lt; checkpoints.length; i++) {
+    checkpoints[i].draw(i + 1, i === nextCheckpoint);
+  }
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);
+  ctx.fillText(&quot;時間 &quot; + (elapsed / 1000).toFixed(1) + &quot; 秒&quot;, 205, 240);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;2周完走！ R でもう一度&quot;, 205, 275);
+  else ctx.fillText(&quot;↑加速 ↓減速・後退 ←→ハンドル&quot;, 205, 275);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+</code></pre><h3>コードの意味</h3><p><code>performance.now()</code> はミリ秒の時刻です。<code>startTime</code> からの差 <code>elapsed</code> を毎更新計算し、1000で割って秒に直します。<code>toFixed(1)</code> は表示を小数1桁にします。</p><p>車の移動量は <code>requestAnimationFrame</code> の更新1回ごとに計算します。更新間隔は環境により変わりますが、時計は経過した実時間をミリ秒で測ります。</p><p>2周で <code>state = &quot;clear&quot;</code>。それ以降の <code>update()</code> は最初に <code>return</code> し、完走時の時間を保持します。Rの <code>start()</code> は車、キー、周回、次の地点、開始時刻、経過時間を作り直します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Course {
+  contains(x, y) {
+    const outer = x &gt;= 90 &amp;&amp; x &lt;= 710 &amp;&amp; y &gt;= 60 &amp;&amp; y &lt;= 400;
+    const inside = x &gt; 190 &amp;&amp; x &lt; 610 &amp;&amp; y &gt; 160 &amp;&amp; y &lt; 300;
+    return outer &amp;&amp; !inside;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#71888c&quot;;
+    ctx.fillRect(90, 60, 620, 340);
+    ctx.fillStyle = &quot;#d1e6bd&quot;;
+    ctx.fillRect(190, 160, 420, 140);
+  }
+}
+
+class Car {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.angle = 0;
+    this.speed = 0;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = &quot;#305f9a&quot;;
+    ctx.fillRect(-12, -8, 24, 16);
+    ctx.fillStyle = &quot;#f7e7a3&quot;;
+    ctx.fillRect(3, -6, 6, 12);
+    ctx.restore();
+  }
+
+  update() {
+    if (keys.ArrowUp) this.speed = Math.min(3, this.speed + 0.1);
+    else if (keys.ArrowDown) this.speed = Math.max(-1, this.speed - 0.1);
+    else this.speed *= 0.98;
+    if (Math.abs(this.speed) &gt; 0.01) {
+      if (keys.ArrowLeft) this.angle -= 0.06;
+      if (keys.ArrowRight) this.angle += 0.06;
+    }
+    const nextX = this.x + Math.cos(this.angle) * this.speed;
+    const nextY = this.y + Math.sin(this.angle) * this.speed;
+    if (course.contains(nextX, nextY)) {
+      this.x = nextX;
+      this.y = nextY;
+    } else {
+      this.speed = 0;
+    }
+  }
+
+}
+
+class Checkpoint {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  contains(x, y) {
+    return Math.hypot(x - this.x, y - this.y) &lt;= 45;
+  }
+
+  draw(number, active) {
+    ctx.fillStyle = active ? &quot;#f8dc8b&quot; : &quot;#e6ebee&quot;;
+    ctx.fillRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.strokeStyle = active ? &quot;#b64a27&quot; : &quot;#52666b&quot;;
+    ctx.lineWidth = active ? 4 : 2;
+    ctx.strokeRect(this.x - 13, this.y - 13, 26, 26);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(String(number), this.x - 5, this.y + 6);
+  }
+}
+
+let course, car, keys, checkpoints, nextCheckpoint, laps, state, startTime, elapsed;
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+function start() {
+  course = new Course();
+  car = new Car(140, 110);
+  keys = {};
+  checkpoints = [new Checkpoint(660, 110), new Checkpoint(660, 350),
+    new Checkpoint(140, 350), new Checkpoint(140, 110)];
+  nextCheckpoint = 0;
+  laps = 0;
+  state = &quot;playing&quot;;
+  startTime = performance.now();
+  elapsed = 0;
+}
+
+// 毎フレーム呼ばれます。
+function update() {
+  if (state !== &quot;playing&quot;) return;
+  elapsed = performance.now() - startTime;
+  car.update();
+  if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {
+    nextCheckpoint++;
+    if (nextCheckpoint === checkpoints.length) {
+      laps++;
+      nextCheckpoint = 0;
+    }
+  }
+  if (laps &gt;= 2) state = &quot;clear&quot;;
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  course.draw();
+  for (let i = 0; i &lt; checkpoints.length; i++) {
+    checkpoints[i].draw(i + 1, i === nextCheckpoint);
+  }
+  car.draw();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;周回 &quot; + laps + &quot;  次の地点 &quot; + (nextCheckpoint + 1) + &quot; / 4（番号順）&quot;, 205, 205);
+  ctx.fillText(&quot;時間 &quot; + (elapsed / 1000).toFixed(1) + &quot; 秒&quot;, 205, 240);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;2周完走！ R でもう一度&quot;, 205, 275);
+  else ctx.fillText(&quot;↑加速 ↓減速・後退 ←→ハンドル&quot;, 205, 275);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = true;
+    event.preventDefault();
+  }
+});
+
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot; ||
+      event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) {
+    keys[event.key] = false;
+    event.preventDefault();
+  }
+});
+
+// 以下は start → update → draw を動かすための共通処理です。
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>実際に道路を2周すると時間が止まり、Rで時間、車、周回と次の地点が戻ります。 <a href="step5/index.html">ステップ 5 の見本を開く</a></p><h3>小さな練習</h3><p>完走後に少し待っても記録が変わらないことを確かめます。 練習後はこのステップのコードに戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../index.html">一覧へ戻る</a></p></main></body></html>
