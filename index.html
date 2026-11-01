@@ -3,44 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ゲーム制作スターター</title>
+    <title>JavaScript ゲーム制作ひな型</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <main class="app">
-      <header class="page-header">
-        <p class="eyebrow">HTML + CSS + JavaScript</p>
-        <h1>ゲーム制作スターター</h1>
-        <p>まずは動かして、少しずつ自分のゲームに変えていこう。</p>
-      </header>
-
-      <section class="status" aria-label="ゲームの状況">
-        <p>スコア <output id="score" aria-live="polite">0</output></p>
-        <p>残り時間 <output id="time" aria-live="polite">20</output> 秒</p>
-      </section>
-
-      <section id="start-screen" class="screen" aria-labelledby="start-title">
-        <h2 id="start-title">サンプルゲーム：ターゲットをつかまえよう</h2>
-        <p>制限時間内に、丸いターゲットをできるだけたくさん押そう。</p>
-        <button id="start-button" class="primary-button" type="button">ゲーム開始</button>
-      </section>
-
-      <section id="play-screen" class="screen" aria-labelledby="play-title" hidden>
-        <h2 id="play-title">ゲーム中</h2>
-        <p>マウス、タッチ、キーボードでターゲットを押せます。</p>
-        <div id="game-area" class="game-area">
-          <button id="target-button" class="target" type="button" aria-label="ターゲットを押す"></button>
-        </div>
-      </section>
-
-      <section id="result-screen" class="screen" aria-labelledby="result-title" hidden>
-        <h2 id="result-title">ゲーム終了！</h2>
-        <p>今回のスコアは <strong id="final-score">0</strong> 点です。</p>
-        <button id="restart-button" class="primary-button" type="button">もう一度遊ぶ</button>
-      </section>
-
-      <footer class="page-footer">好きな文字・色・ルールに変えて、オリジナルの作品を作ろう。</footer>
+    <main>
+      <canvas id="game-canvas" width="800" height="450" aria-label="ゲーム画面">
+        このブラウザは Canvas に対応していません。
+      </canvas>
     </main>
   </body>
 </html>
