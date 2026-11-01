@@ -41,7 +41,15 @@ test("ローカルのリンクと参照ファイルが存在する", () => {
       if (entry.isDirectory()) visit(file);
       else if (entry.name.endsWith(".html")) {
         const html = fs.readFileSync(file, "utf8").replace(/<pre>[\s\S]*?<\/pre>/g, "");
-        for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) assert.ok(fs.existsSync(path.resolve(path.dirname(file), match[1])), file + " -> " + match[1]);
+        for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+          const [relative, fragment] = decode(match[1]).split("#");
+          const target = relative ? path.resolve(path.dirname(file), decodeURIComponent(relative)) : file;
+          assert.ok(fs.existsSync(target), file + " -> " + match[1]);
+          if (fragment) {
+            const linked = fs.readFileSync(target, "utf8").replace(/<pre>[\s\S]*?<\/pre>/g, "");
+            assert.ok(linked.includes(`id="${decodeURIComponent(fragment)}"`), file + " -> " + match[1]);
+          }
+        }
       }
     }
   }
