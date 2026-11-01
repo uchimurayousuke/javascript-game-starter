@@ -12,7 +12,6 @@ function start() {
 }
 
 function update() {
-
 }
 
 function draw() {
@@ -41,5 +40,6 @@ function gameLoop() {
   draw();
   requestAnimationFrame(gameLoop);
 }
+
 start();
 gameLoop();

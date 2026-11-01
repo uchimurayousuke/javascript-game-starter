@@ -24,7 +24,6 @@ function start() {
 }
 
 function update() {
-
 }
 
 function draw() {

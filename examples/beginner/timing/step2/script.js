@@ -5,13 +5,11 @@ const ctx = canvas.getContext("2d");
 
 let markerX, speed;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   markerX = 80;
   speed = 4;
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   markerX += speed;
   if (markerX >= 720 || markerX <= 80) {
@@ -19,7 +17,6 @@ function update() {
   }
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#d9e8f9";
@@ -33,7 +30,6 @@ function draw() {
   ctx.fillText("青い線が左右に動きます", 220, 120);
 }
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

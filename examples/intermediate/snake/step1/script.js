@@ -6,17 +6,13 @@ const ctx = canvas.getContext("2d");
 const cell = 30, boardX = 80, boardY = 70;
 let snake;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   snake = [{x: 4, y: 4}, {x: 3, y: 4}, {x: 2, y: 4}];
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // この段階ではまだ動かしません。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.strokeStyle = "#c6d2df";
@@ -40,7 +36,6 @@ function draw() {
   ctx.fillText("緑のマスがヘビ", 430, 150);
 }
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

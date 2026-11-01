@@ -59,19 +59,16 @@ class Car {
 
 let course, car, keys;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   course = new Course();
   car = new Car(140, 110);
   keys = {};
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   car.update();
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   course.draw();
@@ -98,7 +95,6 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

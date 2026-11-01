@@ -212,8 +212,6 @@ test("敵と同時に触れたフレームでは中間通過やクリアにし�
   }
 });
 
-// 操作で進むテストでは位置やゲームの状態を代入しない。
-// 状態を読み、通常のキーイベントとゲームループだけでゴールを目指す。
 function playToGoal(stage, failAfterCheckpoint = false) {
   const g = setup(stage);
   let rightHeld = false;

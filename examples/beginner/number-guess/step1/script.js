@@ -5,17 +5,13 @@ const ctx = canvas.getContext("2d");
 
 let inputText;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   inputText = "";
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // 入力は keydown で受け取ります。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#26334a";
@@ -36,7 +32,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

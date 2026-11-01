@@ -107,7 +107,6 @@ const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
 
 let enemies, towers, money, bullets;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   enemies = [new Enemy()];
   towers = [];
@@ -115,7 +114,6 @@ function start() {
   bullets = [];
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   for (const enemy of enemies) enemy.update();
   for (const tower of towers) tower.update();
@@ -123,7 +121,6 @@ function update() {
   bullets = bullets.filter(bullet => bullet.active);
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#d9c8a4";
@@ -170,7 +167,6 @@ canvas.addEventListener("click", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

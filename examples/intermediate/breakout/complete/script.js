@@ -75,5 +75,6 @@ function gameLoop() {
   draw();
   requestAnimationFrame(gameLoop);
 }
+
 start();
 gameLoop();

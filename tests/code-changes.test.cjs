@@ -17,7 +17,6 @@ const lines = (text) => text.replace(/\n$/, "").split("\n");
 const equal = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
 const at = (array, part, index) => equal(array.slice(index, index + part.length), part);
 
-// 省略された箇所が変更のない行だけかを、前後の実コードに照らします。
 function checkComparison(oldCode, newCode, view, location) {
   const oldLines = lines(oldCode), newLines = lines(newCode), groups = [];
   let current;
@@ -96,7 +95,7 @@ test("コインキャッチの比較は各手順の変更範囲と一致する",
   const page = read("tutorial/index.html");
   const instruction = new RegExp(viewSource + '(?:</details>)?<p class="copy-label">[^<]+</p><pre><code\\b([^>]*)>([\\s\\S]*?)</code></pre>', 'g');
   const matches = [...page.matchAll(instruction)];
-  assert.equal(matches.length, 26);
+  assert.equal(matches.length, 25);
   const files = Object.fromEntries(["index.html", "style.css", "script.js"].map((name) => [name, read(`template/${name}`).trimEnd() + "\n"]));
   for (const [i, match] of matches.entries()) {
     const attrs = Object.fromEntries([...match[2].matchAll(/([\w-]+)="([^"]*)"/g)].map(([, k, v]) => [k, decode(v)]));

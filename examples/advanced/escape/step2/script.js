@@ -28,7 +28,6 @@ class RoomObject {
 
 let objects, message, view, digits, unlocked;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   objects = [
     new RoomObject(60, 105, 160, 180, "本棚"),
@@ -42,12 +41,9 @@ function start() {
   unlocked = false;
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // 状態はクリックで更新します。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#24354a";
@@ -142,7 +138,6 @@ window.addEventListener("keydown", (event) => {
   if (!event.repeat && event.key.toLowerCase() === "r") start();
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

@@ -6,7 +6,6 @@ const ctx = canvas.getContext("2d");
 const words = ["a", "cat", "dog", "sun", "fish"];
 let wordIndex, position, state, score, mistakes, wordErrors, wordStarted, endTime, seconds;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   wordIndex = 0;
   position = 0;
@@ -19,7 +18,6 @@ function start() {
   seconds = 30;
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   if (state === "playing") {
     seconds = Math.max(0, Math.ceil((endTime - performance.now()) / 1000));
@@ -27,7 +25,6 @@ function update() {
   }
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#26334a";
@@ -84,7 +81,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

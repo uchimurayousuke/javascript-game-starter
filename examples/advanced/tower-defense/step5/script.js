@@ -107,7 +107,6 @@ const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},
 
 let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   enemies = [];
   towers = [];
@@ -120,7 +119,6 @@ function start() {
   state = "playing";
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   if (state !== "playing") return;
   if (spawned < 3) {
@@ -154,7 +152,6 @@ function update() {
   }
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#d9c8a4";
@@ -208,7 +205,6 @@ window.addEventListener("keydown", (event) => {
   if (!event.repeat && event.key.toLowerCase() === "r") start();
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

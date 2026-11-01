@@ -32,19 +32,15 @@ class Character {
 
 let player, enemy, hand;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   player = new Character("自分", 30);
   enemy = new Character("敵", 24);
   hand = [new Card("attack", "攻撃", 6), new Card("defend", "防御", 4), new Card("heal", "回復", 5)];
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // 手番はクリックで進めます。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#26334a";
@@ -54,7 +50,6 @@ function draw() {
   for (let i = 0; i < hand.length; i++) hand[i].draw(80 + i * 180, 230);
 }
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

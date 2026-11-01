@@ -6,7 +6,6 @@ const ctx = canvas.getContext("2d");
 const cell = 30, boardX = 80, boardY = 70;
 let snake, direction, nextDirection, lastMove;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   snake = [{x: 4, y: 4}, {x: 3, y: 4}, {x: 2, y: 4}];
   direction = {x: 1, y: 0};
@@ -14,7 +13,6 @@ function start() {
   lastMove = performance.now();
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   if (performance.now() - lastMove < 200) return;
   lastMove = performance.now();
@@ -28,7 +26,6 @@ function update() {
   snake.pop();
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.strokeStyle = "#c6d2df";
@@ -62,7 +59,6 @@ window.addEventListener("keydown", (event) => {
   if (event.key.startsWith("Arrow")) event.preventDefault();
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

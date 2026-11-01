@@ -43,17 +43,14 @@ class Enemy {
 
 let enemies;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   enemies = [new Enemy()];
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   for (const enemy of enemies) enemy.update();
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#d9c8a4";
@@ -70,7 +67,6 @@ function draw() {
   ctx.fillText("敵が道の点を順に進みます", 100, 45);
 }
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

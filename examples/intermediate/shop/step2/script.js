@@ -5,7 +5,6 @@ const ctx = canvas.getContext("2d");
 
 let products, money, selected, message;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   products = [
     {name: "パン", cost: 20, price: 35, stock: 0, soldToday: 0},
@@ -17,12 +16,9 @@ function start() {
   message = "1〜3で商品を選び、Bで仕入れ";
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // キー入力は keydown で受け取ります。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#26334a";
@@ -53,7 +49,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

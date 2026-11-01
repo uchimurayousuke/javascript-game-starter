@@ -40,8 +40,6 @@ function codeBlocks(html) {
 }
 
 function functionSource(source, name) {
-  // The lessons explicitly replace from a function declaration through its
-  // unindented closing brace. Nested blocks in the examples are indented.
   const pattern = new RegExp("^function " + name + "\\([^\\n]*\\) \\{\\n[\\s\\S]*?^\\}", "gm");
   const matches = Array.from(source.matchAll(pattern));
   assert.equal(matches.length, 1, "function must exist once: " + name);

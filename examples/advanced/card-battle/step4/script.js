@@ -42,7 +42,6 @@ class Character {
 
 let player, enemy, hand, deck, discard, action, state, message;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   player = new Character("自分", 30);
   enemy = new Character("敵", 24);
@@ -61,12 +60,9 @@ function start() {
   message = "カードをクリックして使おう";
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // 手番はクリックで進めます。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#26334a";
@@ -152,7 +148,6 @@ window.addEventListener("keydown", (event) => {
   if (!event.repeat && event.key.toLowerCase() === "r") start();
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

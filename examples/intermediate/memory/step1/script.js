@@ -5,7 +5,6 @@ const ctx = canvas.getContext("2d");
 
 let cards;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   cards = [
     {letter: "A", open: false, matched: false}, {letter: "B", open: false, matched: false},
@@ -15,12 +14,9 @@ function start() {
   ];
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // この段階ではまだカードをめくりません。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < cards.length; i++) {
@@ -38,7 +34,6 @@ function draw() {
   ctx.fillText("8枚のカードを並べます", 270, 390);
 }
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

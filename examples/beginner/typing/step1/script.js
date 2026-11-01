@@ -5,17 +5,13 @@ const ctx = canvas.getContext("2d");
 
 let word;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   word = "a";
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // この段階ではまだ入力を調べません。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#26334a";
@@ -25,7 +21,6 @@ function draw() {
   ctx.fillText(word, 375, 250);
 }
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

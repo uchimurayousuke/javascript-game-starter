@@ -179,17 +179,13 @@ class Game {
 
 let game;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   game = new Game();
 }
 
-// 毎フレーム呼ばれます。
 function update() {
-  // 部屋の状態はクリックで更新します。
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   game.draw();
@@ -212,7 +208,6 @@ window.addEventListener("keydown", (event) => {
   if (!event.repeat && event.key.toLowerCase() === "r") start();
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

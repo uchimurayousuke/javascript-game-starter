@@ -13,7 +13,6 @@
   <text class="title" x="48" y="64">どこに描く？ どれくらいの大きさ？</text>
   <text x="48" y="106">丸は「中心」、四角は「左上」を目印にしよう。</text>
 
-  <!-- The game area is exactly 800 by 450 drawing units. -->
   <rect x="200" y="200" width="800" height="450" fill="#f0f7fc" stroke="#a9bdce" stroke-width="2"/>
   <path class="line" d="M200 181H1000" marker-end="url(#arrow)"/>
   <text x="550" y="160" text-anchor="middle">右へ進むと「横」が増える →</text>

@@ -81,7 +81,6 @@ class Checkpoint {
 
 let course, car, keys, checkpoints, nextCheckpoint, laps;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   course = new Course();
   car = new Car(140, 110);
@@ -92,7 +91,6 @@ function start() {
   laps = 0;
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   car.update();
   if (checkpoints[nextCheckpoint].contains(car.x, car.y)) {
@@ -104,7 +102,6 @@ function update() {
   }
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   course.draw();
@@ -134,7 +131,6 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

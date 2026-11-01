@@ -5,7 +5,6 @@ const ctx = canvas.getContext("2d");
 
 let cards, selected, firstIndex, secondIndex, closeAt, pairs, state;
 
-// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   cards = [
     {letter: "A", open: false, matched: false}, {letter: "B", open: false, matched: false},
@@ -21,7 +20,6 @@ function start() {
   state = "playing";
 }
 
-// 毎フレーム呼ばれます。
 function update() {
   if (closeAt !== 0 && performance.now() >= closeAt) {
     cards[firstIndex].open = false;
@@ -32,7 +30,6 @@ function update() {
   }
 }
 
-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < cards.length; i++) {
@@ -99,7 +96,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();
