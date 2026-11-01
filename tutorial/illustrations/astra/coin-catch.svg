@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc" lang="ja">
+  <title id="title">同じ高さならキャッチ。1足りないと、まだ届かない</title>
+  <desc id="desc">左右ともコインは横400、半径14。受け皿は左上が横345・縦385、幅110・高さ18。左はコインの中心が縦371で下端は371足す14で385。受け皿の上端385と等しくキャッチできます。右は中心が縦370で下端は384。上端385まで1足りず届きません。形とすき間を見やすくした模式図です。破線は判定に使うコインを囲む四角。どちらも他の3つの重なり条件は満たしており、境界が等しい場合も当たりに含みます。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#34495e"/></marker>
+    <style>
+      text{font-family:'Yu Gothic','Meiryo',sans-serif;font-size:25px;font-weight:600;fill:#20364b}.title{font-size:39px;font-weight:800}.heading{font-size:31px;font-weight:800}.small{font-size:21px}.result{font-size:34px;font-weight:800}.line{fill:none;stroke:#34495e;stroke-width:2.5}.box{fill:none;stroke:#805c25;stroke-width:3;stroke-dasharray:9 6}
+    </style>
+  </defs>
+  <rect width="1400" height="1000" rx="24" fill="#fffdf8"/>
+  <text x="48" y="64" class="title">コインの「下」が、受け皿の「上」に届いた？</text>
+  <text x="48" y="108">縦の数は、下へ行くほど大きくなる。ぴったり同じ高さでもキャッチ！</text>
+  <rect x="40" y="144" width="644" height="610" rx="20" fill="#f0f8f4" stroke="#bad9c8" stroke-width="2"/>
+  <rect x="716" y="144" width="644" height="610" rx="20" fill="#fff4ec" stroke="#e8ccb4" stroke-width="2"/>
+
+  <text x="72" y="192" class="heading">中心が「縦371」のとき</text>
+  <circle cx="260" cy="355" r="110" fill="#ffe29a" stroke="#936315" stroke-width="3"/>
+  <rect x="150" y="245" width="220" height="220" class="box"/>
+  <text x="260" y="289" text-anchor="middle">コイン</text>
+  <text x="260" y="324" text-anchor="middle">横400</text>
+  <circle cx="260" cy="355" r="5" fill="#20364b"/>
+  <path class="line" d="M270 355H390"/>
+  <text x="406" y="364">中心 縦371</text>
+  <path class="line" d="M260 364V457" marker-end="url(#arrow)"/>
+  <text x="277" y="410" class="small">半径14</text>
+  <rect x="100" y="465" width="440" height="78" fill="#d6e9ff" stroke="#28629e" stroke-width="3"/>
+  <text x="320" y="513" text-anchor="middle">受け皿　上は385</text>
+  <path d="M150 465H540" stroke="#18734f" stroke-width="5"/>
+  <path class="line" d="M372 465 398 430H410"/>
+  <text x="420" y="437" fill="#18734f">下は385</text>
+  <text x="320" y="588" text-anchor="middle">371 ＋ 14 ＝ 385</text>
+  <text x="362" y="643" text-anchor="middle" class="result">同じ高さ → キャッチ！</text>
+  <text x="362" y="697" text-anchor="middle">385 ≥ 385 は ○（等しくてもOK）</text>
+
+  <text x="748" y="192" class="heading">中心を「縦370」に変えると</text>
+  <circle cx="936" cy="335" r="110" fill="#ffe29a" stroke="#936315" stroke-width="3"/>
+  <rect x="826" y="225" width="220" height="220" class="box"/>
+  <text x="936" y="269" text-anchor="middle">コイン</text>
+  <text x="936" y="304" text-anchor="middle">横400</text>
+  <circle cx="936" cy="335" r="5" fill="#20364b"/>
+  <path class="line" d="M946 335H1066"/>
+  <text x="1082" y="344">中心 縦370</text>
+  <path class="line" d="M936 344V437" marker-end="url(#arrow)"/>
+  <text x="953" y="390" class="small">半径14</text>
+  <rect x="776" y="465" width="440" height="78" fill="#d6e9ff" stroke="#28629e" stroke-width="3"/>
+  <text x="996" y="513" text-anchor="middle">受け皿　上は385</text>
+  <path d="M826 445H1046" stroke="#a64e16" stroke-width="4"/>
+  <path class="line" d="M1046 445 1074 411H1086"/>
+  <text x="1096" y="418">下は384</text>
+  <path d="M817 445H799 M808 445V465 M799 465H817" fill="none" stroke="#a64e16" stroke-width="3"/>
+  <path class="line" d="M808 455H758V398"/>
+  <text x="756" y="379" class="small">差は1</text>
+  <text x="996" y="588" text-anchor="middle">370 ＋ 14 ＝ 384</text>
+  <text x="1038" y="643" text-anchor="middle" class="result">あと1足りない → 届かない</text>
+  <text x="1038" y="697" text-anchor="middle">384 ≥ 385 は ×（まだ手前）</text>
+
+  <text x="48" y="801" class="small">模式図：形を拡大し、右の「1のすき間」は見やすい大きさに強調しています。</text>
+  <path d="M48 835H1352" stroke="#d6dee6" stroke-width="2"/>
+  <rect x="52" y="859" width="34" height="34" class="box"/>
+  <text x="104" y="886">破線の四角と、受け皿の四角で重なりを調べます。</text>
+  <text x="48" y="929" class="small">この2例は、ほかの3条件もOK：コインの上は受け皿の下より上、左右も重なっています。</text>
+  <text x="48" y="970" class="small">共通の受け皿：左上は横345・縦385 ／ 幅110・高さ18 ／ 右は455・下は403</text>
+</svg>

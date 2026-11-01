@@ -6,37 +6,37 @@
   background: #f7faff;
   color: #172b45;
 }
-.learning-diagram figcaption { font-size: 1.05rem; font-weight: 700; }
-.learning-diagram p { margin: 0.65rem 0; }
-.diagram-visual { position: relative; width: 100%; max-width: 28rem; margin: 0.75rem auto; }
-.learning-diagram svg { display: block; width: 100%; height: auto; }
-.diagram-marker, .diagram-angle {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: grid;
-  place-items: center;
-  color: #172b45;
-  font: 700 0.875rem/1 system-ui, sans-serif;
-  white-space: nowrap;
-}
-.diagram-marker { width: 1.25rem; height: 1.25rem; border: 1px solid #172b45; border-radius: 50%; background: #fff; }
-.diagram-angle { padding: 0.1rem; background: #f7faff; }
+.learning-diagram figcaption { font-size: 1.1rem; font-weight: 700; }
+.learning-diagram p { margin: 0.7rem 0; line-height: 1.7; }
 .learning-diagram code { overflow-wrap: anywhere; white-space: normal; }
-.diagram-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 0.6rem; }
-.diagram-card { min-width: 0; padding: 0.65rem; border: 2px solid #7b91aa; border-radius: 6px; background: #fff; overflow-wrap: anywhere; }
-.diagram-card strong { display: block; }
-.diagram-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
-.diagram-flow .diagram-card { flex: 1 1 11rem; }
-.diagram-arrow { font-size: 1.4rem; font-weight: bold; }
-.diagram-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; }
-.diagram-grid span { padding: 0.4rem; border: 2px solid #945223; background: #fff2e4; text-align: center; overflow-wrap: anywhere; }
-.diagram-branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 0.6rem; }
-.diagram-branch-arm { min-width: 0; padding: 0.5rem; border: 1px dashed #596f88; border-radius: 6px; }
-.diagram-branch-arm > strong { display: block; }
-.diagram-note { font-size: 0.95rem; }
-@media (max-width: 480px) {
+.diagram-scroll {
+  width: min(100%, 1200px);
+  max-width: 100%;
+  margin: 0.8rem 0;
+  overflow-x: auto;
+  border: 1px solid #b9c8d8;
+  border-radius: 8px;
+  background: #fff;
+  overscroll-behavior-inline: contain;
+}
+.diagram-scroll:focus-visible { outline: 3px solid #275a89; outline-offset: 2px; }
+.diagram-scroll::before {
+  content: "図が見切れるときは横に動かせます →";
+  position: sticky;
+  left: 0;
+  display: block;
+  width: max-content;
+  padding: 0.35rem 0.65rem;
+  color: #294867;
+  font-size: 0.875rem;
+}
+.diagram-scroll img {
+  display: block;
+  width: clamp(960px, 100%, 1200px);
+  max-width: none;
+  height: auto;
+}
+@media (max-width: 560px) {
   .learning-diagram { margin-left: 0; margin-right: 0; padding: 0.75rem; }
-  .diagram-flow { flex-direction: column; align-items: stretch; }
-  .diagram-flow .diagram-card { flex-basis: auto; }
-  .diagram-arrow { transform: rotate(90deg); align-self: center; }
+  .diagram-scroll { scrollbar-color: #536c86 #edf4fd; }
 }

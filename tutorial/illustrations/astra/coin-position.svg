@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1180" viewBox="0 0 1200 1180" role="img" aria-labelledby="title desc" lang="ja">
+  <title id="title">コインは中心、受け皿は左上で位置を決める</title>
+  <desc id="desc">横800・縦450の画面。左上は横0・縦0で、右へ横、下へ縦の数が増えます。コインは中心が横400・縦80、半径14。受け皿は左上が横345・縦385、幅110・高さ18。上の全体図は実際の比率、下はコイン10倍、受け皿4倍の拡大図です。拡大図に書いた数はゲーム内の実際の値です。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#334b63"/></marker>
+    <style>
+      text{font-family:'Yu Gothic','Meiryo',sans-serif;fill:#20364b;font-size:24px;font-weight:600}
+      .title{font-size:38px;font-weight:800}.heading{font-size:29px;font-weight:800}.small{font-size:20px}.big{font-size:30px;font-weight:800}
+      .guide{fill:none;stroke:#7b8da0;stroke-width:2;stroke-dasharray:7 6}.line{fill:none;stroke:#334b63;stroke-width:2.5}.dimension{fill:none;stroke:#334b63;stroke-width:2.5;marker-start:url(#arrow);marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="1180" rx="24" fill="#fffdf8"/>
+  <text class="title" x="48" y="64">どこに描く？ どれくらいの大きさ？</text>
+  <text x="48" y="106">丸は「中心」、四角は「左上」を目印にしよう。</text>
+
+  <!-- The game area is exactly 800 by 450 drawing units. -->
+  <rect x="200" y="200" width="800" height="450" fill="#f0f7fc" stroke="#a9bdce" stroke-width="2"/>
+  <path class="line" d="M200 181H1000" marker-end="url(#arrow)"/>
+  <text x="550" y="160" text-anchor="middle">右へ進むと「横」が増える →</text>
+  <path class="line" d="M176 200V650" marker-end="url(#arrow)"/>
+  <text x="34" y="390">下へ進むと</text><text x="34" y="424">「縦」が</text><text x="34" y="458">増える ↓</text>
+  <text x="48" y="164" class="small">左上がスタート</text>
+  <text x="48" y="194" class="small">横0・縦0</text>
+  <circle cx="200" cy="200" r="5" fill="#20364b"/>
+  <text x="1008" y="208">横800</text><text x="80" y="658">縦450</text>
+  <path class="guide" d="M600 200V280H200 M545 200V585H200"/>
+  <text x="600" y="234" text-anchor="middle">横400</text>
+  <text x="214" y="270">縦80</text>
+  <circle cx="600" cy="280" r="14" fill="#ffd568" stroke="#936315" stroke-width="2"/>
+  <circle cx="600" cy="280" r="3" fill="#20364b"/>
+  <path class="line" d="M620 280H670"/>
+  <text x="686" y="282" class="heading">コイン</text>
+  <text x="686" y="318">中心：横400・縦80</text>
+  <text x="686" y="352" class="small">中心からふちまで14</text>
+  <text x="532" y="446" text-anchor="end">横345</text>
+  <text x="214" y="576">縦385</text>
+  <rect x="545" y="585" width="110" height="18" fill="#3474b9"/>
+  <circle cx="545" cy="585" r="5" fill="#20364b"/>
+  <path class="line" d="M655 594H680"/>
+  <text x="696" y="566" class="heading">受け皿</text>
+  <text x="696" y="600">左上：横345・縦385</text>
+  <text x="600" y="689" text-anchor="middle" class="small">画面全体：横800 × 縦450（実際の比率）</text>
+
+  <path d="M48 724H1152" stroke="#d6dee6" stroke-width="2"/>
+  <text x="48" y="768" class="heading">小さい形を、大きく見てみよう</text>
+  <text x="48" y="803" class="small">絵だけ拡大。書いてある数字は、ゲームで使う本当の値です。</text>
+  <text x="285" y="853" text-anchor="middle" class="heading">コイン（10倍）</text>
+  <circle cx="285" cy="1010" r="140" fill="#ffe29a" stroke="#936315" stroke-width="3"/>
+  <text x="285" y="920" text-anchor="middle">コインの中心</text>
+  <text x="285" y="958" text-anchor="middle" class="big">横400</text>
+  <text x="285" y="993" text-anchor="middle" class="big">縦80</text>
+  <circle cx="285" cy="1010" r="6" fill="#20364b"/>
+  <path class="line" d="M293 1010H420" marker-end="url(#arrow)"/>
+  <text x="350" y="1048" text-anchor="middle">半径14</text>
+  <text x="285" y="1100" text-anchor="middle" class="small">中心 → ふち</text>
+
+  <text x="845" y="853" text-anchor="middle" class="heading">受け皿（4倍）</text>
+  <text x="650" y="900">左上：横345・縦385</text>
+  <path class="line" d="M650 912H620V946" marker-end="url(#arrow)"/>
+  <rect x="620" y="950" width="440" height="72" fill="#d6e9ff" stroke="#28629e" stroke-width="3"/>
+  <circle cx="620" cy="950" r="6" fill="#20364b"/>
+  <text x="840" y="995" text-anchor="middle" class="big">受け皿　幅110</text>
+  <path class="dimension" d="M1086 952V1020"/>
+  <path class="line" d="M1068 950H1097 M1068 1022H1097"/>
+  <text x="1086" y="1060" text-anchor="middle">高さ18</text>
+  <path class="dimension" d="M622 1052H1058"/>
+  <text x="840" y="1088" text-anchor="middle">横の長さ＝幅110</text>
+  <text x="840" y="1140" text-anchor="middle" class="small">左上から、右と下へ広がる四角</text>
+</svg>

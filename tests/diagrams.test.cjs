@@ -5,197 +5,210 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const root = path.resolve(__dirname, "..");
-const read = (p) => fs.readFileSync(path.join(root, p), "utf8").replace(/\r\n/g, "\n");
+const read = p => fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 const pages = {
-  "tutorial/index.html": ["coin-coordinates", "coin-arc", "coin-hit"],
-  "examples/target/tutorial.html": ["target-coordinate", "target-distance"],
-  "examples/bounce/tutorial.html": ["bounce-wall", "bounce-paddle"],
-  "examples/breakout/tutorial.html": ["brick-grid", "brick-hit"],
-  "examples/shooting/tutorial.html": ["shoot-motion", "shoot-hit"],
-  "examples/platformer/tutorial.html": ["platformer-gravity", "platformer-collision", "platformer-camera", "platformer-instances"],
-  "examples/platformer/extensions/tutorial.html": ["extension-stomp", "extension-dash", "extension-retry"]
+  "tutorial/index.html": {"coin-coordinates":"coin-position", "coin-arc":"coin-arc", "coin-hit":"coin-catch"},
+  "examples/target/tutorial.html": {"target-coordinate":"target-coordinate", "target-distance":"target-distance"},
+  "examples/bounce/tutorial.html": {"bounce-wall":"bounce-wall", "bounce-paddle":"bounce-paddle"},
+  "examples/breakout/tutorial.html": {"brick-grid":"brick-grid", "brick-hit":"brick-hit"},
+  "examples/shooting/tutorial.html": {"shoot-motion":"shoot-motion", "shoot-hit":"shoot-hit"},
+  "examples/platformer/tutorial.html": {"platformer-gravity":"platformer-gravity", "platformer-collision":"platformer-collision", "platformer-camera":"platformer-camera", "platformer-instances":"platformer-instances"},
+  "examples/platformer/extensions/tutorial.html": {"extension-stomp":"extension-stomp", "extension-dash":"extension-dash", "extension-retry":"extension-retry"}
 };
-const figure = (file, id) => {
-  const matches = [...read(file).matchAll(new RegExp('<figure class="learning-diagram" id="' + id + '"[^>]*>([\\s\\S]*?)</figure>', 'g'))];
-  assert.equal(matches.length, 1, `${file}: ${id}`);
-  return matches[0][1];
+const illustration = name => read(`tutorial/illustrations/astra/${name}.svg`);
+const figure = (file,id) => {
+  const found=[...read(file).matchAll(new RegExp(`<figure class="learning-diagram" id="${id}"[^>]*>([\\s\\S]*?)</figure>`,"g"))];
+  assert.equal(found.length,1,`${file}: ${id}`); return found[0][1];
 };
-const words = (html) => html.replace(/<[^>]+>/g, " ").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/\s+/g, " ");
+const words = html => html.replace(/<[^>]+>/g," ").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&amp;/g,"&").replace(/\s+/g," ");
+const normalized = s => s.normalize("NFKC").replace(/−/g,"-").replace(/\s+/g,"");
+const labels = svg => normalized([...svg.matchAll(/<text\b[^>]*>([^<]+)<\/text>/g)].map(m=>m[1].replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&amp;/g,"&")).join(" "));
+const assertLabels = (name, values) => {
+  const text=labels(illustration(name));
+  for(const value of values) assert.ok(text.includes(normalized(value)),`${name}: ${value}`);
+};
+const attrs = (svg,id) => {
+  const all=[...svg.matchAll(/<(?:rect|circle|path)\b([^>]*)\/?\s*>/g)];
+  const tag=all.find(([,a])=>new RegExp(`(?:^|\\s)id="${id}"`).test(a));
+  assert.ok(tag,`図形 ${id}`);
+  return Object.fromEntries([...tag[1].matchAll(/(?:^|\s)(x|y|width|height|cx|cy|r)="([\d.]+)"/g)].map(([,k,v])=>[k,Number(v)]));
+};
+const shapes = (svg, tag) => [...svg.matchAll(new RegExp(`<${tag}\\b([^>]*)/?>`,"g"))].map(([,a])=>({x:0,y:0,...Object.fromEntries([...a.matchAll(/(?:^|\s)(x|y|width|height|cx|cy|r)="([\d.]+)"/g)].map(([,k,v])=>[k,Number(v)]))}));
+const near=(actual,expected) => assert.ok(Math.abs(actual-expected)<1e-8,`${actual} != ${expected}`);
 
-test("各教材の図には見出しと説明があり、SVG とスタイルがローカルで使える", () => {
-  for (const [file, ids] of Object.entries(pages)) {
-    const html = read(file);
-    const css = html.match(/<link rel="stylesheet" href="([^"]*diagrams\.css)">/);
-    assert.ok(css && fs.existsSync(path.resolve(root, path.dirname(file), css[1])), file);
-    assert.equal((html.match(/<figure class="learning-diagram"/g) || []).length, ids.length);
-    const seenIds = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
-    assert.equal(new Set(seenIds).size, seenIds.length, `${file}: id の重複`);
-    for (const id of ids) {
-      const content = figure(file, id);
-      assert.match(content, new RegExp(`<figcaption id="${id}-title">図：`));
-      assert.match(content, /<p>[^]*?<\/p>/);
-      assert.doesNotMatch(content, /<(?:script|canvas|iframe)\b/i);
-      const svgs = [...content.matchAll(/(<svg\b[^>]*role="img"[^>]*aria-labelledby="([^"]+) ([^"]+)"[^>]*>[\s\S]*?<\/svg>)/g)];
-      assert.equal(svgs.length, (content.match(/<svg\b/g) || []).length, `${id}: SVG の説明`);
-      for (const [, svg, titleId, descId] of svgs) {
-        assert.match(svg, new RegExp(`<title id="${titleId}">[^<]+</title>`));
-        assert.match(svg, new RegExp(`<desc id="${descId}">[^<]+</desc>`));
-        assert.match(svg, /viewBox="[\d. ]+"/);
-        assert.doesNotMatch(svg, /(?:href|src)="(?:https?:|\/\/)/i);
-      }
-    }
-  }
-  const css = read("tutorial/diagrams.css");
-  assert.match(css, /\.learning-diagram svg\s*\{[^}]*width:\s*100%[^}]*height:\s*auto/s);
-  assert.match(css, /\.diagram-card\s*\{[^}]*overflow-wrap:\s*anywhere/s);
-  assert.match(css, /@media\s*\(max-width:\s*480px\)/);
-  assert.match(css, /\.diagram-flow\s*\{\s*flex-direction:\s*column/s);
-  assert.match(css, /\.diagram-marker[^}]*font:\s*700\s+0\.875rem/s);
-  for (const [file, id] of [["examples/platformer/tutorial.html", "platformer-instances"], ["examples/platformer/extensions/tutorial.html", "extension-retry"]]) {
-    const diagram = figure(file, id);
-    assert.equal((diagram.match(/class="diagram-branch-arm"/g) || []).length, 2, id);
-    assert.doesNotMatch(diagram, /class="diagram-flow"/, `${id}: 分岐を直列で示さない`);
-  }
-});
-
-function setup(file, rect = { left: 0, top: 0, width: 800, height: 450 }) {
-  const handlers = {}, arcs = [];
-  const on = (type, fn) => (handlers[type] ??= []).push(fn);
-  const ctx = { clearRect(){}, fillRect(){}, fillText(){}, beginPath(){}, fill(){}, arc(...args){ arcs.push(args); } };
-  const canvas = {width:800, height:450, getContext:() => ctx, getBoundingClientRect:() => rect, addEventListener:on};
-  const context = vm.createContext({document:{querySelector:() => canvas, addEventListener:on}, window:{addEventListener:on}, performance:{now:() => 0}, requestAnimationFrame(){}});
-  vm.runInContext(read(file), context);
-  return {run:(s) => vm.runInContext(s, context), fire:(type, e={}) => (handlers[type] || []).forEach((f) => f({preventDefault(){}, repeat:false, ...e})), arcs};
+function setup(file, rect={left:0,top:0,width:800,height:450}) {
+  const handlers={}, arcs=[]; const on=(type,fn)=>(handlers[type]??=[]).push(fn);
+  const ctx={clearRect(){},fillRect(){},fillText(){},beginPath(){},fill(){},arc(...args){arcs.push(args);}};
+  const canvas={width:800,height:450,getContext:()=>ctx,getBoundingClientRect:()=>rect,addEventListener:on};
+  const context=vm.createContext({document:{querySelector:()=>canvas,addEventListener:on},window:{addEventListener:on},performance:{now:()=>0},requestAnimationFrame(){}});
+  vm.runInContext(read(file),context);
+  return {run:s=>vm.runInContext(s,context),fire:(type,e={})=>(handlers[type]||[]).forEach(f=>f({preventDefault(){},repeat:false,...e})),arcs};
 }
 
-test("コインの初期座標、arc と四角による接触例が実際のコードと合う", () => {
-  const g = setup("tutorial/05-game/script.js");
-  g.run("start()");
-  assert.equal(g.run("playerX"), 345); assert.equal(g.run("playerY"), 385);
-  assert.equal(g.run("playerWidth"), 110); assert.equal(g.run("playerHeight"), 18);
-  assert.equal(g.run("coinX"), 400); assert.equal(g.run("coinY"), 80); assert.equal(g.run("coinRadius"), 14);
-  g.run("draw()"); assert.deepEqual(g.arcs.at(-1), [400,80,14,0,Math.PI * 2]);
-  const svg = figure("tutorial/index.html", "coin-coordinates");
-  assert.match(svg, /circle cx="160" cy="32" r="5\.6"/);
-  assert.match(svg, /rect x="138" y="154" width="44" height="7\.2"/);
-  assert.equal(400 * 0.4, 160); assert.equal(80 * 0.4, 32); assert.ok(Math.abs(14 * 0.4 - 5.6) < 1e-10);
-  const arc = words(figure("tutorial/index.html", "coin-arc"));
-  assert.match(arc, /Math\.PI \/ 2/); assert.match(arc, /Math\.PI \* 2/); assert.match(arc, /下端/);
-  assert.ok(Math.abs(Math.cos(Math.PI / 2)) < 1e-12 && Math.sin(Math.PI / 2) === 1);
-  g.run("coinX=400; coinY=371"); assert.equal(g.run("coinTouchesPlayer()"), true);
-  g.run("coinY=370.9"); assert.equal(g.run("coinTouchesPlayer()"), false);
-  const hit = words(figure("tutorial/index.html", "coin-hit"));
-  for (const term of ["coinY + coinRadius >= playerY", "coinY - coinRadius <= playerY + playerHeight", "coinX + coinRadius >= playerX", "coinX - coinRadius <= playerX + playerWidth", "371 + 14 = 385"]) assert.ok(hit.includes(term), term);
-});
-
-test("クリック座標の変換と的の円周は実際のクリック処理で確かめる", () => {
-  const g = setup("examples/target/complete/script.js", {left:100, top:50, width:400, height:225});
-  const map = words(figure("examples/target/tutorial.html", "target-coordinate"));
-  for (const value of ["300 - 100 = 200", "200 × 800 / 400 = 400", "450 / 225 = 225"]) assert.ok(map.includes(value));
-  g.run("start()"); g.fire("click", {clientX:300, clientY:162.5}); assert.equal(g.run("score"), 1);
-  g.run("start()"); g.fire("click", {clientX:317.5, clientY:162.5}); assert.equal(g.run("score"), 1);
-  g.run("start()"); g.fire("click", {clientX:318, clientY:162.5}); assert.equal(g.run("score"), 0);
-  assert.match(words(figure("examples/target/tutorial.html", "target-distance")), /Math\.hypot\(35, 0\) = 35/);
-});
-
-test("反射とブロックの行列・当たりの数値例がゲームに合う", () => {
-  const b = setup("examples/bounce/complete/script.js");
-  b.run("start(); x=786; y=225; dx=4; dy=0; update()"); assert.equal(b.run("x"), 790); assert.equal(b.run("dx"), -4);
-  b.run("start(); x=400; y=396; dx=0; dy=4; update()"); assert.equal(b.run("y"), 400); assert.equal(b.run("dy"), -4); assert.equal(b.run("score"), 1);
-  const paddle = words(figure("examples/bounce/tutorial.html", "bounce-paddle"));
-  for (const term of ["dy > 0", "y + radius >= paddleY", "y - radius <= paddleY + 14", "x + radius >= paddleX", "x - radius <= paddleX + paddleWidth"]) assert.ok(paddle.includes(term), term);
-  const g = setup("examples/breakout/complete/script.js"); g.run("start()");
-  assert.equal(g.run("bricks[10].x"), 240); assert.equal(g.run("bricks[10].y"), 85);
-  g.run("x=241; y=95; dx=0; dy=0; update()"); assert.equal(g.run("bricks[10].alive"), false); assert.equal(g.run("score"), 1);
-  g.run("start(); bricks=[{x:240,y:85,alive:true}]; x=230; y=95; dx=0; dy=0; update()"); assert.equal(g.run("bricks[0].alive"), false);
-  assert.match(words(figure("examples/breakout/tutorial.html", "brick-grid")), /\(240, 85\)/);
-});
-
-test("シューティングの4条件と端だけの接触を実際の更新処理で確かめる", () => {
-  const g = setup("examples/shooting/complete/script.js");
-  const hit = words(figure("examples/shooting/tutorial.html", "shoot-hit"));
-  for (const term of ["bullet.x < enemy.x + 30", "bullet.x + 6 > enemy.x", "bullet.y < enemy.y + 30", "bullet.y + 12 > enemy.y", "!bullet.hit", "!enemy.hit"]) assert.ok(hit.includes(term), term);
-  g.run("start(); bullets=[{x:100,y:108}]; enemies=[{x:105,y:103}]; spawnTimer=30; update()");
-  assert.equal(g.run("score"), 1); assert.equal(g.run("enemies.length"), 0);
-  g.run("start(); bullets=[{x:99,y:108}]; enemies=[{x:105,y:103}]; spawnTimer=30; update()");
-  assert.equal(g.run("score"), 0); assert.equal(g.run("enemies.length"), 1);
-});
-
-test("図の図形の位置と大きさは、説明した数値例の関係を保つ", () => {
-  function shapes(file, id) {
-    return [...figure(file, id).matchAll(/<rect\b([^>]*)\/>/g)].map(([, attrs]) => Object.fromEntries([...attrs.matchAll(/(?:^|\s)(x|y|width|height)="([\d.]+)"/g)].map(([, key, value]) => [key, Number(value)])));
-  }
-  const [enemy, bullet] = shapes("examples/shooting/tutorial.html", "shoot-hit");
-  assert.equal(enemy.width / bullet.width, 30 / 6);
-  assert.equal(enemy.height / bullet.height, 30 / 12);
-  assert.equal((enemy.x - bullet.x) / bullet.width * 6, 105 - 100);
-  assert.equal((enemy.y - bullet.y) / bullet.height * 12, 105 - 100);
-  const [,, touchEnemy, touchBullet] = shapes("examples/shooting/tutorial.html", "shoot-hit");
-  assert.equal(touchBullet.x + touchBullet.width, touchEnemy.x, "端だけが接する例");
-  const [wall, player] = shapes("examples/platformer/tutorial.html", "platformer-collision");
-  assert.equal(wall.x - player.x, 300 - 270);
-  assert.equal(player.width, 30); assert.equal(player.height, 40);
-  assert.equal(player.y + player.height, 120);
-  const [target, before, after] = shapes("examples/platformer/extensions/tutorial.html", "extension-stomp");
-  const scale = before.height / 40;
-  assert.ok(Math.abs((target.y - (before.y + before.height)) / scale - (360 - 350)) < 1e-9);
-  assert.ok(Math.abs(((after.y + after.height) - target.y) / scale - (362 - 360)) < 1e-9);
-  const paddle = shapes("examples/bounce/tutorial.html", "bounce-paddle");
-  assert.equal(paddle[1].y + paddle[1].height, paddle[0].y, "ボールを囲む四角が板の上端に接する");
-  const [stage, viewport, stagePlayer, screen, screenPlayer] = shapes("examples/platformer/tutorial.html", "platformer-camera");
-  assert.ok(Math.abs((viewport.x - stage.x) / stage.width * 2400 - 500) < 1e-9);
-  assert.ok(Math.abs((stagePlayer.x - stage.x) / stage.width * 2400 - 885) < 1e-9);
-  assert.ok(Math.abs((screenPlayer.x - screen.x) / screen.width * 800 - 385) < 1e-9);
-  assert.ok(Math.abs(viewport.width / stage.width * 2400 - 800) < 1e-9);
-});
-
-test("小さい図でも番号が重ならず、arc の矢印は円周に沿って進む", () => {
-  for (const [file, ids] of Object.entries(pages)) for (const id of ids) {
-    const content = figure(file, id);
-    for (const [, graphic] of content.matchAll(/<div class="diagram-visual">([\s\S]*?)<\/div>/g)) {
-      const [, width, height] = graphic.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/).map(Number);
-      const smallWidth = 144, smallHeight = smallWidth * height / width;
-      const marks = [...graphic.matchAll(/class="diagram-marker"[^>]*left:clamp\(10px, ([\d.]+)%, calc\(100% - 10px\)\);top:clamp\(10px, ([\d.]+)%, calc\(100% - 10px\)\)[^>]*>(\d+)<\/span>/g)].map(([, x, y, label]) => ({x: Math.max(10, Math.min(smallWidth - 10, Number(x) * smallWidth / 100)), y: Math.max(10, Math.min(smallHeight - 10, Number(y) * smallHeight / 100)), label}));
-      for (let i = 0; i < marks.length; i++) for (let j = i + 1; j < marks.length; j++) {
-        assert.ok(Math.hypot(marks[i].x - marks[j].x, marks[i].y - marks[j].y) >= 20, `${id}: ${marks[i].label} と ${marks[j].label}`);
-      }
+test("全教材の図は説明と代替テキストを備え、ローカルの画像を参照する", () => {
+  const css=read("tutorial/diagrams.css");
+  assert.match(css,/\.diagram-scroll\s*\{[^}]*overflow-x:\s*auto/s);
+  const imageRule=css.match(/\.diagram-scroll img\s*\{([^}]*)\}/s); assert.ok(imageRule);
+  assert.match(imageRule[1],/max-width:\s*none/); assert.match(imageRule[1],/height:\s*auto/);
+  const clamp=imageRule[1].match(/width:\s*clamp\(\s*([\d.]+)px\s*,\s*100%\s*,\s*([\d.]+)px\s*\)/); assert.ok(clamp);
+  const minWidth=Number(clamp[1]), maxWidth=Number(clamp[2]);
+  const displayedWidth=container=>Math.min(maxWidth,Math.max(minWidth,container));
+  assert.ok(displayedWidth(360)>360,"狭い画面では小さく縮めずスクロール");
+  for(const container of [1000,1100]) assert.ok(displayedWidth(container)<=container,`${container}px の本文幅に収まる`);
+  assert.match(css,/\.diagram-scroll:focus-visible/); assert.match(css,/見切れるときは横に動かせます/);
+  for(const [file,ids] of Object.entries(pages)){
+    const page=read(file), cssLink=page.match(/<link rel="stylesheet" href="([^"]*diagrams\.css)">/);
+    assert.ok(cssLink && fs.existsSync(path.resolve(root,path.dirname(file),cssLink[1])),file);
+    assert.equal((page.match(/<figure class="learning-diagram"/g)||[]).length,Object.keys(ids).length);
+    const pageIds=[...page.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]); assert.equal(new Set(pageIds).size,pageIds.length);
+    for(const [id,asset] of Object.entries(ids)){
+      const content=figure(file,id), img=content.match(/<img\b[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*>/);
+      assert.match(content,new RegExp(`<figcaption id="${id}-title">図：`)); assert.match(content,/<p>[^]*?<\/p>/);
+      assert.match(content,/class="diagram-scroll" role="region" tabindex="0"/);
+      assert.doesNotMatch(content,/<(?:script|canvas|iframe|svg)\b/i); assert.ok(img && img[2].length>10,`${id}: alt`);
+      assert.equal(path.resolve(root,path.dirname(file),img[1]),path.resolve(root,`tutorial/illustrations/astra/${asset}.svg`));
+      const svg=illustration(asset); assert.match(svg,/<title\b[^>]*>[^<]+<\/title>/); assert.match(svg,/<desc\b[^>]*>[^<]+<\/desc>/);
+      assert.doesNotMatch(svg,/(?:href|src)="(?:https?:|\/\/)/i);
+      const vb=svg.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/); assert.ok(vb);
+      const sizes=[...svg.matchAll(/font-size(?:=":?|:\s*)(\d+)(?:px)?"?/g)].map(m=>Number(m[1]));
+      assert.ok(sizes.length>0,`${asset}: フォントサイズ`);
+      const primarySizes=sizes.filter(size=>size>=23); assert.ok(primarySizes.length>0,`${asset}: 主な文字`);
+      assert.ok(Math.min(...primarySizes)*minWidth/Number(vb[1])>=17,`${asset}: 主な文字の表示サイズ`);
+      assert.ok(Math.min(...sizes)*minWidth/Number(vb[1])>=14,`${asset}: 小さな注記の表示サイズ`);
     }
   }
-  const arc = figure("tutorial/index.html", "coin-arc");
-  const arrows = [...arc.matchAll(/M(\d+) (\d+) L(\d+) (\d+) L(\d+) (\d+)/g)].map((m) => m.slice(1).map(Number));
-  const bottom = arrows.find((a) => a[3] === 140), top = arrows.find((a) => a[3] === 30);
-  assert.ok(bottom && bottom[2] < bottom[0] && bottom[2] < bottom[4], "下端では左向き");
-  assert.ok(top && top[2] > top[0] && top[2] > top[4], "上端では右向き");
 });
 
-test("Player の重力、壁・床・天井、カメラと敵の独立性", () => {
-  const step = setup("examples/platformer/step3/script.js");
-  step.run("start(); player.onGround=true; jumpPressed=true; player.update(terrain)");
-  assert.equal(step.run("player.vy"), -10.5); assert.equal(step.run("player.y"), 339.5);
-  step.run("start(); player.x=268; player.onGround=true; right=true; player.update(terrain)"); assert.equal(step.run("player.x"), 270);
-  step.run("start(); player.x=500; player.y=300; player.vy=-6; player.update(terrain)"); assert.equal(step.run("player.y"), 295); assert.equal(step.run("player.vy"), 0);
-  step.run("start(); player.update(terrain)"); assert.equal(step.run("player.y"), 350); assert.equal(step.run("player.onGround"), true);
-  assert.equal(step.run("overlaps({x:0,y:0,width:10,height:10},{x:10,y:0,width:10,height:10})"), false);
-  const full = setup("examples/platformer/complete/script.js");
-  full.run("start(); player.x=885; update()"); assert.equal(full.run("cameraX"), 500); assert.equal(full.run("player.x-cameraX"), 385);
-  full.run("start(); update()"); assert.equal(full.run("cameraX"), 0);
-  full.run("start(); player.x=2370; update()"); assert.equal(full.run("cameraX"), 1600);
-  full.run("start(); enemies[0].update()"); assert.equal(full.run("enemies[0].x"), 901); assert.equal(full.run("enemies[1].x"), 1700);
-  assert.match(words(figure("examples/platformer/tutorial.html", "platformer-gravity")), /同じ更新で重力/);
+test("コインの位置と大きさ、接触の境界は実際のコードと一致する", () => {
+  const g=setup("tutorial/05-game/script.js"); g.run("start()");
+  for(const [name,value] of Object.entries({playerX:345,playerY:385,playerWidth:110,playerHeight:18,coinX:400,coinY:80,coinRadius:14})) assert.equal(g.run(name),value);
+  g.run("draw()"); assert.deepEqual(g.arcs.at(-1),[400,80,14,0,Math.PI*2]);
+  const svg=illustration("coin-position"), rects=shapes(svg,"rect"), circles=shapes(svg,"circle"), screen=rects.find(r=>r.width===800&&r.height===450);
+  assert.ok(screen); assert.ok(circles.some(c=>c.cx-screen.x===400&&c.cy-screen.y===80&&c.r===14));
+  assert.ok(rects.some(r=>r.x-screen.x===345&&r.y-screen.y===385&&r.width===110&&r.height===18));
+  assert.ok(circles.some(c=>c.r===140)); assert.ok(rects.some(r=>r.width===440&&r.height===72));
+  assertLabels("coin-position",["横0・縦0","横400","縦80","半径14","左上:横345・縦385","幅110","高さ18","コイン(10倍)","受け皿(4倍)"]);
+  assertLabels("coin-arc",["時計回り","π/2","180度=π","360度=2π"]);
+  const arc=illustration("coin-arc");
+  for(const [id,direction,circleId,edge] of [["half-bottom-left-arrow","left","半周-circle","bottom"],["half-left-up-arrow","up","半周-circle","left"],["full-bottom-left-arrow","left","1周-circle","bottom"],["full-top-right-arrow","right","1周-circle","top"],["full-right-down-arrow","down","1周-circle","right"]]){
+    const tag=[...arc.matchAll(/<path\b([^>]*)\/?\s*>/g)].find(([,a])=>a.includes(`id="${id}"`));assert.ok(tag,id);
+    const d=tag[1].match(/\bd="([^"]+)"/);assert.ok(d,id);
+    const points=[...d[1].matchAll(/[ML]\s*([\d.]+)\s+([\d.]+)/g)].map(m=>[Number(m[1]),Number(m[2])]);assert.equal(points.length,3,id);
+    const [[x,y],p,q]=points,circle=attrs(arc,circleId);
+    if(direction==="left") assert.ok(x<p[0]&&x<q[0],id);
+    if(direction==="right") assert.ok(x>p[0]&&x>q[0],id);
+    if(direction==="up") assert.ok(y<p[1]&&y<q[1],id);
+    if(direction==="down") assert.ok(y>p[1]&&y>q[1],id);
+    if(edge==="bottom") near(y,circle.cy+circle.r);
+    if(edge==="top") near(y,circle.cy-circle.r);
+    if(edge==="left") near(x,circle.cx-circle.r);
+    if(edge==="right") near(x,circle.cx+circle.r);
+  }
+  const hit=illustration("coin-catch"), cs=shapes(hit,"circle").filter(c=>c.r===110).sort((a,b)=>a.cx-b.cx), rs=shapes(hit,"rect"), boxes=rs.filter(r=>r.width===220&&r.height===220), boards=rs.filter(r=>r.width===440&&r.height===78);
+  assert.equal(cs.length,2); assert.equal(boxes.length,2); assert.equal(boards.length,2);
+  for(const [i,c] of cs.entries()){
+    const box=boxes.find(r=>r.x+r.width/2===c.cx&&r.y+r.height/2===c.cy), board=boards.find(r=>c.cx>=r.x&&c.cx<=r.x+r.width);
+    assert.ok(box&&board); assert.equal(box.y+box.height,c.cy+c.r);
+    if(i===0) assert.equal(box.y+box.height,board.y); else assert.ok(box.y+box.height<board.y);
+  }
+  assertLabels("coin-catch",["371+14=385","370+14=384","385≥385","384≥385","キャッチ!","届かない","1のすき間"]);
+  g.run("coinX=400; coinY=371"); assert.equal(g.run("coinTouchesPlayer()"),true);
+  g.run("coinY=370"); assert.equal(g.run("coinTouchesPlayer()"),false);
+  g.run("coinX=331; coinY=371"); assert.equal(g.run("coinTouchesPlayer()"),true);
+  g.run("coinX=330.9"); assert.equal(g.run("coinTouchesPlayer()"),false);
+  const text=words(figure("tutorial/index.html","coin-hit"));
+  for(const term of ["coinY + coinRadius >= playerY","coinY - coinRadius <= playerY + playerHeight","coinX + coinRadius >= playerX","coinX - coinRadius <= playerX + playerWidth","371 + 14 = 385"]) assert.ok(text.includes(term),term);
 });
 
-test("踏む例、Shift と中間からの再開を実際の処理で確かめる", () => {
-  const g = setup("examples/platformer/extensions/complete/script.js");
-  g.run("start(); player.x=900; player.y=310; player.vy=11.5; player.onGround=false; update()");
-  assert.equal(g.run("enemies[0].alive"), false); assert.equal(g.run("player.y"), 320); assert.equal(g.run("player.vy"), -8);
-  g.run("start(); player.x=900; player.y=340; player.vy=0; update()"); assert.equal(g.run("state"), "over");
-  g.run("start(); player.x=900; player.y=350; player.vy=-8; update()"); assert.equal(g.run("state"), "over");
-  g.run("start(); right=true; update()"); assert.equal(g.run("player.x"), 84);
-  g.run("start(); right=true; dashLeft=true; update()"); assert.equal(g.run("player.x"), 86);
-  g.run("start(); right=true; dashRight=true; update()"); assert.equal(g.run("player.x"), 86);
+test("的の座標変換と円周の当たりは図と実際の処理で合う", () => {
+  const svg=illustration("target-coordinate"), d=attrs(svg,"display"), dp=attrs(svg,"display-click"), inside=attrs(svg,"internal"), ip=attrs(svg,"internal-click");
+  assert.equal(inside.width/d.width,2); assert.equal((dp.cx-d.x)/d.width*400,200); assert.equal((ip.cx-inside.x)/inside.width*800,400);
+  assertLabels("target-coordinate",["表示の幅400","左から200","内部の幅800","横400・縦225"]);
+  const s=illustration("target-distance");
+  for(const [n,edge] of [[35,true],[36,false]]){const c=attrs(s,`center-${n}`),point=attrs(s,`click-${n}`),target=attrs(s,`target-${n}`); assert.equal(point.cx-c.cx===target.r,edge); if(!edge) assert.ok(point.cx-c.cx>target.r);}
+  assertLabels("target-distance",["距離35","距離36","35≤35","36≤35","1だけ外"]);
+  const g=setup("examples/target/complete/script.js",{left:100,top:50,width:400,height:225});
+  for(const [x,score] of [[300,1],[317.5,1],[318,0]]){g.run("start()");g.fire("click",{clientX:x,clientY:162.5});assert.equal(g.run("score"),score);}
+});
+
+test("壁・板の反射とブロックの配置・当たりは数値例と合う", () => {
+  const s=illustration("bounce-wall");
+  for(const [i,distance] of [[0,14],[1,10]]){const ball=attrs(s,`ball-${i}`),wall=attrs(s,`wall-${i}`); near((wall.x-ball.cx)/(ball.r/10),distance);}
+  assertLabels("bounce-wall",["横786","横790","壁800","半径10"]);
+  const p=illustration("bounce-paddle"),bounds=attrs(p,"ball-bounds"),board=attrs(p,"paddle");assert.equal(bounds.y+bounds.height,board.y);
+  assertLabels("bounce-paddle",["下向き","ボールの下410","板の上410","同じ高さでもOK"]);
+  const explanation=words(figure("examples/bounce/tutorial.html","bounce-paddle"));
+  for(const term of ["dy > 0","y + radius >= paddleY","y - radius <= paddleY + 14","x + radius >= paddleX","x - radius <= paddleX + paddleWidth"]) assert.ok(explanation.includes(term),term);
+  const bounce=setup("examples/bounce/complete/script.js");bounce.run("start(); x=786; y=225; dx=4; dy=0; update()");assert.equal(bounce.run("x"),790);assert.equal(bounce.run("dx"),-4);
+  bounce.run("start(); x=400; y=396; dx=0; dy=4; update()");assert.equal(bounce.run("dy"),-4);assert.equal(bounce.run("score"),1);
+  bounce.run("start(); x=400; y=404; dx=0; dy=-4; update()");assert.equal(bounce.run("score"),0);
+  const grid=illustration("brick-grid"),a=attrs(grid,"brick-r0-c0"),b=attrs(grid,"brick-r0-c1"),c=attrs(grid,"brick-r1-c0"),scale=a.width/70;
+  near((b.x-a.x)/scale,80);assert.ok((c.y-a.y)/scale>30, "行間は注記どおり拡大");
+  assertLabels("brick-grid",["行1・列2","横240・縦85","行間を広げています"]);
+  const hit=illustration("brick-hit"),brick=attrs(hit,"brick"),ball=attrs(hit,"ball"),box=attrs(hit,"ball-bounds"),k=brick.width/70;
+  near(k,7);near(brick.height/k,20);near(ball.r/k,10);near((ball.cx-brick.x)/k,1);near((ball.cy-brick.y)/k,10);near(box.y+box.height,brick.y+brick.height);
+  assertLabels("brick-hit",["右251≥ブロックの左240","左231≤右310","下105≥ブロックの上85","上85≤下105","7倍"]);
+  const g=setup("examples/breakout/complete/script.js");g.run("start()");assert.equal(g.run("bricks[10].x"),240);assert.equal(g.run("bricks[10].y"),85);
+  g.run("x=241; y=95; dx=0; dy=0; update()");assert.equal(g.run("bricks[10].alive"),false);assert.equal(g.run("score"),1);
+  g.run("start(); bricks=[{x:240,y:85,alive:true}]; x=230; y=95; dx=0; dy=0; update()");assert.equal(g.run("bricks[0].alive"),false);
+});
+
+test("弾と敵の移動、重なりと端だけの接触は図と処理が合う", () => {
+  const motion=illustration("shoot-motion"), b0=attrs(motion,"bullet-before"), b1=attrs(motion,"bullet-after"), e0=attrs(motion,"enemy-before"), e1=attrs(motion,"enemy-after");
+  assert.equal((b0.y-b1.y)/(e1.y-e0.y),8/2);
+  assertLabels("shoot-motion",["弾は上へ8","敵は下へ2","前:縦108","後:縦100","前:縦103","後:縦105"]);
+  const hit=illustration("shoot-hit");
+  for(const [x,overlap] of [[100,true],[99,false]]){
+    const bullet=attrs(hit,`bullet-${x}`), enemy=attrs(hit,`enemy-${x}`), scale=enemy.width/30;
+    near(scale,8);near(bullet.width/scale,6);near(bullet.height/scale,12);
+    near((enemy.x-bullet.x)/scale,105-x);near((enemy.y-bullet.y)/scale,5);
+    assert.equal(bullet.x+bullet.width>enemy.x,overlap);
+  }
+  assertLabels("shoot-hit",["弾の左100・上100","弾の右106","弾の左99・上100","弾の右105","106>105","105>105","8倍"]);
+  const text=words(figure("examples/shooting/tutorial.html","shoot-hit"));
+  for(const term of ["bullet.x < enemy.x + 30","bullet.x + 6 > enemy.x","bullet.y < enemy.y + 30","bullet.y + 12 > enemy.y","!bullet.hit","!enemy.hit"]) assert.ok(text.includes(term),term);
+  const g=setup("examples/shooting/complete/script.js");
+  for(const [x,score] of [[100,1],[99,0]]){g.run(`start(); bullets=[{x:${x},y:108}]; enemies=[{x:105,y:103}]; spawnTimer=30; update()`);assert.equal(g.run("score"),score);}
+});
+
+test("ジャンプ・地形との衝突・カメラと敵の位置は実際の処理と合う", () => {
+  const jump=setup("examples/platformer/step3/script.js");
+  jump.run("start(); player.onGround=true; jumpPressed=true; player.update(terrain)");assert.equal(jump.run("player.vy"),-10.5);assert.equal(jump.run("player.y"),339.5);
+  assertLabels("platformer-gravity",["-11","+0.5","-10.5","最初の移動","上へ10.5進む"]);
+  jump.run("start(); player.x=268; player.onGround=true; right=true; player.update(terrain)");assert.equal(jump.run("player.x"),270);
+  jump.run("start(); player.x=500; player.y=300; player.vy=-6; player.update(terrain)");assert.equal(jump.run("player.y"),295);assert.equal(jump.run("player.vy"),0);
+  jump.run("start(); player.update(terrain)");assert.equal(jump.run("player.y"),350);assert.equal(jump.run("player.onGround"),true);
+  assert.equal(jump.run("overlaps({x:0,y:0,width:10,height:10},{x:10,y:0,width:10,height:10})"),false);
+  const collision=illustration("platformer-collision"),wall=attrs(collision,"wall"),person=attrs(collision,"player-wall"),floor=attrs(collision,"floor"),standing=attrs(collision,"player-floor");
+  near(person.width/30,4);near(person.height/40,4);assert.equal(person.x+person.width,wall.x);assert.equal(standing.y+standing.height,floor.y);
+  assertLabels("platformer-collision",["300-30=270","390-40=350","端だけの接触を含みません","4倍"]);
+  const camera=illustration("platformer-camera"),world=attrs(camera,"world"),view=attrs(camera,"visible-range"),wp=attrs(camera,"world-player"),screen=attrs(camera,"screen"),sp=attrs(camera,"screen-player"),k=world.width/2400;
+  near((view.x-world.x)/k,500);near(view.width/k,800);near((wp.x-world.x)/k,885);near((sp.x-screen.x)/screen.width*800,385);
+  assertLabels("platformer-camera",["横500","横1300","左端885","左端は横385","885-500=385"]);
+  const g=setup("examples/platformer/complete/script.js");g.run("start(); player.x=885; update()");assert.equal(g.run("cameraX"),500);assert.equal(g.run("player.x-cameraX"),385);
+  g.run("start(); update()");assert.equal(g.run("cameraX"),0);g.run("start(); player.x=2370; update()");assert.equal(g.run("cameraX"),1600);
+  g.run("start(); enemies[0].update()");assert.equal(g.run("enemies[0].x"),901);assert.equal(g.run("enemies[1].x"),1700);
+  assertLabels("platformer-instances",["横900","横1700","850","990","1640","1780"]);
+});
+
+test("踏みつけ・ダッシュ・中間地点からの再開は図と処理が合う", () => {
+  const stomp=illustration("extension-stomp");
+  for(const [i,foot] of [[0,350],[1,362],[2,360]]){
+    const enemy=attrs(stomp,`enemy-${i}`),person=attrs(stomp,`player-${i}`),scale=person.height/40;
+    near(scale,4);near((person.y+person.height-enemy.y)/scale,foot-360);
+  }
+  assertLabels("extension-stomp",["足350","足362","足360","上360","上向き速度-8","横から触れる","上昇中","同じ高さでもOK"]);
+  const dash=illustration("extension-dash"),a=attrs(dash,"start-0"),b=attrs(dash,"end-0"),c=attrs(dash,"start-1"),d=attrs(dash,"end-1");
+  near((d.x-c.x)/(b.x-a.x),6/4);assertLabels("extension-dash",["速さ4","速さ6","両方でも速さ6"]);
+  assertLabels("extension-retry",["失敗している","中間地点を通過済み","中間から再開","最初から開始","横1200","縦350","左端815"]);
+  const g=setup("examples/platformer/extensions/complete/script.js");
+  g.run("start(); player.x=900; player.y=310; player.vy=11.5; player.onGround=false; update()");assert.equal(g.run("enemies[0].alive"),false);assert.equal(g.run("player.y"),320);assert.equal(g.run("player.vy"),-8);
+  g.run("start(); player.x=900; player.y=320; player.vy=0; player.onGround=false; update()");assert.equal(g.run("enemies[0].alive"),false);assert.equal(g.run("player.vy"),-8);
+  g.run("start(); player.x=900; player.y=340; player.vy=0; update()");assert.equal(g.run("state"),"over");
+  g.run("start(); player.x=900; player.y=350; player.vy=-8; update()");assert.equal(g.run("state"),"over");
+  g.run("start(); right=true; update()");assert.equal(g.run("player.x"),84);g.run("start(); right=true; dashLeft=true; update()");assert.equal(g.run("player.x"),86);
+  g.run("start(); right=true; dashRight=true; update()");assert.equal(g.run("player.x"),86);
   g.run("start(); checkpoint.active=true; coins[0].taken=true; score=1; enemies[0].stomp(); defeated=1; state='over'");
-  g.fire("keydown", {code:"KeyR"}); assert.equal(g.run("player.x"), 1200); assert.equal(g.run("score"), 1); assert.equal(g.run("defeated"), 1); assert.equal(g.run("enemies[0].alive"), false);
-  g.fire("keydown", {code:"KeyR", repeat:true}); assert.equal(g.run("player.x"), 1200);
-  g.fire("keydown", {code:"KeyR"}); assert.equal(g.run("player.x"), 80); assert.equal(g.run("score"), 0);
-  assert.match(words(figure("examples/platformer/extensions/tutorial.html", "extension-stomp")), /350 <= 360/);
+  g.fire("keydown",{code:"KeyR"});assert.equal(g.run("player.x"),1200);assert.equal(g.run("player.y"),350);assert.equal(g.run("cameraX"),815);assert.equal(g.run("score"),1);assert.equal(g.run("defeated"),1);assert.equal(g.run("enemies[0].alive"),false);
+  g.fire("keydown",{code:"KeyR",repeat:true});assert.equal(g.run("player.x"),1200);g.fire("keydown",{code:"KeyR"});assert.equal(g.run("player.x"),80);assert.equal(g.run("score"),0);
 });
