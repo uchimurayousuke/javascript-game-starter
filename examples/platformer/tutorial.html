@@ -1,0 +1,2201 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>横スクロールのジャンプアクションの作り方</title><link rel="stylesheet" href="../guide.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>横スクロールのジャンプアクション</h1><p class="tag">上級者向け</p><p>変数、関数、配列、if 文、for 文、キー入力と基本の当たり判定を知っている人向けです。これまでの知識を組み合わせ、クラス、重力、地形との衝突、長いステージとカメラを学びます。クラスはこの教材で初めて説明します。</p><p>左右の矢印キーで移動し、Space または上の矢印キーでジャンプします。コインを集め、赤い敵とすき間を避けて紫色のゴールへ進みます。失敗やクリアの後は R キーで再挑戦できます。キーボードを使えるパソコンで遊んでください。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
+<section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーします。3つのファイルを同じ場所に置いてください。</p><p>各段階では作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。ほかの2ファイルは変更しません。保存後に作業用の <code>index.html</code> をブラウザで開くか、すでに開いていれば再読み込みします。各段階の見本も別ページで開けます。</p><p><code>start()</code> は最初の設定、<code>update()</code> は動きと判定、<code>draw()</code> は描画を担当します。最後の <code>gameLoop()</code> が更新と描画を繰り返します。</p></section><section><h2>ステップ 1：プレイヤーと地面を描く</h2><p><strong>目標：</strong>Player クラスを使って青いプレイヤーと緑の地面を描きます。</p><h3>この段階で変えるところ</h3><p>比較の <code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の記号はコードに書きません。置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -4,21 +4,35 @@
+ const ctx = canvas.getContext(&quot;2d&quot;);
+ 
+-// ゲームを始めるときに、1回だけ呼ばれます。
+-function start() {
+-  // ここに初期設定を書く
++let player;
++
++class Player {
++  constructor() {
++    this.x = 80;
++    this.y = 350;
++    this.width = 30;
++    this.height = 40;
++  }
++
++  draw() {
++    ctx.fillStyle = &quot;#2765b0&quot;;
++    ctx.fillRect(this.x, this.y, this.width, this.height);
++  }
+ }
+ 
+-// 毎フレーム呼ばれます。
+-function update() {
+-  // ここにキャラクターの移動や当たり判定などを書く
++function start() {
++  player = new Player();
+ }
+ 
+-// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
++function update() {
++
++}
++
+ function draw() {
+   ctx.clearRect(0, 0, canvas.width, canvas.height);
+-  // ここに ctx.fillRect() などを使った描画を書く
++  ctx.fillStyle = &quot;#7cb97a&quot;;
++  ctx.fillRect(0, 390, 800, 60);
++  player.draw();
+ }
+ 
+-// 以下は start → update → draw を動かすための共通処理です。
+ function gameLoop() {
+   update();
+</code></pre><h3>コードの意味</h3><p><code>class Player</code> はプレイヤーのデータと動作の形を決めます。<code>start()</code> の <code>new Player()</code> は、その形から一人分の実体を作ります。この実体をインスタンスと呼び、変数 <code>player</code> に入れます。</p><p><code>constructor()</code> は <code>new</code> でインスタンスを作るときに呼ばれる初期設定です。<code>this</code> は今作っている、または動かしているインスタンスを指します。<code>this.x</code> や <code>this.width</code> はそのインスタンスが持つ値で、プロパティと呼びます。</p><p>クラス内の <code>draw()</code> はインスタンスの動作を表すメソッドです。外側の <code>draw()</code> が <code>player.draw()</code> を呼び、Player の <code>draw()</code> がそのプレイヤーの位置を使って描きます。</p><p>地面の上端は y=390、プレイヤーの上端は y=350、高さは 40 なので、足元が地面に接します。</p><h3>書く場所と置き換えるコード</h3><p>作業用の <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+// ゲームを始めるときに、1回だけ呼ばれます。
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let player;
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  // ここに初期設定を書く
+}
+
+// 毎フレーム呼ばれます。
+</code></pre><p>変更後：</p><pre><code>function start() {
+  player = new Player();
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  // ここにキャラクターの移動や当たり判定などを書く
+}
+
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
+</code></pre><p>変更後：</p><pre><code>function update() {
+
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ここに ctx.fillRect() などを使った描画を書く
+}
+
+// 以下は start → update → draw を動かすための共通処理です。
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  ctx.fillRect(0, 390, 800, 60);
+  player.draw();
+}
+
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let player;
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+function start() {
+  player = new Player();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  ctx.fillRect(0, 390, 800, 60);
+  player.draw();
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>青い四角が緑の地面の上に見えます。まだ動きません。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>Player の constructor の this.width を 40 に変え、見え方を比べます。 練習後はこの段階のコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 2：移動とジャンプ・重力</h2><p><strong>目標：</strong>Player に移動とジャンプのメソッドを加えます。</p><h3>この段階で変えるところ</h3><p>比較の <code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の記号はコードに書きません。置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -5,4 +5,5 @@
+ 
+ let player;
++let left = false, right = false, jumpHeld = false, jumpPressed = false;
+ 
+ class Player {
+@@ -12,4 +13,24 @@
+     this.width = 30;
+     this.height = 40;
++    this.vy = 0;
++    this.onGround = false;
++  }
++
++  update() {
++    if (left) this.x -= 4;
++    if (right) this.x += 4;
++    this.x = Math.max(0, Math.min(canvas.width - this.width, this.x));
++    if (jumpPressed &amp;&amp; this.onGround) {
++      this.vy = -11;
++      this.onGround = false;
++    }
++    jumpPressed = false;
++    this.vy = Math.min(this.vy + 0.5, 12);
++    this.y += this.vy;
++    if (this.y + this.height &gt;= 390) {
++      this.y = 390 - this.height;
++      this.vy = 0;
++      this.onGround = true;
++    }
+   }
+ 
+@@ -22,8 +43,9 @@
+ function start() {
+   player = new Player();
++  left = false; right = false; jumpHeld = false; jumpPressed = false;
+ }
+ 
+ function update() {
+-
++  player.update();
+ }
+ 
+@@ -35,4 +57,22 @@
+ }
+ 
++window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
++  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
++  if (event.code === &quot;ArrowLeft&quot;) left = true;
++  if (event.code === &quot;ArrowRight&quot;) right = true;
++  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
++    jumpHeld = true;
++    jumpPressed = true;
++  }
++});
++window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
++  if (event.code === &quot;ArrowLeft&quot;) left = false;
++  if (event.code === &quot;ArrowRight&quot;) right = false;
++  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
++});
++window.addEventListener(&quot;blur&quot;, () =&gt; {
++  left = false; right = false; jumpHeld = false; jumpPressed = false;
++});
++
+ function gameLoop() {
+   update();
+</code></pre><h3>コードの意味</h3><p>Player の update メソッドは this.x や this.vy を変えます。外側の update から player.update() を呼ぶと、そのインスタンスが動きます。左右キーを押すと left または right が true になり、キーを離すと false になります。別のタブに移ったときの blur でも入力を消します。Space または上キーを押したとき、jumpHeld が false なら jumpPressed を true にします。update はその入力を使った後に false に戻します。キーを押し続けても連続ジャンプはしません。this.onGround が true のときだけ this.vy を -11 にして上へ進みます。画面の y は下向きに増えるので、毎回 0.5 を足す重力によって上昇が遅くなり、やがて落ちます。着地したら位置と速度を直し、this.onGround を true にします。</p><h3>書く場所と置き換えるコード</h3><p>作業用の <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let player;
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update() {
+    if (left) this.x -= 4;
+    if (right) this.x += 4;
+    this.x = Math.max(0, Math.min(canvas.width - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    if (this.y + this.height &gt;= 390) {
+      this.y = 390 - this.height;
+      this.vy = 0;
+      this.onGround = true;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  player = new Player();
+}
+
+</code></pre><p>変更後：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  player.update();
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  ctx.fillRect(0, 390, 800, 60);
+  player.draw();
+}
+
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  ctx.fillRect(0, 390, 800, 60);
+  player.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update() {
+    if (left) this.x -= 4;
+    if (right) this.x += 4;
+    this.x = Math.max(0, Math.min(canvas.width - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    if (this.y + this.height &gt;= 390) {
+      this.y = 390 - this.height;
+      this.vy = 0;
+      this.onGround = true;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+}
+
+function update() {
+  player.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  ctx.fillRect(0, 390, 800, 60);
+  player.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>左右キーで移動し、Space または上キーでジャンプします。空中で押し直しても二段ジャンプしません。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>Player の update メソッドにある重力の 0.5 を 0.6 に変え、ジャンプの高さを比べます。 練習後はこの段階のコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 3：複数の地形と衝突する</h2><p><strong>目標：</strong>地面、壁、頭上の足場にぶつかるようにします。</p><h3>この段階で変えるところ</h3><p>比較の <code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の記号はコードに書きません。置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -4,6 +4,12 @@
+ const ctx = canvas.getContext(&quot;2d&quot;);
+ 
++const WORLD_WIDTH = 800;
+ let player;
+ let left = false, right = false, jumpHeld = false, jumpPressed = false;
++const terrain = [
++  { x: 0, y: 390, width: 800, height: 60 },
++  { x: 300, y: 335, width: 40, height: 55 },
++  { x: 480, y: 275, width: 160, height: 20 }
++];
+ 
+ class Player {
+@@ -17,8 +23,14 @@
+   }
+ 
+-  update() {
+-    if (left) this.x -= 4;
+-    if (right) this.x += 4;
+-    this.x = Math.max(0, Math.min(canvas.width - this.width, this.x));
++  update(terrain) {
++    const dx = (right ? 4 : 0) - (left ? 4 : 0);
++    this.x += dx;
++    for (const block of terrain) {
++      if (overlaps(this, block)) {
++        if (dx &gt; 0) this.x = block.x - this.width;
++        if (dx &lt; 0) this.x = block.x + block.width;
++      }
++    }
++    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+     if (jumpPressed &amp;&amp; this.onGround) {
+       this.vy = -11;
+@@ -28,8 +40,15 @@
+     this.vy = Math.min(this.vy + 0.5, 12);
+     this.y += this.vy;
+-    if (this.y + this.height &gt;= 390) {
+-      this.y = 390 - this.height;
+-      this.vy = 0;
+-      this.onGround = true;
++    this.onGround = false;
++    for (const block of terrain) {
++      if (overlaps(this, block)) {
++        if (this.vy &gt; 0) {
++          this.y = block.y - this.height;
++          this.onGround = true;
++        } else if (this.vy &lt; 0) {
++          this.y = block.y + block.height;
++        }
++        this.vy = 0;
++      }
+     }
+   }
+@@ -47,5 +66,5 @@
+ 
+ function update() {
+-  player.update();
++  player.update(terrain);
+ }
+ 
+@@ -53,6 +72,11 @@
+   ctx.clearRect(0, 0, canvas.width, canvas.height);
+   ctx.fillStyle = &quot;#7cb97a&quot;;
+-  ctx.fillRect(0, 390, 800, 60);
++  for (const block of terrain) ctx.fillRect(block.x, block.y, block.width, block.height);
+   player.draw();
++}
++
++function overlaps(a, b) {
++  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
++         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+ }
+ 
+</code></pre><h3>コードの意味</h3><p>terrain は四角い地形の配列です。外側の update は player.update(terrain) で地形を Player のメソッドへ渡します。overlaps は二つの四角形が重なるかを調べます。Player の update ではまず this.x だけ動かし、重なった壁の左右に押し戻します。次に this.y だけ動かして判定します。下向きの衝突では足を地形の上に置き、this.onGround を true にします。上向きなら頭を地形の下に置きます。両方とも this.vy を 0 にします。横と縦を分けると、壁に当たったときに着地したと間違えにくくなります。</p><h4>横と縦を分ける</h4><pre><code>横に動く → 壁との重なりを直す → 縦に動く → 床・天井との重なりを直す
+                       壁に当たる                  下向きなら着地</code></pre><p>例えば幅30のプレイヤーが右へ進み、壁の左端 x=300 に重なったら、プレイヤーの左端を 300−30=270 に戻します。下向きに落ちて床の上端 y=390 に重なったら、上端を 390−40=350 に戻します。</p><h3>書く場所と置き換えるコード</h3><p>作業用の <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update() {
+    if (left) this.x -= 4;
+    if (right) this.x += 4;
+    this.x = Math.max(0, Math.min(canvas.width - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    if (this.y + this.height &gt;= 390) {
+      this.y = 390 - this.height;
+      this.vy = 0;
+      this.onGround = true;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 800;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+const terrain = [
+  { x: 0, y: 390, width: 800, height: 60 },
+  { x: 300, y: 335, width: 40, height: 55 },
+  { x: 480, y: 275, width: 160, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  player.update();
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  player.update(terrain);
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  ctx.fillRect(0, 390, 800, 60);
+  player.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x, block.y, block.width, block.height);
+  player.draw();
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 800;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+const terrain = [
+  { x: 0, y: 390, width: 800, height: 60 },
+  { x: 300, y: 335, width: 40, height: 55 },
+  { x: 480, y: 275, width: 160, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+}
+
+function update() {
+  player.update(terrain);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x, block.y, block.width, block.height);
+  player.draw();
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>壁に向かうと止まり、ジャンプで乗れます。頭上の足場の下から跳ぶと頭が止まり、上から落ちると着地します。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><h3>小さな練習</h3><p>壁の高さ 55 を 40 に変え、越えやすさを比べます。 練習後はこの段階のコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 4：長いステージとカメラ</h2><p><strong>目標：</strong>画面より長い地形を作り、プレイヤーに合わせて表示を動かします。</p><h3>この段階で変えるところ</h3><p>比較の <code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の記号はコードに書きません。置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -4,11 +4,17 @@
+ const ctx = canvas.getContext(&quot;2d&quot;);
+ 
+-const WORLD_WIDTH = 800;
++const WORLD_WIDTH = 2400;
+ let player;
+ let left = false, right = false, jumpHeld = false, jumpPressed = false;
++let cameraX = 0;
+ const terrain = [
+-  { x: 0, y: 390, width: 800, height: 60 },
+-  { x: 300, y: 335, width: 40, height: 55 },
+-  { x: 480, y: 275, width: 160, height: 20 }
++  { x: 0, y: 390, width: 650, height: 60 },
++  { x: 750, y: 390, width: 700, height: 60 },
++  { x: 1550, y: 390, width: 850, height: 60 },
++  { x: 400, y: 335, width: 40, height: 55 },
++  { x: 1100, y: 330, width: 45, height: 60 },
++  { x: 1850, y: 335, width: 40, height: 55 },
++  { x: 260, y: 270, width: 100, height: 20 },
++  { x: 1260, y: 270, width: 120, height: 20 }
+ ];
+ 
+@@ -54,7 +60,7 @@
+   }
+ 
+-  draw() {
++  draw(cameraX) {
+     ctx.fillStyle = &quot;#2765b0&quot;;
+-    ctx.fillRect(this.x, this.y, this.width, this.height);
++    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+   }
+ }
+@@ -63,8 +69,12 @@
+   player = new Player();
+   left = false; right = false; jumpHeld = false; jumpPressed = false;
++  cameraX = 0;
+ }
+ 
+ function update() {
+   player.update(terrain);
++  if (player.y &gt; canvas.height) { start(); return; }
++  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
++    player.x + player.width / 2 - canvas.width / 2));
+ }
+ 
+@@ -72,6 +82,6 @@
+   ctx.clearRect(0, 0, canvas.width, canvas.height);
+   ctx.fillStyle = &quot;#7cb97a&quot;;
+-  for (const block of terrain) ctx.fillRect(block.x, block.y, block.width, block.height);
+-  player.draw();
++  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
++  player.draw(cameraX);
+ }
+ 
+</code></pre><h3>コードの意味</h3><p>WORLD_WIDTH はステージ全体の幅です。player.x や terrain の x はステージ全体を基準にした座標で、カメラが動いても変えません。cameraX は画面の左端にあるステージ上の位置です。描くときだけ x から cameraX を引きます。例えば player.x が 885 なら、幅 30 のプレイヤーの中心は 900 です。カメラは 900−400=500 になり、プレイヤーの左端を画面の x=385 に描きます。cameraX を 0 から 1600（2400−800）に収めるので、画面はステージの外を見せません。落ちたときは start で最初から試せます。</p><h4>ステージの座標と画面の座標</h4><pre><code>ステージ: 0 ────── 500 ─── 885 ───────── 2400
+                     ↑       ↑
+              カメラの左端  プレイヤーの左端
+画面:                0 ──── 385 ──── 800</code></pre><p>この例では画面上の左端が 885−500=385 です。ゲームの判定には元のステージ座標を使い、描画だけ引き算します。</p><h3>書く場所と置き換えるコード</h3><p>作業用の <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 800;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+const terrain = [
+  { x: 0, y: 390, width: 800, height: 60 },
+  { x: 300, y: 335, width: 40, height: 55 },
+  { x: 480, y: 275, width: 160, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+}
+
+</code></pre><p>変更後：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  player.update(terrain);
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  player.update(terrain);
+  if (player.y &gt; canvas.height) { start(); return; }
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x, block.y, block.width, block.height);
+  player.draw();
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+}
+
+function update() {
+  player.update(terrain);
+  if (player.y &gt; canvas.height) { start(); return; }
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>右へ進むと背景が左へ流れます。二つのすき間はジャンプで越えます。落ちたら最初に戻ります。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><h3>小さな練習</h3><p>WORLD_WIDTH と最後の地面の幅を一緒に増やし、カメラの端を比べます。 練習後はこの段階のコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 5：コインと敵を置く</h2><p><strong>目標：</strong>コインを集め、Enemy クラスから作った敵を表示します。</p><h3>この段階で変えるところ</h3><p>比較の <code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の記号はコードに書きません。置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -66,8 +66,39 @@
+ }
+ 
++let coins, enemies, score;
++
++class Enemy {
++  constructor(x, minX, maxX) {
++    this.x = x;
++    this.y = 360;
++    this.width = 30;
++    this.height = 30;
++    this.minX = minX;
++    this.maxX = maxX;
++    this.dx = 1;
++  }
++
++  update() {
++    this.x += this.dx;
++    if (this.x &lt;= this.minX || this.x &gt;= this.maxX) this.dx = -this.dx;
++  }
++
++  draw(cameraX) {
++    ctx.fillStyle = &quot;#d64b5c&quot;;
++    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
++  }
++}
++
+ function start() {
+   player = new Player();
+   left = false; right = false; jumpHeld = false; jumpPressed = false;
+   cameraX = 0;
++  score = 0;
++  coins = [
++    { x: 460, y: 350, width: 20, height: 20, taken: false },
++    { x: 960, y: 350, width: 20, height: 20, taken: false },
++    { x: 1950, y: 350, width: 20, height: 20, taken: false }
++  ];
++  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
+ }
+ 
+@@ -75,4 +106,8 @@
+   player.update(terrain);
+   if (player.y &gt; canvas.height) { start(); return; }
++  for (const coin of coins) {
++    if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
++  }
++  for (const enemy of enemies) enemy.update();
+   cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+     player.x + player.width / 2 - canvas.width / 2));
+@@ -84,4 +119,12 @@
+   for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+   player.draw(cameraX);
++  ctx.fillStyle = &quot;#d99c18&quot;;
++  for (const coin of coins) {
++    if (!coin.taken) ctx.fillRect(coin.x - cameraX, coin.y, coin.width, coin.height);
++  }
++  for (const enemy of enemies) enemy.draw(cameraX);
++  ctx.fillStyle = &quot;#26334a&quot;;
++  ctx.font = &quot;22px sans-serif&quot;;
++  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+ }
+ 
+</code></pre><h3>コードの意味</h3><p>coins はコインの配列です。プレイヤーと重なると taken を true にし、score を 1 増やします。taken のコインは描きません。Enemy の constructor は x、minX、maxX を受け取り、それぞれ this のプロパティに保存します。new Enemy(900, 850, 990) と new Enemy(1700, 1640, 1780) は同じクラスから作った別々のインスタンスです。各敵は自分の x と dx を持ち、enemy.update() で自分の範囲を動き、enemy.draw(cameraX) で描かれます。コインと敵もステージ座標で管理し、描くときに cameraX を引きます。この段階では敵に触れても失敗しません。</p><h3>書く場所と置き換えるコード</h3><p>作業用の <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+let coins, enemies, score;
+
+class Enemy {
+  constructor(x, minX, maxX) {
+    this.x = x;
+    this.y = 360;
+    this.width = 30;
+    this.height = 30;
+    this.minX = minX;
+    this.maxX = maxX;
+    this.dx = 1;
+  }
+
+  update() {
+    this.x += this.dx;
+    if (this.x &lt;= this.minX || this.x &gt;= this.maxX) this.dx = -this.dx;
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#d64b5c&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+}
+
+</code></pre><p>変更後：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+  score = 0;
+  coins = [
+    { x: 460, y: 350, width: 20, height: 20, taken: false },
+    { x: 960, y: 350, width: 20, height: 20, taken: false },
+    { x: 1950, y: 350, width: 20, height: 20, taken: false }
+  ];
+  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  player.update(terrain);
+  if (player.y &gt; canvas.height) { start(); return; }
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  player.update(terrain);
+  if (player.y &gt; canvas.height) { start(); return; }
+  for (const coin of coins) {
+    if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
+  }
+  for (const enemy of enemies) enemy.update();
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+  ctx.fillStyle = &quot;#d99c18&quot;;
+  for (const coin of coins) {
+    if (!coin.taken) ctx.fillRect(coin.x - cameraX, coin.y, coin.width, coin.height);
+  }
+  for (const enemy of enemies) enemy.draw(cameraX);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+let coins, enemies, score;
+
+class Enemy {
+  constructor(x, minX, maxX) {
+    this.x = x;
+    this.y = 360;
+    this.width = 30;
+    this.height = 30;
+    this.minX = minX;
+    this.maxX = maxX;
+    this.dx = 1;
+  }
+
+  update() {
+    this.x += this.dx;
+    if (this.x &lt;= this.minX || this.x &gt;= this.maxX) this.dx = -this.dx;
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#d64b5c&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+  score = 0;
+  coins = [
+    { x: 460, y: 350, width: 20, height: 20, taken: false },
+    { x: 960, y: 350, width: 20, height: 20, taken: false },
+    { x: 1950, y: 350, width: 20, height: 20, taken: false }
+  ];
+  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
+}
+
+function update() {
+  player.update(terrain);
+  if (player.y &gt; canvas.height) { start(); return; }
+  for (const coin of coins) {
+    if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
+  }
+  for (const enemy of enemies) enemy.update();
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+  ctx.fillStyle = &quot;#d99c18&quot;;
+  for (const coin of coins) {
+    if (!coin.taken) ctx.fillRect(coin.x - cameraX, coin.y, coin.width, coin.height);
+  }
+  for (const enemy of enemies) enemy.draw(cameraX);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>黄色いコインに触れると数が増えます。右へ進み、2体の赤い敵が別々の場所を動くことを確かめます。 <a href="step5/index.html">ステップ 5 の見本を開く</a></p><h3>小さな練習</h3><p>1体目の new Enemy の最初の値だけを 900 から 880 に変えます。コードで1体目の開始位置の設定が変わり、2体目の開始位置の設定が 1700 のままであることを確かめます。画面でも2体が別々の場所を動くことを確かめます。 練習後はこの段階のコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 6：ゴール・失敗・再挑戦</h2><p><strong>目標：</strong>敵と落下による失敗、ゴール、再挑戦を作ります。</p><h3>この段階で変えるところ</h3><p>比較の <code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の記号はコードに書きません。置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
++++ 変更後
+@@ -90,4 +90,7 @@
+ }
+ 
++const goal = { x: 2300, y: 310, width: 35, height: 80 };
++let state;
++
+ function start() {
+   player = new Player();
+@@ -101,13 +104,19 @@
+   ];
+   enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
++  state = &quot;playing&quot;;
+ }
+ 
+ function update() {
++  if (state !== &quot;playing&quot;) return;
+   player.update(terrain);
+-  if (player.y &gt; canvas.height) { start(); return; }
+   for (const coin of coins) {
+     if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
+   }
+   for (const enemy of enemies) enemy.update();
++  if (player.y &gt; canvas.height) state = &quot;over&quot;;
++  for (const enemy of enemies) {
++    if (overlaps(player, enemy)) state = &quot;over&quot;;
++  }
++  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;
+   cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+     player.x + player.width / 2 - canvas.width / 2));
+@@ -127,4 +136,12 @@
+   ctx.font = &quot;22px sans-serif&quot;;
+   ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
++  ctx.font = &quot;17px sans-serif&quot;;
++  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);
++  ctx.font = &quot;22px sans-serif&quot;;
++  ctx.fillStyle = &quot;#8455a5&quot;;
++  ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);
++  ctx.fillStyle = &quot;#26334a&quot;;
++  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);
++  if (state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ R キーでもう一度&quot;, 240, 210);
+ }
+ 
+@@ -152,4 +169,8 @@
+ });
+ 
++window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
++  if (event.code === &quot;KeyR&quot;) start();
++});
++
+ function gameLoop() {
+   update();
+</code></pre><h3>コードの意味</h3><p>state は playing、over、clear のいずれかです。プレイヤーが画面下に落ちるか、敵と重なると over になります。playing のままゴールと重なれば clear です。先に失敗を判定するので、同時に敵とゴールに触れた場合は失敗になります。終了中は update の先頭で return し、動きを止めます。R キーの start は位置、入力、コイン、敵、カメラ、状態を初期化します。</p><h3>書く場所と置き換えるコード</h3><p>作業用の <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+let coins, enemies, score;
+
+class Enemy {
+  constructor(x, minX, maxX) {
+    this.x = x;
+    this.y = 360;
+    this.width = 30;
+    this.height = 30;
+    this.minX = minX;
+    this.maxX = maxX;
+    this.dx = 1;
+  }
+
+  update() {
+    this.x += this.dx;
+    if (this.x &lt;= this.minX || this.x &gt;= this.maxX) this.dx = -this.dx;
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#d64b5c&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+let coins, enemies, score;
+
+class Enemy {
+  constructor(x, minX, maxX) {
+    this.x = x;
+    this.y = 360;
+    this.width = 30;
+    this.height = 30;
+    this.minX = minX;
+    this.maxX = maxX;
+    this.dx = 1;
+  }
+
+  update() {
+    this.x += this.dx;
+    if (this.x &lt;= this.minX || this.x &gt;= this.maxX) this.dx = -this.dx;
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#d64b5c&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+const goal = { x: 2300, y: 310, width: 35, height: 80 };
+let state;
+
+</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+  score = 0;
+  coins = [
+    { x: 460, y: 350, width: 20, height: 20, taken: false },
+    { x: 960, y: 350, width: 20, height: 20, taken: false },
+    { x: 1950, y: 350, width: 20, height: 20, taken: false }
+  ];
+  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
+}
+
+</code></pre><p>変更後：</p><pre><code>function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+  score = 0;
+  coins = [
+    { x: 460, y: 350, width: 20, height: 20, taken: false },
+    { x: 960, y: 350, width: 20, height: 20, taken: false },
+    { x: 1950, y: 350, width: 20, height: 20, taken: false }
+  ];
+  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
+  state = &quot;playing&quot;;
+}
+
+</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+  player.update(terrain);
+  if (player.y &gt; canvas.height) { start(); return; }
+  for (const coin of coins) {
+    if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
+  }
+  for (const enemy of enemies) enemy.update();
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+</code></pre><p>変更後：</p><pre><code>function update() {
+  if (state !== &quot;playing&quot;) return;
+  player.update(terrain);
+  for (const coin of coins) {
+    if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
+  }
+  for (const enemy of enemies) enemy.update();
+  if (player.y &gt; canvas.height) state = &quot;over&quot;;
+  for (const enemy of enemies) {
+    if (overlaps(player, enemy)) state = &quot;over&quot;;
+  }
+  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+  ctx.fillStyle = &quot;#d99c18&quot;;
+  for (const coin of coins) {
+    if (!coin.taken) ctx.fillRect(coin.x - cameraX, coin.y, coin.width, coin.height);
+  }
+  for (const enemy of enemies) enemy.draw(cameraX);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+</code></pre><p>変更後：</p><pre><code>function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+  ctx.fillStyle = &quot;#d99c18&quot;;
+  for (const coin of coins) {
+    if (!coin.taken) ctx.fillRect(coin.x - cameraX, coin.y, coin.width, coin.height);
+  }
+  for (const enemy of enemies) enemy.draw(cameraX);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+  ctx.font = &quot;17px sans-serif&quot;;
+  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillStyle = &quot;#8455a5&quot;;
+  ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ R キーでもう一度&quot;, 240, 210);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.code === &quot;KeyR&quot;) start();
+});
+
+</code></pre><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const WORLD_WIDTH = 2400;
+let player;
+let left = false, right = false, jumpHeld = false, jumpPressed = false;
+let cameraX = 0;
+const terrain = [
+  { x: 0, y: 390, width: 650, height: 60 },
+  { x: 750, y: 390, width: 700, height: 60 },
+  { x: 1550, y: 390, width: 850, height: 60 },
+  { x: 400, y: 335, width: 40, height: 55 },
+  { x: 1100, y: 330, width: 45, height: 60 },
+  { x: 1850, y: 335, width: 40, height: 55 },
+  { x: 260, y: 270, width: 100, height: 20 },
+  { x: 1260, y: 270, width: 120, height: 20 }
+];
+
+class Player {
+  constructor() {
+    this.x = 80;
+    this.y = 350;
+    this.width = 30;
+    this.height = 40;
+    this.vy = 0;
+    this.onGround = false;
+  }
+
+  update(terrain) {
+    const dx = (right ? 4 : 0) - (left ? 4 : 0);
+    this.x += dx;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (dx &gt; 0) this.x = block.x - this.width;
+        if (dx &lt; 0) this.x = block.x + block.width;
+      }
+    }
+    this.x = Math.max(0, Math.min(WORLD_WIDTH - this.width, this.x));
+    if (jumpPressed &amp;&amp; this.onGround) {
+      this.vy = -11;
+      this.onGround = false;
+    }
+    jumpPressed = false;
+    this.vy = Math.min(this.vy + 0.5, 12);
+    this.y += this.vy;
+    this.onGround = false;
+    for (const block of terrain) {
+      if (overlaps(this, block)) {
+        if (this.vy &gt; 0) {
+          this.y = block.y - this.height;
+          this.onGround = true;
+        } else if (this.vy &lt; 0) {
+          this.y = block.y + block.height;
+        }
+        this.vy = 0;
+      }
+    }
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+let coins, enemies, score;
+
+class Enemy {
+  constructor(x, minX, maxX) {
+    this.x = x;
+    this.y = 360;
+    this.width = 30;
+    this.height = 30;
+    this.minX = minX;
+    this.maxX = maxX;
+    this.dx = 1;
+  }
+
+  update() {
+    this.x += this.dx;
+    if (this.x &lt;= this.minX || this.x &gt;= this.maxX) this.dx = -this.dx;
+  }
+
+  draw(cameraX) {
+    ctx.fillStyle = &quot;#d64b5c&quot;;
+    ctx.fillRect(this.x - cameraX, this.y, this.width, this.height);
+  }
+}
+
+const goal = { x: 2300, y: 310, width: 35, height: 80 };
+let state;
+
+function start() {
+  player = new Player();
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;
+  score = 0;
+  coins = [
+    { x: 460, y: 350, width: 20, height: 20, taken: false },
+    { x: 960, y: 350, width: 20, height: 20, taken: false },
+    { x: 1950, y: 350, width: 20, height: 20, taken: false }
+  ];
+  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];
+  state = &quot;playing&quot;;
+}
+
+function update() {
+  if (state !== &quot;playing&quot;) return;
+  player.update(terrain);
+  for (const coin of coins) {
+    if (!coin.taken &amp;&amp; overlaps(player, coin)) { coin.taken = true; score++; }
+  }
+  for (const enemy of enemies) enemy.update();
+  if (player.y &gt; canvas.height) state = &quot;over&quot;;
+  for (const enemy of enemies) {
+    if (overlaps(player, enemy)) state = &quot;over&quot;;
+  }
+  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;
+  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,
+    player.x + player.width / 2 - canvas.width / 2));
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#7cb97a&quot;;
+  for (const block of terrain) ctx.fillRect(block.x - cameraX, block.y, block.width, block.height);
+  player.draw(cameraX);
+  ctx.fillStyle = &quot;#d99c18&quot;;
+  for (const coin of coins) {
+    if (!coin.taken) ctx.fillRect(coin.x - cameraX, coin.y, coin.width, coin.height);
+  }
+  for (const enemy of enemies) enemy.draw(cameraX);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+  ctx.font = &quot;17px sans-serif&quot;;
+  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillStyle = &quot;#8455a5&quot;;
+  ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ R キーでもう一度&quot;, 240, 210);
+}
+
+function overlaps(a, b) {
+  return a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+         a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y;
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;Space&quot;].includes(event.code)) event.preventDefault();
+  if (event.code === &quot;ArrowLeft&quot;) left = true;
+  if (event.code === &quot;ArrowRight&quot;) right = true;
+  if ((event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) &amp;&amp; !jumpHeld) {
+    jumpHeld = true;
+    jumpPressed = true;
+  }
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.code === &quot;ArrowLeft&quot;) left = false;
+  if (event.code === &quot;ArrowRight&quot;) right = false;
+  if (event.code === &quot;Space&quot; || event.code === &quot;ArrowUp&quot;) jumpHeld = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; {
+  left = false; right = false; jumpHeld = false; jumpPressed = false;
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.code === &quot;KeyR&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確かめ方</h3><p>敵に触れるか落下すると終了し、右端の紫色のゴールに触れるとクリアです。R で最初から遊べます。 <a href="step6/index.html">ステップ 6 の見本を開く</a></p><h3>小さな練習</h3><p>コインを別の地面の上に一つ追加し、表示される総数が増えるか確かめます。 練習後はこの段階のコードに戻してから次へ進んでください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../index.html">一覧へ戻る</a></p></main></body></html>
