@@ -13,7 +13,7 @@ test("各段階の置換手順を適用すると見本と一致する", () => {
   assert.equal(sections.length, 6);
   let script = read("..", "..", "script.js");
   for (const [i, section] of sections.entries()) {
-    const edits = [...section[0].matchAll(/<p>変更前：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><p>変更後：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
+    const edits = [...section[0].matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
     assert.ok(edits.length);
     for (const [, beforeHtml, afterHtml] of edits) {
       const before = decode(beforeHtml);

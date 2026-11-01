@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>横スクロールゲームの発展課題</title>
   <link rel="stylesheet" href="../../guide.css">
-</head>
+<link rel="stylesheet" href="../../../tutorial/code-changes.css"></head>
 <body><main>
 <p><a href="../tutorial.html">← 基本の作り方へ</a>　<a href="../../index.html">制作例の一覧へ</a></p>
 <h1>横スクロールゲームの発展課題</h1>
@@ -18,7 +18,7 @@
 <li><a href="#dash">Shift キーでダッシュする</a></li>
 <li><a href="#checkpoint">中間ポイントから再挑戦する</a></li>
 </ol></nav>
-<section><h2>始める前に</h2>
+<div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div><section><h2>始める前に</h2>
 <p>基本のステップ6まで作った作業用フォルダーを、別の名前でコピーしてください。コピーした <code>script.js</code> を編集します。<code>index.html</code> と <code>style.css</code> は変更しません。</p>
 <p>基本版を持っていない場合は、<code>examples/platformer/complete</code> にある3ファイルを、新しい作業用フォルダーにコピーします。<code>index.html</code>、<code>style.css</code>、<code>script.js</code> は同じフォルダーに置いてください。</p>
 <p>課題1から順番に追加します。各課題を終えたら保存し、作業用の <code>index.html</code> をブラウザで開くか、再読み込みしてください。見本のゲームは別ページで開きます。</p>
@@ -41,23 +41,23 @@
 <details><summary>書く場所とコードの例を見る</summary>
 <p>作業用の <code>script.js</code> で、「変更前」と同じ部分を探し、「変更後」に置き換えてください。上から順に全ての変更を加えます。</p>
 <h4>倒した敵の数を用意する</h4>
-<p>変更前：</p><pre><code>let coins, enemies, score;</code></pre><p>変更後：</p><pre><code>let coins, enemies, score, defeated;</code></pre>
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let coins, enemies, score;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coins, enemies, score, defeated;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>let coins, enemies, score;</code></pre></details><p>変更後（コピー用）：</p><pre><code>let coins, enemies, score, defeated;</code></pre>
 <p>defeated は倒した敵の数です。コインの数を表す score とは別に数えます。</p>
 <h4>Enemy の constructor に状態を追加する</h4>
-<p>変更前：</p><pre><code>    this.dx = 1;
-  }</code></pre><p>変更後：</p><pre><code>    this.dx = 1;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.dx = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.alive = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>    this.dx = 1;
+  }</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.dx = 1;
     this.alive = true;
   }</code></pre>
 <p>alive は、その敵が生きていれば true、倒されていれば false にします。Enemy から作った敵は、それぞれ自分の alive を持ちます。</p>
 <h4>倒した敵の移動を止める</h4>
-<p>変更前：</p><pre><code>  update() {
-    this.x += this.dx;</code></pre><p>変更後：</p><pre><code>  update() {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.alive) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.x += this.dx;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  update() {
+    this.x += this.dx;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  update() {
     if (!this.alive) return;
     this.x += this.dx;</code></pre>
 <p>! は true と false を反対にします。!this.alive が true、つまり倒されている場合は、return でこのメソッドを終えます。</p>
 <h4>Enemy に踏まれたときのメソッドを追加する</h4>
-<p>変更前：</p><pre><code>  draw(cameraX) {
-    ctx.fillStyle = &quot;#d64b5c&quot;;</code></pre><p>変更後：</p><pre><code>  stomp() {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  stomp() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw(cameraX) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.alive) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#d64b5c&quot;;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  draw(cameraX) {
+    ctx.fillStyle = &quot;#d64b5c&quot;;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  stomp() {
     this.alive = false;
   }
 
@@ -66,8 +66,8 @@
     ctx.fillStyle = &quot;#d64b5c&quot;;</code></pre>
 <p>enemy.stomp() を呼ぶと、その敵の alive が false になります。draw() でも状態を調べ、倒した敵を描かないようにします。</p>
 <h4>Player に踏んだ後ではねるメソッドを追加する</h4>
-<p>変更前：</p><pre><code>  draw(cameraX) {
-    ctx.fillStyle = &quot;#2765b0&quot;;</code></pre><p>変更後：</p><pre><code>  bounce(top) {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bounce(top) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.y = top - this.height;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.vy = -8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.onGround = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw(cameraX) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#2765b0&quot;;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  draw(cameraX) {
+    ctx.fillStyle = &quot;#2765b0&quot;;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  bounce(top) {
     this.y = top - this.height;
     this.vy = -8;
     this.onGround = false;
@@ -77,21 +77,21 @@
     ctx.fillStyle = &quot;#2765b0&quot;;</code></pre>
 <p>top には敵の上端の y 座標が入ります。足元を敵の上端にそろえてから、vy を -8 にして上にはねます。地面には立っていないので onGround は false にします。</p>
 <h4>start() で倒した数を戻す</h4>
-<p>変更前：</p><pre><code>  score = 0;
-  coins = [</code></pre><p>変更後：</p><pre><code>  score = 0;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  defeated = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coins = [</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  score = 0;
+  coins = [</code></pre></details><p>変更後（コピー用）：</p><pre><code>  score = 0;
   defeated = 0;
   coins = [</code></pre>
 <p>最初から遊び直したときは、倒した数も 0 に戻します。start() が new Enemy() で敵を作り直すので、全ての敵が再び alive = true になります。</p>
 <h4>外側の update() で、動く前の足元を覚える</h4>
-<p>変更前：</p><pre><code>  player.update(terrain);
-  for (const coin of coins) {</code></pre><p>変更後：</p><pre><code>  const previousBottom = player.y + player.height;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const previousBottom = player.y + player.height;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  player.update(terrain);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const coin of coins) {</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  player.update(terrain);
+  for (const coin of coins) {</code></pre></details><p>変更後（コピー用）：</p><pre><code>  const previousBottom = player.y + player.height;
   player.update(terrain);
   for (const coin of coins) {</code></pre>
 <p>previousBottom はこの1回の更新で動く前の足元です。player.update(terrain) より先に保存します。動いた後の位置だけでは、上から踏んだのか、横から触れたのかを区別できません。</p>
 <h4>敵に触れたときの判定を置き換える</h4>
-<p>変更前：</p><pre><code>  for (const enemy of enemies) {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const enemy of enemies) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (overlaps(player, enemy)) state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!enemy.alive || !overlaps(player, enemy)) continue;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (player.vy &gt; 0 &amp;&amp; previousBottom &lt;= enemy.y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      enemy.stomp();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      player.bounce(enemy.y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      defeated++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      break;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  for (const enemy of enemies) {
     if (overlaps(player, enemy)) state = &quot;over&quot;;
-  }</code></pre><p>変更後：</p><pre><code>  for (const enemy of enemies) {
+  }</code></pre></details><p>変更後（コピー用）：</p><pre><code>  for (const enemy of enemies) {
     if (!enemy.alive || !overlaps(player, enemy)) continue;
     if (player.vy &gt; 0 &amp;&amp; previousBottom &lt;= enemy.y) {
       enemy.stomp();
@@ -104,7 +104,7 @@
   }</code></pre>
 <p>倒した敵、または重なっていない敵は continue で飛ばし、次の敵へ進みます。</p><p>重なった場合は、下へ進んでいることと、動く前の足元が敵の上端より上か同じ高さだったことを、&amp;&amp; で両方確かめます。踏めたら敵を倒してはねます。それ以外の触れ方は失敗です。break は繰り返しを終えます。</p>
 <h4>draw() に倒した数を表示する</h4>
-<p>変更前：</p><pre><code>  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);</code></pre><p>変更後：</p><pre><code>  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;倒した敵: &quot; + defeated + &quot; / &quot; + enemies.length, 520, 32);</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);
   ctx.fillText(&quot;倒した敵: &quot; + defeated + &quot; / &quot; + enemies.length, 520, 32);</code></pre>
 <p>画面右上に倒した数を表示します。敵を倒すのはゴールに進むための手段の一つです。全て倒さなくてもクリアできます。</p>
 </details>
@@ -136,39 +136,39 @@
 <details><summary>書く場所とコードの例を見る</summary>
 <p>作業用の <code>script.js</code> で、「変更前」と同じ部分を探し、「変更後」に置き換えてください。上から順に全ての変更を加えます。</p>
 <h4>Shift キーの状態を用意する</h4>
-<p>変更前：</p><pre><code>let left = false, right = false, jumpHeld = false, jumpPressed = false;</code></pre><p>変更後：</p><pre><code>let left = false, right = false, jumpHeld = false, jumpPressed = false;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let left = false, right = false, jumpHeld = false, jumpPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let dashLeft = false, dashRight = false;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>let left = false, right = false, jumpHeld = false, jumpPressed = false;</code></pre></details><p>変更後（コピー用）：</p><pre><code>let left = false, right = false, jumpHeld = false, jumpPressed = false;
 let dashLeft = false, dashRight = false;</code></pre>
 <p>左右の Shift キーを別々に覚えます。両方を押してから片方を離したときも、もう片方が押されていればダッシュを続けられます。</p>
 <h4>Player の update(terrain) で速さを選ぶ</h4>
-<p>変更前：</p><pre><code>    const dx = (right ? 4 : 0) - (left ? 4 : 0);</code></pre><p>変更後：</p><pre><code>    const speed = (dashLeft || dashRight) ? 6 : 4;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const dx = (right ? 4 : 0) - (left ? 4 : 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const speed = (dashLeft || dashRight) ? 6 : 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = (right ? speed : 0) - (left ? speed : 0);</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>    const dx = (right ? 4 : 0) - (left ? 4 : 0);</code></pre></details><p>変更後（コピー用）：</p><pre><code>    const speed = (dashLeft || dashRight) ? 6 : 4;
     const dx = (right ? speed : 0) - (left ? speed : 0);</code></pre>
 <p>|| は、少なくとも片方が true なら true になります。条件 ? A : B は、条件が true なら A、false なら B を選びます。Shift を押していれば 6、押していなければ 4 だけ、1回の更新で横へ進みます。</p>
 <h4>start() でダッシュも解除する</h4>
-<p>変更前：</p><pre><code>  left = false; right = false; jumpHeld = false; jumpPressed = false;
-  cameraX = 0;</code></pre><p>変更後：</p><pre><code>  left = false; right = false; jumpHeld = false; jumpPressed = false;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  left = false; right = false; jumpHeld = false; jumpPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  dashLeft = false; dashRight = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cameraX = 0;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  left = false; right = false; jumpHeld = false; jumpPressed = false;
+  cameraX = 0;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  left = false; right = false; jumpHeld = false; jumpPressed = false;
   dashLeft = false; dashRight = false;
   cameraX = 0;</code></pre>
 <p>最初から遊び直した後に、前のダッシュの状態を残さないようにします。</p>
 <h4>keydown で Shift を押したことを覚える</h4>
-<p>変更前：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = true;</code></pre><p>変更後：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = true;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) right = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ShiftLeft&quot;) dashLeft = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ShiftRight&quot;) dashRight = true;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = true;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = true;
   if (event.code === &quot;ShiftLeft&quot;) dashLeft = true;
   if (event.code === &quot;ShiftRight&quot;) dashRight = true;</code></pre>
 <p>ShiftLeft は左の Shift、ShiftRight は右の Shift のキーコードです。左右の移動キーと同じように、押したら true にします。</p>
 <h4>keyup で Shift を離したことを覚える</h4>
-<p>変更前：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = false;</code></pre><p>変更後：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = false;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ShiftLeft&quot;) dashLeft = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ShiftRight&quot;) dashRight = false;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = false;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (event.code === &quot;ArrowRight&quot;) right = false;
   if (event.code === &quot;ShiftLeft&quot;) dashLeft = false;
   if (event.code === &quot;ShiftRight&quot;) dashRight = false;</code></pre>
 <p>離した側だけを false にします。両方が false に戻ると、いつもの速さになります。</p>
 <h4>別のタブへ移ったときも解除する</h4>
-<p>変更前：</p><pre><code>window.addEventListener(&quot;blur&quot;, () =&gt; {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  left = false; right = false; jumpHeld = false; jumpPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  dashLeft = false; dashRight = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>window.addEventListener(&quot;blur&quot;, () =&gt; {
   left = false; right = false; jumpHeld = false; jumpPressed = false;
-});</code></pre><p>変更後：</p><pre><code>window.addEventListener(&quot;blur&quot;, () =&gt; {
+});</code></pre></details><p>変更後（コピー用）：</p><pre><code>window.addEventListener(&quot;blur&quot;, () =&gt; {
   left = false; right = false; jumpHeld = false; jumpPressed = false;
   dashLeft = false; dashRight = false;
 });</code></pre>
 <p>blur は、この画面から操作が外れたときに起こります。キーを離した知らせを受け取れなかった場合に備え、ダッシュも解除します。</p>
 <h4>画面下の操作説明を変える</h4>
-<p>変更前：</p><pre><code>  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</code></pre><p>変更後：</p><pre><code>  ctx.fillText(&quot;←→ 移動   Shift ダッシュ   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</code></pre>
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;←→ 移動   Shift ダッシュ   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;←→ 移動   Shift ダッシュ   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</code></pre>
 <p>ダッシュの操作も表示します。Shift だけでは進まず、左右キーと一緒に押すと速く進みます。</p>
 </details>
 <h3>保存後の確かめ方</h3>
@@ -199,18 +199,18 @@ let dashLeft = false, dashRight = false;</code></pre>
 <details><summary>書く場所とコードの例を見る</summary>
 <p>作業用の <code>script.js</code> で、「変更前」と同じ部分を探し、「変更後」に置き換えてください。上から順に全ての変更を加えます。</p>
 <h4>goal の直後に中間ポイントを用意する</h4>
-<p>変更前：</p><pre><code>const goal = { x: 2300, y: 310, width: 35, height: 80 };</code></pre><p>変更後：</p><pre><code>const goal = { x: 2300, y: 310, width: 35, height: 80 };
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const goal = { x: 2300, y: 310, width: 35, height: 80 };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const checkpoint = { x: 1200, y: 310, width: 24, height: 80, active: false };</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>const goal = { x: 2300, y: 310, width: 35, height: 80 };</code></pre></details><p>変更後（コピー用）：</p><pre><code>const goal = { x: 2300, y: 310, width: 35, height: 80 };
 const checkpoint = { x: 1200, y: 310, width: 24, height: 80, active: false };</code></pre>
 <p>checkpoint は途中から再開する場所です。active は、まだ触れていなければ false、触れた後は true にします。今回は、地面があり壁と重ならない x=1200 に置きます。</p>
 <h4>start() で中間ポイントを未通過に戻す</h4>
-<p>変更前：</p><pre><code>  cameraX = 0;
-  score = 0;</code></pre><p>変更後：</p><pre><code>  cameraX = 0;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cameraX = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  checkpoint.active = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  cameraX = 0;
+  score = 0;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  cameraX = 0;
   checkpoint.active = false;
   score = 0;</code></pre>
 <p>最初から遊ぶ start() では中間ポイントの記録も消します。途中からの再挑戦には次に作る retry() を使います。</p>
 <h4>外側の update() の前に retry() を追加する</h4>
-<p>変更前：</p><pre><code>function update() {
-  if (state !== &quot;playing&quot;) return;</code></pre><p>変更後：</p><pre><code>function retry() {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function retry() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  player = new Player();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  player.x = checkpoint.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  left = false; right = false; jumpHeld = false; jumpPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  dashLeft = false; dashRight = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cameraX = Math.max(0, Math.min(WORLD_WIDTH - canvas.width,</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    player.x + player.width / 2 - canvas.width / 2));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+  if (state !== &quot;playing&quot;) return;</code></pre></details><p>変更後（コピー用）：</p><pre><code>function retry() {
   player = new Player();
   player.x = checkpoint.x;
   left = false; right = false; jumpHeld = false; jumpPressed = false;
@@ -224,12 +224,12 @@ function update() {
   if (state !== &quot;playing&quot;) return;</code></pre>
 <p>retry() は Player を作り直して落下の速さを戻し、中間ポイントの x に置きます。入力とカメラも整えます。コイン、敵、倒した数は作り直さないので、それまでの進み具合が残ります。</p><p>gameLoop() は呼びません。今あるループが次の更新から動きを再開します。</p>
 <h4>外側の update() で、中間ポイントに触れたか調べる</h4>
-<p>変更前：</p><pre><code>  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;</code></pre><p>変更後：</p><pre><code>  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, checkpoint)) checkpoint.active = true;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, checkpoint)) checkpoint.active = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (state === &quot;playing&quot; &amp;&amp; overlaps(player, checkpoint)) checkpoint.active = true;
   if (state === &quot;playing&quot; &amp;&amp; overlaps(player, goal)) state = &quot;clear&quot;;</code></pre>
 <p>触れたら active を true にします。敵や落下による失敗を調べた後で判定し、playing の間だけ記録します。敵と同時に触れて失敗した場合は、中間ポイントを通過したことにしません。</p>
 <h4>draw() で中間ポイントと通過の記録を描く</h4>
-<p>変更前：</p><pre><code>  ctx.fillStyle = &quot;#8455a5&quot;;
-  ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);</code></pre><p>変更後：</p><pre><code>  ctx.fillStyle = checkpoint.active ? &quot;#e6a817&quot; : &quot;#587b9a&quot;;
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = checkpoint.active ? &quot;#e6a817&quot; : &quot;#587b9a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(checkpoint.x - cameraX, checkpoint.y, checkpoint.width, checkpoint.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;17px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;中間&quot;, checkpoint.x - cameraX - 5, checkpoint.y - 10);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(checkpoint.active ? &quot;中間ポイント: 通過済み&quot; : &quot;中間ポイント: 未通過&quot;, 20, 60);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#8455a5&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#8455a5&quot;;
+  ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = checkpoint.active ? &quot;#e6a817&quot; : &quot;#587b9a&quot;;
   ctx.fillRect(checkpoint.x - cameraX, checkpoint.y, checkpoint.width, checkpoint.height);
   ctx.fillStyle = &quot;#26334a&quot;;
   ctx.font = &quot;17px sans-serif&quot;;
@@ -240,7 +240,7 @@ function update() {
   ctx.fillRect(goal.x - cameraX, goal.y, goal.width, goal.height);</code></pre>
 <p>通過前は青みのある灰色、通過後は黄色で描きます。中間ポイントにも cameraX を引きます。左上の文字でも通過したか確かめられます。</p>
 <h4>失敗したときの案内を変える</h4>
-<p>変更前：</p><pre><code>  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);</code></pre><p>変更後：</p><pre><code>  if (state === &quot;over&quot;) {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;over&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const message = checkpoint.active</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ? &quot;ゲームオーバー！ R キーで中間から&quot;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      : &quot;ゲームオーバー！ R キーでもう一度&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(message, 180, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (state === &quot;over&quot;) {
     const message = checkpoint.active
       ? &quot;ゲームオーバー！ R キーで中間から&quot;
       : &quot;ゲームオーバー！ R キーでもう一度&quot;;
@@ -248,9 +248,9 @@ function update() {
   }</code></pre>
 <p>通過後に失敗したときだけ、「R キーで中間から」と表示します。通過前は最初からやり直します。</p>
 <h4>R キーで呼ぶ関数を分ける</h4>
-<p>変更前：</p><pre><code>window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.code === &quot;KeyR&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;KeyR&quot; &amp;&amp; !event.repeat) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;over&quot; &amp;&amp; checkpoint.active) retry();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
   if (event.code === &quot;KeyR&quot;) start();
-});</code></pre><p>変更後：</p><pre><code>window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+});</code></pre></details><p>変更後（コピー用）：</p><pre><code>window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
   if (event.code === &quot;KeyR&quot; &amp;&amp; !event.repeat) {
     if (state === &quot;over&quot; &amp;&amp; checkpoint.active) retry();
     else start();

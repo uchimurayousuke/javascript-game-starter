@@ -1,97 +1,45 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>シンプルなシューティングの作り方</title><link rel="stylesheet" href="../guide.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>シンプルなシューティング</h1><p class="tag">中級者向け</p><p>変数、if 文、配列、繰り返し、キー操作を知っている人向けです。「ブロックくずし」の後がおすすめです。 弾と敵の配列、出現間隔、四角形同士の当たり判定を学びます。</p><p>左右の矢印キーで移動し、スペースキーで弾を撃ちます。敵が下端に着いたら終了です。R キーで再挑戦できます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
-<section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーします。3つのファイルを同じ場所に置いてください。元のひな型は残しておきます。</p><p>各ステップでは作業用フォルダーの <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存したら作業用の <code>index.html</code> をブラウザで開き、すでに開いている場合は再読み込みしてください。見本は別のページで開けます。</p><p><code>start()</code> は最初の設定、<code>update()</code> は動きや判定、<code>draw()</code> は描画を担当します。最後の <code>gameLoop()</code> は更新と描画を繰り返します。</p></section><section><h2>ステップ 1：自機を動かす</h2><p><strong>目標：</strong>自機を左右に動かします。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
-+++ 変更後
-@@ -1,24 +1,35 @@
- &quot;use strict&quot;;
--
- const canvas = document.querySelector(&quot;#game-canvas&quot;);
- const ctx = canvas.getContext(&quot;2d&quot;);
- 
--// ゲームを始めるときに、1回だけ呼ばれます。
-+let playerX, left = false, right = false;
-+const playerY = 400, playerWidth = 40;
-+
- function start() {
--  // ここに初期設定を書く
-+  playerX = 380; left = false; right = false;
- }
- 
--// 毎フレーム呼ばれます。
- function update() {
--  // ここにキャラクターの移動や当たり判定などを書く
-+  if (left) playerX -= 6;
-+  if (right) playerX += 6;
-+  playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
- }
- 
--// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
- function draw() {
-   ctx.clearRect(0, 0, canvas.width, canvas.height);
--  // ここに ctx.fillRect() などを使った描画を書く
-+  ctx.fillStyle = &quot;#2269b4&quot;;
-+  ctx.fillRect(playerX, playerY, playerWidth, 22);
- }
- 
--// 以下は start → update → draw を動かすための共通処理です。
-+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
-+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
-+  if (event.key === &quot;ArrowLeft&quot;) left = true;
-+  if (event.key === &quot;ArrowRight&quot;) right = true;
-+});
-+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
-+  if (event.key === &quot;ArrowLeft&quot;) left = false;
-+  if (event.key === &quot;ArrowRight&quot;) right = false;
-+});
-+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
- function gameLoop() {
-   update();
-@@ -26,5 +37,4 @@
-   requestAnimationFrame(gameLoop);
- }
--
- start();
- gameLoop();
-</code></pre><h3>コードの意味</h3><p>playerX が自機の左端です。キーを押している間に座標を変え、Math.max と Math.min で画面内に収めます。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>シンプルなシューティングの作り方</title><link rel="stylesheet" href="../guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"></head><body><main><p><a href="../index.html">← 一覧へ</a></p><h1>シンプルなシューティング</h1><p class="tag">中級者向け</p><p>変数、if 文、配列、繰り返し、キー操作を知っている人向けです。「ブロックくずし」の後がおすすめです。 弾と敵の配列、出現間隔、四角形同士の当たり判定を学びます。</p><p>左右の矢印キーで移動し、スペースキーで弾を撃ちます。敵が下端に着いたら終了です。R キーで再挑戦できます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
+<div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div><section><h2>始める前に</h2><p>ルートの <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーします。3つのファイルを同じ場所に置いてください。元のひな型は残しておきます。</p><p>各ステップでは作業用フォルダーの <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存したら作業用の <code>index.html</code> をブラウザで開き、すでに開いている場合は再読み込みしてください。見本は別のページで開けます。</p><p><code>start()</code> は最初の設定、<code>update()</code> は動きや判定、<code>draw()</code> は描画を担当します。最後の <code>gameLoop()</code> は更新と描画を繰り返します。</p></section><section><h2>ステップ 1：自機を動かす</h2><p><strong>目標：</strong>自機を左右に動かします。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 9 行・追加 19 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let playerX, left = false, right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const playerY = 400, playerWidth = 40;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = 380; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// 毎フレーム呼ばれます。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (left) playerX -= 6;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (right) playerX += 6;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// 毎フレーム呼ばれます。ゲームの絵を描く場所です。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#2269b4&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, 22);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) left = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) right = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) left = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><h3>コードの意味</h3><p>playerX が自機の左端です。キーを押している間に座標を変え、Math.max と Math.min で画面内に収めます。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// ゲームを始めるときに、1回だけ呼ばれます。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let playerX, left = false, right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const playerY = 400, playerWidth = 40;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
 
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
 
 // ゲームを始めるときに、1回だけ呼ばれます。
-</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
 
 let playerX, left = false, right = false;
 const playerY = 400, playerWidth = 40;
 
-</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに初期設定を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = 380; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// 毎フレーム呼ばれます。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
   // ここに初期設定を書く
 }
 
 // 毎フレーム呼ばれます。
-</code></pre><p>変更後：</p><pre><code>function start() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
   playerX = 380; left = false; right = false;
 }
 
-</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここにキャラクターの移動や当たり判定などを書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (left) playerX -= 6;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (right) playerX += 6;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// 毎フレーム呼ばれます。ゲームの絵を描く場所です。</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
   // ここにキャラクターの移動や当たり判定などを書く
 }
 
 // 毎フレーム呼ばれます。ゲームの絵を描く場所です。
-</code></pre><p>変更後：</p><pre><code>function update() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
   if (left) playerX -= 6;
   if (right) playerX += 6;
   playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
 }
 
-</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+</code></pre><h4>draw() から gameLoop() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  // ここに ctx.fillRect() などを使った描画を書く</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#2269b4&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, 22);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">// 以下は start → update → draw を動かすための共通処理です。</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) left = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) right = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) left = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // ここに ctx.fillRect() などを使った描画を書く
 }
 
 // 以下は start → update → draw を動かすための共通処理です。
-</code></pre><p>変更後：</p><pre><code>function draw() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = &quot;#2269b4&quot;;
   ctx.fillRect(playerX, playerY, playerWidth, 22);
@@ -107,7 +55,7 @@ window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
   if (event.key === &quot;ArrowRight&quot;) right = false;
 });
 window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
-</code></pre><h4>gameLoop() からファイルの末尾</h4><p>変更前：</p><pre><code>function gameLoop() {
+</code></pre><h4>gameLoop() からファイルの末尾</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function gameLoop() {
   update();
   draw();
   requestAnimationFrame(gameLoop);
@@ -115,7 +63,7 @@ window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false
 
 start();
 gameLoop();
-</code></pre><p>変更後：</p><pre><code>function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function gameLoop() {
   update();
   draw();
   requestAnimationFrame(gameLoop);
@@ -162,57 +110,14 @@ function gameLoop() {
 }
 start();
 gameLoop();
-</code></pre></details><h3>保存後の確かめ方</h3><p>左右の矢印キーで青い自機が動くことを確かめます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>移動量 6 を変えて速さを比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 2：弾を撃つ</h2><p><strong>目標：</strong>スペースキーで弾を出します。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
-+++ 変更後
-@@ -5,7 +5,9 @@
- let playerX, left = false, right = false;
- const playerY = 400, playerWidth = 40;
-+let bullets, firing = false, cooldown;
- 
- function start() {
-   playerX = 380; left = false; right = false;
-+  bullets = []; firing = false; cooldown = 0;
- }
- 
-@@ -14,4 +16,11 @@
-   if (right) playerX += 6;
-   playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
-+  if (cooldown &gt; 0) cooldown--;
-+  if (firing &amp;&amp; cooldown === 0) {
-+    bullets.push({ x: playerX + playerWidth / 2 - 3, y: playerY });
-+    cooldown = 12;
-+  }
-+  for (const bullet of bullets) bullet.y -= 8;
-+  bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);
- }
- 
-@@ -20,4 +29,6 @@
-   ctx.fillStyle = &quot;#2269b4&quot;;
-   ctx.fillRect(playerX, playerY, playerWidth, 22);
-+  ctx.fillStyle = &quot;#edaa27&quot;;
-+  for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, 6, 12);
- }
- 
-@@ -32,4 +43,11 @@
- });
- window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
-+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
-+  if (event.code === &quot;Space&quot;) { event.preventDefault(); firing = true; }
-+});
-+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
-+  if (event.code === &quot;Space&quot;) firing = false;
-+});
-+window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });
- function gameLoop() {
-   update();
-</code></pre><h3>コードの意味</h3><p>bullets は弾の位置を入れる配列です。cooldown が 0 のときだけ追加し、12回の更新を待ちます。filter は画面外の弾を取り除いた新しい配列を作ります。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+</code></pre></details><h3>保存後の確かめ方</h3><p>左右の矢印キーで青い自機が動くことを確かめます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><h3>小さな練習</h3><p>移動量 6 を変えて速さを比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 2：弾を撃つ</h2><p><strong>目標：</strong>スペースキーで弾を出します。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 18 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let playerX, left = false, right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const playerY = 400, playerWidth = 40;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bullets, firing = false, cooldown;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = 380; left = false; right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = []; firing = false; cooldown = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (right) playerX += 6;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (cooldown &gt; 0) cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (firing &amp;&amp; cooldown === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    bullets.push({ x: playerX + playerWidth / 2 - 3, y: playerY });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    cooldown = 12;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) bullet.y -= 8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#2269b4&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, 22);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#edaa27&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, 6, 12);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) { event.preventDefault(); firing = true; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) firing = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div></div></details><h3>コードの意味</h3><p>bullets は弾の位置を入れる配列です。cooldown が 0 のときだけ追加し、12回の更新を待ちます。filter は画面外の弾を取り除いた新しい配列を作ります。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let playerX, left = false, right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const playerY = 400, playerWidth = 40;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bullets, firing = false, cooldown;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
 
 let playerX, left = false, right = false;
 const playerY = 400, playerWidth = 40;
 
-</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
 
@@ -220,22 +125,22 @@ let playerX, left = false, right = false;
 const playerY = 400, playerWidth = 40;
 let bullets, firing = false, cooldown;
 
-</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = 380; left = false; right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = []; firing = false; cooldown = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
   playerX = 380; left = false; right = false;
 }
 
-</code></pre><p>変更後：</p><pre><code>function start() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
   playerX = 380; left = false; right = false;
   bullets = []; firing = false; cooldown = 0;
 }
 
-</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (right) playerX += 6;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (cooldown &gt; 0) cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (firing &amp;&amp; cooldown === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    bullets.push({ x: playerX + playerWidth / 2 - 3, y: playerY });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    cooldown = 12;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) bullet.y -= 8;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
   if (left) playerX -= 6;
   if (right) playerX += 6;
   playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
 }
 
-</code></pre><p>変更後：</p><pre><code>function update() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
   if (left) playerX -= 6;
   if (right) playerX += 6;
   playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
@@ -248,7 +153,7 @@ let bullets, firing = false, cooldown;
   bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);
 }
 
-</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+</code></pre><h4>draw() から gameLoop() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#2269b4&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, 22);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#edaa27&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, 6, 12);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) { event.preventDefault(); firing = true; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) firing = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = &quot;#2269b4&quot;;
   ctx.fillRect(playerX, playerY, playerWidth, 22);
@@ -264,7 +169,7 @@ window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
   if (event.key === &quot;ArrowRight&quot;) right = false;
 });
 window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
-</code></pre><p>変更後：</p><pre><code>function draw() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = &quot;#2269b4&quot;;
   ctx.fillRect(playerX, playerY, playerWidth, 22);
@@ -347,65 +252,7 @@ function gameLoop() {
 }
 start();
 gameLoop();
-</code></pre></details><h3>保存後の確かめ方</h3><p>スペースキーを押し続けると弾が間隔をあけて上へ進むことを確かめます。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>cooldown の 12 を変えて弾の間隔を比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 3：敵と当たり判定を加える</h2><p><strong>目標：</strong>敵を一定の間隔で出し、弾が当たったら消します。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><pre><code>--- 変更前
-+++ 変更後
-@@ -5,12 +5,14 @@
- let playerX, left = false, right = false;
- const playerY = 400, playerWidth = 40;
--let bullets, firing = false, cooldown;
-+let bullets, firing = false, cooldown, enemies, spawnTimer, score, state;
- 
- function start() {
-   playerX = 380; left = false; right = false;
-   bullets = []; firing = false; cooldown = 0;
-+  enemies = []; spawnTimer = 0; score = 0; state = &quot;playing&quot;;
- }
- 
- function update() {
-+  if (state !== &quot;playing&quot;) return;
-   if (left) playerX -= 6;
-   if (right) playerX += 6;
-@@ -23,4 +25,21 @@
-   for (const bullet of bullets) bullet.y -= 8;
-   bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);
-+  spawnTimer--;
-+  if (spawnTimer &lt;= 0) {
-+    enemies.push({ x: Math.random() * (canvas.width - 30), y: -30 });
-+    spawnTimer = 60;
-+  }
-+  for (const enemy of enemies) enemy.y += 2;
-+  for (const bullet of bullets) {
-+    for (const enemy of enemies) {
-+      if (!bullet.hit &amp;&amp; !enemy.hit &amp;&amp; bullet.x &lt; enemy.x + 30 &amp;&amp;
-+          bullet.x + 6 &gt; enemy.x &amp;&amp; bullet.y &lt; enemy.y + 30 &amp;&amp; bullet.y + 12 &gt; enemy.y) {
-+        bullet.hit = true; enemy.hit = true; score++;
-+      }
-+    }
-+  }
-+  bullets = bullets.filter((bullet) =&gt; !bullet.hit);
-+  enemies = enemies.filter((enemy) =&gt; !enemy.hit);
-+  if (enemies.some((enemy) =&gt; enemy.y + 30 &gt;= canvas.height)) state = &quot;over&quot;;
- }
- 
-@@ -31,4 +50,9 @@
-   ctx.fillStyle = &quot;#edaa27&quot;;
-   for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, 6, 12);
-+  ctx.fillStyle = &quot;#e34b5f&quot;;
-+  for (const enemy of enemies) ctx.fillRect(enemy.x, enemy.y, 30, 30);
-+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;
-+  ctx.fillText(&quot;得点: &quot; + score, 20, 35);
-+  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
- }
- 
-@@ -50,4 +74,7 @@
- });
- window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });
-+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
-+  if (event.key.toLowerCase() === &quot;r&quot;) start();
-+});
- function gameLoop() {
-   update();
-</code></pre><h3>コードの意味</h3><p>spawnTimer を更新ごとに減らし、0 以下で敵を追加します。二重の for...of で弾と敵の組み合わせを調べます。hit を付けたものを filter で除き、敵が下端に着くと終了します。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><p>変更前：</p><pre><code>&quot;use strict&quot;;
+</code></pre></details><h3>保存後の確かめ方</h3><p>スペースキーを押し続けると弾が間隔をあけて上へ進むことを確かめます。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><h3>小さな練習</h3><p>cooldown の 12 を変えて弾の間隔を比べます。 練習後はこのステップのコードに戻してから次へ進んでください。</p></section><section><h2>ステップ 3：敵と当たり判定を加える</h2><p><strong>目標：</strong>敵を一定の間隔で出し、弾が当たったら消します。</p><h3>この段階で変えるところ</h3><p>次の比較で、<code>+</code> は新しく書く行、<code>-</code> は取り除く行です。先頭の <code>+</code> や <code>-</code> はコードに書きません。下の置き換え手順には記号のないコードを載せています。</p><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 28 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let playerX, left = false, right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const playerY = 400, playerWidth = 40;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let bullets, firing = false, cooldown;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bullets, firing = false, cooldown, enemies, spawnTimer, score, state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = 380; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  bullets = []; firing = false; cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = []; spawnTimer = 0; score = 0; state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (left) playerX -= 6;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (right) playerX += 6;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const bullet of bullets) bullet.y -= 8;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  spawnTimer--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (spawnTimer &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    enemies.push({ x: Math.random() * (canvas.width - 30), y: -30 });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    spawnTimer = 60;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) enemy.y += 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of enemies) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (!bullet.hit &amp;&amp; !enemy.hit &amp;&amp; bullet.x &lt; enemy.x + 30 &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          bullet.x + 6 &gt; enemy.x &amp;&amp; bullet.y &lt; enemy.y + 30 &amp;&amp; bullet.y + 12 &gt; enemy.y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        bullet.hit = true; enemy.hit = true; score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = bullets.filter((bullet) =&gt; !bullet.hit);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = enemies.filter((enemy) =&gt; !enemy.hit);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (enemies.some((enemy) =&gt; enemy.y + 30 &gt;= canvas.height)) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#edaa27&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, 6, 12);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e34b5f&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) ctx.fillRect(enemy.x, enemy.y, 30, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score, 20, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">間の行は省略しています</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div></div></details><h3>コードの意味</h3><p>spawnTimer を更新ごとに減らし、0 以下で敵を追加します。二重の for...of で弾と敵の組み合わせを調べます。hit を付けたものを filter で除き、敵が下端に着くと終了します。</p><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーの <code>script.js</code> で、次の「変更前」と同じ部分を探し、それぞれ「変更後」に置き換えてください。空行も含めて示しています。変わらない部分はそのままです。</p><h4>ファイルの先頭から start() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let playerX, left = false, right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const playerY = 400, playerWidth = 40;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let bullets, firing = false, cooldown;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bullets, firing = false, cooldown, enemies, spawnTimer, score, state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
 
@@ -413,7 +260,7 @@ let playerX, left = false, right = false;
 const playerY = 400, playerWidth = 40;
 let bullets, firing = false, cooldown;
 
-</code></pre><p>変更後：</p><pre><code>&quot;use strict&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
 
@@ -421,18 +268,18 @@ let playerX, left = false, right = false;
 const playerY = 400, playerWidth = 40;
 let bullets, firing = false, cooldown, enemies, spawnTimer, score, state;
 
-</code></pre><h4>start() から update() の直前</h4><p>変更前：</p><pre><code>function start() {
+</code></pre><h4>start() から update() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = 380; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  bullets = []; firing = false; cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = []; spawnTimer = 0; score = 0; state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function start() {
   playerX = 380; left = false; right = false;
   bullets = []; firing = false; cooldown = 0;
 }
 
-</code></pre><p>変更後：</p><pre><code>function start() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function start() {
   playerX = 380; left = false; right = false;
   bullets = []; firing = false; cooldown = 0;
   enemies = []; spawnTimer = 0; score = 0; state = &quot;playing&quot;;
 }
 
-</code></pre><h4>update() から draw() の直前</h4><p>変更前：</p><pre><code>function update() {
+</code></pre><h4>update() から draw() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (left) playerX -= 6;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (right) playerX += 6;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const bullet of bullets) bullet.y -= 8;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  spawnTimer--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (spawnTimer &lt;= 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    enemies.push({ x: Math.random() * (canvas.width - 30), y: -30 });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    spawnTimer = 60;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) enemy.y += 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const bullet of bullets) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of enemies) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (!bullet.hit &amp;&amp; !enemy.hit &amp;&amp; bullet.x &lt; enemy.x + 30 &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          bullet.x + 6 &gt; enemy.x &amp;&amp; bullet.y &lt; enemy.y + 30 &amp;&amp; bullet.y + 12 &gt; enemy.y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        bullet.hit = true; enemy.hit = true; score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bullets = bullets.filter((bullet) =&gt; !bullet.hit);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemies = enemies.filter((enemy) =&gt; !enemy.hit);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (enemies.some((enemy) =&gt; enemy.y + 30 &gt;= canvas.height)) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
   if (left) playerX -= 6;
   if (right) playerX += 6;
   playerX = Math.max(0, Math.min(canvas.width - playerWidth, playerX));
@@ -445,7 +292,7 @@ let bullets, firing = false, cooldown, enemies, spawnTimer, score, state;
   bullets = bullets.filter((bullet) =&gt; bullet.y + 12 &gt;= 0);
 }
 
-</code></pre><p>変更後：</p><pre><code>function update() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
   if (state !== &quot;playing&quot;) return;
   if (left) playerX -= 6;
   if (right) playerX += 6;
@@ -476,7 +323,7 @@ let bullets, firing = false, cooldown, enemies, spawnTimer, score, state;
   if (enemies.some((enemy) =&gt; enemy.y + 30 &gt;= canvas.height)) state = &quot;over&quot;;
 }
 
-</code></pre><h4>draw() から gameLoop() の直前</h4><p>変更前：</p><pre><code>function draw() {
+</code></pre><h4>draw() から gameLoop() の直前</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#edaa27&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, 6, 12);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e34b5f&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const enemy of enemies) ctx.fillRect(enemy.x, enemy.y, 30, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score, 20, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, (event) =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = &quot;#2269b4&quot;;
   ctx.fillRect(playerX, playerY, playerWidth, 22);
@@ -501,7 +348,7 @@ window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
   if (event.code === &quot;Space&quot;) firing = false;
 });
 window.addEventListener(&quot;blur&quot;, () =&gt; { firing = false; });
-</code></pre><p>変更後：</p><pre><code>function draw() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = &quot;#2269b4&quot;;
   ctx.fillRect(playerX, playerY, playerWidth, 22);

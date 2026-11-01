@@ -18,7 +18,7 @@ test("発展課題の変更手順から、3段階の見本を再現できる", (
   assert.deepEqual(sections.map((section) => section[1]), stages);
   let script = read("..", "complete", "script.js");
   for (const [, stage, section] of sections) {
-    const edits = [...section.matchAll(/<p>変更前：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><p>変更後：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
+    const edits = [...section.matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
     assert.ok(edits.length > 0, stage);
     for (const [, before, after] of edits) {
       const original = decode(before);
