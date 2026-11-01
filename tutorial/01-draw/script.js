@@ -3,7 +3,6 @@
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
 
-// x は右向き、y は下向きに増えます。単位は Canvas の中のピクセルです。
 const playerWidth = 110;
 const playerHeight = 18;
 const playerY = 385;
@@ -13,14 +12,17 @@ const coinRadius = 14;
 let coinX = canvas.width / 2;
 let coinY = 80;
 
+// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
-  // STEP 01 では初期設定の追加はありません。
+  // ここに初期設定を書く
 }
 
+// 毎フレーム呼ばれます。
 function update() {
-  // 動きは STEP 02 で追加します。
+  // ここにキャラクターの移動や当たり判定などを書く
 }
 
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   // 前の絵を消してから、今の位置に描き直します。
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -40,7 +42,7 @@ function draw() {
   ctx.fillText("コイン: 0", 24, 38);
 }
 
-// このゲームループは全ステップで共通です。
+// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

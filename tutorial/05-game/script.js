@@ -24,6 +24,7 @@ let lives = startingLives;
 // playing: プレイ中、clear: クリア、gameover: 失敗
 let gameState = "playing";
 
+// 初回と再挑戦の初期状態を用意します。
 function start() {
   // 初回と再挑戦の両方で、同じ初期設定を使います。
   playerX = (canvas.width - playerWidth) / 2;
@@ -35,6 +36,7 @@ function start() {
   gameState = "playing";
 }
 
+// 毎フレーム呼ばれます。
 function update() {
   // 終了後は位置や得点を更新しません。描画は続けます。
   if (gameState !== "playing") {
@@ -69,7 +71,8 @@ function update() {
 }
 
 function coinTouchesPlayer() {
-  // コインを囲む四角で判定します。
+  // コインを囲む四角と受け皿の四角が重なるかを調べます。
+  // 上下の条件2つと、左右の条件2つをすべて満たせばキャッチです。
   return (
     coinY + coinRadius >= playerY &&
     coinY - coinRadius <= playerY + playerHeight &&
@@ -79,6 +82,8 @@ function coinTouchesPlayer() {
 }
 
 function resetCoin() {
+  // Math.random() は 0 以上 1 未満の数を返します。
+  // コインの左右が画面からはみ出さない範囲を選びます。
   coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
   coinY = -coinRadius;
 }
@@ -115,6 +120,7 @@ function clearKeys() {
   rightPressed = false;
 }
 
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -130,6 +136,9 @@ function draw() {
   ctx.font = "22px sans-serif";
   ctx.fillText("コイン: " + score + " / " + targetScore, 24, 38);
   ctx.fillText("のこり: " + lives, 650, 38);
+
+  ctx.font = "18px sans-serif";
+  ctx.fillText("← →：移動 / " + targetScore + "枚でクリア / " + startingLives + "回ミスで終了", 24, 430);
 
   if (gameState !== "playing") {
     // 背景を薄く覆い、結果を中央に重ねて描きます。
@@ -155,9 +164,10 @@ function draw() {
 
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("keyup", handleKeyUp);
+// 別のタブへ移ったときに、キーが押されたままになるのを防ぎます。
 window.addEventListener("blur", clearKeys);
 
-// このゲームループは全ステップで共通です。
+// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

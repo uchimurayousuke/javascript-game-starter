@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>コインキャッチを作る | Canvas チュートリアル</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#preparation">本文へ移動</a>
+    <div class="layout">
+      <aside>
+        <nav id="contents" aria-label="教材の目次">
+          <p class="eyebrow">CANVAS TUTORIAL</p>
+          <h2>学ぶ順番</h2>
+          <a href="#preparation">準備：3ファイルをコピー</a>
+          <a href="#step-01">01 丸と四角を描く</a>
+          <a href="#step-02">02 位置を更新して落下させる</a>
+          <a href="#step-03">03 キーボードで受け皿を動かす</a>
+          <a href="#step-04">04 重なりを調べて得点をつける</a>
+          <a href="#step-05">05 クリアと再挑戦を作る</a>
+          <a href="#help">うまく動かないとき</a>
+        </nav>
+      </aside>
+      <main>
+        <header class="intro">
+          <p class="eyebrow">HTML・CSS・JAVASCRIPT を少しずつ</p>
+          <h1>コインキャッチを<br />自分で書いて作ろう</h1>
+          <p class="lead">空の Canvas から、描画 → 更新 → 入力 → 判定へ。必要なコードを順に書き足し、最後は何度でも遊べるゲームを作ります。</p>
+          <p>この教材で使うのは、ブラウザと3つのファイルだけです。ライブラリ、ビルド、開発用サーバーは不要です。操作にはパソコンのキーボードを使います。</p>
+          <a class="primary-link" href="#preparation">準備から始める ↓</a>
+        </header>
+        <section id="preparation" class="lesson">
+<p class="eyebrow">準備</p><h2>自分の作業用フォルダーを作る</h2>
+<ol><li>このリポジトリをダウンロードまたはクローンします。ブラウザとテキストエディターがあれば進められます。</li><li>好きな場所に <code>my-game</code> などの作業用フォルダーを作り、リポジトリの一番上にある <code>index.html</code>・<code>style.css</code>・<code>script.js</code> の3ファイルをコピーします。</li><li>コピーした <code>index.html</code> をブラウザで開きます。空の白い Canvas が出れば準備できています。ここからはコピー先のファイルを編集します。</li></ol>
+<p class="notice">このページは教材です。ゲームは埋め込んでいません。「制作物を別ページで開く」で見本だけを開けます。自分の制作物は <code>my-game/index.html</code> を開いて確かめます。</p>
+<h3>HTML と CSS を整える</h3>
+<p>まず、コピー先の <code>index.html</code> 全体を次のコードに置き換えます。タイトルと Canvas の説明をゲームの名前にします。表示する要素は Canvas だけです。</p>
+<pre><code data-file="index.html" data-action="replace-file">&lt;!doctype html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;コインキャッチ&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;
+    &lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main&gt;
+      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;コインキャッチのゲーム画面&quot;&gt;
+        このブラウザは Canvas に対応していません。
+      &lt;/canvas&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><code>&lt;canvas&gt;</code> が描画する領域です。<code>id="game-canvas"</code> は JavaScript から見つけるための名前、<code>width</code> と <code>height</code> は内部の座標の広さです。<code>&lt;link&gt;</code> は同じフォルダーの CSS、<code>&lt;script&gt;</code> は JavaScript を読みます。<code>defer</code> により HTML の要素を読み終えてからスクリプトを実行するので、Canvas を見つけられます。<code>charset="UTF-8"</code> は日本語の文字を正しく扱う指定です。</p>
+<p>次に、コピー先の <code>style.css</code> 全体を次のコードに置き換えます。元のひな型から Canvas の背景色だけを変えています。</p>
+<pre><code data-file="style.css" data-action="replace-file">body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background: #202635;
+}
+
+canvas {
+  display: block;
+  max-width: 100vw;
+  height: auto;
+  background: #f7fbff;
+}
+</code></pre>
+<p>CSS は <code>対象 { プロパティ: 値; }</code> という形です。<code>body</code> はページ全体、<code>canvas</code> は Canvas に適用します。<code>display: grid</code> と <code>place-items: center</code> で中央へ配置し、<code>background</code> で色を決めます。<code>#f7fbff</code> は色の数値表現です。</p>
+<p><code>100vh</code> は画面の高さ、<code>100vw</code> は画面の幅を表します。<code>max-width: 100vw</code> と <code>height: auto</code> で、狭い画面では縦横の比率を保って Canvas を縮めます。表示が縮んでも、JavaScript の座標は800 × 450のままです。</p>
+<p>保存して再読み込みし、中央の Canvas が薄い青になれば準備完了です。以降、HTML と CSS は変えず、<code>script.js</code> に書き足します。</p>
+<h3>コードを追加・置換するときの約束</h3>
+<ul><li>各 STEP は直前の STEP を終えたコードから始めます。掲載した追加・置換を、上からすべて実行してから保存します。</li><li>「関数を置き換える」は <code>function 名前(...) {</code> から、その関数の終わりの <code>}</code> までです。古い関数を残して同名の関数を追加しないようにします。</li><li>追加する関数は、ほかの関数の中に入れません。閉じる <code>}</code> を確認してから、その下へ書きます。</li><li>小さな練習で変えた値は、次の STEP の前に元に戻します。各段階の「script.js 全体」で迷った場所を照合できます。</li></ul>
+</section>
+        <section class="lesson" id="step-01" data-step="01-draw">
+<p class="eyebrow">STEP 01</p><h2>丸と四角を描く</h2>
+<div class="result-links"><a href="01-draw/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="01-draw/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
+<h3>1. 目標</h3><p>空の Canvas に、コイン・受け皿・得点の文字を描きます。位置を表すデータと、画面に描く処理を分けます。</p>
+<h3>2. 編集するファイルと場所</h3><p>作業用フォルダーの <code>script.js</code> を編集します。先頭の変数宣言の下にゲーム用の変数を追加し、<code>draw()</code> だけを置き換えます。<code>start()</code>・<code>update()</code>・<code>gameLoop()</code> はひな型のままです。</p>
+<h3>3. 追加または置換するコード</h3><h4>1. 位置と大きさの変数を追加する</h4>
+<p><code>const ctx = canvas.getContext("2d");</code> の行の直後に、空行を1行挟んで追加します。<code>start()</code> の中には入れません。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="const ctx = canvas.getContext(&quot;2d&quot;);" data-gap="blank">const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+let coinX = canvas.width / 2;
+let coinY = 80;
+</code></pre>
+<h4>2. draw() を置き換える</h4>
+<p><code>function draw() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="draw">function draw() {
+  // 前の絵を消してから、今の位置に描き直します。
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 受け皿: 左上の x、y、幅、高さを指定します。
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  // コイン: 中心の x、y、半径、開始角度、終了角度を指定します。
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);
+}
+</code></pre>
+<h3>4. コードの意味</h3><p><code>const</code> はあとから代入し直さない変数、<code>let</code> は代入し直す変数を作ります。幅や半径は <code>const</code>、これから動かす位置は <code>let</code> にします。<code>=</code> は右の値を左の変数に入れる「代入」です。行末の <code>;</code> は文の区切り、<code>//</code> から右はメモとして書くコメントです。</p>
+<p><code>canvas.width</code> は幅の800です。<code>(canvas.width - playerWidth) / 2</code> は、受け皿を中央に置く計算です。<code>-</code> は引き算、<code>/</code> は割り算で、丸括弧の中を先に計算します。Canvas の左上は <code>(0, 0)</code>。<code>x</code> は右へ、<code>y</code> は下へ増えます。受け皿は左上、コインは中心の座標で置きます。</p>
+<p>ひな型の <code>document.querySelector("#game-canvas")</code> は HTML の同じ id の要素を見つけます。<code>getContext("2d")</code> で取り出した <code>ctx</code> に、2D の描画を命令します。文字は引用符で囲み、数値は引用符なしで書きます。</p>
+<table><thead><tr><th>命令・設定</th><th>このコードでの意味</th></tr></thead><tbody>
+<tr><td><code>clearRect(0, 0, canvas.width, canvas.height)</code></td><td>左上から画面全体の前の絵を消します。これから毎回描き直すためです。</td></tr>
+<tr><td><code>fillStyle = "#2563eb"</code></td><td>このあと塗る色を指定します。色を変えても、すでに描いた絵の色は変わりません。</td></tr>
+<tr><td><code>fillRect(x, y, 幅, 高さ)</code></td><td>左上の座標と大きさを指定して、受け皿の四角を塗ります。</td></tr>
+<tr><td><code>beginPath()</code></td><td>新しい図形の線を作り始めます。前のフレームの線を引き継がないために必要です。</td></tr>
+<tr><td><code>arc(x, y, 半径, 0, Math.PI * 2)</code></td><td>円の線を作ります。角度はラジアンという単位で、<code>Math.PI * 2</code> が一周です。<code>*</code> は掛け算です。</td></tr>
+<tr><td><code>fill()</code></td><td>作った円の内側を、直前に指定した色で塗ります。</td></tr>
+<tr><td><code>font = "22px sans-serif"</code></td><td>このあと描く文字の大きさと書体を指定します。</td></tr>
+<tr><td><code>fillText("コイン: 0", 24, 38)</code></td><td>文字を描きます。24 が左端の x、38 が文字の基準線の y です。</td></tr>
+</tbody></table>
+<p><code>function draw() { ... }</code> は処理をまとめた関数の定義です。ひな型の <code>gameLoop()</code> が <code>update()</code>、<code>draw()</code> を順に呼び、<code>requestAnimationFrame(gameLoop)</code> が次の描画のタイミングで同じ処理を予約します。今は位置が変わらないので、静止画に見えます。</p>
+<h3>5. 保存・再読み込み後の確認</h3><ol><li>script.js を保存し、作業用フォルダーの index.html を開いて再読み込みします。</li><li>上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。</li><li>しばらく待っても位置が変わらないことを確かめます。</li></ol>
+<h3>6. 小さな練習</h3><p><code>coinRadius</code> を <code>24</code> にして丸を大きくしましょう。<code>draw()</code> の <code>#2563eb</code> を <code>#16a34a</code> にして、受け皿を緑にしてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+<a class="back-top" href="#contents">目次へ戻る ↑</a>
+</section>
+<section class="lesson" id="step-02" data-step="02-update">
+<p class="eyebrow">STEP 02</p><h2>位置を更新して落下させる</h2>
+<div class="result-links"><a href="02-update/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="02-update/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
+<h3>1. 目標</h3><p>毎フレーム、コインの縦位置を変えます。画面の下まで落ちたら、横位置を変えて上へ戻します。</p>
+<h3>2. 編集するファイルと場所</h3><p>STEP 01 を終えた <code>script.js</code> に続けて書きます。速度の変数を追加し、<code>start()</code> と <code>update()</code> を置き換え、新しい <code>resetCoin()</code> を追加します。<code>draw()</code> は変えません。</p>
+<h3>3. 追加または置換するコード</h3><h4>1. 落下速度を追加する</h4>
+<p><code>const coinRadius = 14;</code> の行の直後に追加します。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="const coinRadius = 14;">const coinSpeed = 3;
+</code></pre>
+<h4>2. start() を置き換える</h4>
+<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
+  coinX = canvas.width / 2;
+  coinY = 80;
+}
+</code></pre>
+<h4>3. update() を置き換える</h4>
+<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
+  // 1フレームごとに y を増やすと、下へ進みます。
+  coinY += coinSpeed;
+
+  // コイン全体が画面の下へ出たら、上に戻します。
+  if (coinY - coinRadius &gt; canvas.height) {
+    resetCoin();
+  }
+}
+</code></pre>
+<h4>4. resetCoin() を追加する</h4>
+<p><code>draw()</code> の直前にある <code>// 毎フレーム呼ばれます。ゲームの絵を描く場所です。</code> の行のすぐ上に、次の関数を追加します。前後の関数の外側に書き、コメントとの間は空行を1行挟みます。</p>
+<pre><code data-file="script.js" data-action="insert-before-line" data-anchor="// 毎フレーム呼ばれます。ゲームの絵を描く場所です。" data-gap="blank">function resetCoin() {
+  // Math.random() は 0 以上 1 未満の数を返します。
+  // コインの左右が画面からはみ出さない範囲を選びます。
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+}
+</code></pre>
+<h3>4. コードの意味</h3><p><code>start()</code> は最初の1回、コインを中央上部に置きます。<code>coinY += coinSpeed</code> は <code>coinY = coinY + coinSpeed</code> の短い書き方です。1フレームごとに y を3ピクセル増やすので、下へ動きます。この教材の速度の単位はピクセル／フレームです。</p>
+<p><code>if (条件) { 処理 }</code> は条件を満たすときだけ処理します。<code>&gt;</code> は「より大きい」の比較です。<code>coinY - coinRadius</code> はコインの上端なので、それが <code>canvas.height</code>（450）を超えれば丸全体が下へ出ています。そこで <code>resetCoin()</code> を呼びます。関数名の後ろに <code>()</code> を付けると、その関数を実行します。</p>
+<p><code>Math.random()</code> は0以上1未満の数を返します。画面幅から半径2個分を引いた範囲に掛け、最後に半径を足すと、左右がはみ出さない中心位置を選べます。<code>coinY = -coinRadius</code> は中心を画面上端より少し上に置く指定です。描画のコードを変えなくても、<code>update()</code> が変えた座標を <code>draw()</code> が使うことで動いて見えます。</p>
+<h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。上からコインが落ちてきます。</li><li>コインが画面の下まで落ちると、次は別の横位置から現れます。</li><li>受け皿は動かず、コインは受け皿を通り抜けます。</li></ol>
+<h3>6. 小さな練習</h3><p><code>coinSpeed</code> を <code>1</code> と <code>5</code> に変え、速さを比べましょう。次に <code>resetCoin()</code> の <code>coinX = ...;</code> を <code>coinX = canvas.width / 2;</code> にすると、毎回中央から落ちます。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+<a class="back-top" href="#contents">目次へ戻る ↑</a>
+</section>
+<section class="lesson" id="step-03" data-step="03-input">
+<p class="eyebrow">STEP 03</p><h2>キーボードで受け皿を動かす</h2>
+<div class="result-links"><a href="03-input/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="03-input/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
+<h3>1. 目標</h3><p>左右キーを押している間だけ受け皿を動かし、画面の端で止めます。入力を覚える処理と、位置を変える処理をつなげます。</p>
+<h3>2. 編集するファイルと場所</h3><p>STEP 02 の <code>script.js</code> に続けます。変数を追加し、<code>start()</code> と <code>update()</code> を置き換えます。キー用の3つの関数とイベント登録を追加し、<code>draw()</code> に操作表示を1行加えます。</p>
+<h3>3. 追加または置換するコード</h3><h4>1. 移動速度を追加する</h4>
+<p><code>const playerY = 385;</code> の行の直後に追加します。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="const playerY = 385;">const playerSpeed = 6;
+</code></pre>
+<h4>2. キーの状態を覚える変数を追加する</h4>
+<p>先頭の変数宣言にある <code>let coinY = 80;</code> の行の直後に、空行を1行挟んで追加します。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="let coinY = 80;" data-gap="blank">let leftPressed = false;
+let rightPressed = false;
+</code></pre>
+<h4>3. start() を置き換える</h4>
+<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+}
+</code></pre>
+<h4>4. update() を置き換える</h4>
+<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+
+  // 受け皿全体が画面の中に収まるようにします。
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+  if (coinY - coinRadius &gt; canvas.height) {
+    resetCoin();
+  }
+}
+</code></pre>
+<h4>5. キー用の関数を3つ追加する</h4>
+<p><code>draw()</code> の直前にある <code>// 毎フレーム呼ばれます。ゲームの絵を描く場所です。</code> の行のすぐ上に追加します。<code>resetCoin()</code> の閉じる <code>}</code> より後です。コメントとの間は空行を1行挟みます。</p>
+<pre><code data-file="script.js" data-action="insert-before-line" data-anchor="// 毎フレーム呼ばれます。ゲームの絵を描く場所です。" data-gap="blank">function handleKeyDown(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault(); // 矢印キーでページがスクロールするのを防ぎます。
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+</code></pre>
+<h4>6. イベントを登録する</h4>
+<p><code>// 以下は start → update → draw を動かすための共通処理です。</code> の行のすぐ上、<code>draw()</code> の外側に追加します。コメントとの間は空行を1行挟みます。</p>
+<pre><code data-file="script.js" data-action="insert-before-line" data-anchor="// 以下は start → update → draw を動かすための共通処理です。" data-gap="blank">document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+// 別のタブへ移ったときに、キーが押されたままになるのを防ぎます。
+window.addEventListener(&quot;blur&quot;, clearKeys);
+</code></pre>
+<h4>7. ゲーム内に操作表示を追加する</h4>
+<p><code>draw()</code> 内の <code>ctx.fillText("コイン: 0", 24, 38);</code> の直後に追加します。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);
+</code></pre>
+<h3>4. コードの意味</h3><p><code>true</code> と <code>false</code> は「はい／いいえ」を表す真偽値です。キーを押す <code>keydown</code> イベントで対応する変数を <code>true</code> にし、離す <code>keyup</code> で <code>false</code> に戻します。キーが押されている間、<code>update()</code> の <code>if (leftPressed)</code> などが位置を更新します。<code>-=</code> は引いて代入する書き方です。</p>
+<p><code>addEventListener("keydown", handleKeyDown)</code> は、キーが押されたら呼んでほしい関数を登録します。ここでは <code>handleKeyDown()</code> と書かず、関数名だけを渡します。ブラウザが呼ぶときに、押されたキーなどの情報が <code>event</code> に渡されます。<code>event.code</code> が <code>"ArrowLeft"</code> または <code>"ArrowRight"</code> かを <code>===</code>（同じかを比べる演算子）で調べます。<code>=</code> の代入とは役割が違います。</p>
+<p><code>event.preventDefault()</code> は、矢印キーでページをスクロールするブラウザの動作を防ぎます。<code>blur</code> はウィンドウが操作対象でなくなったときのイベントです。別のタブへ移動して <code>keyup</code> を受け取れなくても、<code>clearKeys()</code> が入力を解除するので、受け皿が動き続けるのを防げます。</p>
+<p><code>Math.min(playerX, canvas.width - playerWidth)</code> は小さい方を選び、右端を制限します。さらに <code>Math.max(0, ...)</code> で大きい方を選び、左端を0に制限します。右端の上限は <code>800 - 110 = 690</code>。受け皿の幅も考慮するためです。</p>
+<h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みし、ゲームのタブをクリックして操作対象にします。</li><li>← と → を押し続けると移動し、離すと止まります。両端でも受け皿全体が画面に収まります。</li><li>移動中に別のタブへ切り替えて戻り、キーを離したあとに動き続けないことを確認します。コインに触れても得点はまだ増えません。</li></ol>
+<h3>6. 小さな練習</h3><p><code>playerSpeed</code> を <code>3</code>、次に <code>9</code> に変えて操作感を比べましょう。両方の矢印キーを同時に押すと、左右の移動量が打ち消し合うことも確かめましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+<a class="back-top" href="#contents">目次へ戻る ↑</a>
+</section>
+<section class="lesson" id="step-04" data-step="04-collision">
+<p class="eyebrow">STEP 04</p><h2>重なりを調べて得点をつける</h2>
+<div class="result-links"><a href="04-collision/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="04-collision/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
+<h3>1. 目標</h3><p>コインが受け皿に触れたら1点を加え、次のコインを落とします。まだ残り回数はなく、何度でもキャッチを練習できます。</p>
+<h3>2. 編集するファイルと場所</h3><p>STEP 03 の <code>script.js</code> に続けます。得点の変数を追加し、<code>start()</code>・<code>update()</code>・<code>draw()</code> を置き換えます。<code>coinTouchesPlayer()</code> も追加します。</p>
+<h3>3. 追加または置換するコード</h3><h4>1. 得点の変数を追加する</h4>
+<p>先頭の変数宣言にある <code>let rightPressed = false;</code> の行の直後に追加します。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="let rightPressed = false;">let score = 0;
+</code></pre>
+<h4>2. start() を置き換える</h4>
+<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+}
+</code></pre>
+<h4>3. update() を置き換える</h4>
+<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    resetCoin();
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    // STEP 04 では落としてもペナルティはありません。
+    resetCoin();
+  }
+}
+</code></pre>
+<h4>4. 当たり判定の関数を追加する</h4>
+<p><code>function resetCoin() {</code> の行のすぐ上に追加します。<code>update()</code> の閉じる <code>}</code> より後です。<code>resetCoin()</code> との間は空行を1行挟みます。</p>
+<pre><code data-file="script.js" data-action="insert-before-line" data-anchor="function resetCoin() {" data-gap="blank">function coinTouchesPlayer() {
+  // コインを囲む四角と受け皿の四角が重なるかを調べます。
+  // 上下の条件2つと、左右の条件2つをすべて満たせばキャッチです。
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+</code></pre>
+<h4>5. draw() を置き換える</h4>
+<p><code>function draw() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを丸ごと置き換えます。得点を固定の0から変数に変更します。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="draw">function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score, 24, 38);
+  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);
+}
+</code></pre>
+<h3>4. コードの意味</h3><p><code>score</code> は集めた枚数です。<code>start()</code> で0に戻し、キャッチしたときに <code>score += 1</code> で1点増やします。<code>"コイン: " + score</code> の <code>+</code> は、片方が文字列なので文字をつなげます。得点の数値も文字に変わって表示されます。</p>
+<p>当たり判定は、丸を囲む四角と受け皿の四角で行います。丸と四角の厳密な接触ではなく、初心者でも座標で追える近似です。<code>return</code> は計算結果を呼び出した場所に返します。4つの条件を <code>&amp;&amp;</code> でつなぐと、全部が成り立つときだけ <code>true</code> になります。<code>&gt;=</code> は「以上」、<code>&lt;=</code> は「以下」なので、端が接したときもキャッチです。</p>
+<table><thead><tr><th>条件</th><th>調べること</th></tr></thead><tbody>
+<tr><td><code>coinY + coinRadius &gt;= playerY</code></td><td>コインの下端が受け皿の上端に届いている。</td></tr>
+<tr><td><code>coinY - coinRadius &lt;= playerY + playerHeight</code></td><td>コインの上端が受け皿の下端を通り過ぎていない。</td></tr>
+<tr><td><code>coinX + coinRadius &gt;= playerX</code></td><td>コインの右端が受け皿の左端に届いている。</td></tr>
+<tr><td><code>coinX - coinRadius &lt;= playerX + playerWidth</code></td><td>コインの左端が受け皿の右端を通り過ぎていない。</td></tr>
+</tbody></table>
+<p><code>if (coinTouchesPlayer())</code> でキャッチを調べ、そうでなかった場合だけ <code>else if</code> で画面外を調べます。1フレームに両方の処理が走らない形です。キャッチ後すぐに <code>resetCoin()</code> を呼ぶので、同じ1枚が何フレームも重なって何点も加算されるのを防げます。</p>
+<h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。最初のコインは中央に落ちるので、動かずに待つと1点増えます。</li><li>次のコインを左右キーで追いかけます。1回のキャッチで1点だけ増え、コインは上に戻ります。</li><li>わざと落としても得点が減らず、次のコインが現れます。受け皿の端でもキャッチできるか試します。</li></ol>
+<h3>6. 小さな練習</h3><p><code>playerWidth</code> を <code>60</code> に変え、キャッチしにくくなるか確かめましょう。次に <code>score += 1</code> を <code>score += 2</code> にして、1枚の得点を変えてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+<a class="back-top" href="#contents">目次へ戻る ↑</a>
+</section>
+<section class="lesson" id="step-05" data-step="05-game">
+<p class="eyebrow">STEP 05</p><h2>クリアと再挑戦を作る</h2>
+<div class="result-links"><a href="05-game/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="05-game/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
+<h3>1. 目標</h3><p>3回落とす前に5枚集めるとクリアにします。終了したら動きを止め、Space キーで最初から遊べるようにします。</p>
+<h3>2. 編集するファイルと場所</h3><p>STEP 04 の <code>script.js</code> に続けます。ゲームの状態とルールの変数を追加し、<code>start()</code>・<code>update()</code>・<code>handleKeyDown()</code>・<code>draw()</code> を置き換えます。イベントの登録やゲームループは追加しません。</p>
+<h3>3. 追加または置換するコード</h3><h4>1. ルールと状態の変数を追加する</h4>
+<p>先頭の変数宣言にある <code>let score = 0;</code> の行の直後に、空行を1行挟んで追加します。</p>
+<pre><code data-file="script.js" data-action="insert-after-line" data-anchor="let score = 0;" data-gap="blank">const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+// playing: プレイ中、clear: クリア、gameover: 失敗
+let gameState = &quot;playing&quot;;
+</code></pre>
+<h4>2. start() の直前のコメントを書き換える</h4>
+<p><code>// ゲームを始めるときに、1回だけ呼ばれます。</code> の1行だけを次のコメントに置き換えます。再挑戦でも同じ関数を呼ぶためです。</p>
+<pre><code data-file="script.js" data-action="replace-line" data-anchor="// ゲームを始めるときに、1回だけ呼ばれます。">// 初回と再挑戦の初期状態を用意します。
+</code></pre>
+<h4>3. start() を置き換える</h4>
+<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
+  // 初回と再挑戦の両方で、同じ初期設定を使います。
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+</code></pre>
+<h4>4. update() を置き換える</h4>
+<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
+  // 終了後は位置や得点を更新しません。描画は続けます。
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      gameState = &quot;gameover&quot;;
+    } else {
+      resetCoin();
+    }
+  }
+}
+</code></pre>
+<h4>5. handleKeyDown() を置き換える</h4>
+<p><code>function handleKeyDown(event) {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="handleKeyDown">function handleKeyDown(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState !== &quot;playing&quot;) {
+      // ゲームループを増やさず、データだけを最初に戻します。
+      start();
+    }
+  }
+}
+</code></pre>
+<h4>6. draw() を置き換える</h4>
+<p><code>function draw() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを丸ごと置き換えます。ゲームの操作表示と結果画面も Canvas の中に描きます。</p>
+<pre><code data-file="script.js" data-action="replace-function" data-name="draw">function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    // 背景を薄く覆い、結果を中央に重ねて描きます。
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    // 次のフレームの得点表示が左寄せになるように戻します。
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+</code></pre>
+<h3>4. コードの意味</h3><p><code>targetScore</code> はクリアに必要な枚数、<code>startingLives</code> は最初に許されるミスの回数です。残り回数の <code>lives</code> は落とすたびに1減ります。<code>gameState</code> は <code>"playing"</code>・<code>"clear"</code>・<code>"gameover"</code> という文字列のどれかで、今の状態を覚えます。状態の名前は同じ綴りで書きます。</p>
+<p><code>score &gt;= targetScore</code> ならクリア、<code>lives === 0</code> ならゲームオーバーです。<code>!==</code> は「同じではない」の比較で、<code>if (gameState !== "playing") { return; }</code> はプレイ中以外なら <code>update()</code> をそこで終えます。得点や位置は止まりますが、ゲームループの <code>draw()</code> は呼ばれ続けます。</p>
+<p><code>draw()</code> は通常の絵の上に、半透明の四角と結果を描き重ねます。<code>rgba(..., 0.92)</code> の最後の数は不透明度で、1が完全に不透明です。<code>textAlign = "center"</code> で文字を指定座標の中央に寄せ、描き終わったら <code>"left"</code> に戻します。次のフレームの得点表示も同じ描画設定を使うためです。</p>
+<p>終了後の <code>Space</code> では <code>start()</code> だけを呼びます。位置、入力、得点、残り回数、状態を初期値に戻せば、すでに続いているゲームループが次のフレームを描きます。ここで <code>gameLoop()</code> をもう1本呼ぶと、更新回数が増えて動きが速くなります。初回の末尾にある <code>start(); gameLoop();</code> と、STEP 03 のイベント登録は各1回のままにします。</p>
+<h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。画面に得点、残り回数、操作とルールが表示されます。</li><li>5枚集めて「クリア！」を確認します。終了後に左右キーを押しても受け皿は動きません。Space キーで得点0・残り3・中央の位置に戻ります。</li><li>今度は3回落とし「ゲームオーバー」を確認します。こちらも Space キーで再挑戦でき、何度繰り返しても動きが速くならないことを確認します。</li></ol>
+<h3>6. 小さな練習</h3><p><code>targetScore</code> を <code>8</code>、<code>startingLives</code> を <code>5</code> に変えましょう。画面下のルール表示も変数から描いているので一緒に変わります。さらに受け皿の幅と落下速度を調整し、遊びやすい組み合わせを探しましょう。</p>
+<a class="back-top" href="#contents">目次へ戻る ↑</a>
+</section>
+        <section id="help" class="lesson">
+          <h2>うまく動かないとき</h2>
+          <ul><li>エディターで保存してから、ゲームを開いているタブを再読み込みします。教材のタブだけを再読み込みしてもゲームは変わりません。</li><li>編集している <code>script.js</code> と、開いている <code>index.html</code> が同じ作業用フォルダーにあるか確認します。</li><li>丸括弧 <code>()</code>、波括弧 <code>{}</code>、引用符 <code>""</code> の閉じ忘れを確認します。コード内の記号と英数字は半角で書きます。</li><li>ブラウザの開発者ツールの Console を開き、赤いエラーがあればファイル名と行番号を確かめます。変数名は大文字・小文字も区別します。</li><li>各段階の <code>script.js 全体</code> と見比べます。特に STEP 03 のイベント登録と、ファイル末尾の <code>start();</code>・<code>gameLoop();</code> を確認します。</li></ul>
+          <p>完成したら、色、受け皿の幅、落ちる速さ、必要な枚数を変えて、自分のゲームにしてみましょう。</p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

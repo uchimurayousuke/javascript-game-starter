@@ -18,6 +18,7 @@ let leftPressed = false;
 let rightPressed = false;
 let score = 0;
 
+// ゲームを始めるときに、1回だけ呼ばれます。
 function start() {
   playerX = (canvas.width - playerWidth) / 2;
   coinX = canvas.width / 2;
@@ -26,6 +27,7 @@ function start() {
   score = 0;
 }
 
+// 毎フレーム呼ばれます。
 function update() {
   if (leftPressed) {
     playerX -= playerSpeed;
@@ -58,6 +60,8 @@ function coinTouchesPlayer() {
 }
 
 function resetCoin() {
+  // Math.random() は 0 以上 1 未満の数を返します。
+  // コインの左右が画面からはみ出さない範囲を選びます。
   coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
   coinY = -coinRadius;
 }
@@ -65,7 +69,7 @@ function resetCoin() {
 function handleKeyDown(event) {
   if (event.code === "ArrowLeft") {
     leftPressed = true;
-    event.preventDefault();
+    event.preventDefault(); // 矢印キーでページがスクロールするのを防ぎます。
   }
   if (event.code === "ArrowRight") {
     rightPressed = true;
@@ -87,6 +91,7 @@ function clearKeys() {
   rightPressed = false;
 }
 
+// 毎フレーム呼ばれます。ゲームの絵を描く場所です。
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -101,13 +106,15 @@ function draw() {
   ctx.fillStyle = "#172b4d";
   ctx.font = "22px sans-serif";
   ctx.fillText("コイン: " + score, 24, 38);
+  ctx.fillText("← → キーで移動", 24, 430);
 }
 
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("keyup", handleKeyUp);
+// 別のタブへ移ったときに、キーが押されたままになるのを防ぎます。
 window.addEventListener("blur", clearKeys);
 
-// このゲームループは全ステップで共通です。
+// 以下は start → update → draw を動かすための共通処理です。
 function gameLoop() {
   update();
   draw();

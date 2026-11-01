@@ -1,0 +1,239 @@
+:root {
+  color: #1c304c;
+  background: #eef3f8;
+  font-family: system-ui, sans-serif;
+  line-height: 1.85;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 840px);
+  gap: 40px;
+  max-width: 1190px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+main {
+  min-width: 0;
+}
+
+aside nav {
+  position: sticky;
+  top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+aside h2 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+aside a {
+  padding: 6px 0;
+}
+
+.intro {
+  padding: 8px 8px 40px;
+}
+
+h1 {
+  margin: 12px 0 20px;
+  font-size: clamp(2rem, 5vw, 2.9rem);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.lead {
+  font-size: 1.15rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #315b8c;
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+}
+
+.lesson {
+  margin-bottom: 32px;
+  padding: 36px;
+  border: 1px solid #d5dfeb;
+  border-radius: 12px;
+  background: #fff;
+  scroll-margin-top: 24px;
+}
+
+h2 {
+  margin: 4px 0 20px;
+  font-size: 1.65rem;
+  line-height: 1.5;
+}
+
+h3 {
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e1eaf4;
+  font-size: 1.2rem;
+}
+
+h4 {
+  margin: 28px 0 10px;
+  font-size: 1rem;
+}
+
+p, li {
+  overflow-wrap: anywhere;
+}
+
+li + li {
+  margin-top: 10px;
+}
+
+ol, ul {
+  padding-left: 1.5em;
+}
+
+a {
+  color: #174f97;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: #0c356b;
+}
+
+a:focus-visible {
+  outline: 3px solid #296bc5;
+  outline-offset: 4px;
+}
+
+.primary-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: #174f97;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.primary-link:hover {
+  background: #0c356b;
+  color: #fff;
+}
+
+.result-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  padding: 14px 18px;
+  border-radius: 6px;
+  background: #edf4ff;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+code {
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: #edf2f8;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.93em;
+  overflow-wrap: anywhere;
+}
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  border-radius: 6px;
+  background: #142139;
+  color: #e4eefb;
+  line-height: 1.7;
+  tab-size: 2;
+}
+
+pre code {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 0.875rem;
+  overflow-wrap: normal;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.93rem;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #d5dfeb;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+th {
+  background: #edf2f8;
+}
+
+.notice, .practice-note {
+  padding: 14px 18px;
+  border-left: 4px solid #6e9bcf;
+  background: #f1f6fd;
+}
+
+.back-top {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 0.9rem;
+}
+
+.skip-link {
+  position: absolute;
+  top: -80px;
+  left: 16px;
+  padding: 8px 16px;
+  background: #fff;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+@media (max-width: 850px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 24px 16px 48px;
+  }
+
+  aside nav {
+    position: static;
+  }
+
+  .lesson {
+    padding: 24px 18px;
+  }
+
+  pre {
+    padding: 16px;
+  }
+}
