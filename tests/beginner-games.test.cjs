@@ -35,9 +35,9 @@ test("初心者3教材の各段階には目標・説明・確認・練習と独�
   }
 });
 
-test("制作例一覧と README は完成した3本だけを新たに紹介する",()=>{
+test("制作例一覧と README は既存の3本を紹介する",()=>{
   const page=read("examples/index.html"), beginner=page.split("<h2>初心者向け</h2>")[1].split("<h2>中級者向け</h2>")[0];
-  assert.equal((beginner.match(/<article>/g)||[]).length,5);
+  assert.equal((beginner.match(/<article>/g)||[]).length,7);
   for(const game of ["timing","typing","number-guess"]){
     assert.ok(beginner.includes(`href="beginner/${game}/tutorial.html"`));
     assert.ok(beginner.includes(`href="beginner/${game}/complete/index.html"`));

@@ -1,0 +1,459 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>マス目の戦術ゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">戻る</a></p><h1>マス目の戦術ゲームの発展</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../complete/index.html">基本の完成版を開く</a></p></section><section><h2>ステップ 1：射程の違う仲間</h2><h3>目標</h3><p>仲間と地形の仕組みを追加します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">class Game {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  constructor() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      const range = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const range = unit.kind === &quot;archer&quot; ? 2 : 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (distance &lt;= range) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      const range = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const range = unit.kind === &quot;archer&quot; ? 2 : 1;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      const range = 1;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      const range = unit.kind === &quot;archer&quot; ? 2 : 1;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+</code></pre><h3>コードの意味</h3><p>弓役は距離2まで攻撃できます。剣役は距離1です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 1;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  enemyStep(unit) {
+    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();
+    for (let i = 0; i &lt; queue.length; i++) {
+      const p = queue[i], id = p.x + &quot;,&quot; + p.y;
+      if (visited.has(id)) continue;
+      visited.add(id);
+      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;
+      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {
+        const x = p.x + dx, y = p.y + dy;
+        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});
+      }
+    }
+    return null;
+  }
+  endTurn() {
+    if (this.state !== &quot;playing&quot;) return;
+    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {
+      const step = this.enemyStep(enemy);
+      if (step) { enemy.x = step.x; enemy.y = step.y; }
+      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);
+      if (target) target.hp = Math.max(0, target.hp - 2);
+    }
+    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }
+    this.selected = null;
+    this.message = &quot;味方の番&quot;;
+    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = unit.kind === &quot;archer&quot; ? 2 : 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;enter&quot;) game.endTurn();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>弓を選ぶと、距離2の敵にも攻撃できます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の文章を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：地形と移動コスト</h2><h3>目標</h3><p>仲間と地形の仕組みを追加します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 4 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  cost(x, y) { return 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height || (x === 2 &amp;&amp; (y === 1 || y === 3)); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cost(x, y) { return x === 1 &amp;&amp; y === 2 ? 2 : 1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  reachable(unit, targetX, targetY) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const limit = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const limit = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    while (queue.length) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      queue.sort((a, b) =&gt; a.cost - b.cost);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;森は移動力2 / 灰色は壁&quot;, 440, 215);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  cost(x, y) { return 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height || (x === 2 &amp;&amp; (y === 1 || y === 3)); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cost(x, y) { return x === 1 &amp;&amp; y === 2 ? 2 : 1; }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height || (x === 2 &amp;&amp; (y === 1 || y === 3)); }
+  cost(x, y) { return x === 1 &amp;&amp; y === 2 ? 2 : 1; }
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const limit = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const limit = 2;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    const limit = 1;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    const limit = 2;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;森は移動力2 / 灰色は壁&quot;, 440, 215);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
+  ctx.fillText(&quot;森は移動力2 / 灰色は壁&quot;, 440, 215);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="tactics-ext-terrain" aria-labelledby="tactics-ext-terrain-title"><figcaption id="tactics-ext-terrain-title">図：タクティクス：地形で移動力が変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="タクティクス：地形で移動力が変わる。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/tactics-ext-terrain.svg" width="1000" height="800" alt="1回の移動で使える移動力は2です。普通の床なら2マス進めますが、森は1マスに入るだけで2を使います。壁や他のユニットのいるマスは通れません。"></div><p>1回の移動で使える移動力は2です。普通の床なら2マス進めますが、森は1マスに入るだけで2を使います。壁や他のユニットのいるマスは通れません。</p><p>実装の壁(2,1)(2,3)、森(1,2)を表示。列1・行1から森への移動を例示。75pxへ拡大しHPは省略。</p></figure><p>移動力は2です。普通のマスは1、森は2、壁には入れません。</p><p>経路上のすべてのマスのコストを足し、壁や他のユニットを通らない経路を探します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height || (x === 2 &amp;&amp; (y === 1 || y === 3)); }
+  cost(x, y) { return x === 1 &amp;&amp; y === 2 ? 2 : 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 2;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  enemyStep(unit) {
+    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();
+    for (let i = 0; i &lt; queue.length; i++) {
+      const p = queue[i], id = p.x + &quot;,&quot; + p.y;
+      if (visited.has(id)) continue;
+      visited.add(id);
+      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;
+      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {
+        const x = p.x + dx, y = p.y + dy;
+        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});
+      }
+    }
+    return null;
+  }
+  endTurn() {
+    if (this.state !== &quot;playing&quot;) return;
+    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {
+      const step = this.enemyStep(enemy);
+      if (step) { enemy.x = step.x; enemy.y = step.y; }
+      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);
+      if (target) target.hp = Math.max(0, target.hp - 2);
+    }
+    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }
+    this.selected = null;
+    this.message = &quot;味方の番&quot;;
+    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = unit.kind === &quot;archer&quot; ? 2 : 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
+  ctx.fillText(&quot;森は移動力2 / 灰色は壁&quot;, 440, 215);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;enter&quot;) game.endTurn();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>森へは移動力2が必要で、壁やほかのユニットは通り抜けられません。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の文章を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：回復役を加える</h2><h3>目標</h3><p>仲間と地形の仕組みを追加します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 5 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">class Game {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  constructor() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;healer&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;; this.healing = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.selected = null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null; this.healing = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.message = &quot;味方の番&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const target = this.at(x, y), unit = this.selected;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.healing &amp;&amp; unit &amp;&amp; unit.hp &gt; 0 &amp;&amp; !unit.acted &amp;&amp; target &amp;&amp; target.side === &quot;ally&quot; &amp;&amp; target !== unit &amp;&amp; Math.abs(unit.x - x) + Math.abs(unit.y - y) === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      target.hp = Math.min(target.maxHp, target.hp + 2); unit.acted = true; this.healing = false; this.message = &quot;味方を2回復&quot;; return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.healing = false; this.message = &quot;味方を選択&quot;; return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!unit || unit.hp &lt;= 0) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;弓:射程2 / 回復役: H→味方&quot;, 440, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;森は移動力2 / 灰色は壁&quot;, 440, 215);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;enter&quot;) game.endTurn();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;h&quot; &amp;&amp; game.state === &quot;playing&quot; &amp;&amp; game.selected &amp;&amp; game.selected.kind === &quot;healer&quot; &amp;&amp; !game.selected.acted) { game.healing = true; game.message = &quot;隣の味方を選ぶ&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;healer&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;healer&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;; this.healing = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;; this.healing = false;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.selected = null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null; this.healing = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.selected = null;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.selected = null; this.healing = false;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.healing &amp;&amp; unit &amp;&amp; unit.hp &gt; 0 &amp;&amp; !unit.acted &amp;&amp; target &amp;&amp; target.side === &quot;ally&quot; &amp;&amp; target !== unit &amp;&amp; Math.abs(unit.x - x) + Math.abs(unit.y - y) === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      target.hp = Math.min(target.maxHp, target.hp + 2); unit.acted = true; this.healing = false; this.message = &quot;味方を2回復&quot;; return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.healing = false; this.message = &quot;味方を選択&quot;; return; }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (this.healing &amp;&amp; unit &amp;&amp; unit.hp &gt; 0 &amp;&amp; !unit.acted &amp;&amp; target &amp;&amp; target.side === &quot;ally&quot; &amp;&amp; target !== unit &amp;&amp; Math.abs(unit.x - x) + Math.abs(unit.y - y) === 1) {
+      target.hp = Math.min(target.maxHp, target.hp + 2); unit.acted = true; this.healing = false; this.message = &quot;味方を2回復&quot;; return;
+    }
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.healing = false; this.message = &quot;味方を選択&quot;; return; }
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;弓:射程2 / 回復役: H→味方&quot;, 440, 180);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;弓:射程2 / 回復役: H→味方&quot;, 440, 180);
+</code></pre><h4>変更 6</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;enter&quot;) game.endTurn();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;h&quot; &amp;&amp; game.state === &quot;playing&quot; &amp;&amp; game.selected &amp;&amp; game.selected.kind === &quot;healer&quot; &amp;&amp; !game.selected.acted) { game.healing = true; game.message = &quot;隣の味方を選ぶ&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (key === &quot;enter&quot;) game.endTurn();
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (key === &quot;enter&quot;) game.endTurn();
+  if (key === &quot;h&quot; &amp;&amp; game.state === &quot;playing&quot; &amp;&amp; game.selected &amp;&amp; game.selected.kind === &quot;healer&quot; &amp;&amp; !game.selected.acted) { game.healing = true; game.message = &quot;隣の味方を選ぶ&quot;; }
+});
+</code></pre><h3>コードの意味</h3><p>回復役を選んでHを押し、隣の味方を選ぶとHPを2回復します。</p><p>回復は攻撃と同じ行動を消費し、最大HP6を超えません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;healer&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;archer&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;; this.healing = false;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height || (x === 2 &amp;&amp; (y === 1 || y === 3)); }
+  cost(x, y) { return x === 1 &amp;&amp; y === 2 ? 2 : 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 2;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  enemyStep(unit) {
+    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();
+    for (let i = 0; i &lt; queue.length; i++) {
+      const p = queue[i], id = p.x + &quot;,&quot; + p.y;
+      if (visited.has(id)) continue;
+      visited.add(id);
+      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;
+      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {
+        const x = p.x + dx, y = p.y + dy;
+        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});
+      }
+    }
+    return null;
+  }
+  endTurn() {
+    if (this.state !== &quot;playing&quot;) return;
+    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {
+      const step = this.enemyStep(enemy);
+      if (step) { enemy.x = step.x; enemy.y = step.y; }
+      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);
+      if (target) target.hp = Math.max(0, target.hp - 2);
+    }
+    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }
+    this.selected = null; this.healing = false;
+    this.message = &quot;味方の番&quot;;
+    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (this.healing &amp;&amp; unit &amp;&amp; unit.hp &gt; 0 &amp;&amp; !unit.acted &amp;&amp; target &amp;&amp; target.side === &quot;ally&quot; &amp;&amp; target !== unit &amp;&amp; Math.abs(unit.x - x) + Math.abs(unit.y - y) === 1) {
+      target.hp = Math.min(target.maxHp, target.hp + 2); unit.acted = true; this.healing = false; this.message = &quot;味方を2回復&quot;; return;
+    }
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.healing = false; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = unit.kind === &quot;archer&quot; ? 2 : 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  ctx.fillText(&quot;弓:射程2 / 回復役: H→味方&quot;, 440, 180);
+  ctx.fillText(&quot;森は移動力2 / 灰色は壁&quot;, 440, 215);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;enter&quot;) game.endTurn();
+  if (key === &quot;h&quot; &amp;&amp; game.state === &quot;playing&quot; &amp;&amp; game.selected &amp;&amp; game.selected.kind === &quot;healer&quot; &amp;&amp; !game.selected.acted) { game.healing = true; game.message = &quot;隣の味方を選ぶ&quot;; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>回復役を選んでHを押し、隣の味方をクリックするとHPが2回復します。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の文章を変えて比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p></main></body></html>

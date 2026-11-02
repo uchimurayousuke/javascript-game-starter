@@ -22,9 +22,9 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 | [template/](template/index.html) | 共通のスタート地点。3ファイルを作業用フォルダーへコピーする |
 | [tutorial/](tutorial/index.html) | コインキャッチの教材と5段階の見本 |
 | [examples/index.html](examples/index.html) | 制作例の一覧。教材と完成版を開く |
-| `examples/beginner/` | 初心者向けの5ゲーム |
-| `examples/intermediate/` | 中級者向けの5ゲーム |
-| `examples/advanced/` | 上級者向けの5ゲームと発展課題 |
+| `examples/beginner/` | 初心者向けの7ゲーム |
+| `examples/intermediate/` | 中級者向けの7ゲーム |
+| `examples/advanced/` | 上級者向けの9ゲームと発展課題 |
 
 `template/` の3ファイルは [index.html](template/index.html)、[style.css](template/style.css)、[script.js](template/script.js) です。ゲームを作るときは3つとも自分の作業用フォルダーにコピーし、元のひな型を残します。まずコピー先の `script.js` の `draw()` に図形を描き、次に `update()` で位置を変えると、動きを確認できます。変更したらコピー先の `index.html` を再読み込みしてください。
 
@@ -47,7 +47,7 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 
 [制作例の一覧](examples/index.html)には、初心者向けから上級者向けまでのゲームと作り方があります。パソコンに保存した `examples/index.html` をブラウザで開くと、各教材と完成版へ進めます。
 
-初心者向けは、次の5本です。
+初心者向けは、次の7本です。
 
 - [クリックで的あて](examples/beginner/target/tutorial.html)：クリックした位置と的の距離を調べます。
 - [ボールをはね返すゲーム](examples/beginner/bounce/tutorial.html)：板を動かし、ボールをはね返します。
@@ -55,7 +55,10 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [タイピングゲーム](examples/beginner/typing/tutorial.html)：英字や短い単語を、正確に速く打ちます。
 - [ヒントで数あて](examples/beginner/number-guess/tutorial.html)：大小のヒントを使い、かくれた数を探します。
 
-中級者向けは、次の5本です。
+- [3択クイズ](examples/beginner/quiz/tutorial.html)：配列の問題を表示し、選択肢と正解を比べます。
+- [選択肢の冒険](examples/beginner/story/tutorial.html)：選択した番号で物語の場面と結末を変えます。
+
+中級者向けは、次の7本です。
 
 - [ブロックくずし](examples/intermediate/breakout/tutorial.html)：ボールを当ててブロックを消します。
 - [シンプルなシューティング](examples/intermediate/shooting/tutorial.html)：弾を飛ばして敵を倒します。
@@ -63,13 +66,21 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [神経衰弱](examples/intermediate/memory/tutorial.html)：2枚のカードをめくり、同じ文字の組を探します。
 - [小さなお店の経営ゲーム](examples/intermediate/shop/tutorial.html)：商品を仕入れて売り、3日間の所持金を増やします。
 
-上級者向けは、次の5本です。
+- [箱押しパズル](examples/intermediate/sokoban/tutorial.html)：壁と箱を調べ、箱を目標まで押します。
+- [マインスイーパー](examples/intermediate/minesweeper/tutorial.html)：周囲の爆弾を数え、安全なマスを開きます。
+
+上級者向けは、次の9本です。
 
 - [横スクロールのジャンプアクション](examples/advanced/platformer/tutorial.html)：地形を進み、ゴールを目指します。
 - [クリックで脱出ゲーム](examples/advanced/escape/tutorial.html)：番号の謎と持ち物を使って部屋から脱出します。
 - [タワーディフェンス](examples/advanced/tower-defense/tutorial.html)：タワーを置き、3回の敵の波を防ぎます。
 - [小さなカードバトル](examples/advanced/card-battle/tutorial.html)：攻撃・防御・回復のカードで敵と戦います。
 - [周回タイムアタック](examples/advanced/racing/tutorial.html)：車で4地点を順に通り、2周のタイムを記録します。
+
+- [落ちものパズル](examples/advanced/falling-blocks/tutorial.html)：クラスで盤面と図形を作り、行をそろえます。
+- [探索RPG](examples/advanced/quest-rpg/tutorial.html)：クラスで人物と依頼を作り、宝と鍵を探します。
+- [マス目の戦術ゲーム](examples/advanced/tactics/tutorial.html)：味方を選んで移動し、敵と交互に戦います。
+- [1対1サッカー](examples/advanced/soccer/tutorial.html)：選手とボールを動かし、先に3点を目指します。
 
 [横スクロールゲームの発展課題](examples/advanced/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。
 

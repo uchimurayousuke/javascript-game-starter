@@ -1,0 +1,594 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>1対1サッカーの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">戻る</a></p><h1>1対1サッカーを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：ピッチと選手を描く</h2><h3>目標</h3><p>サッカーの動きを順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 34 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Player {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Ball {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Game {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.keys = {};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  resetPositions() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let game;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game = new Game();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#ffffff&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.player.draw(); game.rival.draw(); game.ball.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Player {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Ball {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Game {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.keys = {};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  resetPositions() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let game;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game = new Game();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+class Player {
+  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }
+  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }
+}
+class Ball {
+  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }
+  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }
+}
+class Game {
+  constructor() {
+    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);
+    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;
+    this.keys = {};
+  }
+  resetPositions() {
+    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#ffffff&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.player.draw(); game.rival.draw(); game.ball.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);
+  ctx.fillStyle = &quot;#ffffff&quot;;
+  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);
+  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);
+  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;
+  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);
+  game.player.draw(); game.rival.draw(); game.ball.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);
+  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);
+}
+
+
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>Playerは選手の位置と色、Ballはボールの位置と速度を持ちます。Gameは試合全体を管理します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }
+  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }
+}
+class Ball {
+  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }
+  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }
+}
+class Game {
+  constructor() {
+    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);
+    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;
+    this.keys = {};
+  }
+  resetPositions() {
+    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);
+  ctx.fillStyle = &quot;#ffffff&quot;;
+  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);
+  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);
+  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;
+  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);
+  game.player.draw(); game.rival.draw(); game.ball.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);
+  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>ピッチ、両ゴール、青と赤の選手、ボールが表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：選手を動かす</h2><h3>目標</h3><p>サッカーの動きを順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 22 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const p = this.player;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const speed = 2.5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    p.x = Math.max(66, Math.min(734, p.x + dx * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    p.y = Math.max(76, Math.min(374, p.y + dy * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let game;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.keys[event.key] = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const p = this.player;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const speed = 2.5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    p.x = Math.max(66, Math.min(734, p.x + dx * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    p.y = Math.max(76, Math.min(374, p.y + dy * speed));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  }
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player;
+    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);
+    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;
+    const speed = 2.5;
+    p.x = Math.max(66, Math.min(734, p.x + dx * speed));
+    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+  }
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  game.update();
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;ピッチと選手&quot;, 180, 430);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.keys[event.key] = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>}
+
+
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key;
+  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  game.keys[event.key] = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>矢印の入力から移動方向を作り、斜めでも速くなりすぎないよう長さで割ります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }
+  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }
+}
+class Ball {
+  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }
+  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }
+}
+class Game {
+  constructor() {
+    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);
+    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;
+    this.keys = {};
+  }
+  resetPositions() {
+    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player;
+    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);
+    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;
+    const speed = 2.5;
+    p.x = Math.max(66, Math.min(734, p.x + dx * speed));
+    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);
+  ctx.fillStyle = &quot;#ffffff&quot;;
+  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);
+  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);
+  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;
+  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);
+  game.player.draw(); game.rival.draw(); game.ball.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);
+  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key;
+  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  game.keys[event.key] = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>矢印キーで青い選手が動き、キーを離すと止まります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：ボールを蹴る</h2><h3>目標</h3><p>サッカーの動きを順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 18 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  kick(player, power) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = this.ball.x - player.x, dy = this.ball.y - player.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const distance = Math.hypot(dx, dy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 32) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const direction = distance === 0 ? (player === this.player ? 1 : -1) : dx / distance;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.ball.vx = direction * power; this.ball.vy = distance === 0 ? 0 : dy / distance * power;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    p.x = Math.max(66, Math.min(734, p.x + dx * speed));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    p.y = Math.max(76, Math.min(374, p.y + dy * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const b = this.ball;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot; &quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;playing&quot;) game.kick(game.player, 6);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, event =&gt; {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  kick(player, power) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const dx = this.ball.x - player.x, dy = this.ball.y - player.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const distance = Math.hypot(dx, dy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 32) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const direction = distance === 0 ? (player === this.player ? 1 : -1) : dx / distance;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.ball.vx = direction * power; this.ball.vy = distance === 0 ? 0 : dy / distance * power;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  }
+  update() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+  kick(player, power) {
+    const dx = this.ball.x - player.x, dy = this.ball.y - player.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 32) {
+      const direction = distance === 0 ? (player === this.player ? 1 : -1) : dx / distance;
+      this.ball.vx = direction * power; this.ball.vy = distance === 0 ? 0 : dy / distance * power;
+      return true;
+    }
+    return false;
+  }
+  update() {
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    p.y = Math.max(76, Math.min(374, p.y + dy * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const b = this.ball;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+    const b = this.ball;
+    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;
+    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }
+    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }
+    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }
+    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }
+  }
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動　R: 再開&quot;, 180, 430);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot; &quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;playing&quot;) game.kick(game.player, 6);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+  if (key === &quot; &quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;playing&quot;) game.kick(game.player, 6);
+});
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="soccer-kick" aria-labelledby="soccer-kick-title"><figcaption id="soccer-kick-title">図：サッカー：近づいてからシュート</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="サッカー：近づいてからシュート。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/soccer-kick.svg" width="1000" height="800" alt="ボールに近づいてSpaceを押しましょう。選手とボールの中心が32px以内なら蹴れます。ボールは選手からボールへ向かう方向に飛びます。"></div><p>ボールに近づいてSpaceを押しましょう。選手とボールの中心が32px以内なら蹴れます。ボールは選手からボールへ向かう方向に飛びます。</p><p>半径16pxと8px、中心間距離30pxの成功例を4倍で描画。矢印は方向のみで飛距離ではない。通常の強さは6。</p></figure><p>選手とボールの中心の距離が32以下なら蹴れます。ボールは移動するたびに速度を0.99倍にします。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }
+  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }
+}
+class Ball {
+  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }
+  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }
+}
+class Game {
+  constructor() {
+    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);
+    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;
+    this.keys = {};
+  }
+  resetPositions() {
+    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
+  }
+  kick(player, power) {
+    const dx = this.ball.x - player.x, dy = this.ball.y - player.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 32) {
+      const direction = distance === 0 ? (player === this.player ? 1 : -1) : dx / distance;
+      this.ball.vx = direction * power; this.ball.vy = distance === 0 ? 0 : dy / distance * power;
+      return true;
+    }
+    return false;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player;
+    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);
+    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;
+    const speed = 2.5;
+    p.x = Math.max(66, Math.min(734, p.x + dx * speed));
+    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+    const b = this.ball;
+    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;
+    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }
+    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }
+    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }
+    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);
+  ctx.fillStyle = &quot;#ffffff&quot;;
+  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);
+  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);
+  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;
+  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);
+  game.player.draw(); game.rival.draw(); game.ball.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);
+  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key;
+  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+  if (key === &quot; &quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;playing&quot;) game.kick(game.player, 6);
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  game.keys[event.key] = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>ボールに近づいてSpaceを押すと、ボールが進んで減速します。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 4：相手を動かす</h2><h3>目標</h3><p>サッカーの動きを順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 7 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    p.x = Math.max(66, Math.min(734, p.x + dx * speed));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    p.y = Math.max(76, Math.min(374, p.y + dy * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const r = this.rival, ball = this.ball;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const rx = ball.x - r.x, ry = ball.y - r.y, distance = Math.hypot(rx, ry) || 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &gt; 24) { const speed = 0.8; r.x += rx / distance * speed; r.y += ry / distance * speed; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.cooldown &gt; 0) this.cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 28 &amp;&amp; this.cooldown === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ball.vx = -5; ball.vy = (ball.y - r.y) * 0.1; this.cooldown = 50;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const b = this.ball;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    p.y = Math.max(76, Math.min(374, p.y + dy * speed));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const r = this.rival, ball = this.ball;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const rx = ball.x - r.x, ry = ball.y - r.y, distance = Math.hypot(rx, ry) || 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &gt; 24) { const speed = 0.8; r.x += rx / distance * speed; r.y += ry / distance * speed; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.cooldown &gt; 0) this.cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (distance &lt;= 28 &amp;&amp; this.cooldown === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ball.vx = -5; ball.vy = (ball.y - r.y) * 0.1; this.cooldown = 50;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const b = this.ball;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+    const b = this.ball;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+    const r = this.rival, ball = this.ball;
+    const rx = ball.x - r.x, ry = ball.y - r.y, distance = Math.hypot(rx, ry) || 1;
+    if (distance &gt; 24) { const speed = 0.8; r.x += rx / distance * speed; r.y += ry / distance * speed; }
+    if (this.cooldown &gt; 0) this.cooldown--;
+    if (distance &lt;= 28 &amp;&amp; this.cooldown === 0) {
+      ball.vx = -5; ball.vy = (ball.y - r.y) * 0.1; this.cooldown = 50;
+    }
+    const b = this.ball;
+</code></pre><h3>コードの意味</h3><p>相手はボールに近づき、近ければ左方向へ蹴ります。連続して蹴らないよう待ち時間を設けます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }
+  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }
+}
+class Ball {
+  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }
+  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }
+}
+class Game {
+  constructor() {
+    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);
+    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;
+    this.keys = {};
+  }
+  resetPositions() {
+    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
+  }
+  kick(player, power) {
+    const dx = this.ball.x - player.x, dy = this.ball.y - player.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 32) {
+      const direction = distance === 0 ? (player === this.player ? 1 : -1) : dx / distance;
+      this.ball.vx = direction * power; this.ball.vy = distance === 0 ? 0 : dy / distance * power;
+      return true;
+    }
+    return false;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player;
+    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);
+    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;
+    const speed = 2.5;
+    p.x = Math.max(66, Math.min(734, p.x + dx * speed));
+    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+    const r = this.rival, ball = this.ball;
+    const rx = ball.x - r.x, ry = ball.y - r.y, distance = Math.hypot(rx, ry) || 1;
+    if (distance &gt; 24) { const speed = 0.8; r.x += rx / distance * speed; r.y += ry / distance * speed; }
+    if (this.cooldown &gt; 0) this.cooldown--;
+    if (distance &lt;= 28 &amp;&amp; this.cooldown === 0) {
+      ball.vx = -5; ball.vy = (ball.y - r.y) * 0.1; this.cooldown = 50;
+    }
+    const b = this.ball;
+    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;
+    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }
+    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }
+    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }
+    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);
+  ctx.fillStyle = &quot;#ffffff&quot;;
+  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);
+  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);
+  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;
+  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);
+  game.player.draw(); game.rival.draw(); game.ball.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);
+  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key;
+  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+  if (key === &quot; &quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;playing&quot;) game.kick(game.player, 6);
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  game.keys[event.key] = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>相手がボールへ近づき、近いときに左へ蹴ります。 <a href="step4/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 5：ゴールと勝敗</h2><h3>目標</h3><p>サッカーの動きを順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const inGoal = b.y - 8 &gt;= 170 &amp;&amp; b.y + 8 &lt;= 280;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if ((b.x + 8 &lt; 50 || b.x - 8 &gt; 750) &amp;&amp; inGoal) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (b.x + 8 &lt; 50) this.opponentScore++; else this.score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.score &gt;= 3 || this.opponentScore &gt;= 3) { this.state = this.score &gt;= 3 ? &quot;clear&quot; : &quot;over&quot;; this.keys = {}; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.resetPositions(); return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!inGoal) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;勝ち！ Rで再開&quot; : &quot;負け。Rで再開&quot;, 320, 220);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const inGoal = b.y - 8 &gt;= 170 &amp;&amp; b.y + 8 &lt;= 280;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if ((b.x + 8 &lt; 50 || b.x - 8 &gt; 750) &amp;&amp; inGoal) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (b.x + 8 &lt; 50) this.opponentScore++; else this.score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.score &gt;= 3 || this.opponentScore &gt;= 3) { this.state = this.score &gt;= 3 ? &quot;clear&quot; : &quot;over&quot;; this.keys = {}; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.resetPositions(); return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!inGoal) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }
+    if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    const inGoal = b.y - 8 &gt;= 170 &amp;&amp; b.y + 8 &lt;= 280;
+    if ((b.x + 8 &lt; 50 || b.x - 8 &gt; 750) &amp;&amp; inGoal) {
+      if (b.x + 8 &lt; 50) this.opponentScore++; else this.score++;
+      if (this.score &gt;= 3 || this.opponentScore &gt;= 3) { this.state = this.score &gt;= 3 ? &quot;clear&quot; : &quot;over&quot;; this.keys = {}; }
+      this.resetPositions(); return;
+    }
+    if (!inGoal) {
+      if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }
+      if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }
+    }
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;勝ち！ Rで再開&quot; : &quot;負け。Rで再開&quot;, 320, 220);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;勝ち！ Rで再開&quot; : &quot;負け。Rで再開&quot;, 320, 220);
+}
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="soccer-goal" aria-labelledby="soccer-goal-title"><figcaption id="soccer-goal-title">図：サッカー：ボール全体が線を越えたら</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="サッカー：ボール全体が線を越えたら。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/soccer-goal.svg" width="1000" height="850" alt="ボール全体がゴールの線を越えると得点です。右では中心758だと線に接していて未得点、759なら得点です。上下もボール全体が開口に収まる必要があります。先に3点取った側が勝ちます。"></div><p>ボール全体がゴールの線を越えると得点です。右では中心758だと線に接していて未得点、759なら得点です。上下もボール全体が開口に収まる必要があります。先に3点取った側が勝ちます。</p><p>境界付近を4倍に拡大。半径8pxを使用。右は中心−8&gt;750、左は中心＋8&lt;50、縦は中心−8≧170かつ中心＋8≦280。半径を含む更新後の実コードと照合済み。</p></figure><p>半径8のボール全体が横50または750の線を越え、縦170〜280の開口に収まるとゴールです。開口に収まらない場合は壁で反射します。</p><p>得点後は中央に戻し、先に3点取ると勝敗が決まります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor(x, color) { this.x = x; this.y = 225; this.color = color; }
+  draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 16, 0, Math.PI * 2); ctx.fill(); }
+}
+class Ball {
+  constructor() { this.x = 400; this.y = 225; this.vx = 0; this.vy = 0; }
+  draw() { ctx.fillStyle = &quot;#ffffff&quot;; ctx.beginPath(); ctx.arc(this.x, this.y, 8, 0, Math.PI * 2); ctx.fill(); }
+}
+class Game {
+  constructor() {
+    this.player = new Player(200, &quot;#3984c6&quot;); this.rival = new Player(600, &quot;#d85e59&quot;);
+    this.ball = new Ball(); this.score = 0; this.opponentScore = 0; this.state = &quot;playing&quot;; this.cooldown = 0;
+    this.keys = {};
+  }
+  resetPositions() {
+    this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
+  }
+  kick(player, power) {
+    const dx = this.ball.x - player.x, dy = this.ball.y - player.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance &lt;= 32) {
+      const direction = distance === 0 ? (player === this.player ? 1 : -1) : dx / distance;
+      this.ball.vx = direction * power; this.ball.vy = distance === 0 ? 0 : dy / distance * power;
+      return true;
+    }
+    return false;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player;
+    let dx = (this.keys.ArrowRight ? 1 : 0) - (this.keys.ArrowLeft ? 1 : 0);
+    let dy = (this.keys.ArrowDown ? 1 : 0) - (this.keys.ArrowUp ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1; dx /= length; dy /= length;
+    const speed = 2.5;
+    p.x = Math.max(66, Math.min(734, p.x + dx * speed));
+    p.y = Math.max(76, Math.min(374, p.y + dy * speed));
+    const r = this.rival, ball = this.ball;
+    const rx = ball.x - r.x, ry = ball.y - r.y, distance = Math.hypot(rx, ry) || 1;
+    if (distance &gt; 24) { const speed = 0.8; r.x += rx / distance * speed; r.y += ry / distance * speed; }
+    if (this.cooldown &gt; 0) this.cooldown--;
+    if (distance &lt;= 28 &amp;&amp; this.cooldown === 0) {
+      ball.vx = -5; ball.vy = (ball.y - r.y) * 0.1; this.cooldown = 50;
+    }
+    const b = this.ball;
+    b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;
+    if (b.y &lt; 68) { b.y = 68; b.vy = Math.abs(b.vy); }
+    if (b.y &gt; 382) { b.y = 382; b.vy = -Math.abs(b.vy); }
+    const inGoal = b.y - 8 &gt;= 170 &amp;&amp; b.y + 8 &lt;= 280;
+    if ((b.x + 8 &lt; 50 || b.x - 8 &gt; 750) &amp;&amp; inGoal) {
+      if (b.x + 8 &lt; 50) this.opponentScore++; else this.score++;
+      if (this.score &gt;= 3 || this.opponentScore &gt;= 3) { this.state = this.score &gt;= 3 ? &quot;clear&quot; : &quot;over&quot;; this.keys = {}; }
+      this.resetPositions(); return;
+    }
+    if (!inGoal) {
+      if (b.x &lt; 58) { b.x = 58; b.vx = Math.abs(b.vx); }
+      if (b.x &gt; 742) { b.x = 742; b.vx = -Math.abs(b.vx); }
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#6ca96c&quot;; ctx.fillRect(50, 60, 700, 330);
+  ctx.fillStyle = &quot;#ffffff&quot;;
+  ctx.fillRect(49, 60, 2, 110); ctx.fillRect(49, 280, 2, 110);
+  ctx.fillRect(749, 60, 2, 110); ctx.fillRect(749, 280, 2, 110);
+  ctx.strokeStyle = &quot;#26334a&quot;; ctx.lineWidth = 3;
+  ctx.strokeRect(30, 170, 20, 110); ctx.strokeRect(750, 170, 20, 110);
+  game.player.draw(); game.rival.draw(); game.ball.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;自分 &quot; + game.score + &quot; - &quot; + game.opponentScore + &quot; 相手&quot;, 300, 35);
+  ctx.fillText(&quot;矢印: 移動　Space: シュート　R: 再開&quot;, 180, 430);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;勝ち！ Rで再開&quot; : &quot;負け。Rで再開&quot;, 320, 220);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key;
+  if (!event.repeat &amp;&amp; key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot; &quot;].includes(key)) event.preventDefault();
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;Shift&quot;].includes(key)) game.keys[key] = true;
+  if (key === &quot; &quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;playing&quot;) game.kick(game.player, 6);
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  game.keys[event.key] = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>ゴールの枠に入ると得点し、3点先取で勝敗が決まります。 <a href="step5/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色を変えて比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p><p><a href="extensions/tutorial.html">発展編に挑戦する</a></p></main></body></html>

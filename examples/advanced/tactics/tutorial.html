@@ -1,0 +1,725 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>マス目の戦術ゲームの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">戻る</a></p><h1>マス目の戦術ゲームを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：盤面とユニットを描く</h2><h3>目標</h3><p>味方と敵の手番を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 41 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const width = 6, height = 5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Unit {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, side, kind) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.moved = false; this.acted = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Game {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cost(x, y) { return 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let game;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game = new Game();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const width = 6, height = 5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Unit {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, side, kind) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.moved = false; this.acted = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Game {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cost(x, y) { return 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let game;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game = new Game();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);
+  ctx.fillText(&quot;&quot;, 440, 145);
+  ctx.fillText(game.message, 60, 390);
+}
+
+
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>Unitは位置、HP、陣営、移動と行動の記録を持ち、Gameは全部のユニットと手番を管理します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);
+  ctx.fillText(&quot;&quot;, 440, 145);
+  ctx.fillText(game.message, 60, 390);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>6列5行の盤面に青い味方2体と赤い敵2体が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：選択して移動する</h2><h3>目標</h3><p>味方と敵の手番を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 39 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cost(x, y) { return 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  reachable(unit, targetX, targetY) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const limit = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    while (queue.length) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      queue.sort((a, b) =&gt; a.cost - b.cost);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      best.set(id, p.cost);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  click(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const target = this.at(x, y), unit = this.selected;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!unit || unit.hp &lt;= 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let game;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.click(x, y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cost(x, y) { return 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  reachable(unit, targetX, targetY) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const limit = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    while (queue.length) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      queue.sort((a, b) =&gt; a.cost - b.cost);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      best.set(id, p.cost);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  click(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const target = this.at(x, y), unit = this.selected;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!unit || unit.hp &lt;= 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  cost(x, y) { return 1; }
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  cost(x, y) { return 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 1;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;ユニットを表示&quot;, 440, 110);
+  ctx.fillText(&quot;&quot;, 440, 145);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);
+  ctx.fillText(&quot;R: 再開&quot;, 440, 145);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.click(x, y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>}
+
+
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+});
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>味方を選んで空きマスをクリックします。通れるマスを順番に調べ、1マスまで移動します。</p><p>移動済みの味方は同じ番にもう一度移動できません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 1;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);
+  ctx.fillText(&quot;R: 再開&quot;, 440, 145);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>味方をクリックして隣の空きマスへ移動し、同じ番に二度は移動できないことを確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：隣を攻撃する</h2><h3>目標</h3><p>味方と敵の手番を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!unit || unit.hp &lt;= 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const range = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (distance &lt;= range) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 440, 145);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!unit || unit.hp &lt;= 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const range = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (distance &lt;= range) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (!unit || unit.hp &lt;= 0) return;
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;クリック: 選択・移動&quot;, 440, 110);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="tactics-move" aria-labelledby="tactics-move-title"><figcaption id="tactics-move-title">図：タクティクス：味方を選んで移動</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="タクティクス：味方を選んで移動。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/tactics-move.svg" width="1000" height="800" alt="青い味方をクリックして選びます。上下左右の空いたマスに1マス移動できます。一度移動すると、同じ番ではもう移動できません。"></div><p>青い味方をクリックして選びます。上下左右の空いたマスに1マス移動できます。一度移動すると、同じ番ではもう移動できません。</p><p>実際の6列×5行を60pxから75pxへ拡大。列1・行1の味方から移動できる4方向を表示。HPは省略。</p></figure><p>敵との横と縦の距離の合計が1なら、2ダメージを与えます。</p><p>一度攻撃すると、その味方は同じ番に再び攻撃できません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 1;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+  ctx.fillText(&quot;R: 再開&quot;, 440, 145);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>選んだ味方の隣にいる敵をクリックすると、敵のHPが2減ります。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 4：敵の番を作る</h2><h3>目標</h3><p>味方と敵の手番を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 28 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemyStep(unit) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let i = 0; i &lt; queue.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const p = queue[i], id = p.x + &quot;,&quot; + p.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (visited.has(id)) continue;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      visited.add(id);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        const x = p.x + dx, y = p.y + dy;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  endTurn() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const step = this.enemyStep(enemy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (step) { enemy.x = step.x; enemy.y = step.y; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (target) target.hp = Math.max(0, target.hp - 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.message = &quot;味方の番&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  click(x, y) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;enter&quot;) game.endTurn();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemyStep(unit) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let i = 0; i &lt; queue.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const p = queue[i], id = p.x + &quot;,&quot; + p.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (visited.has(id)) continue;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      visited.add(id);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        const x = p.x + dx, y = p.y + dy;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  endTurn() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const step = this.enemyStep(enemy);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (step) { enemy.x = step.x; enemy.y = step.y; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (target) target.hp = Math.max(0, target.hp - 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.selected = null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.message = &quot;味方の番&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  click(x, y) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  }
+  click(x, y) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+  enemyStep(unit) {
+    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();
+    for (let i = 0; i &lt; queue.length; i++) {
+      const p = queue[i], id = p.x + &quot;,&quot; + p.y;
+      if (visited.has(id)) continue;
+      visited.add(id);
+      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;
+      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {
+        const x = p.x + dx, y = p.y + dy;
+        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});
+      }
+    }
+    return null;
+  }
+  endTurn() {
+    if (this.state !== &quot;playing&quot;) return;
+    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {
+      const step = this.enemyStep(enemy);
+      if (step) { enemy.x = step.x; enemy.y = step.y; }
+      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);
+      if (target) target.hp = Math.max(0, target.hp - 2);
+    }
+    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }
+    this.selected = null;
+    this.message = &quot;味方の番&quot;;
+  }
+  click(x, y) {
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 440, 145);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;R: 再開&quot;, 440, 145);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;enter&quot;) game.endTurn();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (key === &quot;r&quot;) { start(); return; }
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;enter&quot;) game.endTurn();
+});
+</code></pre><h3>コードの意味</h3><p>Enterで敵が近づき、隣に味方がいれば攻撃します。生きている敵を1体ずつ処理します。</p><p>味方の移動と行動の記録を次の番に戻します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 1;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  enemyStep(unit) {
+    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();
+    for (let i = 0; i &lt; queue.length; i++) {
+      const p = queue[i], id = p.x + &quot;,&quot; + p.y;
+      if (visited.has(id)) continue;
+      visited.add(id);
+      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;
+      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {
+        const x = p.x + dx, y = p.y + dy;
+        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});
+      }
+    }
+    return null;
+  }
+  endTurn() {
+    if (this.state !== &quot;playing&quot;) return;
+    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {
+      const step = this.enemyStep(enemy);
+      if (step) { enemy.x = step.x; enemy.y = step.y; }
+      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);
+      if (target) target.hp = Math.max(0, target.hp - 2);
+    }
+    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }
+    this.selected = null;
+    this.message = &quot;味方の番&quot;;
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;enter&quot;) game.endTurn();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>Enterで敵が1体ずつ動き、味方の番が戻ります。 <a href="step4/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 5：勝敗を判定する</h2><h3>目標</h3><p>味方と敵の手番を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.selected = null;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.message = &quot;味方の番&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  click(x, y) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (distance &lt;= range) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.message = &quot;味方の番&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.message = &quot;味方の番&quot;;
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.message = &quot;味方の番&quot;;
+    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }
+  }
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+      }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }
+      }
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="tactics-turn" aria-labelledby="tactics-turn-title"><figcaption id="tactics-turn-title">図：タクティクス：番を交代しよう</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="タクティクス：番を交代しよう。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/tactics-turn.svg" width="1000" height="800" alt="各味方は移動と攻撃を1回ずつ行えます。操作を終えたらEnterで敵の番にします。敵の処理が終わると、また味方が移動・攻撃できるようになります。"></div><p>各味方は移動と攻撃を1回ずつ行えます。操作を終えたらEnterで敵の番にします。敵の処理が終わると、また味方が移動・攻撃できるようになります。</p><p>処理順の模式図。移動と攻撃の順番は自由。敵の移動と隣接攻撃の後、全味方のmovedとactedがfalseに戻る。</p></figure><p>敵が全員倒れれば勝ち、味方が全員倒れれば負けです。HP0のユニットは選べません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const width = 6, height = 5;
+class Unit {
+  constructor(x, y, side, kind) {
+    this.x = x; this.y = y; this.side = side; this.kind = kind; this.hp = 6; this.maxHp = 6;
+    this.moved = false; this.acted = false;
+  }
+  draw() {
+    ctx.fillStyle = this.side === &quot;ally&quot; ? &quot;#3984c6&quot; : &quot;#d85e59&quot;;
+    ctx.fillRect(60 + this.x * 60 + 8, 45 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(String(this.hp), 60 + this.x * 60 + 24, 45 + this.y * 60 + 36);
+    if (this.side === &quot;ally&quot; &amp;&amp; this.kind !== &quot;sword&quot;) ctx.fillText(this.kind === &quot;archer&quot; ? &quot;弓&quot; : &quot;回&quot;, 60 + this.x * 60 + 8, 45 + this.y * 60 + 22);
+  }
+}
+class Game {
+  constructor() {
+    this.units = [new Unit(1, 1, &quot;ally&quot;, &quot;sword&quot;), new Unit(1, 3, &quot;ally&quot;, &quot;sword&quot;),
+      new Unit(4, 1, &quot;enemy&quot;, &quot;sword&quot;), new Unit(4, 3, &quot;enemy&quot;, &quot;sword&quot;)];
+    this.selected = null; this.state = &quot;playing&quot;; this.message = &quot;青い味方を選ぼう&quot;;
+  }
+  at(x, y) { return this.units.find(u =&gt; u.hp &gt; 0 &amp;&amp; u.x === x &amp;&amp; u.y === y); }
+  wall(x, y) { return x &lt; 0 || x &gt;= width || y &lt; 0 || y &gt;= height; }
+  cost(x, y) { return 1; }
+  reachable(unit, targetX, targetY) {
+    const queue = [{x: unit.x, y: unit.y, cost: 0}], best = new Map();
+    const limit = 1;
+    while (queue.length) {
+      queue.sort((a, b) =&gt; a.cost - b.cost);
+      const p = queue.shift(), id = p.x + &quot;,&quot; + p.y;
+      if (best.has(id) &amp;&amp; best.get(id) &lt;= p.cost) continue;
+      best.set(id, p.cost);
+      if (p.x === targetX &amp;&amp; p.y === targetY) return p.cost &gt; 0;
+      for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const x = p.x + dx, y = p.y + dy, cost = p.cost + this.cost(x, y);
+        if (cost &lt;= limit &amp;&amp; !this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, cost});
+      }
+    }
+    return false;
+  }
+  enemyStep(unit) {
+    const queue = [{x: unit.x, y: unit.y, first: null}], visited = new Set();
+    for (let i = 0; i &lt; queue.length; i++) {
+      const p = queue[i], id = p.x + &quot;,&quot; + p.y;
+      if (visited.has(id)) continue;
+      visited.add(id);
+      if (this.units.some(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - p.x) + Math.abs(u.y - p.y) === 1)) return p.first;
+      for (const [dx, dy] of [[-1,0],[0,-1],[0,1],[1,0]]) {
+        const x = p.x + dx, y = p.y + dy;
+        if (!this.wall(x, y) &amp;&amp; !this.at(x, y)) queue.push({x, y, first: p.first || {x, y}});
+      }
+    }
+    return null;
+  }
+  endTurn() {
+    if (this.state !== &quot;playing&quot;) return;
+    for (const enemy of this.units.filter(u =&gt; u.side === &quot;enemy&quot; &amp;&amp; u.hp &gt; 0)) {
+      const step = this.enemyStep(enemy);
+      if (step) { enemy.x = step.x; enemy.y = step.y; }
+      const target = this.units.find(u =&gt; u.side === &quot;ally&quot; &amp;&amp; u.hp &gt; 0 &amp;&amp; Math.abs(u.x - enemy.x) + Math.abs(u.y - enemy.y) === 1);
+      if (target) target.hp = Math.max(0, target.hp - 2);
+    }
+    for (const ally of this.units.filter(u =&gt; u.side === &quot;ally&quot;)) { ally.moved = false; ally.acted = false; }
+    this.selected = null;
+    this.message = &quot;味方の番&quot;;
+    if (this.units.every(u =&gt; u.side !== &quot;ally&quot; || u.hp === 0)) { this.state = &quot;over&quot;; this.message = &quot;味方が倒れた&quot;; }
+  }
+  click(x, y) {
+    if (this.state !== &quot;playing&quot; || this.wall(x, y)) return;
+    const target = this.at(x, y), unit = this.selected;
+    if (target &amp;&amp; target.side === &quot;ally&quot;) { this.selected = target; this.message = &quot;味方を選択&quot;; return; }
+    if (!unit || unit.hp &lt;= 0) return;
+    if (target &amp;&amp; target.side === &quot;enemy&quot; &amp;&amp; !unit.acted) {
+      const distance = Math.abs(unit.x - x) + Math.abs(unit.y - y);
+      const range = 1;
+      if (distance &lt;= range) {
+        target.hp = Math.max(0, target.hp - 2); unit.acted = true; this.message = &quot;攻撃した&quot;;
+        if (this.units.every(u =&gt; u.side !== &quot;enemy&quot; || u.hp === 0)) { this.state = &quot;clear&quot;; this.message = &quot;勝利！&quot;; }
+      }
+      return;
+    }
+    if (!target &amp;&amp; !unit.moved &amp;&amp; this.reachable(unit, x, y)) {
+      unit.x = x; unit.y = y; unit.moved = true; this.message = &quot;移動した&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let y = 0; y &lt; height; y++) for (let x = 0; x &lt; width; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#65717e&quot; : game.cost(x, y) === 2 ? &quot;#8bb56e&quot; : &quot;#e7eedf&quot;;
+    ctx.fillRect(60 + x * 60, 45 + y * 60, 58, 58);
+  }
+  for (const unit of game.units) if (unit.hp &gt; 0) unit.draw();
+  if (game.selected &amp;&amp; game.selected.hp &gt; 0) { ctx.strokeStyle = &quot;#edb73e&quot;; ctx.lineWidth = 4; ctx.strokeRect(60 + game.selected.x * 60 + 4, 45 + game.selected.y * 60 + 4, 52, 52); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;19px sans-serif&quot;;
+  ctx.fillText(&quot;青: 味方 / 赤: 敵 / 数字: HP&quot;, 440, 75);
+  ctx.fillText(&quot;クリック: 選択・移動・攻撃&quot;, 440, 110);
+  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
+  if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
+  ctx.fillText(game.message, 60, 390);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 60) / 60);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 45) / 60);
+  game.click(x, y);
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;enter&quot;) game.endTurn();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>敵を全員倒すと勝ち、味方が全員倒れると負けになります。 <a href="step5/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p><p><a href="extensions/tutorial.html">発展編に挑戦する</a></p></main></body></html>

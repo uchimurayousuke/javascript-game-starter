@@ -1,0 +1,562 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>探索RPGの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">戻る</a></p><h1>探索RPGを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：マップと人物を描く</h2><h3>目標</h3><p>探索と依頼を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 47 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Player {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class NPC {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Game {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.message = &quot;住人に話しかけよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  blocked(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let game;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game = new Game();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const p = game.player;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.npc.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!game.hasItem &amp;&amp; !game.key) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Player {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class NPC {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  draw() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Game {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.message = &quot;住人に話しかけよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  blocked(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let game;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game = new Game();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+class Player {
+  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }
+}
+class NPC {
+  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }
+  draw() {
+    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);
+  }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);
+    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;
+    this.message = &quot;住人に話しかけよう&quot;;
+  }
+  blocked(x, y) {
+    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;
+    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;
+    return false;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const p = game.player;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.npc.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!game.hasItem &amp;&amp; !game.key) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const p = game.player;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {
+    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;
+    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);
+  }
+  game.npc.draw();
+  if (!game.hasItem &amp;&amp; !game.key) {
+    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);
+  }
+  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);
+  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);
+  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);
+  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);
+  ctx.fillText(game.message, 60, 390);
+  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);
+}
+
+
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>Playerは位置と向き、NPCは住人の位置と表示を担当します。Gameは依頼の進み具合をまとめます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }
+}
+class NPC {
+  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }
+  draw() {
+    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);
+  }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);
+    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;
+    this.message = &quot;住人に話しかけよう&quot;;
+  }
+  blocked(x, y) {
+    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;
+    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;
+    return false;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const p = game.player;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {
+    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;
+    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);
+  }
+  game.npc.draw();
+  if (!game.hasItem &amp;&amp; !game.key) {
+    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);
+  }
+  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);
+  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);
+  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);
+  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);
+  ctx.fillText(game.message, 60, 390);
+  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>壁、住人、宝、扉と自分が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>会話の文章を変えてみます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：壁と移動</h2><h3>目標</h3><p>探索と依頼を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 13 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  move(dx, dy) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const p = this.player; p.dx = dx; p.dy = dy;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  move(dx, dy) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const p = this.player; p.dx = dx; p.dy = dy;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    return false;
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    return false;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player; p.dx = dx; p.dy = dy;
+    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;人物とマップ&quot;, 500, 100);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>}
+
+
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+});
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="rpg-map" aria-labelledby="rpg-map-title"><figcaption id="rpg-map-title">図：RPG：マスを見て移動しよう</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="RPG：マスを見て移動しよう。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/rpg-map.svg" width="1000" height="800" alt="矢印キーで上下左右に1マスずつ動きます。最初の位置は列1・行1です。床には進めますが、壁や住人のいるマスには入れません。"></div><p>矢印キーで上下左右に1マスずつ動きます。最初の位置は列1・行1です。床には進めますが、壁や住人のいるマスには入れません。</p><p>実配置の7列×5行を60pxから70pxへ拡大。宝と扉も通行不可。この段階では調べる操作はまだない。</p></figure><p>移動先が壁や物のある場所なら進まず、向きだけ変えます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }
+}
+class NPC {
+  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }
+  draw() {
+    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);
+  }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);
+    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;
+    this.message = &quot;住人に話しかけよう&quot;;
+  }
+  blocked(x, y) {
+    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;
+    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;
+    return false;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player; p.dx = dx; p.dy = dy;
+    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const p = game.player;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {
+    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;
+    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);
+  }
+  game.npc.draw();
+  if (!game.hasItem &amp;&amp; !game.key) {
+    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);
+  }
+  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);
+  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);
+  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);
+  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);
+  ctx.fillText(game.message, 60, 390);
+  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>矢印で歩き、壁や物のマスへは入れないことを確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>会話の文章を変えてみます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：住人と会話する</h2><h3>目標</h3><p>探索と依頼を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 8 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  interact() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x === this.npc.x &amp;&amp; y === this.npc.y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.message = &quot;住人: 宝を探してくれませんか？&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let game;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動 / Space: 調べる&quot;, 500, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 60, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (key === &quot; &quot; &amp;&amp; game.state === &quot;playing&quot;) { event.preventDefault(); game.interact(); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  interact() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x === this.npc.x &amp;&amp; y === this.npc.y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.message = &quot;住人: 宝を探してくれませんか？&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+}
+let game;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+  interact() {
+    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;
+    if (x === this.npc.x &amp;&amp; y === this.npc.y) {
+      this.message = &quot;住人: 宝を探してくれませんか？&quot;;
+    }
+  }
+}
+let game;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動 / Space: 調べる&quot;, 500, 100);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動&quot;, 500, 100);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;矢印: 移動 / Space: 調べる&quot;, 500, 100);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (key === &quot; &quot; &amp;&amp; game.state === &quot;playing&quot;) { event.preventDefault(); game.interact(); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot; &quot; &amp;&amp; game.state === &quot;playing&quot;) { event.preventDefault(); game.interact(); }
+});
+</code></pre><h3>コードの意味</h3><p>Spaceで向いている隣のマスを調べ、住人なら会話します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }
+}
+class NPC {
+  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }
+  draw() {
+    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);
+  }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);
+    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;
+    this.message = &quot;住人に話しかけよう&quot;;
+  }
+  blocked(x, y) {
+    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;
+    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;
+    return false;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player; p.dx = dx; p.dy = dy;
+    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+  interact() {
+    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;
+    if (x === this.npc.x &amp;&amp; y === this.npc.y) {
+      this.message = &quot;住人: 宝を探してくれませんか？&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const p = game.player;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {
+    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;
+    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);
+  }
+  game.npc.draw();
+  if (!game.hasItem &amp;&amp; !game.key) {
+    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);
+  }
+  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);
+  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);
+  ctx.fillText(&quot;矢印: 移動 / Space: 調べる&quot;, 500, 100);
+  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);
+  ctx.fillText(game.message, 60, 390);
+  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot; &quot; &amp;&amp; game.state === &quot;playing&quot;) { event.preventDefault(); game.interact(); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>住人を向いてSpaceを押すと会話が表示されます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>会話の文章を変えてみます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 4：宝を渡して鍵をもらう</h2><h3>目標</h3><p>探索と依頼を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (x === this.npc.x &amp;&amp; y === this.npc.y) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      this.message = &quot;住人: 宝を探してくれませんか？&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.hasItem) { this.hasItem = false; this.key = true; this.quest = 2; this.message = &quot;宝を渡し、鍵をもらった&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else if (this.quest === 0) { this.quest = 1; this.message = &quot;住人: 右上の宝を取ってきて&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else this.message = this.key ? &quot;住人: 右下の扉を開けよう&quot; : &quot;住人: 宝を探してね&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (x === 5 &amp;&amp; y === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.quest === 1 &amp;&amp; !this.hasItem) { this.hasItem = true; this.message = &quot;宝を手に入れた&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      this.message = &quot;住人: 宝を探してくれませんか？&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.hasItem) { this.hasItem = false; this.key = true; this.quest = 2; this.message = &quot;宝を渡し、鍵をもらった&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else if (this.quest === 0) { this.quest = 1; this.message = &quot;住人: 右上の宝を取ってきて&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else this.message = this.key ? &quot;住人: 右下の扉を開けよう&quot; : &quot;住人: 宝を探してね&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (x === 5 &amp;&amp; y === 1) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.quest === 1 &amp;&amp; !this.hasItem) { this.hasItem = true; this.message = &quot;宝を手に入れた&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      this.message = &quot;住人: 宝を探してくれませんか？&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      if (this.hasItem) { this.hasItem = false; this.key = true; this.quest = 2; this.message = &quot;宝を渡し、鍵をもらった&quot;; }
+      else if (this.quest === 0) { this.quest = 1; this.message = &quot;住人: 右上の宝を取ってきて&quot;; }
+      else this.message = this.key ? &quot;住人: 右下の扉を開けよう&quot; : &quot;住人: 宝を探してね&quot;;
+    } else if (x === 5 &amp;&amp; y === 1) {
+      if (this.quest === 1 &amp;&amp; !this.hasItem) { this.hasItem = true; this.message = &quot;宝を手に入れた&quot;; }
+      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;
+</code></pre><h3>コードの意味</h3><p>questが1のとき宝を拾い、住人に渡すと鍵を受け取ります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }
+}
+class NPC {
+  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }
+  draw() {
+    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);
+  }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);
+    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;
+    this.message = &quot;住人に話しかけよう&quot;;
+  }
+  blocked(x, y) {
+    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;
+    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;
+    return false;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player; p.dx = dx; p.dy = dy;
+    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+  interact() {
+    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;
+    if (x === this.npc.x &amp;&amp; y === this.npc.y) {
+      if (this.hasItem) { this.hasItem = false; this.key = true; this.quest = 2; this.message = &quot;宝を渡し、鍵をもらった&quot;; }
+      else if (this.quest === 0) { this.quest = 1; this.message = &quot;住人: 右上の宝を取ってきて&quot;; }
+      else this.message = this.key ? &quot;住人: 右下の扉を開けよう&quot; : &quot;住人: 宝を探してね&quot;;
+    } else if (x === 5 &amp;&amp; y === 1) {
+      if (this.quest === 1 &amp;&amp; !this.hasItem) { this.hasItem = true; this.message = &quot;宝を手に入れた&quot;; }
+      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const p = game.player;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {
+    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;
+    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);
+  }
+  game.npc.draw();
+  if (!game.hasItem &amp;&amp; !game.key) {
+    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);
+  }
+  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);
+  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);
+  ctx.fillText(&quot;矢印: 移動 / Space: 調べる&quot;, 500, 100);
+  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);
+  ctx.fillText(game.message, 60, 390);
+  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot; &quot; &amp;&amp; game.state === &quot;playing&quot;) { event.preventDefault(); game.interact(); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>住人に話し、宝を拾ってから住人へ戻ると鍵をもらえます。 <a href="step4/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>会話の文章を変えてみます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 5：鍵で扉を開ける</h2><h3>目標</h3><p>探索と依頼を順番に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (this.quest === 1 &amp;&amp; !this.hasItem) { this.hasItem = true; this.message = &quot;宝を手に入れた&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (x === 5 &amp;&amp; y === 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.key) { this.state = &quot;clear&quot;; this.message = &quot;鍵で扉を開けた！&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else this.message = &quot;扉には鍵が必要&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else if (x === 5 &amp;&amp; y === 3) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.key) { this.state = &quot;clear&quot;; this.message = &quot;鍵で扉を開けた！&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else this.message = &quot;扉には鍵が必要&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;
+    }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;
+    } else if (x === 5 &amp;&amp; y === 3) {
+      if (this.key) { this.state = &quot;clear&quot;; this.message = &quot;鍵で扉を開けた！&quot;; }
+      else this.message = &quot;扉には鍵が必要&quot;;
+    }
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="rpg-quest" aria-labelledby="rpg-quest-title"><figcaption id="rpg-quest-title">図：RPG：依頼からクリアまで</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="RPG：依頼からクリアまで。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/rpg-quest.svg" width="1000" height="800" alt="住人から依頼を受けたら、右上の宝を調べましょう。宝を住人に渡すと鍵がもらえます。鍵を持って右下の扉を調べればクリアです。"></div><p>住人から依頼を受けたら、右上の宝を調べましょう。宝を住人に渡すと鍵がもらえます。鍵を持って右下の扉を調べればクリアです。</p><p>操作順の模式図。各対象の隣に立ち、その方向を向いてSpace。対象の上へ移動する操作ではない。</p></figure><p>鍵があるとき扉を調べるとクリアです。Rで最初から再開します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; this.dx = 1; this.dy = 0; this.hp = 10; this.maxHp = 10; }
+}
+class NPC {
+  constructor(x, y, name) { this.x = x; this.y = y; this.name = name; }
+  draw() {
+    ctx.fillStyle = &quot;#d2985f&quot;; ctx.fillRect(60 + this.x * 60 + 8, 40 + this.y * 60 + 8, 44, 44);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;人&quot;, 60 + this.x * 60 + 20, 40 + this.y * 60 + 37);
+  }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.npc = new NPC(2, 1, &quot;住人&quot;);
+    this.quest = 0; this.hasItem = false; this.key = false; this.state = &quot;playing&quot;;
+    this.message = &quot;住人に話しかけよう&quot;;
+  }
+  blocked(x, y) {
+    if (x &lt;= 0 || y &lt;= 0 || x &gt;= 6 || y &gt;= 4) return true;
+    if ((x === 2 &amp;&amp; y === 1) || (x === 5 &amp;&amp; y === 1 &amp;&amp; !this.hasItem &amp;&amp; !this.key) || (x === 5 &amp;&amp; y === 3)) return true;
+    return false;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const p = this.player; p.dx = dx; p.dy = dy;
+    if (!this.blocked(p.x + dx, p.y + dy)) { p.x += dx; p.y += dy; }
+  }
+  interact() {
+    const x = this.player.x + this.player.dx, y = this.player.y + this.player.dy;
+    if (x === this.npc.x &amp;&amp; y === this.npc.y) {
+      if (this.hasItem) { this.hasItem = false; this.key = true; this.quest = 2; this.message = &quot;宝を渡し、鍵をもらった&quot;; }
+      else if (this.quest === 0) { this.quest = 1; this.message = &quot;住人: 右上の宝を取ってきて&quot;; }
+      else this.message = this.key ? &quot;住人: 右下の扉を開けよう&quot; : &quot;住人: 宝を探してね&quot;;
+    } else if (x === 5 &amp;&amp; y === 1) {
+      if (this.quest === 1 &amp;&amp; !this.hasItem) { this.hasItem = true; this.message = &quot;宝を手に入れた&quot;; }
+      else this.message = this.key ? &quot;宝は住人に渡した&quot; : &quot;まず住人に話そう&quot;;
+    } else if (x === 5 &amp;&amp; y === 3) {
+      if (this.key) { this.state = &quot;clear&quot;; this.message = &quot;鍵で扉を開けた！&quot;; }
+      else this.message = &quot;扉には鍵が必要&quot;;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const p = game.player;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 7; x++) {
+    ctx.fillStyle = x === 0 || y === 0 || x === 6 || y === 4 ? &quot;#66727c&quot; : &quot;#dcecca&quot;;
+    ctx.fillRect(60 + x * 60, 40 + y * 60, 58, 58);
+  }
+  game.npc.draw();
+  if (!game.hasItem &amp;&amp; !game.key) {
+    ctx.fillStyle = &quot;#e7bd40&quot;; ctx.fillRect(60 + 5 * 60 + 12, 40 + 60 + 12, 36, 36);
+    ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;宝&quot;, 60 + 5 * 60 + 20, 40 + 60 + 37);
+  }
+  ctx.fillStyle = &quot;#76583c&quot;; ctx.fillRect(60 + 5 * 60 + 8, 40 + 3 * 60 + 5, 44, 48);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;扉&quot;, 60 + 5 * 60 + 20, 40 + 3 * 60 + 37);
+  ctx.fillStyle = &quot;#3475b4&quot;; ctx.fillRect(60 + p.x * 60 + 8, 40 + p.y * 60 + 8, 44, 44);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;20px sans-serif&quot;;
+  ctx.fillText(&quot;青: 自分 / 茶: 住人 / 黄: 宝&quot;, 500, 65);
+  ctx.fillText(&quot;矢印: 移動 / Space: 調べる&quot;, 500, 100);
+  ctx.fillText(&quot;HP &quot; + p.hp + &quot; / &quot; + p.maxHp, 500, 135);
+  ctx.fillText(game.message, 60, 390);
+  if (game.state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Rで再開&quot;, 500, 330);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot; &quot; &amp;&amp; game.state === &quot;playing&quot;) { event.preventDefault(); game.interact(); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>鍵をもらって扉を向き、Spaceを押すとクリアです。 <a href="step5/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>会話の文章を変えてみます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p><p><a href="extensions/tutorial.html">発展編に挑戦する</a></p></main></body></html>

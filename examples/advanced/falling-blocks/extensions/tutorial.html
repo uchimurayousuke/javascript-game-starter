@@ -1,0 +1,391 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>落ちものパズルの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">戻る</a></p><h1>落ちものパズルの発展</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../complete/index.html">基本の完成版を開く</a></p></section><section><h2>ステップ 1：着地点を予告する</h2><h3>目標</h3><p>操作と予告を追加します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  landingY() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let y = this.piece.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    while (this.board.fits(this.piece, this.piece.x, y + 1)) y++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let game;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  game.board.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.state === &quot;playing&quot;) game.piece.draw(game.landingY(), &quot;#b7cbd4&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.state === &quot;playing&quot;) game.piece.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  landingY() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let y = this.piece.y;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    while (this.board.fits(this.piece, this.piece.x, y + 1)) y++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return y;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;
+  }
+}
+let game;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;
+  }
+  landingY() {
+    let y = this.piece.y;
+    while (this.board.fits(this.piece, this.piece.x, y + 1)) y++;
+    return y;
+  }
+}
+let game;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  game.board.draw();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (game.state === &quot;playing&quot;) game.piece.draw(game.landingY(), &quot;#b7cbd4&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.state === &quot;playing&quot;) game.piece.draw();</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  game.board.draw();
+  if (game.state === &quot;playing&quot;) game.piece.draw();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  game.board.draw();
+  if (game.state === &quot;playing&quot;) game.piece.draw(game.landingY(), &quot;#b7cbd4&quot;);
+  if (game.state === &quot;playing&quot;) game.piece.draw();
+</code></pre><h3>コードの意味</h3><p>landingYは下へ進める間だけ位置を増やし、着地点を求めます。</p><p>予告は薄い色で描き、盤面には固定しません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const shapes = [ [[1,1],[1,1]], [[1,1,1,1]], [[1,0],[1,0],[1,1]], [[0,1,0],[1,1,1]] ];
+class Board {
+  constructor() { this.cells = Array.from({length: 14}, () =&gt; Array(8).fill(0)); }
+  fits(piece, x, y, shape = piece.shape) {
+    return shape.every((row, dy) =&gt; row.every((value, dx) =&gt; !value ||
+      (x + dx &gt;= 0 &amp;&amp; x + dx &lt; 8 &amp;&amp; y + dy &gt;= 0 &amp;&amp; y + dy &lt; 14 &amp;&amp; !this.cells[y + dy][x + dx])));
+  }
+  draw() {
+    for (let y = 0; y &lt; 14; y++) for (let x = 0; x &lt; 8; x++) {
+      ctx.fillStyle = this.cells[y][x] ? &quot;#617cb5&quot; : &quot;#e6edf2&quot;;
+      ctx.fillRect(100 + x * 25, 50 + y * 25, 23, 23);
+    }
+  }
+  lock(piece) {
+    piece.shape.forEach((row, dy) =&gt; row.forEach((value, dx) =&gt; { if (value) this.cells[piece.y + dy][piece.x + dx] = 1; }));
+  }
+  clearRows() {
+    const kept = this.cells.filter(row =&gt; row.some(cell =&gt; !cell));
+    const cleared = 14 - kept.length;
+    while (kept.length &lt; 14) kept.unshift(Array(8).fill(0));
+    this.cells = kept;
+    return cleared;
+  }
+}
+class Piece {
+  constructor(shape) { this.shape = shape.map(row =&gt; [...row]); this.x = 3; this.y = 0; }
+  draw(y = this.y, color = &quot;#e28c59&quot;) {
+    ctx.fillStyle = color;
+    this.shape.forEach((row, dy) =&gt; row.forEach((value, dx) =&gt; {
+      if (value) ctx.fillRect(100 + (this.x + dx) * 25, 50 + (y + dy) * 25, 23, 23);
+    }));
+  }
+  rotated() {
+    return this.shape[0].map((_, x) =&gt; this.shape.map(row =&gt; row[x]).reverse());
+  }
+}
+class Game {
+  constructor() {
+    this.board = new Board(); this.piece = new Piece(shapes[0]);
+    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return false;
+    if (this.board.fits(this.piece, this.piece.x + dx, this.piece.y + dy)) {
+      this.piece.x += dx; this.piece.y += dy; return true;
+    }
+    if (dy === 1) {
+      this.board.lock(this.piece);
+      const count = this.board.clearRows(); this.lines += count; this.score += count * 100;
+      if (this.lines &gt;= 2) { this.state = &quot;clear&quot;; return false; }
+      this.piece = new Piece(shapes[Math.floor(Math.random() * shapes.length)]);
+      if (!this.board.fits(this.piece, this.piece.x, this.piece.y)) this.state = &quot;over&quot;;
+    }
+    return false;
+  }
+  rotate() {
+    const shape = this.piece.rotated();
+    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;
+  }
+  landingY() {
+    let y = this.piece.y;
+    while (this.board.fits(this.piece, this.piece.x, y + 1)) y++;
+    return y;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  if (game.state !== &quot;playing&quot;) return;
+  game.counter++;
+  if (game.counter &gt;= 30) { game.counter = 0; game.move(0, 1); }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.board.draw();
+  if (game.state === &quot;playing&quot;) game.piece.draw(game.landingY(), &quot;#b7cbd4&quot;);
+  if (game.state === &quot;playing&quot;) game.piece.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→移動 ↓落下 ↑回転&quot;, 360, 90);
+  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (game.state !== &quot;playing&quot;) return;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowDown&quot;, &quot;ArrowUp&quot;, &quot; &quot;].includes(event.key)) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) game.move(-1, 0);
+  else if (event.key === &quot;ArrowRight&quot;) game.move(1, 0);
+  else if (event.key === &quot;ArrowDown&quot;) game.move(0, 1);
+  else if (event.key === &quot;ArrowUp&quot;) game.rotate();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>薄い形が図形を落としたときの位置に表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の色を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：一気に落とす</h2><h3>目標</h3><p>操作と予告を追加します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;←→移動 ↓落下 ↑回転&quot;, 360, 90);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (event.key === &quot;ArrowDown&quot;) game.move(0, 1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (event.key === &quot;ArrowUp&quot;) game.rotate();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key === &quot; &quot;) { while (game.move(0, 1)) {} }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);
+  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (event.key === &quot;ArrowUp&quot;) game.rotate();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key === &quot; &quot;) { while (game.move(0, 1)) {} }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  else if (event.key === &quot;ArrowUp&quot;) game.rotate();
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  else if (event.key === &quot;ArrowUp&quot;) game.rotate();
+  else if (event.key === &quot; &quot;) { while (game.move(0, 1)) {} }
+});
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="blocks-ext-ghost" aria-labelledby="blocks-ext-ghost-title"><figcaption id="blocks-ext-ghost-title">図：下へ進める最後の場所を、先に見せる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="下へ進める最後の場所を、先に見せる。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/blocks-ext-ghost.svg" width="1000" height="875" alt="今の場所からまっすぐ落とすと、どこで止まるでしょう。うすいピースが着地点を教えます。Spaceを押すと、その場所まで一気に落ちます。"></div><p>今の場所からまっすぐ落とすと、どこで止まるでしょう。うすいピースが着地点を教えます。Spaceを押すと、その場所まで一気に落ちます。</p><p>下8行を拡大した模式図。実画面の薄い塗りを破線に置換。床のブロックに重なる1行手前を着地点として示す。</p></figure><p>Spaceを押すと、下へ動けなくなるまで1マスずつ進めます。</p><p>最後の移動で図形を固定します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const shapes = [ [[1,1],[1,1]], [[1,1,1,1]], [[1,0],[1,0],[1,1]], [[0,1,0],[1,1,1]] ];
+class Board {
+  constructor() { this.cells = Array.from({length: 14}, () =&gt; Array(8).fill(0)); }
+  fits(piece, x, y, shape = piece.shape) {
+    return shape.every((row, dy) =&gt; row.every((value, dx) =&gt; !value ||
+      (x + dx &gt;= 0 &amp;&amp; x + dx &lt; 8 &amp;&amp; y + dy &gt;= 0 &amp;&amp; y + dy &lt; 14 &amp;&amp; !this.cells[y + dy][x + dx])));
+  }
+  draw() {
+    for (let y = 0; y &lt; 14; y++) for (let x = 0; x &lt; 8; x++) {
+      ctx.fillStyle = this.cells[y][x] ? &quot;#617cb5&quot; : &quot;#e6edf2&quot;;
+      ctx.fillRect(100 + x * 25, 50 + y * 25, 23, 23);
+    }
+  }
+  lock(piece) {
+    piece.shape.forEach((row, dy) =&gt; row.forEach((value, dx) =&gt; { if (value) this.cells[piece.y + dy][piece.x + dx] = 1; }));
+  }
+  clearRows() {
+    const kept = this.cells.filter(row =&gt; row.some(cell =&gt; !cell));
+    const cleared = 14 - kept.length;
+    while (kept.length &lt; 14) kept.unshift(Array(8).fill(0));
+    this.cells = kept;
+    return cleared;
+  }
+}
+class Piece {
+  constructor(shape) { this.shape = shape.map(row =&gt; [...row]); this.x = 3; this.y = 0; }
+  draw(y = this.y, color = &quot;#e28c59&quot;) {
+    ctx.fillStyle = color;
+    this.shape.forEach((row, dy) =&gt; row.forEach((value, dx) =&gt; {
+      if (value) ctx.fillRect(100 + (this.x + dx) * 25, 50 + (y + dy) * 25, 23, 23);
+    }));
+  }
+  rotated() {
+    return this.shape[0].map((_, x) =&gt; this.shape.map(row =&gt; row[x]).reverse());
+  }
+}
+class Game {
+  constructor() {
+    this.board = new Board(); this.piece = new Piece(shapes[0]);
+    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return false;
+    if (this.board.fits(this.piece, this.piece.x + dx, this.piece.y + dy)) {
+      this.piece.x += dx; this.piece.y += dy; return true;
+    }
+    if (dy === 1) {
+      this.board.lock(this.piece);
+      const count = this.board.clearRows(); this.lines += count; this.score += count * 100;
+      if (this.lines &gt;= 2) { this.state = &quot;clear&quot;; return false; }
+      this.piece = new Piece(shapes[Math.floor(Math.random() * shapes.length)]);
+      if (!this.board.fits(this.piece, this.piece.x, this.piece.y)) this.state = &quot;over&quot;;
+    }
+    return false;
+  }
+  rotate() {
+    const shape = this.piece.rotated();
+    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;
+  }
+  landingY() {
+    let y = this.piece.y;
+    while (this.board.fits(this.piece, this.piece.x, y + 1)) y++;
+    return y;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  if (game.state !== &quot;playing&quot;) return;
+  game.counter++;
+  if (game.counter &gt;= 30) { game.counter = 0; game.move(0, 1); }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.board.draw();
+  if (game.state === &quot;playing&quot;) game.piece.draw(game.landingY(), &quot;#b7cbd4&quot;);
+  if (game.state === &quot;playing&quot;) game.piece.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→移動 ↓落下 ↑回転&quot;, 360, 90);
+  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);
+  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (game.state !== &quot;playing&quot;) return;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowDown&quot;, &quot;ArrowUp&quot;, &quot; &quot;].includes(event.key)) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) game.move(-1, 0);
+  else if (event.key === &quot;ArrowRight&quot;) game.move(1, 0);
+  else if (event.key === &quot;ArrowDown&quot;) game.move(0, 1);
+  else if (event.key === &quot;ArrowUp&quot;) game.rotate();
+  else if (event.key === &quot; &quot;) { while (game.move(0, 1)) {} }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>Spaceで図形が一気に落ちて固定されます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の色を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：次の形を予告する</h2><h3>目標</h3><p>操作と予告を追加します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 7 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.board = new Board(); this.piece = new Piece(shapes[0]);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  move(dx, dy) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const count = this.board.clearRows(); this.lines += count; this.score += count * 100;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (this.lines &gt;= 2) { this.state = &quot;clear&quot;; return false; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      this.piece = new Piece(shapes[Math.floor(Math.random() * shapes.length)]);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.piece = new Piece(this.nextShape);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (!this.board.fits(this.piece, this.piece.x, this.piece.y)) this.state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;次の形&quot;, 360, 230);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e28c59&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.nextShape.forEach((row, y) =&gt; row.forEach((value, x) =&gt; { if (value) ctx.fillRect(360 + x * 25, 250 + y * 25, 23, 23); }));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;
+    this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];
+  }
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      this.piece = new Piece(shapes[Math.floor(Math.random() * shapes.length)]);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.piece = new Piece(this.nextShape);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      this.piece = new Piece(shapes[Math.floor(Math.random() * shapes.length)]);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      this.piece = new Piece(this.nextShape);
+      this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;次の形&quot;, 360, 230);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e28c59&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  game.nextShape.forEach((row, y) =&gt; row.forEach((value, x) =&gt; { if (value) ctx.fillRect(360 + x * 25, 250 + y * 25, 23, 23); }));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);
+  ctx.fillText(&quot;次の形&quot;, 360, 230);
+  ctx.fillStyle = &quot;#e28c59&quot;;
+  game.nextShape.forEach((row, y) =&gt; row.forEach((value, x) =&gt; { if (value) ctx.fillRect(360 + x * 25, 250 + y * 25, 23, 23); }));
+  ctx.fillStyle = &quot;#26334a&quot;;
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+</code></pre><h3>コードの意味</h3><p>nextShapeに次に使う形を保存し、固定時に新しい図形として使います。</p><p>その後でさらに次の形を選びます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const shapes = [ [[1,1],[1,1]], [[1,1,1,1]], [[1,0],[1,0],[1,1]], [[0,1,0],[1,1,1]] ];
+class Board {
+  constructor() { this.cells = Array.from({length: 14}, () =&gt; Array(8).fill(0)); }
+  fits(piece, x, y, shape = piece.shape) {
+    return shape.every((row, dy) =&gt; row.every((value, dx) =&gt; !value ||
+      (x + dx &gt;= 0 &amp;&amp; x + dx &lt; 8 &amp;&amp; y + dy &gt;= 0 &amp;&amp; y + dy &lt; 14 &amp;&amp; !this.cells[y + dy][x + dx])));
+  }
+  draw() {
+    for (let y = 0; y &lt; 14; y++) for (let x = 0; x &lt; 8; x++) {
+      ctx.fillStyle = this.cells[y][x] ? &quot;#617cb5&quot; : &quot;#e6edf2&quot;;
+      ctx.fillRect(100 + x * 25, 50 + y * 25, 23, 23);
+    }
+  }
+  lock(piece) {
+    piece.shape.forEach((row, dy) =&gt; row.forEach((value, dx) =&gt; { if (value) this.cells[piece.y + dy][piece.x + dx] = 1; }));
+  }
+  clearRows() {
+    const kept = this.cells.filter(row =&gt; row.some(cell =&gt; !cell));
+    const cleared = 14 - kept.length;
+    while (kept.length &lt; 14) kept.unshift(Array(8).fill(0));
+    this.cells = kept;
+    return cleared;
+  }
+}
+class Piece {
+  constructor(shape) { this.shape = shape.map(row =&gt; [...row]); this.x = 3; this.y = 0; }
+  draw(y = this.y, color = &quot;#e28c59&quot;) {
+    ctx.fillStyle = color;
+    this.shape.forEach((row, dy) =&gt; row.forEach((value, dx) =&gt; {
+      if (value) ctx.fillRect(100 + (this.x + dx) * 25, 50 + (y + dy) * 25, 23, 23);
+    }));
+  }
+  rotated() {
+    return this.shape[0].map((_, x) =&gt; this.shape.map(row =&gt; row[x]).reverse());
+  }
+}
+class Game {
+  constructor() {
+    this.board = new Board(); this.piece = new Piece(shapes[0]);
+    this.state = &quot;playing&quot;; this.counter = 0; this.score = 0; this.lines = 0;
+    this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];
+  }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return false;
+    if (this.board.fits(this.piece, this.piece.x + dx, this.piece.y + dy)) {
+      this.piece.x += dx; this.piece.y += dy; return true;
+    }
+    if (dy === 1) {
+      this.board.lock(this.piece);
+      const count = this.board.clearRows(); this.lines += count; this.score += count * 100;
+      if (this.lines &gt;= 2) { this.state = &quot;clear&quot;; return false; }
+      this.piece = new Piece(this.nextShape);
+      this.nextShape = shapes[Math.floor(Math.random() * shapes.length)];
+      if (!this.board.fits(this.piece, this.piece.x, this.piece.y)) this.state = &quot;over&quot;;
+    }
+    return false;
+  }
+  rotate() {
+    const shape = this.piece.rotated();
+    if (this.board.fits(this.piece, this.piece.x, this.piece.y, shape)) this.piece.shape = shape;
+  }
+  landingY() {
+    let y = this.piece.y;
+    while (this.board.fits(this.piece, this.piece.x, y + 1)) y++;
+    return y;
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  if (game.state !== &quot;playing&quot;) return;
+  game.counter++;
+  if (game.counter &gt;= 30) { game.counter = 0; game.move(0, 1); }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.board.draw();
+  if (game.state === &quot;playing&quot;) game.piece.draw(game.landingY(), &quot;#b7cbd4&quot;);
+  if (game.state === &quot;playing&quot;) game.piece.draw();
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→移動 ↓落下 ↑回転&quot;, 360, 90);
+  ctx.fillText(&quot;得点 &quot; + game.score + &quot;　消した行 &quot; + game.lines + &quot; / 2&quot;, 360, 140);
+  ctx.fillText(&quot;Space: 一気に落とす&quot;, 360, 180);
+  ctx.fillText(&quot;次の形&quot;, 360, 230);
+  ctx.fillStyle = &quot;#e28c59&quot;;
+  game.nextShape.forEach((row, y) =&gt; row.forEach((value, x) =&gt; { if (value) ctx.fillRect(360 + x * 25, 250 + y * 25, 23, 23); }));
+  ctx.fillStyle = &quot;#26334a&quot;;
+  if (game.state !== &quot;playing&quot;) ctx.fillText(game.state === &quot;clear&quot; ? &quot;クリア！ Rで再開&quot; : &quot;積み上がった！ Rで再開&quot;, 360, 370);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (game.state !== &quot;playing&quot;) return;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowDown&quot;, &quot;ArrowUp&quot;, &quot; &quot;].includes(event.key)) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) game.move(-1, 0);
+  else if (event.key === &quot;ArrowRight&quot;) game.move(1, 0);
+  else if (event.key === &quot;ArrowDown&quot;) game.move(0, 1);
+  else if (event.key === &quot;ArrowUp&quot;) game.rotate();
+  else if (event.key === &quot; &quot;) { while (game.move(0, 1)) {} }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>次の形を見てから落とし、その形が次に現れることを確かめます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の色を変えて比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p></main></body></html>

@@ -1,0 +1,287 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>選択肢の冒険の発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">戻る</a></p><h1>選択肢の冒険の発展</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../complete/index.html">基本の完成版を開く</a></p></section><section><h2>ステップ 1：持ち物と鍵の扉</h2><h3>目標</h3><p>鍵を拾うと扉を開けられます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 4 行・追加 22 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (scene === &quot;clearing&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;広場に着きました。&quot;, 70, 90);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;1: 家へ帰る　2: 森を見渡す&quot;, 70, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1: 鍵を探す　2: 花を探す　3: 扉へ&quot;, 70, 160);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (scene === &quot;end&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(message, 70, 90);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (scene === &quot;key&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;小石の下に鍵が見えます。&quot;, 70, 90);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1: 鍵を拾って戻る　2: 拾わず戻る&quot;, 70, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (scene === &quot;flower&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;青い花が咲いています。&quot;, 70, 90);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1: 花を摘んで戻る　2: 摘まず戻る&quot;, 70, 160);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (key === &quot;3&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  else if (scene === &quot;clearing&quot; &amp;&amp; key === &quot;1&quot;) { scene = &quot;end&quot;; message = &quot;森の景色を楽しみ、家へ帰りました。&quot;; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  else if (scene === &quot;clearing&quot; &amp;&amp; key === &quot;2&quot;) { scene = &quot;end&quot;; message = &quot;見晴らしのよい丘を見つけました。&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (scene === &quot;clearing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;1&quot;) scene = &quot;key&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (key === &quot;2&quot;) scene = &quot;flower&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (items.includes(&quot;鍵&quot;)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      scene = &quot;end&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;鍵で庭園の扉を開けました。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = scene === &quot;key&quot; ? &quot;鍵&quot; : &quot;花&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;1&quot; &amp;&amp; !items.includes(item)) items.push(item);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    scene = &quot;clearing&quot;; message = &quot;広場に戻りました。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;1: 家へ帰る　2: 森を見渡す&quot;, 70, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1: 鍵を探す　2: 花を探す　3: 扉へ&quot;, 70, 160);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    ctx.fillText(&quot;1: 家へ帰る　2: 森を見渡す&quot;, 70, 160);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.fillText(&quot;1: 鍵を探す　2: 花を探す　3: 扉へ&quot;, 70, 160);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (scene === &quot;key&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;小石の下に鍵が見えます。&quot;, 70, 90);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1: 鍵を拾って戻る　2: 拾わず戻る&quot;, 70, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (scene === &quot;flower&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;青い花が咲いています。&quot;, 70, 90);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;1: 花を摘んで戻る　2: 摘まず戻る&quot;, 70, 160);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  }
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;key&quot;) {
+    ctx.fillText(&quot;小石の下に鍵が見えます。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を拾って戻る　2: 拾わず戻る&quot;, 70, 160);
+  } else if (scene === &quot;flower&quot;) {
+    ctx.fillText(&quot;青い花が咲いています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 花を摘んで戻る　2: 摘まず戻る&quot;, 70, 160);
+  }
+  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);
+  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (key === &quot;3&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (key === &quot;3&quot;) return;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  else if (scene === &quot;clearing&quot; &amp;&amp; key === &quot;1&quot;) { scene = &quot;end&quot;; message = &quot;森の景色を楽しみ、家へ帰りました。&quot;; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  else if (scene === &quot;clearing&quot; &amp;&amp; key === &quot;2&quot;) { scene = &quot;end&quot;; message = &quot;見晴らしのよい丘を見つけました。&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (scene === &quot;clearing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;1&quot;) scene = &quot;key&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (key === &quot;2&quot;) scene = &quot;flower&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (items.includes(&quot;鍵&quot;)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      scene = &quot;end&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;鍵で庭園の扉を開けました。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const item = scene === &quot;key&quot; ? &quot;鍵&quot; : &quot;花&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;1&quot; &amp;&amp; !items.includes(item)) items.push(item);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    scene = &quot;clearing&quot;; message = &quot;広場に戻りました。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  else if (scene === &quot;clearing&quot; &amp;&amp; key === &quot;1&quot;) { scene = &quot;end&quot;; message = &quot;森の景色を楽しみ、家へ帰りました。&quot;; }
+  else if (scene === &quot;clearing&quot; &amp;&amp; key === &quot;2&quot;) { scene = &quot;end&quot;; message = &quot;見晴らしのよい丘を見つけました。&quot;; }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  else if (scene === &quot;clearing&quot;) {
+    if (key === &quot;1&quot;) scene = &quot;key&quot;;
+    else if (key === &quot;2&quot;) scene = &quot;flower&quot;;
+    else if (items.includes(&quot;鍵&quot;)) {
+      scene = &quot;end&quot;;
+      message = &quot;鍵で庭園の扉を開けました。&quot;;
+    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;
+  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {
+    const item = scene === &quot;key&quot; ? &quot;鍵&quot; : &quot;花&quot;;
+    if (key === &quot;1&quot; &amp;&amp; !items.includes(item)) items.push(item);
+    scene = &quot;clearing&quot;; message = &quot;広場に戻りました。&quot;;
+  }
+</code></pre><h3>コードの意味</h3><p>itemsに持ち物の名前を入れ、includesで鍵を持っているか調べます。</p><p>花と鍵はそれぞれ広場から探せます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let scene, items, message;
+
+function start() {
+  scene = &quot;start&quot;; items = []; message = &quot;&quot;;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (scene === &quot;start&quot;) {
+    ctx.fillText(&quot;森の入口に立っています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 広場へ進む　2: 川へ進む&quot;, 70, 160);
+  } else if (scene === &quot;river&quot;) {
+    ctx.fillText(&quot;川の水が急に増えたので、家へ戻りました。&quot;, 70, 90);
+    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;clearing&quot;) {
+    ctx.fillText(&quot;広場に着きました。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を探す　2: 花を探す　3: 扉へ&quot;, 70, 160);
+  } else if (scene === &quot;end&quot;) {
+    ctx.fillText(message, 70, 90);
+    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;key&quot;) {
+    ctx.fillText(&quot;小石の下に鍵が見えます。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を拾って戻る　2: 拾わず戻る&quot;, 70, 160);
+  } else if (scene === &quot;flower&quot;) {
+    ctx.fillText(&quot;青い花が咲いています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 花を摘んで戻る　2: 摘まず戻る&quot;, 70, 160);
+  }
+  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);
+  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;
+  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;
+  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;
+  else if (scene === &quot;clearing&quot;) {
+    if (key === &quot;1&quot;) scene = &quot;key&quot;;
+    else if (key === &quot;2&quot;) scene = &quot;flower&quot;;
+    else if (items.includes(&quot;鍵&quot;)) {
+      scene = &quot;end&quot;;
+      message = &quot;鍵で庭園の扉を開けました。&quot;;
+    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;
+  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {
+    const item = scene === &quot;key&quot; ? &quot;鍵&quot; : &quot;花&quot;;
+    if (key === &quot;1&quot; &amp;&amp; !items.includes(item)) items.push(item);
+    scene = &quot;clearing&quot;; message = &quot;広場に戻りました。&quot;;
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>鍵を拾い、広場の3で扉を開けます。鍵なしでは扉が開きません。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>場面の文章を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：前の選択へ戻る</h2><h3>目標</h3><p>Bで選択前の場面と持ち物を戻します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let scene, items, message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let scene, items, message, history;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  scene = &quot;start&quot;; items = []; message = &quot;&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  history = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;B: 前の選択に戻る&quot;, 70, 310);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;b&quot; &amp;&amp; history.length &gt; 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const saved = history.pop();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    scene = saved.scene; items = [...saved.items]; message = saved.message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  history.push({scene, items: [...items], message});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (scene === &quot;clearing&quot;) {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let scene, items, message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let scene, items, message, history;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>let scene, items, message;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>let scene, items, message, history;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  scene = &quot;start&quot;; items = []; message = &quot;&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  history = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  scene = &quot;start&quot;; items = []; message = &quot;&quot;;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  scene = &quot;start&quot;; items = []; message = &quot;&quot;;
+  history = [];
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;B: 前の選択に戻る&quot;, 70, 310);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);
+  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);
+  ctx.fillText(&quot;B: 前の選択に戻る&quot;, 70, 310);
+  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;b&quot; &amp;&amp; history.length &gt; 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const saved = history.pop();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    scene = saved.scene; items = [...saved.items]; message = saved.message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  history.push({scene, items: [...items], message});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (key === &quot;r&quot;) { start(); return; }
+  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;
+  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;
+  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;b&quot; &amp;&amp; history.length &gt; 0) {
+    const saved = history.pop();
+    scene = saved.scene; items = [...saved.items]; message = saved.message;
+    return;
+  }
+  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;
+  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;
+  history.push({scene, items: [...items], message});
+  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="story-ext-history" aria-labelledby="story-ext-history-title"><figcaption id="story-ext-history-title">図：前に戻るときは、持ち物も一緒に戻す</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="前に戻るときは、持ち物も一緒に戻す。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/story-ext-history.svg" width="1000" height="885" alt="鍵を拾う前には、場面と持ち物のコピーを履歴に残します。鍵を拾って広場へ戻った後にBを押すと、拾う前の場面に戻れます。持ち物も戻るので、拾った鍵は持っていない状態になります。"></div><p>鍵を拾う前には、場面と持ち物のコピーを履歴に残します。鍵を拾って広場へ戻った後にBを押すと、拾う前の場面に戻れます。持ち物も戻るので、拾った鍵は持っていない状態になります。</p><p>保存内容はscene、itemsのコピー、messageです。鍵の場面と広場を例に、現在の持ち物と履歴のコピーを分けています。</p></figure><p>選択前のsceneとitemsとmessageをhistoryに保存します。</p><p>[...items]で新しい配列にし、後から持ち物が変わっても過去の記録を守ります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let scene, items, message, history;
+
+function start() {
+  scene = &quot;start&quot;; items = []; message = &quot;&quot;;
+  history = [];
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (scene === &quot;start&quot;) {
+    ctx.fillText(&quot;森の入口に立っています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 広場へ進む　2: 川へ進む&quot;, 70, 160);
+  } else if (scene === &quot;river&quot;) {
+    ctx.fillText(&quot;川の水が急に増えたので、家へ戻りました。&quot;, 70, 90);
+    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;clearing&quot;) {
+    ctx.fillText(&quot;広場に着きました。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を探す　2: 花を探す　3: 扉へ&quot;, 70, 160);
+  } else if (scene === &quot;end&quot;) {
+    ctx.fillText(message, 70, 90);
+    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;key&quot;) {
+    ctx.fillText(&quot;小石の下に鍵が見えます。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を拾って戻る　2: 拾わず戻る&quot;, 70, 160);
+  } else if (scene === &quot;flower&quot;) {
+    ctx.fillText(&quot;青い花が咲いています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 花を摘んで戻る　2: 摘まず戻る&quot;, 70, 160);
+  }
+  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);
+  ctx.fillText(&quot;B: 前の選択に戻る&quot;, 70, 310);
+  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;b&quot; &amp;&amp; history.length &gt; 0) {
+    const saved = history.pop();
+    scene = saved.scene; items = [...saved.items]; message = saved.message;
+    return;
+  }
+  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;
+  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;
+  history.push({scene, items: [...items], message});
+  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;
+  else if (scene === &quot;clearing&quot;) {
+    if (key === &quot;1&quot;) scene = &quot;key&quot;;
+    else if (key === &quot;2&quot;) scene = &quot;flower&quot;;
+    else if (items.includes(&quot;鍵&quot;)) {
+      scene = &quot;end&quot;;
+      message = &quot;鍵で庭園の扉を開けました。&quot;;
+    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;
+  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {
+    const item = scene === &quot;key&quot; ? &quot;鍵&quot; : &quot;花&quot;;
+    if (key === &quot;1&quot; &amp;&amp; !items.includes(item)) items.push(item);
+    scene = &quot;clearing&quot;; message = &quot;広場に戻りました。&quot;;
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>鍵を拾った直後にBを押すと、鍵を持っていない場面に戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>場面の文章を変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：花を持った結末</h2><h3>目標</h3><p>花も持っていると別の結末になります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    else if (items.includes(&quot;鍵&quot;)) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      scene = &quot;end&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;鍵で庭園の扉を開けました。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = items.includes(&quot;花&quot;) ? &quot;花を手に、庭園の扉を開けました。&quot; : &quot;鍵で庭園の扉を開けました。&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      message = &quot;鍵で庭園の扉を開けました。&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = items.includes(&quot;花&quot;) ? &quot;花を手に、庭園の扉を開けました。&quot; : &quot;鍵で庭園の扉を開けました。&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      message = &quot;鍵で庭園の扉を開けました。&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      message = items.includes(&quot;花&quot;) ? &quot;花を手に、庭園の扉を開けました。&quot; : &quot;鍵で庭園の扉を開けました。&quot;;
+</code></pre><h3>コードの意味</h3><p>鍵と花の両方があるときは、花を手に庭園へ入る結末を表示します。</p><p>鍵だけでも扉を開けて終われます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let scene, items, message, history;
+
+function start() {
+  scene = &quot;start&quot;; items = []; message = &quot;&quot;;
+  history = [];
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (scene === &quot;start&quot;) {
+    ctx.fillText(&quot;森の入口に立っています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 広場へ進む　2: 川へ進む&quot;, 70, 160);
+  } else if (scene === &quot;river&quot;) {
+    ctx.fillText(&quot;川の水が急に増えたので、家へ戻りました。&quot;, 70, 90);
+    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;clearing&quot;) {
+    ctx.fillText(&quot;広場に着きました。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を探す　2: 花を探す　3: 扉へ&quot;, 70, 160);
+  } else if (scene === &quot;end&quot;) {
+    ctx.fillText(message, 70, 90);
+    ctx.fillText(&quot;おしまい！　Rで最初から&quot;, 70, 160);
+  } else if (scene === &quot;key&quot;) {
+    ctx.fillText(&quot;小石の下に鍵が見えます。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 鍵を拾って戻る　2: 拾わず戻る&quot;, 70, 160);
+  } else if (scene === &quot;flower&quot;) {
+    ctx.fillText(&quot;青い花が咲いています。&quot;, 70, 90);
+    ctx.fillText(&quot;1: 花を摘んで戻る　2: 摘まず戻る&quot;, 70, 160);
+  }
+  ctx.fillText(&quot;持ち物: &quot; + (items.join(&quot;、&quot;) || &quot;なし&quot;), 70, 260);
+  ctx.fillText(&quot;B: 前の選択に戻る&quot;, 70, 310);
+  if (scene !== &quot;end&quot;) ctx.fillText(message, 70, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  if (key === &quot;b&quot; &amp;&amp; history.length &gt; 0) {
+    const saved = history.pop();
+    scene = saved.scene; items = [...saved.items]; message = saved.message;
+    return;
+  }
+  if (![&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].includes(key) || scene === &quot;end&quot; || scene === &quot;river&quot;) return;
+  if (key === &quot;3&quot; &amp;&amp; scene !== &quot;clearing&quot;) return;
+  history.push({scene, items: [...items], message});
+  if (scene === &quot;start&quot;) scene = key === &quot;1&quot; ? &quot;clearing&quot; : key === &quot;2&quot; ? &quot;river&quot; : scene;
+  else if (scene === &quot;clearing&quot;) {
+    if (key === &quot;1&quot;) scene = &quot;key&quot;;
+    else if (key === &quot;2&quot;) scene = &quot;flower&quot;;
+    else if (items.includes(&quot;鍵&quot;)) {
+      scene = &quot;end&quot;;
+      message = items.includes(&quot;花&quot;) ? &quot;花を手に、庭園の扉を開けました。&quot; : &quot;鍵で庭園の扉を開けました。&quot;;
+    } else message = &quot;扉は鍵が必要です。鍵を探そう。&quot;;
+  } else if (scene === &quot;key&quot; || scene === &quot;flower&quot;) {
+    const item = scene === &quot;key&quot; ? &quot;鍵&quot; : &quot;花&quot;;
+    if (key === &quot;1&quot; &amp;&amp; !items.includes(item)) items.push(item);
+    scene = &quot;clearing&quot;; message = &quot;広場に戻りました。&quot;;
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>鍵と花を両方集めて扉へ行くと、花を手にした結末になります。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>場面の文章を変えて比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p></main></body></html>
