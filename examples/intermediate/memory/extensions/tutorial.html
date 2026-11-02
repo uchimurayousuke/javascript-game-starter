@@ -1,0 +1,711 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>神経衰弱の発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">← 基本の教材へ</a></p><h1>神経衰弱の発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><section><h2>ステップ 1：最初にカードを見せる</h2><h3>目標</h3><p>最初の2秒だけ、すべてのカードを見せます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 6 行・追加 8 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  pairs = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  previewUntil = performance.now() + 2000;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const y = 90 + Math.floor(i / 4) * 130;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#447ab5&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (cards[i].open || cards[i].matched) ctx.fillStyle = &quot;#f8dc8b&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillStyle = &quot;#f8dc8b&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillRect(x, y, 100, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;34px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (cards[i].open || cards[i].matched) ctx.fillText(cards[i].letter, x + 38, y + 68);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillText(cards[i].letter, x + 38, y + 68);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = 160 + (selected % 4) * 120;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function turnCard() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (closeAt !== 0 || cards[selected].matched || cards[selected].open) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cards[selected].open = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (firstIndex === -1) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    selected = (selected + 1) % cards.length;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state;
+
+function start() {
+  cards = [
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;
+
+function start() {
+  cards = [
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  pairs = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  previewUntil = performance.now() + 2000;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  closeAt = 0;
+  pairs = 0;
+  state = &quot;playing&quot;;
+}
+
+function update() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  closeAt = 0;
+  pairs = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+}
+
+function update() {
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const y = 90 + Math.floor(i / 4) * 130;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#447ab5&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (cards[i].open || cards[i].matched) ctx.fillStyle = &quot;#f8dc8b&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillStyle = &quot;#f8dc8b&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillRect(x, y, 100, 110);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;34px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (cards[i].open || cards[i].matched) ctx.fillText(cards[i].letter, x + 38, y + 68);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillText(cards[i].letter, x + 38, y + 68);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = 160 + (selected % 4) * 120;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    const x = 160 + (i % 4) * 120;
+    const y = 90 + Math.floor(i / 4) * 130;
+    ctx.fillStyle = &quot;#447ab5&quot;;
+    if (cards[i].open || cards[i].matched) ctx.fillStyle = &quot;#f8dc8b&quot;;
+    ctx.fillRect(x, y, 100, 110);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;34px sans-serif&quot;;
+    if (cards[i].open || cards[i].matched) ctx.fillText(cards[i].letter, x + 38, y + 68);
+  }
+  const x = 160 + (selected % 4) * 120;
+  const y = 90 + Math.floor(selected / 4) * 130;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    const x = 160 + (i % 4) * 120;
+    const y = 90 + Math.floor(i / 4) * 130;
+    ctx.fillStyle = &quot;#447ab5&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillStyle = &quot;#f8dc8b&quot;;
+    ctx.fillRect(x, y, 100, 110);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;34px sans-serif&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillText(cards[i].letter, x + 38, y + 68);
+  }
+  const x = 160 + (selected % 4) * 120;
+  const y = 90 + Math.floor(selected / 4) * 130;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function turnCard() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (closeAt !== 0 || cards[selected].matched || cards[selected].open) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cards[selected].open = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (firstIndex === -1) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>}
+
+function turnCard() {
+  if (closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+    firstIndex = selected;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>}
+
+function turnCard() {
+  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+    firstIndex = selected;
+</code></pre><h4>変更 6</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    selected = (selected + 1) % cards.length;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    start();
+    return;
+  }
+  if (state !== &quot;playing&quot; || closeAt !== 0) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    start();
+    return;
+  }
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+</code></pre><h4>変更 7</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot; || closeAt !== 0) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+</code></pre><h3>コードの意味</h3><p><code>previewUntil</code> はカードを見せ終える時刻です。開始時刻に2000ミリ秒を足すので、2秒間だけ表を表示します。</p><p>その間はクリックやEnterで選べません。Rで再開するとカードを混ぜ、公開する2秒も最初から数えます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;
+
+function start() {
+  cards = [
+    {letter: &quot;A&quot;, open: false, matched: false}, {letter: &quot;B&quot;, open: false, matched: false},
+    {letter: &quot;C&quot;, open: false, matched: false}, {letter: &quot;D&quot;, open: false, matched: false},
+    {letter: &quot;B&quot;, open: false, matched: false}, {letter: &quot;A&quot;, open: false, matched: false},
+    {letter: &quot;D&quot;, open: false, matched: false}, {letter: &quot;C&quot;, open: false, matched: false}
+  ];
+  for (let i = cards.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const card = cards[i];
+    cards[i] = cards[j];
+    cards[j] = card;
+  }
+
+  selected = 0;
+  firstIndex = -1;
+  secondIndex = -1;
+  closeAt = 0;
+  pairs = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+}
+
+function update() {
+  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {
+    cards[firstIndex].open = false;
+    cards[secondIndex].open = false;
+    firstIndex = -1;
+    secondIndex = -1;
+    closeAt = 0;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i &lt; cards.length; i++) {
+    const x = 160 + (i % 4) * 120;
+    const y = 90 + Math.floor(i / 4) * 130;
+    ctx.fillStyle = &quot;#447ab5&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillStyle = &quot;#f8dc8b&quot;;
+    ctx.fillRect(x, y, 100, 110);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;34px sans-serif&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillText(cards[i].letter, x + 38, y + 68);
+  }
+  const x = 160 + (selected % 4) * 120;
+  const y = 90 + Math.floor(selected / 4) * 130;
+  ctx.strokeStyle = &quot;#bd542f&quot;;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(x - 4, y - 4, 108, 118);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);
+  }
+}
+
+function turnCard() {
+  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+    firstIndex = selected;
+    return;
+  }
+  secondIndex = selected;
+  if (cards[firstIndex].letter === cards[secondIndex].letter) {
+    cards[firstIndex].matched = true;
+    cards[secondIndex].matched = true;
+    firstIndex = -1;
+    secondIndex = -1;
+    pairs++;
+    if (pairs === 4) state = &quot;clear&quot;;
+  } else {
+    closeAt = performance.now() + 1000;
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) {
+    start();
+    return;
+  }
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+  } else if (event.key === &quot;ArrowLeft&quot;) {
+    selected = (selected + cards.length - 1) % cards.length;
+    event.preventDefault();
+  } else if (event.key === &quot;Enter&quot;) {
+    turnCard();
+    event.preventDefault();
+  }
+});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let i = 0; i &lt; cards.length; i++) {
+    const left = 160 + (i % 4) * 120;
+    const top = 90 + Math.floor(i / 4) * 130;
+    if (x &gt;= left &amp;&amp; x &lt; left + 100 &amp;&amp; y &gt;= top &amp;&amp; y &lt; top + 110) {
+      if (cards[i].matched || cards[i].open) return;
+      selected = i;
+      turnCard();
+      return;
+    }
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>始めると全部の文字が2秒見え、その間はカードをめくれません。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>2000を3000に変えて、覚える時間を比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：比較した回数を数える</h2><h3>目標</h3><p>2枚を比べた回数を数え、クリア時に評価します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  closeAt = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  pairs = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  turns = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  previewUntil = performance.now() + 2000;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (state === &quot;clear&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let rating = &quot;もう一度挑戦&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (turns &lt;= 6) rating = &quot;すばらしい&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (turns &lt;= 10) rating = &quot;よくできた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;比較 &quot; + turns + &quot;回：&quot; + rating, 260, 365);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  secondIndex = selected;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  turns++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (cards[firstIndex].letter === cards[secondIndex].letter) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    cards[firstIndex].matched = true;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil;
+
+function start() {
+  cards = [
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;
+
+function start() {
+  cards = [
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  closeAt = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  pairs = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  turns = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  previewUntil = performance.now() + 2000;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  secondIndex = -1;
+  closeAt = 0;
+  pairs = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  secondIndex = -1;
+  closeAt = 0;
+  pairs = 0;
+  turns = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (state === &quot;clear&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let rating = &quot;もう一度挑戦&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (turns &lt;= 6) rating = &quot;すばらしい&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (turns &lt;= 10) rating = &quot;よくできた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;比較 &quot; + turns + &quot;回：&quot; + rating, 260, 365);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  else if (state === &quot;clear&quot;) {
+    let rating = &quot;もう一度挑戦&quot;;
+    if (turns &lt;= 6) rating = &quot;すばらしい&quot;;
+    else if (turns &lt;= 10) rating = &quot;よくできた&quot;;
+    ctx.fillText(&quot;比較 &quot; + turns + &quot;回：&quot; + rating, 260, 365);
+  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  secondIndex = selected;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  turns++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (cards[firstIndex].letter === cards[secondIndex].letter) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    cards[firstIndex].matched = true;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    return;
+  }
+  secondIndex = selected;
+  if (cards[firstIndex].letter === cards[secondIndex].letter) {
+    cards[firstIndex].matched = true;
+    cards[secondIndex].matched = true;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    return;
+  }
+  secondIndex = selected;
+  turns++;
+  if (cards[firstIndex].letter === cards[secondIndex].letter) {
+    cards[firstIndex].matched = true;
+    cards[secondIndex].matched = true;
+</code></pre><h3>コードの意味</h3><p><code>turns</code> は2枚目をめくったときに1増えるので、カード1枚ではなく2枚の比較を1回と数えます。</p><p>4組そろえたとき、6回以下は「すばらしい」、7〜10回は「よくできた」、11回以上は「もう一度挑戦」です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;
+
+function start() {
+  cards = [
+    {letter: &quot;A&quot;, open: false, matched: false}, {letter: &quot;B&quot;, open: false, matched: false},
+    {letter: &quot;C&quot;, open: false, matched: false}, {letter: &quot;D&quot;, open: false, matched: false},
+    {letter: &quot;B&quot;, open: false, matched: false}, {letter: &quot;A&quot;, open: false, matched: false},
+    {letter: &quot;D&quot;, open: false, matched: false}, {letter: &quot;C&quot;, open: false, matched: false}
+  ];
+  for (let i = cards.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const card = cards[i];
+    cards[i] = cards[j];
+    cards[j] = card;
+  }
+
+  selected = 0;
+  firstIndex = -1;
+  secondIndex = -1;
+  closeAt = 0;
+  pairs = 0;
+  turns = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+}
+
+function update() {
+  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {
+    cards[firstIndex].open = false;
+    cards[secondIndex].open = false;
+    firstIndex = -1;
+    secondIndex = -1;
+    closeAt = 0;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i &lt; cards.length; i++) {
+    const x = 160 + (i % 4) * 120;
+    const y = 90 + Math.floor(i / 4) * 130;
+    ctx.fillStyle = &quot;#447ab5&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillStyle = &quot;#f8dc8b&quot;;
+    ctx.fillRect(x, y, 100, 110);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;34px sans-serif&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillText(cards[i].letter, x + 38, y + 68);
+  }
+  const x = 160 + (selected % 4) * 120;
+  const y = 90 + Math.floor(selected / 4) * 130;
+  ctx.strokeStyle = &quot;#bd542f&quot;;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(x - 4, y - 4, 108, 118);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  else if (state === &quot;clear&quot;) {
+    let rating = &quot;もう一度挑戦&quot;;
+    if (turns &lt;= 6) rating = &quot;すばらしい&quot;;
+    else if (turns &lt;= 10) rating = &quot;よくできた&quot;;
+    ctx.fillText(&quot;比較 &quot; + turns + &quot;回：&quot; + rating, 260, 365);
+  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);
+  }
+}
+
+function turnCard() {
+  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+    firstIndex = selected;
+    return;
+  }
+  secondIndex = selected;
+  turns++;
+  if (cards[firstIndex].letter === cards[secondIndex].letter) {
+    cards[firstIndex].matched = true;
+    cards[secondIndex].matched = true;
+    firstIndex = -1;
+    secondIndex = -1;
+    pairs++;
+    if (pairs === 4) state = &quot;clear&quot;;
+  } else {
+    closeAt = performance.now() + 1000;
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) {
+    start();
+    return;
+  }
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+  } else if (event.key === &quot;ArrowLeft&quot;) {
+    selected = (selected + cards.length - 1) % cards.length;
+    event.preventDefault();
+  } else if (event.key === &quot;Enter&quot;) {
+    turnCard();
+    event.preventDefault();
+  }
+});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let i = 0; i &lt; cards.length; i++) {
+    const left = 160 + (i % 4) * 120;
+    const top = 90 + Math.floor(i / 4) * 130;
+    if (x &gt;= left &amp;&amp; x &lt; left + 100 &amp;&amp; y &gt;= top &amp;&amp; y &lt; top + 110) {
+      if (cards[i].matched || cards[i].open) return;
+      selected = i;
+      turnCard();
+      return;
+    }
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>同じ組を見つけても、違う2枚でも、比較回数が1増えます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>評価の境目6を5に変え、どの回数で表示が変わるか考えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：制限時間を加える</h2><h3>目標</h3><p>最初の公開が終わってから60秒で4組を探します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 4 行・追加 17 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns, endAt, finishedAt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  previewUntil = performance.now() + 2000;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  endAt = previewUntil + 60000;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  finishedAt = null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function expired() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; performance.now() &gt;= endAt) { state = &quot;over&quot;; finishedAt = endAt; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return state !== &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired()) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    cards[firstIndex].open = false;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const seconds = Math.max(0, Math.ceil((endAt - Math.max(finishedAt === null ? performance.now() : finishedAt, previewUntil)) / 1000));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + seconds + &quot;秒&quot;, 30, 50);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (state === &quot;clear&quot;) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;over&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;時間切れ！ R でもう一度&quot;, 220, 390);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function turnCard() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired()) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cards[selected].open = true;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    secondIndex = -1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    pairs++;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (pairs === 4) state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (pairs === 4) { state = &quot;clear&quot;; finishedAt = performance.now(); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    closeAt = performance.now() + 1000;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    selected = (selected + 1) % cards.length;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns, endAt, finishedAt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns;
+
+function start() {
+  cards = [
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns, endAt, finishedAt;
+
+function start() {
+  cards = [
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  previewUntil = performance.now() + 2000;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  endAt = previewUntil + 60000;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  finishedAt = null;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function expired() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; performance.now() &gt;= endAt) { state = &quot;over&quot;; finishedAt = endAt; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return state !== &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired()) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    cards[firstIndex].open = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  turns = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+}
+
+function update() {
+  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {
+    cards[firstIndex].open = false;
+    cards[secondIndex].open = false;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  turns = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+  endAt = previewUntil + 60000;
+  finishedAt = null;
+}
+
+function expired() {
+  if (state === &quot;playing&quot; &amp;&amp; performance.now() &gt;= endAt) { state = &quot;over&quot;; finishedAt = endAt; }
+  return state !== &quot;playing&quot;;
+}
+
+function update() {
+  if (expired()) return;
+  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {
+    cards[firstIndex].open = false;
+    cards[secondIndex].open = false;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const seconds = Math.max(0, Math.ceil((endAt - Math.max(finishedAt === null ? performance.now() : finishedAt, previewUntil)) / 1000));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + seconds + &quot;秒&quot;, 30, 50);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (state === &quot;clear&quot;) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  else if (state === &quot;clear&quot;) {
+    let rating = &quot;もう一度挑戦&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  const seconds = Math.max(0, Math.ceil((endAt - Math.max(finishedAt === null ? performance.now() : finishedAt, previewUntil)) / 1000));
+  ctx.fillText(&quot;残り: &quot; + seconds + &quot;秒&quot;, 30, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  else if (state === &quot;clear&quot;) {
+    let rating = &quot;もう一度挑戦&quot;;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;over&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;時間切れ！ R でもう一度&quot;, 220, 390);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function turnCard() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired()) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cards[selected].open = true;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else {
+    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);
+  }
+}
+
+function turnCard() {
+  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else if (state === &quot;over&quot;) {
+    ctx.fillText(&quot;時間切れ！ R でもう一度&quot;, 220, 390);
+  } else {
+    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);
+  }
+}
+
+function turnCard() {
+  if (expired()) return;
+  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    secondIndex = -1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    pairs++;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (pairs === 4) state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (pairs === 4) { state = &quot;clear&quot;; finishedAt = performance.now(); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    closeAt = performance.now() + 1000;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    firstIndex = -1;
+    secondIndex = -1;
+    pairs++;
+    if (pairs === 4) state = &quot;clear&quot;;
+  } else {
+    closeAt = performance.now() + 1000;
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    firstIndex = -1;
+    secondIndex = -1;
+    pairs++;
+    if (pairs === 4) { state = &quot;clear&quot;; finishedAt = performance.now(); }
+  } else {
+    closeAt = performance.now() + 1000;
+  }
+</code></pre><h4>変更 6</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    selected = (selected + 1) % cards.length;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    start();
+    return;
+  }
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    start();
+    return;
+  }
+  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+</code></pre><h4>変更 7</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, (event) =&gt; {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (state !== &quot;playing&quot; || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="ext-memory" aria-labelledby="ext-memory-title"><figcaption id="ext-memory-title">図：覚える2秒と、遊ぶ60秒を分ける</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="覚える2秒と、遊ぶ60秒を分ける。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/ext-memory.svg" width="1000" height="790" alt="最初の2秒は、全カードを見て覚える時間です。この間はカードを選べません。公開が終わってから60秒の操作時間が始まるので、覚える2秒は制限時間に含めません。時間内にそろえればクリア、0秒になると時間切れです。"></div><p>最初の2秒は、全カードを見て覚える時間です。この間はカードを選べません。公開が終わってから60秒の操作時間が始まるので、覚える2秒は制限時間に含めません。時間内にそろえればクリア、0秒になると時間切れです。</p><p>8枚のうち2枚だけを描いた模式図です。最後の場面は時間切れの例で、クリアした場合に必ず0秒まで進むという意味ではありません。</p></figure><p><code>endAt</code> は公開終了時刻に60000ミリ秒を足した時刻です。公開の2秒は制限時間に含みません。</p><p><code>expired()</code> は現在時刻が期限以上なら <code>&quot;over&quot;</code> にし、更新と入力の両方で調べます。期限ちょうど以降の最後のクリックでもクリアにはなりません。</p><p>表示する残り秒は切り上げて0以上にし、終了時刻を保存して結果画面では止めます。Rでは公開、比較回数、制限時間を作り直します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let cards, selected, firstIndex, secondIndex, closeAt, pairs, state, previewUntil, turns, endAt, finishedAt;
+
+function start() {
+  cards = [
+    {letter: &quot;A&quot;, open: false, matched: false}, {letter: &quot;B&quot;, open: false, matched: false},
+    {letter: &quot;C&quot;, open: false, matched: false}, {letter: &quot;D&quot;, open: false, matched: false},
+    {letter: &quot;B&quot;, open: false, matched: false}, {letter: &quot;A&quot;, open: false, matched: false},
+    {letter: &quot;D&quot;, open: false, matched: false}, {letter: &quot;C&quot;, open: false, matched: false}
+  ];
+  for (let i = cards.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const card = cards[i];
+    cards[i] = cards[j];
+    cards[j] = card;
+  }
+
+  selected = 0;
+  firstIndex = -1;
+  secondIndex = -1;
+  closeAt = 0;
+  pairs = 0;
+  turns = 0;
+  state = &quot;playing&quot;;
+  previewUntil = performance.now() + 2000;
+  endAt = previewUntil + 60000;
+  finishedAt = null;
+}
+
+function expired() {
+  if (state === &quot;playing&quot; &amp;&amp; performance.now() &gt;= endAt) { state = &quot;over&quot;; finishedAt = endAt; }
+  return state !== &quot;playing&quot;;
+}
+
+function update() {
+  if (expired()) return;
+  if (closeAt !== 0 &amp;&amp; performance.now() &gt;= closeAt) {
+    cards[firstIndex].open = false;
+    cards[secondIndex].open = false;
+    firstIndex = -1;
+    secondIndex = -1;
+    closeAt = 0;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i &lt; cards.length; i++) {
+    const x = 160 + (i % 4) * 120;
+    const y = 90 + Math.floor(i / 4) * 130;
+    ctx.fillStyle = &quot;#447ab5&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillStyle = &quot;#f8dc8b&quot;;
+    ctx.fillRect(x, y, 100, 110);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.font = &quot;34px sans-serif&quot;;
+    if (cards[i].open || cards[i].matched || performance.now() &lt; previewUntil) ctx.fillText(cards[i].letter, x + 38, y + 68);
+  }
+  const x = 160 + (selected % 4) * 120;
+  const y = 90 + Math.floor(selected / 4) * 130;
+  ctx.strokeStyle = &quot;#bd542f&quot;;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(x - 4, y - 4, 108, 118);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;そろった組: &quot; + pairs + &quot; / 4&quot;, 300, 50);
+  const seconds = Math.max(0, Math.ceil((endAt - Math.max(finishedAt === null ? performance.now() : finishedAt, previewUntil)) / 1000));
+  ctx.fillText(&quot;残り: &quot; + seconds + &quot;秒&quot;, 30, 50);
+  if (performance.now() &lt; previewUntil) ctx.fillText(&quot;2秒間おぼえよう&quot;, 290, 365);
+  else if (state === &quot;clear&quot;) {
+    let rating = &quot;もう一度挑戦&quot;;
+    if (turns &lt;= 6) rating = &quot;すばらしい&quot;;
+    else if (turns &lt;= 10) rating = &quot;よくできた&quot;;
+    ctx.fillText(&quot;比較 &quot; + turns + &quot;回：&quot; + rating, 260, 365);
+  } else ctx.fillText(&quot;比較: &quot; + turns + &quot;回&quot;, 300, 365);
+  if (state === &quot;clear&quot;) {
+    ctx.fillText(&quot;全部そろった！ R でもう一度&quot;, 220, 390);
+  } else if (state === &quot;over&quot;) {
+    ctx.fillText(&quot;時間切れ！ R でもう一度&quot;, 220, 390);
+  } else {
+    ctx.fillText(&quot;クリックか左右・Enter / R でやり直す&quot;, 150, 390);
+  }
+}
+
+function turnCard() {
+  if (expired()) return;
+  if (performance.now() &lt; previewUntil || closeAt !== 0 || cards[selected].matched || cards[selected].open) return;
+  cards[selected].open = true;
+  if (firstIndex === -1) {
+    firstIndex = selected;
+    return;
+  }
+  secondIndex = selected;
+  turns++;
+  if (cards[firstIndex].letter === cards[secondIndex].letter) {
+    cards[firstIndex].matched = true;
+    cards[secondIndex].matched = true;
+    firstIndex = -1;
+    secondIndex = -1;
+    pairs++;
+    if (pairs === 4) { state = &quot;clear&quot;; finishedAt = performance.now(); }
+  } else {
+    closeAt = performance.now() + 1000;
+  }
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) {
+    start();
+    return;
+  }
+  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  if (event.key === &quot;ArrowRight&quot;) {
+    selected = (selected + 1) % cards.length;
+    event.preventDefault();
+  } else if (event.key === &quot;ArrowLeft&quot;) {
+    selected = (selected + cards.length - 1) % cards.length;
+    event.preventDefault();
+  } else if (event.key === &quot;Enter&quot;) {
+    turnCard();
+    event.preventDefault();
+  }
+});
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (expired() || closeAt !== 0 || performance.now() &lt; previewUntil) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let i = 0; i &lt; cards.length; i++) {
+    const left = 160 + (i % 4) * 120;
+    const top = 90 + Math.floor(i / 4) * 130;
+    if (x &gt;= left &amp;&amp; x &lt; left + 100 &amp;&amp; y &gt;= top &amp;&amp; y &lt; top + 110) {
+      if (cards[i].matched || cards[i].open) return;
+      selected = i;
+      turnCard();
+      return;
+    }
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>公開後に60秒を過ぎると時間切れになり、Rで再開します。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>60000を30000に変えて制限時間を比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">発展編の完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></body></html>

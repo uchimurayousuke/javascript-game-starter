@@ -1,0 +1,721 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>コインキャッチの発展</title><link rel="stylesheet" href="../../examples/guide.css"><link rel="stylesheet" href="../code-changes.css"><link rel="stylesheet" href="../diagrams.css"></head><body><main><p><a href="../index.html">← 基本の教材へ</a></p><h1>コインキャッチの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../05-game/index.html">基本完成版を開く</a></p></section><section><h2>ステップ 1：横にも動くコイン</h2><h3>目標</h3><p>落ちながら左右にも動き、端で折り返します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinX = canvas.width / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinY = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coinDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let leftPressed = false;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX = canvas.width / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinX += coinDX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (coinX &lt;= coinRadius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinX = coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (coinX &gt;= canvas.width - coinRadius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinX = canvas.width - coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinDX = -2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinTouchesPlayer()) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = -coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinX = canvas.width / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinY = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coinDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let leftPressed = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+
+let leftPressed = false;
+let rightPressed = false;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+let coinDX = 2;
+
+let leftPressed = false;
+let rightPressed = false;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX = canvas.width / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  coinDX = 2;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinX += coinDX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (coinX &lt;= coinRadius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinX = coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (coinX &gt;= canvas.width - coinRadius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinX = canvas.width - coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinDX = -2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinTouchesPlayer()) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+  coinX += coinDX;
+  if (coinX &lt;= coinRadius) {
+    coinX = coinRadius;
+    coinDX = 2;
+  } else if (coinX &gt;= canvas.width - coinRadius) {
+    coinX = canvas.width - coinRadius;
+    coinDX = -2;
+  }
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = -coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+}
+
+function handleKeyDown(event) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+  coinDX = 2;
+}
+
+function handleKeyDown(event) {
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="ext-coin" aria-labelledby="ext-coin-title"><figcaption id="ext-coin-title">図：コインの端が画面の端に届いたら反転</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインの端が画面の端に届いたら反転。図を横にスクロールできます"><img src="../illustrations/astra/ext-coin.svg" width="1000" height="775" alt="中心が横784から右へ2進むと、横786になります。半径14を足すと右端は800なので、画面の端にぴったりです。そこで横速度を−2に変え、次は左へ進みます。"></div><p>中心が横784から右へ2進むと、横786になります。半径14を足すと右端は800なので、画面の端にぴったりです。そこで横速度を−2に変え、次は左へ進みます。</p><p>コインを7倍に拡大しています。円の中心と右端を分け、右へ進む前と反転後を並べました。</p></figure><p><code>coinDX</code> は1回の更新で横に進む量です。2なら右へ2ピクセル、−2なら左へ2ピクセル進みます。</p><p>コインの中心が左端の半径14以下なら14に戻して右へ、右端の <code>canvas.width - coinRadius</code> 以上なら右端へ戻して左へ進みます。幅800なら右端の中心は786です。</p><p><code>start()</code> と <code>resetCoin()</code> で横速度を2に戻すため、再挑戦したときも次のコインも右から始まります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+let coinDX = 2;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;playing&quot;;
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  coinDX = 2;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+  coinX += coinDX;
+  if (coinX &lt;= coinRadius) {
+    coinX = coinRadius;
+    coinDX = 2;
+  } else if (coinX &gt;= canvas.width - coinRadius) {
+    coinX = canvas.width - coinRadius;
+    coinDX = -2;
+  }
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      gameState = &quot;gameover&quot;;
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+  coinDX = 2;
+}
+
+function handleKeyDown(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState !== &quot;playing&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>落ちるコインが横にも動き、端で折り返すことを確かめます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>横速度2を3に変えて動きを比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：得点で落ちる速さを変える</h2><h3>目標</h3><p>集めた得点に応じて、コインが少しずつ速く落ちます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinY += coinSpeed + Math.floor(score / 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX += coinDX;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinX &lt;= coinRadius) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinY += coinSpeed + Math.floor(score / 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX += coinDX;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinX &lt;= coinRadius) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+  coinX += coinDX;
+  if (coinX &lt;= coinRadius) {
+    coinX = coinRadius;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed + Math.floor(score / 2);
+  coinX += coinDX;
+  if (coinX &lt;= coinRadius) {
+    coinX = coinRadius;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+</code></pre><h3>コードの意味</h3><p><code>Math.floor(score / 2)</code> は得点を2で割って小数点以下を切り捨てた数です。得点0と1では0、得点2と3では1です。</p><p>落下速度は基本の <code>coinSpeed</code> 3にその数を足します。得点2なら <code>3 + 1 = 4</code> ピクセルずつ落ちます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+let coinDX = 2;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;playing&quot;;
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  coinDX = 2;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed + Math.floor(score / 2);
+  coinX += coinDX;
+  if (coinX &lt;= coinRadius) {
+    coinX = coinRadius;
+    coinDX = 2;
+  } else if (coinX &gt;= canvas.width - coinRadius) {
+    coinX = canvas.width - coinRadius;
+    coinDX = -2;
+  }
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      gameState = &quot;gameover&quot;;
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+  coinDX = 2;
+}
+
+function handleKeyDown(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState !== &quot;playing&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>得点が2になると表示される落下速度が4になります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>割る数を2から3に変え、速くなる間隔を比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：ボーナスコイン</h2><h3>目標</h3><p>ピンクのコインを取ると2点にします。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 5 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinY = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bonusCoin = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let leftPressed = false;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bonusCoin = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinTouchesPlayer()) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    score += 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    score += bonusCoin ? 2 : 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (score &gt;= targetScore) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      gameState = &quot;clear&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = -coinRadius;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bonusCoin = Math.random() &lt; 0.25;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = bonusCoin ? &quot;#d457b4&quot; : &quot;#f5b942&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.beginPath();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ピンクは2点&quot;, 24, 102);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;点でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (gameState !== &quot;playing&quot;) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(message, canvas.width / 2, 195);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;得点: &quot; + score + &quot; 点&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.textAlign = &quot;left&quot;;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinY = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bonusCoin = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let leftPressed = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>let coinX = canvas.width / 2;
+let coinY = 80;
+let coinDX = 2;
+
+let leftPressed = false;
+let rightPressed = false;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>let coinX = canvas.width / 2;
+let coinY = 80;
+let coinDX = 2;
+let bonusCoin = false;
+
+let leftPressed = false;
+let rightPressed = false;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bonusCoin = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  coinX = canvas.width / 2;
+  coinY = 80;
+  coinDX = 2;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  coinX = canvas.width / 2;
+  coinY = 80;
+  coinDX = 2;
+  bonusCoin = false;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinTouchesPlayer()) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    score += 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    score += bonusCoin ? 2 : 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (score &gt;= targetScore) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      gameState = &quot;clear&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  }
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+
+  if (coinTouchesPlayer()) {
+    score += bonusCoin ? 2 : 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = -coinRadius;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bonusCoin = Math.random() &lt; 0.25;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+  coinDX = 2;
+}
+
+function handleKeyDown(event) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+  coinDX = 2;
+  bonusCoin = Math.random() &lt; 0.25;
+}
+
+function handleKeyDown(event) {
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = bonusCoin ? &quot;#d457b4&quot; : &quot;#f5b942&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.beginPath();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ピンクは2点&quot;, 24, 102);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;点でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (gameState !== &quot;playing&quot;) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = bonusCoin ? &quot;#d457b4&quot; : &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);
+  ctx.fillText(&quot;ピンクは2点&quot;, 24, 102);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;点でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+</code></pre><h4>変更 6</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(message, canvas.width / 2, 195);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;得点: &quot; + score + &quot; 点&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.textAlign = &quot;left&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;得点: &quot; + score + &quot; 点&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+</code></pre><h3>コードの意味</h3><p><code>bonusCoin</code> はボーナスかどうかを表します。<code>Math.random() &lt; 0.25</code> は0以上1未満の乱数が0.25未満なら <code>true</code> になり、約4回に1回選びます。</p><p><code>bonusCoin ? 2 : 1</code> は <code>true</code> なら2、そうでなければ1です。取ったときだけ得点に足し、描画の色も同じ値で選びます。</p><p>最初と再挑戦のコインは通常の1点です。その後に <code>resetCoin()</code> で次の種類を選びます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+let coinDX = 2;
+let bonusCoin = false;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;playing&quot;;
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  coinDX = 2;
+  bonusCoin = false;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed + Math.floor(score / 2);
+  coinX += coinDX;
+  if (coinX &lt;= coinRadius) {
+    coinX = coinRadius;
+    coinDX = 2;
+  } else if (coinX &gt;= canvas.width - coinRadius) {
+    coinX = canvas.width - coinRadius;
+    coinDX = -2;
+  }
+
+  if (coinTouchesPlayer()) {
+    score += bonusCoin ? 2 : 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      gameState = &quot;gameover&quot;;
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+  coinDX = 2;
+  bonusCoin = Math.random() &lt; 0.25;
+}
+
+function handleKeyDown(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState !== &quot;playing&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = bonusCoin ? &quot;#d457b4&quot; : &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+  ctx.fillText(&quot;落ちる速さ: &quot; + (coinSpeed + Math.floor(score / 2)), 24, 70);
+  ctx.fillText(&quot;ピンクは2点&quot;, 24, 102);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;点でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;得点: &quot; + score + &quot; 点&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>ピンクのコインは2点増え、5点以上でクリアになります。Spaceで最初から再挑戦します。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>0.25を0.5に変え、ボーナスが出る割合を比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">発展編の完成版で遊ぶ</a>　<a href="../index.html">基本の教材へ戻る</a></p></main></body></html>

@@ -72,3 +72,5 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [周回タイムアタック](examples/advanced/racing/tutorial.html)：車で4地点を順に通り、2周のタイムを記録します。
 
 [横スクロールゲームの発展課題](examples/advanced/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。
+
+コインキャッチと制作例の各ゲームには、基本完成版から進む発展編があります。各発展編は3段階で機能を追加し、段階ごとの見本と発展編の完成版を用意しています。[コインキャッチの発展編](tutorial/extensions/tutorial.html)または[制作例の一覧](examples/index.html)から開けます。

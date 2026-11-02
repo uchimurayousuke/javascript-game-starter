@@ -1,0 +1,365 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>クリックで的あての発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">← 基本の教材へ</a></p><h1>クリックで的あての発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><section><h2>ステップ 1：動く的</h2><h3>目標</h3><p>的が左右に動き、画面の端で折り返します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let targetX, targetY, score, endTime;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let targetX, targetY, score, endTime, targetDX;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const radius = 35;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetX = 400;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetY = 225;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  targetDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  endTime = performance.now() + 20000;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() &gt;= endTime) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  targetX += targetDX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (targetX &lt;= radius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetX = radius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (targetX &gt;= canvas.width - radius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetX = canvas.width - radius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetDX = -2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let targetX, targetY, score, endTime;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let targetX, targetY, score, endTime, targetDX;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const radius = 35;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetX = 400;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetY = 225;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  targetDX = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  endTime = performance.now() + 20000;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() &gt;= endTime) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  targetX += targetDX;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (targetX &lt;= radius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetX = radius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (targetX &gt;= canvas.width - radius) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetX = canvas.width - radius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    targetDX = -2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime;
+const radius = 35;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+
+function update() {
+}
+
+function draw() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX;
+const radius = 35;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  targetDX = 2;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+
+function update() {
+  if (performance.now() &gt;= endTime) return;
+  targetX += targetDX;
+  if (targetX &lt;= radius) {
+    targetX = radius;
+    targetDX = 2;
+  } else if (targetX &gt;= canvas.width - radius) {
+    targetX = canvas.width - radius;
+    targetDX = -2;
+  }
+}
+
+function draw() {
+</code></pre><h3>コードの意味</h3><p><code>targetDX</code> は横方向に1回の更新で進む量です。2で右、−2で左へ動きます。</p><p>的の中心が半径 <code>radius</code> より左に出ないようにし、右端も <code>canvas.width - radius</code> に収めます。終了後は動きを止めます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX;
+const radius = 35;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  targetDX = 2;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+
+function update() {
+  if (performance.now() &gt;= endTime) return;
+  targetX += targetDX;
+  if (targetX &lt;= radius) {
+    targetX = radius;
+    targetDX = 2;
+  } else if (targetX &gt;= canvas.width - radius) {
+    targetX = canvas.width - radius;
+    targetDX = -2;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#e34b5f&quot;;
+  ctx.beginPath();
+  ctx.arc(targetX, targetY, radius, 0, Math.PI * 2);
+  ctx.fill();
+  const seconds = Math.max(0, Math.ceil((endTime - performance.now()) / 1000));
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (performance.now() &gt;= endTime) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    score++;
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  }
+});
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>的が動き、端まで来ると向きを変えます。Rで中央から再開します。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>横速度2を3に変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：命中すると小さくなる</h2><h3>目標</h3><p>命中するたびに的の半径を少し小さくします。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let targetX, targetY, score, endTime, targetDX;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">const radius = 35;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let targetX, targetY, score, endTime, targetDX, radius, hitCount;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetY = 225;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  radius = 35;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  hitCount = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  endTime = performance.now() + 20000;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    hitCount++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    radius = Math.max(15, 35 - hitCount * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetX = radius + Math.random() * (canvas.width - radius * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetY = radius + Math.random() * (canvas.height - radius * 2);</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let targetX, targetY, score, endTime, targetDX;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">const radius = 35;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let targetX, targetY, score, endTime, targetDX, radius, hitCount;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetY = 225;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  targetDX = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  radius = 35;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  hitCount = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  endTime = performance.now() + 20000;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX;
+const radius = 35;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  targetDX = 2;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX, radius, hitCount;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  targetDX = 2;
+  radius = 35;
+  hitCount = 0;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    hitCount++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    radius = Math.max(15, 35 - hitCount * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetX = radius + Math.random() * (canvas.width - radius * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetY = radius + Math.random() * (canvas.height - radius * 2);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    score++;
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    score++;
+    hitCount++;
+    radius = Math.max(15, 35 - hitCount * 2);
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  }
+</code></pre><h3>コードの意味</h3><p><code>hitCount</code> は命中した回数です。半径は <code>35 - hitCount * 2</code> なので、1回で33、2回で31になります。</p><p><code>Math.max(15, ...)</code> により、どれだけ当てても半径は15より小さくなりません。新しい位置は小さくなった半径を使って決めます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX, radius, hitCount;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  targetDX = 2;
+  radius = 35;
+  hitCount = 0;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+
+function update() {
+  if (performance.now() &gt;= endTime) return;
+  targetX += targetDX;
+  if (targetX &lt;= radius) {
+    targetX = radius;
+    targetDX = 2;
+  } else if (targetX &gt;= canvas.width - radius) {
+    targetX = canvas.width - radius;
+    targetDX = -2;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#e34b5f&quot;;
+  ctx.beginPath();
+  ctx.arc(targetX, targetY, radius, 0, Math.PI * 2);
+  ctx.fill();
+  const seconds = Math.max(0, Math.ceil((endTime - performance.now()) / 1000));
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (performance.now() &gt;= endTime) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    score++;
+    hitCount++;
+    radius = Math.max(15, 35 - hitCount * 2);
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  }
+});
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>クリックで命中すると半径の表示が35から33に変わります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>最小の半径15を20にして遊びやすさを比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：連続命中のボーナス</h2><h3>目標</h3><p>外さずに続けて当てると追加点を得られます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 8 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let targetX, targetY, score, endTime, targetDX, radius, hitCount;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let targetX, targetY, score, endTime, targetDX, radius, hitCount, streak;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  radius = 35;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hitCount = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  streak = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  endTime = performance.now() + 20000;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;的の半径: &quot; + radius + &quot;  連続: &quot; + streak, 20, 65);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const y = (event.clientY - rect.top) * canvas.height / rect.height;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    streak++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    score += 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (streak % 3 === 0) score += 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    hitCount++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    radius = Math.max(15, 35 - hitCount * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetX = radius + Math.random() * (canvas.width - radius * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetY = radius + Math.random() * (canvas.height - radius * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    streak = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let targetX, targetY, score, endTime, targetDX, radius, hitCount;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let targetX, targetY, score, endTime, targetDX, radius, hitCount, streak;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX, radius, hitCount;
+
+function start() {
+  targetX = 400;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX, radius, hitCount, streak;
+
+function start() {
+  targetX = 400;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  radius = 35;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hitCount = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  streak = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  endTime = performance.now() + 20000;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  targetDX = 2;
+  radius = 35;
+  hitCount = 0;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  targetDX = 2;
+  radius = 35;
+  hitCount = 0;
+  streak = 0;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;的の半径: &quot; + radius + &quot;  連続: &quot; + streak, 20, 65);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  ctx.fillText(&quot;的の半径: &quot; + radius, 20, 65);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  ctx.fillText(&quot;的の半径: &quot; + radius + &quot;  連続: &quot; + streak, 20, 65);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const y = (event.clientY - rect.top) * canvas.height / rect.height;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    streak++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    score += 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (streak % 3 === 0) score += 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    hitCount++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    radius = Math.max(15, 35 - hitCount * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetX = radius + Math.random() * (canvas.width - radius * 2);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    targetY = radius + Math.random() * (canvas.height - radius * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    streak = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    score++;
+    hitCount++;
+    radius = Math.max(15, 35 - hitCount * 2);
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  }
+});
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    streak++;
+    score += 1;
+    if (streak % 3 === 0) score += 2;
+    hitCount++;
+    radius = Math.max(15, 35 - hitCount * 2);
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  } else {
+    streak = 0;
+  }
+});
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="ext-target" aria-labelledby="ext-target-title"><figcaption id="ext-target-title">図：3回続けて当てると、追加で2点！</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="3回続けて当てると、追加で2点！。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/ext-target.svg" width="1000" height="760" alt="命中すると通常は1点入ります。3回続けて当てたときは、通常の1点に追加2点が入るので、その回は3点です。最初の3連続なら1＋1＋3で合計5点になります。外すと連続回数は0に戻ります。"></div><p>命中すると通常は1点入ります。3回続けて当てたときは、通常の1点に追加2点が入るので、その回は3点です。最初の3連続なら1＋1＋3で合計5点になります。外すと連続回数は0に戻ります。</p><p>的の大きさをそろえ、得点だけに注目しています。的が縮む別の発展内容はこの図では扱いません。</p></figure><p><code>streak</code> は続けて当てた回数です。外すと0に戻ります。</p><p><code>streak % 3 === 0</code> は3で割った余りが0かを調べます。3回目、6回目などは通常の1点に2点を追加します。</p><p>3回続けて当てると <code>1 + 1 + 3 = 5</code> 点です。半径は命中回数で決まり、3回目の後は29です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let targetX, targetY, score, endTime, targetDX, radius, hitCount, streak;
+
+function start() {
+  targetX = 400;
+  targetY = 225;
+  targetDX = 2;
+  radius = 35;
+  hitCount = 0;
+  streak = 0;
+  score = 0;
+  endTime = performance.now() + 20000;
+}
+
+function update() {
+  if (performance.now() &gt;= endTime) return;
+  targetX += targetDX;
+  if (targetX &lt;= radius) {
+    targetX = radius;
+    targetDX = 2;
+  } else if (targetX &gt;= canvas.width - radius) {
+    targetX = canvas.width - radius;
+    targetDX = -2;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#e34b5f&quot;;
+  ctx.beginPath();
+  ctx.arc(targetX, targetY, radius, 0, Math.PI * 2);
+  ctx.fill();
+  const seconds = Math.max(0, Math.ceil((endTime - performance.now()) / 1000));
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;得点: &quot; + score + &quot;  残り: &quot; + seconds + &quot;秒&quot;, 20, 35);
+  ctx.fillText(&quot;的の半径: &quot; + radius + &quot;  連続: &quot; + streak, 20, 65);
+  if (seconds === 0) ctx.fillText(&quot;終了！ R キーでもう一度&quot;, 220, 225);
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  if (performance.now() &gt;= endTime) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  if (Math.hypot(x - targetX, y - targetY) &lt;= radius) {
+    streak++;
+    score += 1;
+    if (streak % 3 === 0) score += 2;
+    hitCount++;
+    radius = Math.max(15, 35 - hitCount * 2);
+    targetX = radius + Math.random() * (canvas.width - radius * 2);
+    targetY = radius + Math.random() * (canvas.height - radius * 2);
+  } else {
+    streak = 0;
+  }
+});
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>3回連続で当てると得点は5、半径は29です。外すと連続回数が0になり、Rで全部戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>追加点2を1に変えて得点を比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">発展編の完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></body></html>

@@ -1,0 +1,313 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ボールをはね返すゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">← 基本の教材へ</a></p><h1>ボールをはね返すゲームの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><section><h2>ステップ 1：残り回数を作る</h2><h3>目標</h3><p>落としても残り回数があれば、中央から続けます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 4 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let x, y, dx, dy, paddleX;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const radius = 10, paddleWidth = 110, paddleY = 410;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let left = false, right = false, score, over;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let left = false, right = false, score, over, lives;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  score = 0; over = false; left = false; right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  score = 0; over = false; lives = 3; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    y = paddleY - radius; dy = -dy; score++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (y - radius &gt; canvas.height) over = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (y - radius &gt; canvas.height) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    lives--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (lives === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      over = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      x = 400; y = 225; dx = 4; dy = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;はね返した回数: &quot; + score, 20, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;はね返した回数: &quot; + score + &quot;  残り: &quot; + lives, 20, 35);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let x, y, dx, dy, paddleX;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const radius = 10, paddleWidth = 110, paddleY = 410;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let left = false, right = false, score, over;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let left = false, right = false, score, over, lives;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  score = 0; over = false; left = false; right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  score = 0; over = false; lives = 3; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; left = false; right = false;
+}
+
+function update() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over, lives;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; lives = 3; left = false; right = false;
+}
+
+function update() {
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    y = paddleY - radius; dy = -dy; score++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (y - radius &gt; canvas.height) over = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (y - radius &gt; canvas.height) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    lives--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (lives === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      over = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      x = 400; y = 225; dx = 4; dy = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    y = paddleY - radius; dy = -dy; score++;
+  }
+  if (y - radius &gt; canvas.height) over = true;
+}
+
+function draw() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    y = paddleY - radius; dy = -dy; score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+    if (lives === 0) {
+      over = true;
+    } else {
+      x = 400; y = 225; dx = 4; dy = 4;
+    }
+  }
+}
+
+function draw() {
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;はね返した回数: &quot; + score, 20, 35);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;はね返した回数: &quot; + score + &quot;  残り: &quot; + lives, 20, 35);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score + &quot;  残り: &quot; + lives, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+</code></pre><h3>コードの意味</h3><p><code>lives</code> は落とせる残り回数で、最初は3です。ボールが画面の下へ出ると1減らします。</p><p>残りが0なら終了し、それ以外はボールの位置と速さを中央の初期値に戻します。回数 <code>score</code> と板の位置は残ります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over, lives;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; lives = 3; left = false; right = false;
+}
+
+function update() {
+  if (over) return;
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    y = paddleY - radius; dy = -dy; score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+    if (lives === 0) {
+      over = true;
+    } else {
+      x = 400; y = 225; dx = 4; dy = 4;
+    }
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score + &quot;  残り: &quot; + lives, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>落とすと残りが2になり、ボールが中央へ戻ります。3回落とすと終了し、Rで再開します。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>最初の残り回数3を4に変えて確かめます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：当てる場所で向きを変える</h2><h3>目標</h3><p>板のどこに当てたかで横に進む向きを変えます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    y = paddleY - radius; dy = -dy; score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    dx = Math.max(-1, Math.min(1, offset)) * 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y = paddleY - radius; dy = -Math.abs(dy); score++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (y - radius &gt; canvas.height) {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    y = paddleY - radius; dy = -dy; score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    dx = Math.max(-1, Math.min(1, offset)) * 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y = paddleY - radius; dy = -Math.abs(dy); score++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (y - radius &gt; canvas.height) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    y = paddleY - radius; dy = -dy; score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
+    dx = Math.max(-1, Math.min(1, offset)) * 4;
+    y = paddleY - radius; dy = -Math.abs(dy); score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="ext-bounce" aria-labelledby="ext-bounce-title"><figcaption id="ext-bounce-title">図：板のどこに当たったかで、向きを変える</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="板のどこに当たったかで、向きを変える。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/ext-bounce.svg" width="1000" height="905" alt="板の中心から右へ27.5ずれたところに当たるとします。半分の幅55のちょうど半分なので、ずれの比率は0.5です。基準の速さが4なら、横速度は0.5×4で2になります。左側に当たれば、横速度はマイナスになります。"></div><p>板の中心から右へ27.5ずれたところに当たるとします。半分の幅55のちょうど半分なので、ずれの比率は0.5です。基準の速さが4なら、横速度は0.5×4で2になります。左側に当たれば、横速度はマイナスになります。</p><p>板とボールは6倍の拡大図です。反射矢印は右へ2・上へ4の比率を示す模式図で、合成した速さが4という意味ではありません。</p></figure><p><code>paddleX + paddleWidth / 2</code> は板の中心です。ボールの中心との差を板の半幅で割ると、中央は0、左側は負、右側は正になります。</p><p><code>Math.max</code> と <code>Math.min</code> で−1〜1に収め、4を掛けて横速度にします。右へ半幅の半分ずれた0.5なら横速度は2です。</p><p>縦速度は <code>-Math.abs(dy)</code> で必ず上向きにします。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over, lives;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; lives = 3; left = false; right = false;
+}
+
+function update() {
+  if (over) return;
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
+    dx = Math.max(-1, Math.min(1, offset)) * 4;
+    y = paddleY - radius; dy = -Math.abs(dy); score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+    if (lives === 0) {
+      over = true;
+    } else {
+      x = 400; y = 225; dx = 4; dy = 4;
+    }
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score + &quot;  残り: &quot; + lives, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>板の中央ではほぼ真上、左右ではそれぞれの側へはね返ります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>横速度に掛ける4を3に変え、反射の広がりを比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：回数で速くなる</h2><h3>目標</h3><p>はね返した回数に応じてボールの速さを上げます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 5 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    dx = Math.max(-1, Math.min(1, offset)) * 4;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    y = paddleY - radius; dy = -Math.abs(dy); score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const speed = Math.min(8, 4 + Math.floor((score + 1) / 3));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    dx = Math.max(-1, Math.min(1, offset)) * speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y = paddleY - radius; dy = -speed; score++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (y - radius &gt; canvas.height) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      over = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      x = 400; y = 225; dx = 4; dy = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const speed = Math.min(8, 4 + Math.floor(score / 3));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      x = 400; y = 225; dx = speed; dy = speed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    dx = Math.max(-1, Math.min(1, offset)) * 4;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    y = paddleY - radius; dy = -Math.abs(dy); score++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const speed = Math.min(8, 4 + Math.floor((score + 1) / 3));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    dx = Math.max(-1, Math.min(1, offset)) * speed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y = paddleY - radius; dy = -speed; score++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (y - radius &gt; canvas.height) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      over = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      x = 400; y = 225; dx = 4; dy = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const speed = Math.min(8, 4 + Math.floor(score / 3));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      x = 400; y = 225; dx = speed; dy = speed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
+    dx = Math.max(-1, Math.min(1, offset)) * 4;
+    y = paddleY - radius; dy = -Math.abs(dy); score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+    if (lives === 0) {
+      over = true;
+    } else {
+      x = 400; y = 225; dx = 4; dy = 4;
+    }
+  }
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
+    const speed = Math.min(8, 4 + Math.floor((score + 1) / 3));
+    dx = Math.max(-1, Math.min(1, offset)) * speed;
+    y = paddleY - radius; dy = -speed; score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+    if (lives === 0) {
+      over = true;
+    } else {
+      const speed = Math.min(8, 4 + Math.floor(score / 3));
+      x = 400; y = 225; dx = speed; dy = speed;
+    }
+  }
+}
+</code></pre><h3>コードの意味</h3><p><code>Math.floor((score + 1) / 3)</code> は、今回の反射を含む回数を3で割って切り捨てた数です。1回目と2回目は速さ4、3回目から5です。</p><p><code>Math.min(8, ...)</code> で上限を8にします。落とした後の再配置でも、現在の回数に合う速さを使います。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, y, dx, dy, paddleX;
+const radius = 10, paddleWidth = 110, paddleY = 410;
+let left = false, right = false, score, over, lives;
+
+function start() {
+  x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;
+  score = 0; over = false; lives = 3; left = false; right = false;
+}
+
+function update() {
+  if (over) return;
+  if (left) paddleX -= 7;
+  if (right) paddleX += 7;
+  paddleX = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX));
+  x += dx; y += dy;
+  if (x &lt;= radius || x &gt;= canvas.width - radius) dx = -dx;
+  if (y &lt;= radius) dy = -dy;
+  if (dy &gt; 0 &amp;&amp; y + radius &gt;= paddleY &amp;&amp; y - radius &lt;= paddleY + 14 &amp;&amp;
+      x + radius &gt;= paddleX &amp;&amp; x - radius &lt;= paddleX + paddleWidth) {
+    const offset = (x - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
+    const speed = Math.min(8, 4 + Math.floor((score + 1) / 3));
+    dx = Math.max(-1, Math.min(1, offset)) * speed;
+    y = paddleY - radius; dy = -speed; score++;
+  }
+  if (y - radius &gt; canvas.height) {
+    lives--;
+    if (lives === 0) {
+      over = true;
+    } else {
+      const speed = Math.min(8, 4 + Math.floor(score / 3));
+      x = 400; y = 225; dx = speed; dy = speed;
+    }
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#2269b4&quot;;
+  ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.fillRect(paddleX, paddleY, paddleWidth, 14);
+  ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;はね返した回数: &quot; + score + &quot;  残り: &quot; + lives, 20, 35);
+  if (over) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 225);
+}
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.key === &quot;ArrowLeft&quot;) left = true;
+  if (event.key === &quot;ArrowRight&quot;) right = true;
+});
+window.addEventListener(&quot;keyup&quot;, (event) =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>3回はね返すと、それまでより速く動きます。残り0で終了し、Rで速さも戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>上限8を6に変え、速さの上限を比べます。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">発展編の完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></body></html>

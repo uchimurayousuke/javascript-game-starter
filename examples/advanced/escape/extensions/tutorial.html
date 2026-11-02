@@ -1,0 +1,991 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>脱出ゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">← 基本の教材へ</a></p><h1>脱出ゲームの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の <code>index.html</code>、<code>style.css</code>、<code>script.js</code> を新しい作業用フォルダーにコピーし、同じ場所に置きます。自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><section><h2>ステップ 1：アイテムを組み合わせる</h2><h3>目標</h3><p>電池と懐中電灯を組み合わせて明かりを用意します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 15 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.unlocked = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.inventory.add(&quot;ドライバー&quot;);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        this.message = &quot;ドライバーを手に入れた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.add(&quot;懐中電灯&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.message = &quot;番号が違うようだ&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const previous = this.inventory.selected;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.inventory.click(x, y)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if ((previous === &quot;電池&quot; &amp;&amp; this.inventory.selected === &quot;懐中電灯&quot;) ||</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          (previous === &quot;懐中電灯&quot; &amp;&amp; this.inventory.selected === &quot;電池&quot;)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.items = this.inventory.items.filter(item =&gt; item !== &quot;電池&quot; &amp;&amp; item !== &quot;懐中電灯&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.add(&quot;点灯ライト&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.selected = &quot;点灯ライト&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;電池を入れ、ライトが点いた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      this.message = this.inventory.selected + &quot;を選んだ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const object of this.objects) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (!object.contains(x, y)) continue;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      if (object.name === &quot;本棚&quot;) this.message = &quot;メモに 241 と書いてある&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (object.name === &quot;本棚&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.add(&quot;電池&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;メモは241。電池も見つけた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      else if (object.name === &quot;引き出し&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.view = &quot;drawer&quot;;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.unlocked = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.inventory.add(&quot;ドライバー&quot;);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        this.message = &quot;ドライバーを手に入れた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.add(&quot;懐中電灯&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.message = &quot;番号が違うようだ&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      if (this.digits.join(&quot;&quot;) === &quot;241&quot;) {
+        this.unlocked = true;
+        this.inventory.add(&quot;ドライバー&quot;);
+        this.message = &quot;ドライバーを手に入れた&quot;;
+      } else {
+        this.message = &quot;番号が違うようだ&quot;;
+      }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      if (this.digits.join(&quot;&quot;) === &quot;241&quot;) {
+        this.unlocked = true;
+        this.inventory.add(&quot;ドライバー&quot;);
+        this.inventory.add(&quot;懐中電灯&quot;);
+        this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;
+      } else {
+        this.message = &quot;番号が違うようだ&quot;;
+      }
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const previous = this.inventory.selected;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.inventory.click(x, y)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if ((previous === &quot;電池&quot; &amp;&amp; this.inventory.selected === &quot;懐中電灯&quot;) ||</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          (previous === &quot;懐中電灯&quot; &amp;&amp; this.inventory.selected === &quot;電池&quot;)) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.items = this.inventory.items.filter(item =&gt; item !== &quot;電池&quot; &amp;&amp; item !== &quot;懐中電灯&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.add(&quot;点灯ライト&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.selected = &quot;点灯ライト&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;電池を入れ、ライトが点いた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      this.message = this.inventory.selected + &quot;を選んだ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const object of this.objects) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (!object.contains(x, y)) continue;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      if (object.name === &quot;本棚&quot;) this.message = &quot;メモに 241 と書いてある&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (object.name === &quot;本棚&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.inventory.add(&quot;電池&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;メモは241。電池も見つけた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      else if (object.name === &quot;引き出し&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.view = &quot;drawer&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      this.clickDrawer(x, y);
+      return;
+    }
+    if (this.inventory.click(x, y)) {
+      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of this.objects) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) this.message = &quot;メモに 241 と書いてある&quot;;
+      else if (object.name === &quot;引き出し&quot;) {
+        this.view = &quot;drawer&quot;;
+        this.message = &quot;3けたの番号を合わせよう&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      this.clickDrawer(x, y);
+      return;
+    }
+    const previous = this.inventory.selected;
+    if (this.inventory.click(x, y)) {
+      if ((previous === &quot;電池&quot; &amp;&amp; this.inventory.selected === &quot;懐中電灯&quot;) ||
+          (previous === &quot;懐中電灯&quot; &amp;&amp; this.inventory.selected === &quot;電池&quot;)) {
+        this.inventory.items = this.inventory.items.filter(item =&gt; item !== &quot;電池&quot; &amp;&amp; item !== &quot;懐中電灯&quot;);
+        this.inventory.add(&quot;点灯ライト&quot;);
+        this.inventory.selected = &quot;点灯ライト&quot;;
+        this.message = &quot;電池を入れ、ライトが点いた&quot;;
+        return;
+      }
+      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of this.objects) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) {
+        this.inventory.add(&quot;電池&quot;);
+        this.message = &quot;メモは241。電池も見つけた&quot;;
+      }
+      else if (object.name === &quot;引き出し&quot;) {
+        this.view = &quot;drawer&quot;;
+        this.message = &quot;3けたの番号を合わせよう&quot;;
+</code></pre><h3>コードの意味</h3><p>本棚で電池、番号241の引き出しで懐中電灯を見つけます。もとのドライバーと鍵も使えます。</p><p>持ち物を選ぶ前の <code>previous</code> と選んだ後の名前を比べ、電池と懐中電灯の組み合わせなら点灯ライトを追加します。順番はどちらでも構いません。</p><p>正しい組み合わせなら電池と懐中電灯を取り除き、点灯ライトに替えます。違う組み合わせでは持ち物を失いません。<code>add()</code> は重複を防ぎます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class RoomObject {
+  constructor(x, y, width, height, name) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.name = name;
+  }
+
+  contains(x, y) {
+    return x &gt;= this.x &amp;&amp; x &lt; this.x + this.width &amp;&amp;
+      y &gt;= this.y &amp;&amp; y &lt; this.y + this.height;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#b7cbd4&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(this.name, this.x + 15, this.y + 35);
+  }
+}
+
+class Inventory {
+  constructor() {
+    this.items = [];
+    this.selected = &quot;&quot;;
+  }
+
+  add(item) {
+    if (!this.items.includes(item)) this.items.push(item);
+  }
+
+  click(x, y) {
+    for (let i = 0; i &lt; this.items.length; i++) {
+      const left = 30 + i * 150;
+      if (x &gt;= left &amp;&amp; x &lt; left + 140 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+        this.selected = this.items[i];
+        return true;
+      }
+    }
+    return false;
+  }
+
+  draw() {
+    for (let i = 0; i &lt; this.items.length; i++) {
+      const left = 30 + i * 150;
+      ctx.fillStyle = &quot;#f8dc8b&quot;;
+      ctx.fillRect(left, 390, 140, 45);
+      if (this.items[i] === this.selected) {
+        ctx.strokeStyle = &quot;#c45631&quot;;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(left, 390, 140, 45);
+      }
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.font = &quot;17px sans-serif&quot;;
+      ctx.fillText(this.items[i], left + 8, 418);
+    }
+  }
+}
+
+class Game {
+  constructor() {
+    this.objects = [
+      new RoomObject(60, 105, 160, 180, &quot;本棚&quot;),
+      new RoomObject(300, 130, 170, 140, &quot;引き出し&quot;),
+      new RoomObject(535, 120, 165, 150, &quot;換気口&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
+    ];
+    this.inventory = new Inventory();
+    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+    this.digits = [0, 0, 0];
+    this.unlocked = false;
+    this.ventOpen = false;
+    this.state = &quot;playing&quot;;
+  }
+
+  clickDrawer(x, y) {
+    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+      this.view = &quot;room&quot;;
+      this.message = &quot;部屋に戻った&quot;;
+      return;
+    }
+    for (let i = 0; i &lt; this.digits.length; i++) {
+      const left = 250 + i * 90;
+      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {
+        this.digits[i] = (this.digits[i] + 1) % 10;
+        return;
+      }
+    }
+    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {
+      if (this.digits.join(&quot;&quot;) === &quot;241&quot;) {
+        this.unlocked = true;
+        this.inventory.add(&quot;ドライバー&quot;);
+        this.inventory.add(&quot;懐中電灯&quot;);
+        this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;
+      } else {
+        this.message = &quot;番号が違うようだ&quot;;
+      }
+    }
+  }
+
+  click(x, y) {
+    if (this.state !== &quot;playing&quot;) return;
+    if (this.view === &quot;drawer&quot;) {
+      this.clickDrawer(x, y);
+      return;
+    }
+    const previous = this.inventory.selected;
+    if (this.inventory.click(x, y)) {
+      if ((previous === &quot;電池&quot; &amp;&amp; this.inventory.selected === &quot;懐中電灯&quot;) ||
+          (previous === &quot;懐中電灯&quot; &amp;&amp; this.inventory.selected === &quot;電池&quot;)) {
+        this.inventory.items = this.inventory.items.filter(item =&gt; item !== &quot;電池&quot; &amp;&amp; item !== &quot;懐中電灯&quot;);
+        this.inventory.add(&quot;点灯ライト&quot;);
+        this.inventory.selected = &quot;点灯ライト&quot;;
+        this.message = &quot;電池を入れ、ライトが点いた&quot;;
+        return;
+      }
+      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of this.objects) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) {
+        this.inventory.add(&quot;電池&quot;);
+        this.message = &quot;メモは241。電池も見つけた&quot;;
+      }
+      else if (object.name === &quot;引き出し&quot;) {
+        this.view = &quot;drawer&quot;;
+        this.message = &quot;3けたの番号を合わせよう&quot;;
+      } else if (object.name === &quot;換気口&quot;) {
+        if (this.inventory.selected === &quot;ドライバー&quot;) {
+          this.ventOpen = true;
+          this.inventory.add(&quot;鍵&quot;);
+          this.message = &quot;換気口を開けて鍵を見つけた&quot;;
+        } else this.message = &quot;換気口はドライバーで開きそう&quot;;
+      } else if (object.name === &quot;扉&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.state = &quot;clear&quot;;
+          this.message = &quot;脱出成功！ R でもう一度&quot;;
+        } else this.message = &quot;扉には鍵が必要だ&quot;;
+      }
+      return;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    if (this.view === &quot;drawer&quot;) {
+      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);
+      for (let i = 0; i &lt; this.digits.length; i++) {
+        ctx.fillStyle = &quot;#f8dc8b&quot;;
+        ctx.fillRect(250 + i * 90, 190, 70, 80);
+        ctx.fillStyle = &quot;#24354a&quot;;
+        ctx.fillText(String(this.digits[i]), 275 + i * 90, 240);
+      }
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(300, 300, 200, 45);
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;番号を確かめる&quot;, 315, 330);
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(30, 390, 120, 45);
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;戻る&quot;, 52, 420);
+    } else {
+      ctx.fillText(&quot;部屋の物をクリックして調べよう&quot;, 45, 45);
+      for (const object of this.objects) {
+        object.draw();
+        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||
+            (object.name === &quot;換気口&quot; &amp;&amp; this.ventOpen)) {
+          ctx.fillStyle = &quot;#416a47&quot;;
+          ctx.fillRect(object.x, object.y + 60, object.width, 35);
+          ctx.fillStyle = &quot;#ffffff&quot;;
+          ctx.font = &quot;18px sans-serif&quot;;
+          ctx.fillText(&quot;開いた&quot;, object.x + 15, object.y + 84);
+        }
+      }
+      this.inventory.draw();
+    }
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(this.message, 45, 370);
+  }
+}
+
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  const point = pointFromClick(event);
+  game.click(point.x, point.y);
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>2つを続けて選ぶと点灯ライトが持ち物に現れます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>組み合わせたときのメッセージを変えてみます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：隣の部屋へ移動する</h2><h3>目標</h3><p>鍵を使って隣の部屋へ進み、戻れるようにします。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 4 行・追加 20 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.room = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.roomTwoObjects = [</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new RoomObject(60, 105, 160, 180, &quot;暗い箱&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new RoomObject(300, 130, 170, 140, &quot;戻る扉&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new RoomObject(625, 285, 120, 80, &quot;出口&quot;)</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.inventory = new Inventory();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.message = &quot;気になる物をクリックしよう&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    for (const object of this.objects) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (!object.contains(x, y)) continue;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (object.name === &quot;本棚&quot;) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else if (object.name === &quot;扉&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        if (this.inventory.selected === &quot;鍵&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.room = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.message = &quot;隣の部屋に入った&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        } else this.message = &quot;扉には鍵が必要だ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else if (object.name === &quot;戻る扉&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.room = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;最初の部屋に戻った&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else if (object.name === &quot;暗い箱&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;暗くて中が見えない&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else if (object.name === &quot;出口&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (this.inventory.selected === &quot;鍵&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          this.state = &quot;clear&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          this.message = &quot;脱出成功！ R でもう一度&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        } else this.message = &quot;扉には鍵が必要だ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        } else this.message = &quot;出口には鍵が必要だ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      ctx.fillText(&quot;戻る&quot;, 52, 420);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      ctx.fillText(&quot;部屋の物をクリックして調べよう&quot;, 45, 45);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      for (const object of this.objects) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(this.room === 1 ? &quot;最初の部屋を調べよう&quot; : &quot;隣の部屋を調べよう&quot;, 45, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        object.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      new RoomObject(535, 120, 165, 150, &quot;換気口&quot;),</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.room = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.roomTwoObjects = [</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new RoomObject(60, 105, 160, 180, &quot;暗い箱&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new RoomObject(300, 130, 170, 140, &quot;戻る扉&quot;),</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      new RoomObject(625, 285, 120, 80, &quot;出口&quot;)</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.inventory = new Inventory();</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      new RoomObject(535, 120, 165, 150, &quot;換気口&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
+    ];
+    this.inventory = new Inventory();
+    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      new RoomObject(535, 120, 165, 150, &quot;換気口&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
+    ];
+    this.room = 1;
+    this.roomTwoObjects = [
+      new RoomObject(60, 105, 160, 180, &quot;暗い箱&quot;),
+      new RoomObject(300, 130, 170, 140, &quot;戻る扉&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;出口&quot;)
+    ];
+    this.inventory = new Inventory();
+    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    for (const object of this.objects) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (!object.contains(x, y)) continue;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (object.name === &quot;本棚&quot;) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of this.objects) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) {
+        this.inventory.add(&quot;電池&quot;);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) {
+        this.inventory.add(&quot;電池&quot;);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else if (object.name === &quot;扉&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        if (this.inventory.selected === &quot;鍵&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.room = 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.message = &quot;隣の部屋に入った&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        } else this.message = &quot;扉には鍵が必要だ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else if (object.name === &quot;戻る扉&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.room = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;最初の部屋に戻った&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else if (object.name === &quot;暗い箱&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;暗くて中が見えない&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else if (object.name === &quot;出口&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (this.inventory.selected === &quot;鍵&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          this.state = &quot;clear&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          this.message = &quot;脱出成功！ R でもう一度&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        } else this.message = &quot;扉には鍵が必要だ&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        } else this.message = &quot;出口には鍵が必要だ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      return;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>        } else this.message = &quot;換気口はドライバーで開きそう&quot;;
+      } else if (object.name === &quot;扉&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.state = &quot;clear&quot;;
+          this.message = &quot;脱出成功！ R でもう一度&quot;;
+        } else this.message = &quot;扉には鍵が必要だ&quot;;
+      }
+      return;
+    }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>        } else this.message = &quot;換気口はドライバーで開きそう&quot;;
+      } else if (object.name === &quot;扉&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.room = 2;
+          this.message = &quot;隣の部屋に入った&quot;;
+        } else this.message = &quot;扉には鍵が必要だ&quot;;
+      } else if (object.name === &quot;戻る扉&quot;) {
+        this.room = 1;
+        this.message = &quot;最初の部屋に戻った&quot;;
+      } else if (object.name === &quot;暗い箱&quot;) {
+        this.message = &quot;暗くて中が見えない&quot;;
+      } else if (object.name === &quot;出口&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.state = &quot;clear&quot;;
+          this.message = &quot;脱出成功！ R でもう一度&quot;;
+        } else this.message = &quot;出口には鍵が必要だ&quot;;
+      }
+      return;
+    }
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      ctx.fillText(&quot;戻る&quot;, 52, 420);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      ctx.fillText(&quot;部屋の物をクリックして調べよう&quot;, 45, 45);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      for (const object of this.objects) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillText(this.room === 1 ? &quot;最初の部屋を調べよう&quot; : &quot;隣の部屋を調べよう&quot;, 45, 45);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        object.draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;戻る&quot;, 52, 420);
+    } else {
+      ctx.fillText(&quot;部屋の物をクリックして調べよう&quot;, 45, 45);
+      for (const object of this.objects) {
+        object.draw();
+        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||
+            (object.name === &quot;換気口&quot; &amp;&amp; this.ventOpen)) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;戻る&quot;, 52, 420);
+    } else {
+      ctx.fillText(this.room === 1 ? &quot;最初の部屋を調べよう&quot; : &quot;隣の部屋を調べよう&quot;, 45, 45);
+      for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {
+        object.draw();
+        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||
+            (object.name === &quot;換気口&quot; &amp;&amp; this.ventOpen)) {
+</code></pre><h3>コードの意味</h3><p><code>room</code> が1なら最初の部屋、2なら隣の部屋です。表示とクリックの両方で同じ部屋の物を選びます。</p><p>鍵を選んで最初の扉を調べると隣へ進みます。戻る扉を調べれば持ち物を保ったまま戻れます。</p><p>この段階では隣の出口に鍵を使うとクリアです。次の段階で出口に番号の条件を加えます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class RoomObject {
+  constructor(x, y, width, height, name) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.name = name;
+  }
+
+  contains(x, y) {
+    return x &gt;= this.x &amp;&amp; x &lt; this.x + this.width &amp;&amp;
+      y &gt;= this.y &amp;&amp; y &lt; this.y + this.height;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#b7cbd4&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(this.name, this.x + 15, this.y + 35);
+  }
+}
+
+class Inventory {
+  constructor() {
+    this.items = [];
+    this.selected = &quot;&quot;;
+  }
+
+  add(item) {
+    if (!this.items.includes(item)) this.items.push(item);
+  }
+
+  click(x, y) {
+    for (let i = 0; i &lt; this.items.length; i++) {
+      const left = 30 + i * 150;
+      if (x &gt;= left &amp;&amp; x &lt; left + 140 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+        this.selected = this.items[i];
+        return true;
+      }
+    }
+    return false;
+  }
+
+  draw() {
+    for (let i = 0; i &lt; this.items.length; i++) {
+      const left = 30 + i * 150;
+      ctx.fillStyle = &quot;#f8dc8b&quot;;
+      ctx.fillRect(left, 390, 140, 45);
+      if (this.items[i] === this.selected) {
+        ctx.strokeStyle = &quot;#c45631&quot;;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(left, 390, 140, 45);
+      }
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.font = &quot;17px sans-serif&quot;;
+      ctx.fillText(this.items[i], left + 8, 418);
+    }
+  }
+}
+
+class Game {
+  constructor() {
+    this.objects = [
+      new RoomObject(60, 105, 160, 180, &quot;本棚&quot;),
+      new RoomObject(300, 130, 170, 140, &quot;引き出し&quot;),
+      new RoomObject(535, 120, 165, 150, &quot;換気口&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
+    ];
+    this.room = 1;
+    this.roomTwoObjects = [
+      new RoomObject(60, 105, 160, 180, &quot;暗い箱&quot;),
+      new RoomObject(300, 130, 170, 140, &quot;戻る扉&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;出口&quot;)
+    ];
+    this.inventory = new Inventory();
+    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+    this.digits = [0, 0, 0];
+    this.unlocked = false;
+    this.ventOpen = false;
+    this.state = &quot;playing&quot;;
+  }
+
+  clickDrawer(x, y) {
+    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+      this.view = &quot;room&quot;;
+      this.message = &quot;部屋に戻った&quot;;
+      return;
+    }
+    for (let i = 0; i &lt; this.digits.length; i++) {
+      const left = 250 + i * 90;
+      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {
+        this.digits[i] = (this.digits[i] + 1) % 10;
+        return;
+      }
+    }
+    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {
+      if (this.digits.join(&quot;&quot;) === &quot;241&quot;) {
+        this.unlocked = true;
+        this.inventory.add(&quot;ドライバー&quot;);
+        this.inventory.add(&quot;懐中電灯&quot;);
+        this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;
+      } else {
+        this.message = &quot;番号が違うようだ&quot;;
+      }
+    }
+  }
+
+  click(x, y) {
+    if (this.state !== &quot;playing&quot;) return;
+    if (this.view === &quot;drawer&quot;) {
+      this.clickDrawer(x, y);
+      return;
+    }
+    const previous = this.inventory.selected;
+    if (this.inventory.click(x, y)) {
+      if ((previous === &quot;電池&quot; &amp;&amp; this.inventory.selected === &quot;懐中電灯&quot;) ||
+          (previous === &quot;懐中電灯&quot; &amp;&amp; this.inventory.selected === &quot;電池&quot;)) {
+        this.inventory.items = this.inventory.items.filter(item =&gt; item !== &quot;電池&quot; &amp;&amp; item !== &quot;懐中電灯&quot;);
+        this.inventory.add(&quot;点灯ライト&quot;);
+        this.inventory.selected = &quot;点灯ライト&quot;;
+        this.message = &quot;電池を入れ、ライトが点いた&quot;;
+        return;
+      }
+      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) {
+        this.inventory.add(&quot;電池&quot;);
+        this.message = &quot;メモは241。電池も見つけた&quot;;
+      }
+      else if (object.name === &quot;引き出し&quot;) {
+        this.view = &quot;drawer&quot;;
+        this.message = &quot;3けたの番号を合わせよう&quot;;
+      } else if (object.name === &quot;換気口&quot;) {
+        if (this.inventory.selected === &quot;ドライバー&quot;) {
+          this.ventOpen = true;
+          this.inventory.add(&quot;鍵&quot;);
+          this.message = &quot;換気口を開けて鍵を見つけた&quot;;
+        } else this.message = &quot;換気口はドライバーで開きそう&quot;;
+      } else if (object.name === &quot;扉&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.room = 2;
+          this.message = &quot;隣の部屋に入った&quot;;
+        } else this.message = &quot;扉には鍵が必要だ&quot;;
+      } else if (object.name === &quot;戻る扉&quot;) {
+        this.room = 1;
+        this.message = &quot;最初の部屋に戻った&quot;;
+      } else if (object.name === &quot;暗い箱&quot;) {
+        this.message = &quot;暗くて中が見えない&quot;;
+      } else if (object.name === &quot;出口&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.state = &quot;clear&quot;;
+          this.message = &quot;脱出成功！ R でもう一度&quot;;
+        } else this.message = &quot;出口には鍵が必要だ&quot;;
+      }
+      return;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    if (this.view === &quot;drawer&quot;) {
+      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);
+      for (let i = 0; i &lt; this.digits.length; i++) {
+        ctx.fillStyle = &quot;#f8dc8b&quot;;
+        ctx.fillRect(250 + i * 90, 190, 70, 80);
+        ctx.fillStyle = &quot;#24354a&quot;;
+        ctx.fillText(String(this.digits[i]), 275 + i * 90, 240);
+      }
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(300, 300, 200, 45);
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;番号を確かめる&quot;, 315, 330);
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(30, 390, 120, 45);
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;戻る&quot;, 52, 420);
+    } else {
+      ctx.fillText(this.room === 1 ? &quot;最初の部屋を調べよう&quot; : &quot;隣の部屋を調べよう&quot;, 45, 45);
+      for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {
+        object.draw();
+        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||
+            (object.name === &quot;換気口&quot; &amp;&amp; this.ventOpen)) {
+          ctx.fillStyle = &quot;#416a47&quot;;
+          ctx.fillRect(object.x, object.y + 60, object.width, 35);
+          ctx.fillStyle = &quot;#ffffff&quot;;
+          ctx.font = &quot;18px sans-serif&quot;;
+          ctx.fillText(&quot;開いた&quot;, object.x + 15, object.y + 84);
+        }
+      }
+      this.inventory.draw();
+    }
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(this.message, 45, 370);
+  }
+}
+
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  const point = pointFromClick(event);
+  game.click(point.x, point.y);
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>鍵で隣へ進み、戻る扉で戻れます。隣の出口に鍵を使うとクリアです。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>隣の箱の位置を変えて調べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：暗い箱と出口の番号</h2><h3>目標</h3><p>明かりで番号を見つけ、鍵と番号を使って脱出します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 6 行・追加 36 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.view = &quot;room&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.digits = [0, 0, 0];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.exitDigits = [0, 0, 0];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.hintRead = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.unlocked = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.ventOpen = false;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  clickExit(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.view = &quot;room&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let i = 0; i &lt; this.exitDigits.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const left = 250 + i * 90;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.exitDigits[i] = (this.exitDigits[i] + 1) % 10;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.hintRead &amp;&amp; this.exitDigits.join(&quot;&quot;) === &quot;314&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;脱出成功！ R でもう一度&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else this.message = &quot;明かりで手がかりを確かめよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  click(x, y) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.view === &quot;exit&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.clickExit(x, y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.view === &quot;drawer&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      this.clickDrawer(x, y);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.message = &quot;最初の部屋に戻った&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else if (object.name === &quot;暗い箱&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        this.message = &quot;暗くて中が見えない&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (this.inventory.selected === &quot;点灯ライト&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.hintRead = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.message = &quot;明かりで番号314が見えた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        } else this.message = &quot;暗くて中が見えない&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else if (object.name === &quot;出口&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        if (this.inventory.selected === &quot;鍵&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">          this.state = &quot;clear&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">          this.message = &quot;脱出成功！ R でもう一度&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.view = &quot;exit&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.message = &quot;出口の番号を合わせよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        } else this.message = &quot;出口には鍵が必要だ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (this.view === &quot;drawer&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.view === &quot;drawer&quot; || this.view === &quot;exit&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const shownDigits = this.view === &quot;drawer&quot; ? this.digits : this.exitDigits;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      for (let i = 0; i &lt; this.digits.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (let i = 0; i &lt; shownDigits.length; i++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        ctx.fillStyle = &quot;#f8dc8b&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        ctx.fillRect(250 + i * 90, 190, 70, 80);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        ctx.fillText(String(this.digits[i]), 275 + i * 90, 240);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        ctx.fillText(String(shownDigits[i]), 275 + i * 90, 240);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      ctx.fillStyle = &quot;#b7cbd4&quot;;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。「変更前」を探し、「変更後」の欄全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.view = &quot;room&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.digits = [0, 0, 0];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.exitDigits = [0, 0, 0];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.hintRead = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.unlocked = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.ventOpen = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+    this.digits = [0, 0, 0];
+    this.unlocked = false;
+    this.ventOpen = false;
+    this.state = &quot;playing&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+    this.digits = [0, 0, 0];
+    this.exitDigits = [0, 0, 0];
+    this.hintRead = false;
+    this.unlocked = false;
+    this.ventOpen = false;
+    this.state = &quot;playing&quot;;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  clickExit(x, y) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.view = &quot;room&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let i = 0; i &lt; this.exitDigits.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const left = 250 + i * 90;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.exitDigits[i] = (this.exitDigits[i] + 1) % 10;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.hintRead &amp;&amp; this.exitDigits.join(&quot;&quot;) === &quot;314&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        this.message = &quot;脱出成功！ R でもう一度&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      } else this.message = &quot;明かりで手がかりを確かめよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  click(x, y) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.view === &quot;exit&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.clickExit(x, y);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.view === &quot;drawer&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      this.clickDrawer(x, y);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    }
+  }
+
+  click(x, y) {
+    if (this.state !== &quot;playing&quot;) return;
+    if (this.view === &quot;drawer&quot;) {
+      this.clickDrawer(x, y);
+      return;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    }
+  }
+
+  clickExit(x, y) {
+    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+      this.view = &quot;room&quot;;
+      return;
+    }
+    for (let i = 0; i &lt; this.exitDigits.length; i++) {
+      const left = 250 + i * 90;
+      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {
+        this.exitDigits[i] = (this.exitDigits[i] + 1) % 10;
+        return;
+      }
+    }
+    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {
+      if (this.hintRead &amp;&amp; this.exitDigits.join(&quot;&quot;) === &quot;314&quot;) {
+        this.state = &quot;clear&quot;;
+        this.message = &quot;脱出成功！ R でもう一度&quot;;
+      } else this.message = &quot;明かりで手がかりを確かめよう&quot;;
+    }
+  }
+
+  click(x, y) {
+    if (this.state !== &quot;playing&quot;) return;
+    if (this.view === &quot;exit&quot;) {
+      this.clickExit(x, y);
+      return;
+    }
+    if (this.view === &quot;drawer&quot;) {
+      this.clickDrawer(x, y);
+      return;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        this.message = &quot;最初の部屋に戻った&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else if (object.name === &quot;暗い箱&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        this.message = &quot;暗くて中が見えない&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        if (this.inventory.selected === &quot;点灯ライト&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.hintRead = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.message = &quot;明かりで番号314が見えた&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        } else this.message = &quot;暗くて中が見えない&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      } else if (object.name === &quot;出口&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        if (this.inventory.selected === &quot;鍵&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">          this.state = &quot;clear&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">          this.message = &quot;脱出成功！ R でもう一度&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.view = &quot;exit&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.message = &quot;出口の番号を合わせよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        } else this.message = &quot;出口には鍵が必要だ&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>        this.room = 1;
+        this.message = &quot;最初の部屋に戻った&quot;;
+      } else if (object.name === &quot;暗い箱&quot;) {
+        this.message = &quot;暗くて中が見えない&quot;;
+      } else if (object.name === &quot;出口&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.state = &quot;clear&quot;;
+          this.message = &quot;脱出成功！ R でもう一度&quot;;
+        } else this.message = &quot;出口には鍵が必要だ&quot;;
+      }
+      return;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>        this.room = 1;
+        this.message = &quot;最初の部屋に戻った&quot;;
+      } else if (object.name === &quot;暗い箱&quot;) {
+        if (this.inventory.selected === &quot;点灯ライト&quot;) {
+          this.hintRead = true;
+          this.message = &quot;明かりで番号314が見えた&quot;;
+        } else this.message = &quot;暗くて中が見えない&quot;;
+      } else if (object.name === &quot;出口&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.view = &quot;exit&quot;;
+          this.message = &quot;出口の番号を合わせよう&quot;;
+        } else this.message = &quot;出口には鍵が必要だ&quot;;
+      }
+      return;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (this.view === &quot;drawer&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.view === &quot;drawer&quot; || this.view === &quot;exit&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const shownDigits = this.view === &quot;drawer&quot; ? this.digits : this.exitDigits;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      for (let i = 0; i &lt; this.digits.length; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      for (let i = 0; i &lt; shownDigits.length; i++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        ctx.fillStyle = &quot;#f8dc8b&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        ctx.fillRect(250 + i * 90, 190, 70, 80);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        ctx.fillStyle = &quot;#24354a&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        ctx.fillText(String(this.digits[i]), 275 + i * 90, 240);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        ctx.fillText(String(shownDigits[i]), 275 + i * 90, 240);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      ctx.fillStyle = &quot;#b7cbd4&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  draw() {
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    if (this.view === &quot;drawer&quot;) {
+      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);
+      for (let i = 0; i &lt; this.digits.length; i++) {
+        ctx.fillStyle = &quot;#f8dc8b&quot;;
+        ctx.fillRect(250 + i * 90, 190, 70, 80);
+        ctx.fillStyle = &quot;#24354a&quot;;
+        ctx.fillText(String(this.digits[i]), 275 + i * 90, 240);
+      }
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(300, 300, 200, 45);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  draw() {
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    if (this.view === &quot;drawer&quot; || this.view === &quot;exit&quot;) {
+      const shownDigits = this.view === &quot;drawer&quot; ? this.digits : this.exitDigits;
+      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);
+      for (let i = 0; i &lt; shownDigits.length; i++) {
+        ctx.fillStyle = &quot;#f8dc8b&quot;;
+        ctx.fillRect(250 + i * 90, 190, 70, 80);
+        ctx.fillStyle = &quot;#24354a&quot;;
+        ctx.fillText(String(shownDigits[i]), 275 + i * 90, 240);
+      }
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(300, 300, 200, 45);
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="ext-escape" aria-labelledby="ext-escape-title"><figcaption id="ext-escape-title">図：電池と懐中電灯を組み合わせよう</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="電池と懐中電灯を組み合わせよう。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/ext-escape.svg" width="1000" height="950" alt="電池と懐中電灯を組み合わせると、点灯するライトになります。そのライトで暗い隣室を照らすと、番号314を読めます。出口で鍵を選んで使い、読んだ番号314を入力すると開けられます。"></div><p>電池と懐中電灯を組み合わせると、点灯するライトになります。そのライトで暗い隣室を照らすと、番号314を読めます。出口で鍵を選んで使い、読んだ番号314を入力すると開けられます。</p><p>部屋の配置ではなく、道具と条件のつながりを示しています。基本のドライバーから鍵を得る流れは省略し、電池と懐中電灯の組み合わせに注目しています。</p></figure><p>隣の暗い箱で点灯ライトを選ぶと314の手がかりを読み、<code>hintRead</code> が真になります。</p><p>鍵を選んで出口を調べると別の番号画面が開きます。3つの <code>exitDigits</code> を314に合わせ、手がかりも読んでいればクリアです。</p><p>戻るボタンと部屋の戻る扉で前に戻れます。鍵と点灯ライトは使ってもなくならず、まだ明かりがなくても取りに戻れます。Rですべて初期化します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class RoomObject {
+  constructor(x, y, width, height, name) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.name = name;
+  }
+
+  contains(x, y) {
+    return x &gt;= this.x &amp;&amp; x &lt; this.x + this.width &amp;&amp;
+      y &gt;= this.y &amp;&amp; y &lt; this.y + this.height;
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#b7cbd4&quot;;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(this.name, this.x + 15, this.y + 35);
+  }
+}
+
+class Inventory {
+  constructor() {
+    this.items = [];
+    this.selected = &quot;&quot;;
+  }
+
+  add(item) {
+    if (!this.items.includes(item)) this.items.push(item);
+  }
+
+  click(x, y) {
+    for (let i = 0; i &lt; this.items.length; i++) {
+      const left = 30 + i * 150;
+      if (x &gt;= left &amp;&amp; x &lt; left + 140 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+        this.selected = this.items[i];
+        return true;
+      }
+    }
+    return false;
+  }
+
+  draw() {
+    for (let i = 0; i &lt; this.items.length; i++) {
+      const left = 30 + i * 150;
+      ctx.fillStyle = &quot;#f8dc8b&quot;;
+      ctx.fillRect(left, 390, 140, 45);
+      if (this.items[i] === this.selected) {
+        ctx.strokeStyle = &quot;#c45631&quot;;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(left, 390, 140, 45);
+      }
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.font = &quot;17px sans-serif&quot;;
+      ctx.fillText(this.items[i], left + 8, 418);
+    }
+  }
+}
+
+class Game {
+  constructor() {
+    this.objects = [
+      new RoomObject(60, 105, 160, 180, &quot;本棚&quot;),
+      new RoomObject(300, 130, 170, 140, &quot;引き出し&quot;),
+      new RoomObject(535, 120, 165, 150, &quot;換気口&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
+    ];
+    this.room = 1;
+    this.roomTwoObjects = [
+      new RoomObject(60, 105, 160, 180, &quot;暗い箱&quot;),
+      new RoomObject(300, 130, 170, 140, &quot;戻る扉&quot;),
+      new RoomObject(625, 285, 120, 80, &quot;出口&quot;)
+    ];
+    this.inventory = new Inventory();
+    this.message = &quot;気になる物をクリックしよう&quot;;
+    this.view = &quot;room&quot;;
+    this.digits = [0, 0, 0];
+    this.exitDigits = [0, 0, 0];
+    this.hintRead = false;
+    this.unlocked = false;
+    this.ventOpen = false;
+    this.state = &quot;playing&quot;;
+  }
+
+  clickDrawer(x, y) {
+    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+      this.view = &quot;room&quot;;
+      this.message = &quot;部屋に戻った&quot;;
+      return;
+    }
+    for (let i = 0; i &lt; this.digits.length; i++) {
+      const left = 250 + i * 90;
+      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {
+        this.digits[i] = (this.digits[i] + 1) % 10;
+        return;
+      }
+    }
+    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {
+      if (this.digits.join(&quot;&quot;) === &quot;241&quot;) {
+        this.unlocked = true;
+        this.inventory.add(&quot;ドライバー&quot;);
+        this.inventory.add(&quot;懐中電灯&quot;);
+        this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;
+      } else {
+        this.message = &quot;番号が違うようだ&quot;;
+      }
+    }
+  }
+
+  clickExit(x, y) {
+    if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {
+      this.view = &quot;room&quot;;
+      return;
+    }
+    for (let i = 0; i &lt; this.exitDigits.length; i++) {
+      const left = 250 + i * 90;
+      if (x &gt;= left &amp;&amp; x &lt; left + 70 &amp;&amp; y &gt;= 190 &amp;&amp; y &lt; 270) {
+        this.exitDigits[i] = (this.exitDigits[i] + 1) % 10;
+        return;
+      }
+    }
+    if (x &gt;= 300 &amp;&amp; x &lt; 500 &amp;&amp; y &gt;= 300 &amp;&amp; y &lt; 345) {
+      if (this.hintRead &amp;&amp; this.exitDigits.join(&quot;&quot;) === &quot;314&quot;) {
+        this.state = &quot;clear&quot;;
+        this.message = &quot;脱出成功！ R でもう一度&quot;;
+      } else this.message = &quot;明かりで手がかりを確かめよう&quot;;
+    }
+  }
+
+  click(x, y) {
+    if (this.state !== &quot;playing&quot;) return;
+    if (this.view === &quot;exit&quot;) {
+      this.clickExit(x, y);
+      return;
+    }
+    if (this.view === &quot;drawer&quot;) {
+      this.clickDrawer(x, y);
+      return;
+    }
+    const previous = this.inventory.selected;
+    if (this.inventory.click(x, y)) {
+      if ((previous === &quot;電池&quot; &amp;&amp; this.inventory.selected === &quot;懐中電灯&quot;) ||
+          (previous === &quot;懐中電灯&quot; &amp;&amp; this.inventory.selected === &quot;電池&quot;)) {
+        this.inventory.items = this.inventory.items.filter(item =&gt; item !== &quot;電池&quot; &amp;&amp; item !== &quot;懐中電灯&quot;);
+        this.inventory.add(&quot;点灯ライト&quot;);
+        this.inventory.selected = &quot;点灯ライト&quot;;
+        this.message = &quot;電池を入れ、ライトが点いた&quot;;
+        return;
+      }
+      this.message = this.inventory.selected + &quot;を選んだ&quot;;
+      return;
+    }
+    for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {
+      if (!object.contains(x, y)) continue;
+      if (object.name === &quot;本棚&quot;) {
+        this.inventory.add(&quot;電池&quot;);
+        this.message = &quot;メモは241。電池も見つけた&quot;;
+      }
+      else if (object.name === &quot;引き出し&quot;) {
+        this.view = &quot;drawer&quot;;
+        this.message = &quot;3けたの番号を合わせよう&quot;;
+      } else if (object.name === &quot;換気口&quot;) {
+        if (this.inventory.selected === &quot;ドライバー&quot;) {
+          this.ventOpen = true;
+          this.inventory.add(&quot;鍵&quot;);
+          this.message = &quot;換気口を開けて鍵を見つけた&quot;;
+        } else this.message = &quot;換気口はドライバーで開きそう&quot;;
+      } else if (object.name === &quot;扉&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.room = 2;
+          this.message = &quot;隣の部屋に入った&quot;;
+        } else this.message = &quot;扉には鍵が必要だ&quot;;
+      } else if (object.name === &quot;戻る扉&quot;) {
+        this.room = 1;
+        this.message = &quot;最初の部屋に戻った&quot;;
+      } else if (object.name === &quot;暗い箱&quot;) {
+        if (this.inventory.selected === &quot;点灯ライト&quot;) {
+          this.hintRead = true;
+          this.message = &quot;明かりで番号314が見えた&quot;;
+        } else this.message = &quot;暗くて中が見えない&quot;;
+      } else if (object.name === &quot;出口&quot;) {
+        if (this.inventory.selected === &quot;鍵&quot;) {
+          this.view = &quot;exit&quot;;
+          this.message = &quot;出口の番号を合わせよう&quot;;
+        } else this.message = &quot;出口には鍵が必要だ&quot;;
+      }
+      return;
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;22px sans-serif&quot;;
+    if (this.view === &quot;drawer&quot; || this.view === &quot;exit&quot;) {
+      const shownDigits = this.view === &quot;drawer&quot; ? this.digits : this.exitDigits;
+      ctx.fillText(&quot;数字をクリックして番号を合わせよう&quot;, 165, 120);
+      for (let i = 0; i &lt; shownDigits.length; i++) {
+        ctx.fillStyle = &quot;#f8dc8b&quot;;
+        ctx.fillRect(250 + i * 90, 190, 70, 80);
+        ctx.fillStyle = &quot;#24354a&quot;;
+        ctx.fillText(String(shownDigits[i]), 275 + i * 90, 240);
+      }
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(300, 300, 200, 45);
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;番号を確かめる&quot;, 315, 330);
+      ctx.fillStyle = &quot;#b7cbd4&quot;;
+      ctx.fillRect(30, 390, 120, 45);
+      ctx.fillStyle = &quot;#24354a&quot;;
+      ctx.fillText(&quot;戻る&quot;, 52, 420);
+    } else {
+      ctx.fillText(this.room === 1 ? &quot;最初の部屋を調べよう&quot; : &quot;隣の部屋を調べよう&quot;, 45, 45);
+      for (const object of (this.room === 1 ? this.objects : this.roomTwoObjects)) {
+        object.draw();
+        if ((object.name === &quot;引き出し&quot; &amp;&amp; this.unlocked) ||
+            (object.name === &quot;換気口&quot; &amp;&amp; this.ventOpen)) {
+          ctx.fillStyle = &quot;#416a47&quot;;
+          ctx.fillRect(object.x, object.y + 60, object.width, 35);
+          ctx.fillStyle = &quot;#ffffff&quot;;
+          ctx.font = &quot;18px sans-serif&quot;;
+          ctx.fillText(&quot;開いた&quot;, object.x + 15, object.y + 84);
+        }
+      }
+      this.inventory.draw();
+    }
+    ctx.fillStyle = &quot;#24354a&quot;;
+    ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(this.message, 45, 370);
+  }
+}
+
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+function pointFromClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  };
+}
+
+canvas.addEventListener(&quot;click&quot;, (event) =&gt; {
+  const point = pointFromClick(event);
+  game.click(point.x, point.y);
+});
+
+window.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+  if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>電池と懐中電灯で箱を照らし、鍵と314で出口を開けます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>出口の番号と箱のメッセージを両方変えて試します。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">発展編の完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></body></html>
