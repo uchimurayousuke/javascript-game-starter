@@ -1,0 +1,353 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>爆弾迷路アクションの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"></head><body><main><p><a href="../tutorial.html">戻る</a></p><h1>爆弾迷路アクションの発展</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>基本の完成版の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../complete/index.html">基本の完成版を開く</a></p></section><section><h2>ステップ 1：爆風を長くする</h2><h3>目標</h3><p>爆弾迷路を発展させます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  explode(bomb, now) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const spots = [{x: bomb.x, y: bomb.y}];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 1; distance++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 2; distance++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const x = bomb.x + dx * distance, y = bomb.y + dy * distance;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (this.wall(x, y)) break;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;B: 爆弾（2秒後）&quot;, 480, 140);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 480, 340);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 1; distance++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 2; distance++) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 1; distance++) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 2; distance++) {
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 480, 340);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);
+  ctx.fillText(game.message, 480, 340);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);
+  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);
+  ctx.fillText(game.message, 480, 340);
+</code></pre><h3>コードの意味</h3><p>十字方向の最大距離を1から2にします。壁と箱で止まる条件は同じです。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; }
+}
+class Bomb {
+  constructor(x, y, now) { this.x = x; this.y = y; this.due = now + 2000; }
+}
+class Enemy {
+  constructor() { this.x = 4; this.y = 1; this.alive = true; this.direction = 1; this.nextMove = performance.now() + 500; }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.enemy = new Enemy(); this.boxes = new Set([&quot;3,1&quot;]);
+    this.bombs = []; this.flames = []; this.state = &quot;playing&quot;; this.message = &quot;出口を目指そう&quot;;
+  }
+  wall(x, y) { return x &lt;= 0 || x &gt;= 8 || y &lt;= 0 || y &gt;= 6 || (x === 3 &amp;&amp; y === 2); }
+  key(x, y) { return x + &quot;,&quot; + y; }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const x = this.player.x + dx, y = this.player.y + dy;
+    if (this.wall(x, y) || this.boxes.has(this.key(x, y)) || this.bombs.some(b =&gt; b.x === x &amp;&amp; b.y === y)) return;
+    this.player.x = x; this.player.y = y;
+    if (this.enemy.alive &amp;&amp; x === this.enemy.x &amp;&amp; y === this.enemy.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }
+    if (this.flames.some(f =&gt; f.x === x &amp;&amp; f.y === y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+    if (this.state === &quot;playing&quot; &amp;&amp; !this.enemy.alive &amp;&amp; x === 7 &amp;&amp; y === 5) { this.state = &quot;clear&quot;; this.message = &quot;脱出成功！&quot;; }
+  }
+  plant() {
+    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 1 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;
+    this.bombs.push(new Bomb(this.player.x, this.player.y, performance.now()));
+  }
+  explode(bomb, now) {
+    const spots = [{x: bomb.x, y: bomb.y}];
+    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 2; distance++) {
+      const x = bomb.x + dx * distance, y = bomb.y + dy * distance;
+      if (this.wall(x, y)) break;
+      spots.push({x, y});
+      if (this.boxes.delete(this.key(x, y))) break;
+    }
+    for (const spot of spots) {
+      if (spot.x === this.player.x &amp;&amp; spot.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+      if (spot.x === this.enemy.x &amp;&amp; spot.y === this.enemy.y) this.enemy.alive = false;
+      if (now &lt; bomb.due + 500) this.flames.push({...spot, until: bomb.due + 500});
+    }
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const now = performance.now();
+    const due = this.bombs.filter(b =&gt; now &gt;= b.due).sort((a, b) =&gt; a.due - b.due);
+    this.bombs = this.bombs.filter(b =&gt; now &lt; b.due);
+    for (const bomb of due) this.explode(bomb, now);
+    this.flames = this.flames.filter(f =&gt; now &lt; f.until);
+    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let y = 0; y &lt; 7; y++) for (let x = 0; x &lt; 9; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#62717b&quot; : &quot;#e2edd8&quot;; ctx.fillRect(60 + x * 45, 50 + y * 45, 43, 43);
+    if (game.boxes.has(game.key(x, y))) { ctx.fillStyle = &quot;#aa7048&quot;; ctx.fillRect(66 + x * 45, 56 + y * 45, 31, 31); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;箱&quot;, 71 + x * 45, 79 + y * 45); }
+  }
+  if (game.player.x !== 7 || game.player.y !== 5) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;出口&quot;, 60 + 7 * 45, 50 + 5 * 45 + 28); }
+  for (const f of game.flames) { ctx.fillStyle = &quot;#efb73e&quot;; ctx.fillRect(65 + f.x * 45, 55 + f.y * 45, 33, 33); ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;火&quot;, 72 + f.x * 45, 79 + f.y * 45); }
+  for (const b of game.bombs) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillRect(67 + b.x * 45, 57 + b.y * 45, 29, 29); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;B&quot;, 75 + b.x * 45, 79 + b.y * 45); }
+  if (game.enemy.alive) { ctx.fillStyle = &quot;#c75a58&quot;; ctx.fillRect(66 + game.enemy.x * 45, 56 + game.enemy.y * 45, 31, 31); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;敵&quot;, 71 + game.enemy.x * 45, 79 + game.enemy.y * 45); }
+  ctx.fillStyle = &quot;#397ab4&quot;; ctx.fillRect(66 + game.player.x * 45, 56 + game.player.y * 45, 31, 31);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;自&quot;, 71 + game.player.x * 45, 79 + game.player.y * 45);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;矢印: 移動 / R: 再開&quot;, 480, 100);
+  ctx.fillText(&quot;B: 爆弾（2秒後）&quot;, 480, 140);
+  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);
+  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);
+  ctx.fillText(game.message, 480, 340);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  game.update();
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot;b&quot;) game.plant();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>爆風が最大2マスまで届くことを確かめます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>距離や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：爆弾を2個まで置く</h2><h3>目標</h3><p>爆弾迷路を発展させます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  plant() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 1 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 2 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.bombs.push(new Bomb(this.player.x, this.player.y, performance.now()));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;爆弾は同時に2個まで&quot;, 480, 260);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 480, 340);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 1 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 2 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 1 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 2 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;爆弾は同時に2個まで&quot;, 480, 260);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(game.message, 480, 340);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);
+  ctx.fillText(game.message, 480, 340);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);
+  ctx.fillText(&quot;爆弾は同時に2個まで&quot;, 480, 260);
+  ctx.fillText(game.message, 480, 340);
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="bomb-ext-timers" aria-labelledby="bomb-ext-timers-title"><figcaption id="bomb-ext-timers-title">図：爆弾迷路：2個の爆弾を別々に数える</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="爆弾迷路：2個の爆弾を別々に数える。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/bomb-ext-timers.svg" width="1000" height="850" alt="2個の爆弾は、それぞれ置いた時刻から2秒後に爆発します。Aを置いて1秒後にBを置くと、爆発も1秒ずれます。火が残る500msも、爆弾ごとに数えます。"></div><p>2個の爆弾は、それぞれ置いた時刻から2秒後に爆発します。Aを置いて1秒後にBを置くと、爆発も1秒ずれます。火が残る500msも、爆弾ごとに数えます。</p><p>推奨bomb-ext-rangeから2個の期限を主題に改名。A due2000/until2500、B due3000/until3500。火はnow&lt;until、期限到達順で爆発処理。</p></figure><p>未爆発のbombsが2個未満なら新しく置けます。同じ場所には重ねません。</p><p>同時に期限になった爆弾も、それぞれ順番に処理します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; }
+}
+class Bomb {
+  constructor(x, y, now) { this.x = x; this.y = y; this.due = now + 2000; }
+}
+class Enemy {
+  constructor() { this.x = 4; this.y = 1; this.alive = true; this.direction = 1; this.nextMove = performance.now() + 500; }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.enemy = new Enemy(); this.boxes = new Set([&quot;3,1&quot;]);
+    this.bombs = []; this.flames = []; this.state = &quot;playing&quot;; this.message = &quot;出口を目指そう&quot;;
+  }
+  wall(x, y) { return x &lt;= 0 || x &gt;= 8 || y &lt;= 0 || y &gt;= 6 || (x === 3 &amp;&amp; y === 2); }
+  key(x, y) { return x + &quot;,&quot; + y; }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const x = this.player.x + dx, y = this.player.y + dy;
+    if (this.wall(x, y) || this.boxes.has(this.key(x, y)) || this.bombs.some(b =&gt; b.x === x &amp;&amp; b.y === y)) return;
+    this.player.x = x; this.player.y = y;
+    if (this.enemy.alive &amp;&amp; x === this.enemy.x &amp;&amp; y === this.enemy.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }
+    if (this.flames.some(f =&gt; f.x === x &amp;&amp; f.y === y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+    if (this.state === &quot;playing&quot; &amp;&amp; !this.enemy.alive &amp;&amp; x === 7 &amp;&amp; y === 5) { this.state = &quot;clear&quot;; this.message = &quot;脱出成功！&quot;; }
+  }
+  plant() {
+    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 2 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;
+    this.bombs.push(new Bomb(this.player.x, this.player.y, performance.now()));
+  }
+  explode(bomb, now) {
+    const spots = [{x: bomb.x, y: bomb.y}];
+    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 2; distance++) {
+      const x = bomb.x + dx * distance, y = bomb.y + dy * distance;
+      if (this.wall(x, y)) break;
+      spots.push({x, y});
+      if (this.boxes.delete(this.key(x, y))) break;
+    }
+    for (const spot of spots) {
+      if (spot.x === this.player.x &amp;&amp; spot.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+      if (spot.x === this.enemy.x &amp;&amp; spot.y === this.enemy.y) this.enemy.alive = false;
+      if (now &lt; bomb.due + 500) this.flames.push({...spot, until: bomb.due + 500});
+    }
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const now = performance.now();
+    const due = this.bombs.filter(b =&gt; now &gt;= b.due).sort((a, b) =&gt; a.due - b.due);
+    this.bombs = this.bombs.filter(b =&gt; now &lt; b.due);
+    for (const bomb of due) this.explode(bomb, now);
+    this.flames = this.flames.filter(f =&gt; now &lt; f.until);
+    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let y = 0; y &lt; 7; y++) for (let x = 0; x &lt; 9; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#62717b&quot; : &quot;#e2edd8&quot;; ctx.fillRect(60 + x * 45, 50 + y * 45, 43, 43);
+    if (game.boxes.has(game.key(x, y))) { ctx.fillStyle = &quot;#aa7048&quot;; ctx.fillRect(66 + x * 45, 56 + y * 45, 31, 31); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;箱&quot;, 71 + x * 45, 79 + y * 45); }
+  }
+  if (game.player.x !== 7 || game.player.y !== 5) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;出口&quot;, 60 + 7 * 45, 50 + 5 * 45 + 28); }
+  for (const f of game.flames) { ctx.fillStyle = &quot;#efb73e&quot;; ctx.fillRect(65 + f.x * 45, 55 + f.y * 45, 33, 33); ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;火&quot;, 72 + f.x * 45, 79 + f.y * 45); }
+  for (const b of game.bombs) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillRect(67 + b.x * 45, 57 + b.y * 45, 29, 29); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;B&quot;, 75 + b.x * 45, 79 + b.y * 45); }
+  if (game.enemy.alive) { ctx.fillStyle = &quot;#c75a58&quot;; ctx.fillRect(66 + game.enemy.x * 45, 56 + game.enemy.y * 45, 31, 31); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;敵&quot;, 71 + game.enemy.x * 45, 79 + game.enemy.y * 45); }
+  ctx.fillStyle = &quot;#397ab4&quot;; ctx.fillRect(66 + game.player.x * 45, 56 + game.player.y * 45, 31, 31);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;自&quot;, 71 + game.player.x * 45, 79 + game.player.y * 45);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;矢印: 移動 / R: 再開&quot;, 480, 100);
+  ctx.fillText(&quot;B: 爆弾（2秒後）&quot;, 480, 140);
+  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);
+  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);
+  ctx.fillText(&quot;爆弾は同時に2個まで&quot;, 480, 260);
+  ctx.fillText(game.message, 480, 340);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  game.update();
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot;b&quot;) game.plant();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>違うマスに2個置き、2つの爆発を確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>距離や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：敵を巡回させる</h2><h3>目標</h3><p>爆弾迷路を発展させます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 7 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.flames = this.flames.filter(f =&gt; now &lt; f.until);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state === &quot;playing&quot; &amp;&amp; this.enemy.alive &amp;&amp; now &gt;= this.enemy.nextMove) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const next = this.enemy.x + this.enemy.direction;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (next &lt; 4 || next &gt; 5) this.enemy.direction *= -1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.enemy.x += this.enemy.direction; this.enemy.nextMove = now + 500;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.enemy.x === this.player.x &amp;&amp; this.enemy.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.flames.some(f =&gt; f.x === this.enemy.x &amp;&amp; f.y === this.enemy.y)) this.enemy.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state === &quot;playing&quot; &amp;&amp; this.enemy.alive &amp;&amp; now &gt;= this.enemy.nextMove) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const next = this.enemy.x + this.enemy.direction;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (next &lt; 4 || next &gt; 5) this.enemy.direction *= -1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.enemy.x += this.enemy.direction; this.enemy.nextMove = now + 500;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.enemy.x === this.player.x &amp;&amp; this.enemy.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.flames.some(f =&gt; f.x === this.enemy.x &amp;&amp; f.y === this.enemy.y)) this.enemy.alive = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+  }
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+    if (this.state === &quot;playing&quot; &amp;&amp; this.enemy.alive &amp;&amp; now &gt;= this.enemy.nextMove) {
+      const next = this.enemy.x + this.enemy.direction;
+      if (next &lt; 4 || next &gt; 5) this.enemy.direction *= -1;
+      this.enemy.x += this.enemy.direction; this.enemy.nextMove = now + 500;
+      if (this.enemy.x === this.player.x &amp;&amp; this.enemy.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }
+      if (this.flames.some(f =&gt; f.x === this.enemy.x &amp;&amp; f.y === this.enemy.y)) this.enemy.alive = false;
+    }
+  }
+</code></pre><h3>コードの意味</h3><p>敵は列4と5の間を500ミリ秒ごとに往復します。爆風やプレイヤーとの接触を調べます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Player {
+  constructor() { this.x = 1; this.y = 1; }
+}
+class Bomb {
+  constructor(x, y, now) { this.x = x; this.y = y; this.due = now + 2000; }
+}
+class Enemy {
+  constructor() { this.x = 4; this.y = 1; this.alive = true; this.direction = 1; this.nextMove = performance.now() + 500; }
+}
+class Game {
+  constructor() {
+    this.player = new Player(); this.enemy = new Enemy(); this.boxes = new Set([&quot;3,1&quot;]);
+    this.bombs = []; this.flames = []; this.state = &quot;playing&quot;; this.message = &quot;出口を目指そう&quot;;
+  }
+  wall(x, y) { return x &lt;= 0 || x &gt;= 8 || y &lt;= 0 || y &gt;= 6 || (x === 3 &amp;&amp; y === 2); }
+  key(x, y) { return x + &quot;,&quot; + y; }
+  move(dx, dy) {
+    if (this.state !== &quot;playing&quot;) return;
+    const x = this.player.x + dx, y = this.player.y + dy;
+    if (this.wall(x, y) || this.boxes.has(this.key(x, y)) || this.bombs.some(b =&gt; b.x === x &amp;&amp; b.y === y)) return;
+    this.player.x = x; this.player.y = y;
+    if (this.enemy.alive &amp;&amp; x === this.enemy.x &amp;&amp; y === this.enemy.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }
+    if (this.flames.some(f =&gt; f.x === x &amp;&amp; f.y === y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+    if (this.state === &quot;playing&quot; &amp;&amp; !this.enemy.alive &amp;&amp; x === 7 &amp;&amp; y === 5) { this.state = &quot;clear&quot;; this.message = &quot;脱出成功！&quot;; }
+  }
+  plant() {
+    if (this.state !== &quot;playing&quot; || this.bombs.length &gt;= 2 || this.bombs.some(b =&gt; b.x === this.player.x &amp;&amp; b.y === this.player.y)) return;
+    this.bombs.push(new Bomb(this.player.x, this.player.y, performance.now()));
+  }
+  explode(bomb, now) {
+    const spots = [{x: bomb.x, y: bomb.y}];
+    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) for (let distance = 1; distance &lt;= 2; distance++) {
+      const x = bomb.x + dx * distance, y = bomb.y + dy * distance;
+      if (this.wall(x, y)) break;
+      spots.push({x, y});
+      if (this.boxes.delete(this.key(x, y))) break;
+    }
+    for (const spot of spots) {
+      if (spot.x === this.player.x &amp;&amp; spot.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+      if (spot.x === this.enemy.x &amp;&amp; spot.y === this.enemy.y) this.enemy.alive = false;
+      if (now &lt; bomb.due + 500) this.flames.push({...spot, until: bomb.due + 500});
+    }
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    const now = performance.now();
+    const due = this.bombs.filter(b =&gt; now &gt;= b.due).sort((a, b) =&gt; a.due - b.due);
+    this.bombs = this.bombs.filter(b =&gt; now &lt; b.due);
+    for (const bomb of due) this.explode(bomb, now);
+    this.flames = this.flames.filter(f =&gt; now &lt; f.until);
+    if (this.flames.some(f =&gt; f.x === this.player.x &amp;&amp; f.y === this.player.y)) { this.state = &quot;over&quot;; this.message = &quot;爆風に当たった&quot;; }
+    if (this.state === &quot;playing&quot; &amp;&amp; this.enemy.alive &amp;&amp; now &gt;= this.enemy.nextMove) {
+      const next = this.enemy.x + this.enemy.direction;
+      if (next &lt; 4 || next &gt; 5) this.enemy.direction *= -1;
+      this.enemy.x += this.enemy.direction; this.enemy.nextMove = now + 500;
+      if (this.enemy.x === this.player.x &amp;&amp; this.enemy.y === this.player.y) { this.state = &quot;over&quot;; this.message = &quot;敵に当たった&quot;; }
+      if (this.flames.some(f =&gt; f.x === this.enemy.x &amp;&amp; f.y === this.enemy.y)) this.enemy.alive = false;
+    }
+  }
+}
+let game;
+
+function start() {
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let y = 0; y &lt; 7; y++) for (let x = 0; x &lt; 9; x++) {
+    ctx.fillStyle = game.wall(x, y) ? &quot;#62717b&quot; : &quot;#e2edd8&quot;; ctx.fillRect(60 + x * 45, 50 + y * 45, 43, 43);
+    if (game.boxes.has(game.key(x, y))) { ctx.fillStyle = &quot;#aa7048&quot;; ctx.fillRect(66 + x * 45, 56 + y * 45, 31, 31); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;箱&quot;, 71 + x * 45, 79 + y * 45); }
+  }
+  if (game.player.x !== 7 || game.player.y !== 5) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;出口&quot;, 60 + 7 * 45, 50 + 5 * 45 + 28); }
+  for (const f of game.flames) { ctx.fillStyle = &quot;#efb73e&quot;; ctx.fillRect(65 + f.x * 45, 55 + f.y * 45, 33, 33); ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;火&quot;, 72 + f.x * 45, 79 + f.y * 45); }
+  for (const b of game.bombs) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillRect(67 + b.x * 45, 57 + b.y * 45, 29, 29); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;B&quot;, 75 + b.x * 45, 79 + b.y * 45); }
+  if (game.enemy.alive) { ctx.fillStyle = &quot;#c75a58&quot;; ctx.fillRect(66 + game.enemy.x * 45, 56 + game.enemy.y * 45, 31, 31); ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;敵&quot;, 71 + game.enemy.x * 45, 79 + game.enemy.y * 45); }
+  ctx.fillStyle = &quot;#397ab4&quot;; ctx.fillRect(66 + game.player.x * 45, 56 + game.player.y * 45, 31, 31);
+  ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;自&quot;, 71 + game.player.x * 45, 79 + game.player.y * 45);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;矢印: 移動 / R: 再開&quot;, 480, 100);
+  ctx.fillText(&quot;B: 爆弾（2秒後）&quot;, 480, 140);
+  ctx.fillText(&quot;敵を倒して出口へ&quot;, 480, 180);
+  ctx.fillText(&quot;爆風の長さ: 2&quot;, 480, 220);
+  ctx.fillText(&quot;爆弾は同時に2個まで&quot;, 480, 260);
+  ctx.fillText(game.message, 480, 340);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { start(); return; }
+  game.update();
+  const directions = {arrowleft: [-1,0], arrowright: [1,0], arrowup: [0,-1], arrowdown: [0,1]};
+  if (directions[key]) { event.preventDefault(); game.move(...directions[key]); }
+  else if (key === &quot;b&quot;) game.plant();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>敵が2つのマスを往復し、爆風で倒せます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>距離や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p></main></body></html>

@@ -1,0 +1,173 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>粒の演出の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">機能の一覧へ</a></p><h1>粒の演出を作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーへコピーします。変更前を探し、変更後に置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：クリック位置に粒を作る</h2><h3>目標</h3><p>クリック位置に粒を作る。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 16 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let particles;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  particles = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;クリックで粒を出す　R: 消す&quot;, 160, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e79548&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const p of particles) ctx.fillRect(p.x - 4, p.y - 4, 8, 8);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = (event.clientY - rect.top) * canvas.height / rect.height;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let particles;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  particles = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+let particles;
+
+function start() {
+  particles = [];
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;クリックで粒を出す　R: 消す&quot;, 160, 70);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e79548&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const p of particles) ctx.fillRect(p.x - 4, p.y - 4, 8, 8);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = (event.clientY - rect.top) * canvas.height / rect.height;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  ctx.fillText(&quot;クリックで粒を出す　R: 消す&quot;, 160, 70);
+  ctx.fillStyle = &quot;#e79548&quot;;
+  for (const p of particles) ctx.fillRect(p.x - 4, p.y - 4, 8, 8);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>クリック位置をCanvasの座標に変換し、particlesへ1個追加します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let particles;
+
+function start() {
+  particles = [];
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  ctx.fillText(&quot;クリックで粒を出す　R: 消す&quot;, 160, 70);
+  ctx.fillStyle = &quot;#e79548&quot;;
+  for (const p of particles) ctx.fillRect(p.x - 4, p.y - 4, 8, 8);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>クリックした場所に四角い粒が出ます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>粒の大きさを変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：粒を動かす</h2><h3>目標</h3><p>粒を動かす。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }
+
+</code></pre><h3>コードの意味</h3><p>dxとdyを位置に加え、dyを0.1ずつ増やして下へ落ちる動きにします。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let particles;
+
+function start() {
+  particles = [];
+}
+
+function update() {
+  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  ctx.fillText(&quot;クリックで粒を出す　R: 消す&quot;, 160, 70);
+  ctx.fillStyle = &quot;#e79548&quot;;
+  for (const p of particles) ctx.fillRect(p.x - 4, p.y - 4, 8, 8);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>クリックした粒が広がりながら落ちます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>重力0.1を0.2に変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：寿命を付けて消す</h2><h3>目標</h3><p>寿命を付けて消す。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 4 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; p.life--; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  particles = particles.filter(p =&gt; p.life &gt; 0);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const y = (event.clientY - rect.top) * canvas.height / rect.height;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const count = Math.min(8, 100 - particles.length);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; count; i++) particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -2 - Math.random() * 2, life: 30});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; p.life--; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  particles = particles.filter(p =&gt; p.life &gt; 0);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; }
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; p.life--; }
+  particles = particles.filter(p =&gt; p.life &gt; 0);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const count = Math.min(8, 100 - particles.length);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; count; i++) particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -2 - Math.random() * 2, life: 30});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -3, life: 30});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  const count = Math.min(8, 100 - particles.length);
+  for (let i = 0; i &lt; count; i++) particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -2 - Math.random() * 2, life: 30});
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="feature-particles" aria-labelledby="feature-particles-title"><figcaption id="feature-particles-title">図：粒の演出：寿命が0になったら消す</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="粒の演出：寿命が0になったら消す。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/feature-particles.svg" width="1000" height="800" alt="クリックすると寿命30の粒が生まれます。代表の1粒を追い、更新のたびに位置と速度を変えて寿命を1減らします。寿命が0になった粒は取り除き、描きません。"></div><p>クリックすると寿命30の粒が生まれます。代表の1粒を追い、更新のたびに位置と速度を変えて寿命を1減らします。寿命が0になった粒は取り除き、描きません。</p><p>y=200の例で位置→dy+0.1→life--の順序を反映。横移動は省略。寿命は更新回数、上限100粒。 更新後の生成処理は最大8粒。初期縦速度は-2-Math.random()*2で、図は-3となった1粒の例。他の粒の省略を図中に明記。</p></figure><p>lifeを30から更新ごとに減らし、0になった粒を配列から除きます。</p><p>クリックごとに最大8個を追加し、粒が合計100個を超えないようにします。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let particles;
+
+function start() {
+  particles = [];
+}
+
+function update() {
+  for (const p of particles) { p.x += p.dx; p.y += p.dy; p.dy += 0.1; p.life--; }
+  particles = particles.filter(p =&gt; p.life &gt; 0);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  ctx.fillText(&quot;クリックで粒を出す　R: 消す&quot;, 160, 70);
+  ctx.fillStyle = &quot;#e79548&quot;;
+  for (const p of particles) ctx.fillRect(p.x - 4, p.y - 4, 8, 8);
+}
+
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  const count = Math.min(8, 100 - particles.length);
+  for (let i = 0; i &lt; count; i++) particles.push({x, y, dx: (Math.random() - 0.5) * 4, dy: -2 - Math.random() * 2, life: 30});
+});
+window.addEventListener(&quot;keydown&quot;, event =&gt; { if (!event.repeat &amp;&amp; event.key.toLowerCase() === &quot;r&quot;) start(); });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>1回のクリックで最大8個出て、30回の更新で消えます。Rですべて消えます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>寿命30を60に変えます。 練習後はコードを元に戻してください。</p></section><section><h2>自分のゲームに組み込むには</h2><p>particlesと粒の生成・更新・描画を自作ゲームへ移します。</p><p>クリックの代わりに命中やクリアの位置で粒を作り、自分のupdateGameとdrawGameから粒を更新・描画します。</p><p>この欄のstartGame・updateGame・drawGameは、自分のゲーム側の開始・更新・描画の関数名の例です。自分の関数名に合わせて読み替えます。gameLoopは増やさず、既存のstart・update・drawから必要な処理を呼び、再挑戦では持ち込んだ状態や入力も初期化します。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></body></html>

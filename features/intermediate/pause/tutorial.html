@@ -1,0 +1,188 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>一時停止の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">機能の一覧へ</a></p><h1>一時停止を作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーへコピーします。変更前を探し、変更後に置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：動きと制限時間を作る</h2><h3>目標</h3><p>動きと制限時間を作る。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 15 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let state, x, startedAt;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;; x = 100; startedAt = performance.now();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  x += 2; if (x &gt; 700) x = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(x, 200, 40, 40);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let state, x, startedAt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;playing&quot;; x = 100; startedAt = performance.now();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+let state, x, startedAt;
+
+function start() {
+  state = &quot;playing&quot;; x = 100; startedAt = performance.now();
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  x += 2; if (x &gt; 700) x = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  if (state !== &quot;playing&quot;) return;
+  x += 2; if (x &gt; 700) x = 100;
+  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(x, 200, 40, 40);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);
+  ctx.fillRect(x, 200, 40, 40);
+  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+});
+
+</code></pre><h3>コードの意味</h3><p>更新ごとに四角を動かし、開始から10秒で終了します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let state, x, startedAt;
+
+function start() {
+  state = &quot;playing&quot;; x = 100; startedAt = performance.now();
+}
+
+function update() {
+  if (state !== &quot;playing&quot;) return;
+  x += 2; if (x &gt; 700) x = 100;
+  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);
+  ctx.fillRect(x, 200, 40, 40);
+  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>四角が動き、10秒で時間切れになります。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>速さ2を3に変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：動きを一時停止する</h2><h3>目標</h3><p>動きを一時停止する。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 5 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(x, 200, 40, 40);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;P: 一時停止&quot;, 200, 350);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;p&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;playing&quot;) state = &quot;paused&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;P: 一時停止&quot;, 200, 350);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;動いている&quot;, 200, 350);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;P: 一時停止&quot;, 200, 350);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;p&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;playing&quot;) state = &quot;paused&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key.toLowerCase() === &quot;p&quot;) {
+    if (state === &quot;playing&quot;) state = &quot;paused&quot;;
+    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;
+  }
+});
+</code></pre><h3>コードの意味</h3><p>Pでplayingとpausedを切り替え、pausedの間は動きを更新しません。</p><p>この段階では時計は止まらないので、次の段階で直します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let state, x, startedAt;
+
+function start() {
+  state = &quot;playing&quot;; x = 100; startedAt = performance.now();
+}
+
+function update() {
+  if (state !== &quot;playing&quot;) return;
+  x += 2; if (x &gt; 700) x = 100;
+  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);
+  ctx.fillRect(x, 200, 40, 40);
+  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;P: 一時停止&quot;, 200, 350);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key.toLowerCase() === &quot;p&quot;) {
+    if (state === &quot;playing&quot;) state = &quot;paused&quot;;
+    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>Pで四角が止まり、もう一度Pで動きます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>停止中の表示を変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：停止中の時間を除く</h2><h3>目標</h3><p>停止中の時間を除く。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 5 行・追加 10 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let state, x, startedAt;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let state, x, startedAt, pausedAt, pausedTotal;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function elapsed() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const now = state === &quot;paused&quot; ? pausedAt : performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return now - startedAt - pausedTotal;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;; x = 100; startedAt = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  pausedAt = 0; pausedTotal = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  x += 2; if (x &gt; 700) x = 100;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (elapsed() &gt;= 10000) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - elapsed()) / 1000)) + &quot;秒&quot;, 60, 80);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(x, 200, 40, 40);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;P: 一時停止&quot;, 200, 350);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;p&quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (state === &quot;playing&quot;) state = &quot;paused&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;playing&quot;) { pausedAt = performance.now(); state = &quot;paused&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (state === &quot;paused&quot;) { pausedTotal += performance.now() - pausedAt; state = &quot;playing&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let state, x, startedAt;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let state, x, startedAt, pausedAt, pausedTotal;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function elapsed() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const now = state === &quot;paused&quot; ? pausedAt : performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return now - startedAt - pausedTotal;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>let state, x, startedAt;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>let state, x, startedAt, pausedAt, pausedTotal;
+function elapsed() {
+  const now = state === &quot;paused&quot; ? pausedAt : performance.now();
+  return now - startedAt - pausedTotal;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  state = &quot;playing&quot;; x = 100; startedAt = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  pausedAt = 0; pausedTotal = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  state = &quot;playing&quot;; x = 100; startedAt = performance.now();
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  state = &quot;playing&quot;; x = 100; startedAt = performance.now();
+  pausedAt = 0; pausedTotal = 0;
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (elapsed() &gt;= 10000) state = &quot;over&quot;;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (performance.now() - startedAt &gt;= 10000) state = &quot;over&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (elapsed() &gt;= 10000) state = &quot;over&quot;;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - elapsed()) / 1000)) + &quot;秒&quot;, 60, 80);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - (performance.now() - startedAt)) / 1000)) + &quot;秒&quot;, 60, 80);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - elapsed()) / 1000)) + &quot;秒&quot;, 60, 80);
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (state === &quot;playing&quot;) state = &quot;paused&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (state === &quot;playing&quot;) { pausedAt = performance.now(); state = &quot;paused&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (state === &quot;paused&quot;) { pausedTotal += performance.now() - pausedAt; state = &quot;playing&quot;; }</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    if (state === &quot;playing&quot;) state = &quot;paused&quot;;
+    else if (state === &quot;paused&quot;) state = &quot;playing&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (state === &quot;playing&quot;) { pausedAt = performance.now(); state = &quot;paused&quot;; }
+    else if (state === &quot;paused&quot;) { pausedTotal += performance.now() - pausedAt; state = &quot;playing&quot;; }
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="feature-pause" aria-labelledby="feature-pause-title"><figcaption id="feature-pause-title">図：一時停止：止めた時間を数えない</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="一時停止：止めた時間を数えない。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/feature-pause.svg" width="1000" height="830" alt="Pを押すと、動きと残り時間が止まります。もう一度Pを押すと再開します。2秒遊び、3秒停止しても、遊んだ時間は2秒のままです。"></div><p>Pを押すと、動きと残り時間が止まります。もう一度Pを押すと再開します。2秒遊び、3秒停止しても、遊んだ時間は2秒のままです。</p><p>開始時刻を0とした時間の例。停止中はpausedAtを使い、再開時にpausedTotalを加算して差し引く。</p></figure><p>停止時刻と再開までの時間を保存し、経過時間から停止時間を引きます。</p><p>停止中の表示にも停止した時刻を使います。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let state, x, startedAt, pausedAt, pausedTotal;
+function elapsed() {
+  const now = state === &quot;paused&quot; ? pausedAt : performance.now();
+  return now - startedAt - pausedTotal;
+}
+
+function start() {
+  state = &quot;playing&quot;; x = 100; startedAt = performance.now();
+  pausedAt = 0; pausedTotal = 0;
+}
+
+function update() {
+  if (state !== &quot;playing&quot;) return;
+  x += 2; if (x &gt; 700) x = 100;
+  if (elapsed() &gt;= 10000) state = &quot;over&quot;;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り &quot; + Math.max(0, Math.ceil((10000 - elapsed()) / 1000)) + &quot;秒&quot;, 60, 80);
+  ctx.fillRect(x, 200, 40, 40);
+  ctx.fillText(state === &quot;paused&quot; ? &quot;停止中　P: 再開&quot; : state === &quot;over&quot; ? &quot;時間切れ　R: 再開&quot; : &quot;P: 一時停止&quot;, 200, 350);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key.toLowerCase() === &quot;p&quot;) {
+    if (state === &quot;playing&quot;) { pausedAt = performance.now(); state = &quot;paused&quot;; }
+    else if (state === &quot;paused&quot;) { pausedTotal += performance.now() - pausedAt; state = &quot;playing&quot;; }
+  }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>停止中は残り秒が変わらず、再開後に続きから減ります。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>10秒を15秒に変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>自分のゲームに組み込むには</h2><p>state、pausedAt、pausedTotalとelapsedを自作ゲームへ移します。</p><p>updateGameはplaying中だけ呼び、制限時間の計算にelapsedを使います。</p><p>この欄のstartGame・updateGame・drawGameは、自分のゲーム側の開始・更新・描画の関数名の例です。自分の関数名に合わせて読み替えます。gameLoopは増やさず、既存のstart・update・drawから必要な処理を呼び、再挑戦では持ち込んだ状態や入力も初期化します。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></body></html>

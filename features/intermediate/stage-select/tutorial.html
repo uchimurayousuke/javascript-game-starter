@@ -1,0 +1,208 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ステージ選択の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">機能の一覧へ</a></p><h1>ステージ選択を作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーへコピーします。変更前を探し、変更後に置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：3つのステージを表示する</h2><h3>目標</h3><p>3つのステージを表示する。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 17 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let state, selected, unlocked;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;select&quot;; selected = 1; unlocked = 3;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;select&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;ステージを選ぼう&quot;, 250, 90);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let i = 1; i &lt;= 3; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = selected === i ? &quot;#f8dc8b&quot; : &quot;#dce8ef&quot;; ctx.fillRect(140 + i * 130, 160, 110, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(i &lt;= unlocked ? String(i) : &quot;鍵 &quot; + i, 165 + i * 130, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let state, selected, unlocked;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;select&quot;; selected = 1; unlocked = 3;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+let state, selected, unlocked;
+
+function start() {
+  state = &quot;select&quot;; selected = 1; unlocked = 3;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;select&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;ステージを選ぼう&quot;, 250, 90);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let i = 1; i &lt;= 3; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = selected === i ? &quot;#f8dc8b&quot; : &quot;#dce8ef&quot;; ctx.fillRect(140 + i * 130, 160, 110, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(i &lt;= unlocked ? String(i) : &quot;鍵 &quot; + i, 165 + i * 130, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (state === &quot;select&quot;) {
+    ctx.fillText(&quot;ステージを選ぼう&quot;, 250, 90);
+    for (let i = 1; i &lt;= 3; i++) {
+      ctx.fillStyle = selected === i ? &quot;#f8dc8b&quot; : &quot;#dce8ef&quot;; ctx.fillRect(140 + i * 130, 160, 110, 80);
+      ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(i &lt;= unlocked ? String(i) : &quot;鍵 &quot; + i, 165 + i * 130, 210);
+    }
+    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);
+    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);
+  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);
+  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);
+}
+
+
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>selectedは選択中の番号で、1から3を並べます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let state, selected, unlocked;
+
+function start() {
+  state = &quot;select&quot;; selected = 1; unlocked = 3;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (state === &quot;select&quot;) {
+    ctx.fillText(&quot;ステージを選ぼう&quot;, 250, 90);
+    for (let i = 1; i &lt;= 3; i++) {
+      ctx.fillStyle = selected === i ? &quot;#f8dc8b&quot; : &quot;#dce8ef&quot;; ctx.fillRect(140 + i * 130, 160, 110, 80);
+      ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(i &lt;= unlocked ? String(i) : &quot;鍵 &quot; + i, 165 + i * 130, 210);
+    }
+    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);
+    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);
+  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);
+  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>3つの番号が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>ボタンの色を変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：ステージを選んで遊ぶ</h2><h3>目標</h3><p>ステージを選んで遊ぶ。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 12 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;←→: 選択　Enter: 決定&quot;, 210, 320);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;select&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); selected = Math.max(1, selected - 1); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); selected = Math.min(3, selected + 1); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (event.key === &quot;Enter&quot; &amp;&amp; selected &lt;= unlocked) state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault(); state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot;Escape&quot;) state = &quot;select&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;←→: 選択　Enter: 決定&quot;, 210, 320);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    ctx.fillText(&quot;3つのステージ&quot;, 210, 320);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.fillText(&quot;←→: 選択　Enter: 決定&quot;, 210, 320);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;select&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); selected = Math.max(1, selected - 1); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); selected = Math.min(3, selected + 1); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (event.key === &quot;Enter&quot; &amp;&amp; selected &lt;= unlocked) state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault(); state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot;Escape&quot;) state = &quot;select&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>}
+
+
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (state === &quot;select&quot;) {
+    if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); selected = Math.max(1, selected - 1); }
+    else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); selected = Math.min(3, selected + 1); }
+    else if (event.key === &quot;Enter&quot; &amp;&amp; selected &lt;= unlocked) state = &quot;playing&quot;;
+  } else if (state === &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) {
+    event.preventDefault(); state = &quot;clear&quot;;
+  } else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot;Escape&quot;) state = &quot;select&quot;;
+});
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>左右キーで番号を選び、Enterで開始します。SpaceでクリアしEscで選択へ戻ります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let state, selected, unlocked;
+
+function start() {
+  state = &quot;select&quot;; selected = 1; unlocked = 3;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (state === &quot;select&quot;) {
+    ctx.fillText(&quot;ステージを選ぼう&quot;, 250, 90);
+    for (let i = 1; i &lt;= 3; i++) {
+      ctx.fillStyle = selected === i ? &quot;#f8dc8b&quot; : &quot;#dce8ef&quot;; ctx.fillRect(140 + i * 130, 160, 110, 80);
+      ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(i &lt;= unlocked ? String(i) : &quot;鍵 &quot; + i, 165 + i * 130, 210);
+    }
+    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);
+    ctx.fillText(&quot;←→: 選択　Enter: 決定&quot;, 210, 320);
+  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);
+  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (state === &quot;select&quot;) {
+    if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); selected = Math.max(1, selected - 1); }
+    else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); selected = Math.min(3, selected + 1); }
+    else if (event.key === &quot;Enter&quot; &amp;&amp; selected &lt;= unlocked) state = &quot;playing&quot;;
+  } else if (state === &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) {
+    event.preventDefault(); state = &quot;clear&quot;;
+  } else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot;Escape&quot;) state = &quot;select&quot;;
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>ステージを選んでSpaceでクリアし、Escで戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>クリアの文章を変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：クリアで次を開く</h2><h3>目標</h3><p>クリアで次を開く。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  state = &quot;select&quot;; selected = 1; unlocked = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;select&quot;; selected = 1; unlocked = 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    else if (event.key === &quot;Enter&quot; &amp;&amp; selected &lt;= unlocked) state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (state === &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    event.preventDefault(); state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault(); state = &quot;clear&quot;; unlocked = Math.max(unlocked, Math.min(3, selected + 1));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot;Escape&quot;) state = &quot;select&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  state = &quot;select&quot;; selected = 1; unlocked = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = &quot;select&quot;; selected = 1; unlocked = 1;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  state = &quot;select&quot;; selected = 1; unlocked = 3;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  state = &quot;select&quot;; selected = 1; unlocked = 1;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    event.preventDefault(); state = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault(); state = &quot;clear&quot;; unlocked = Math.max(unlocked, Math.min(3, selected + 1));</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>    event.preventDefault(); state = &quot;clear&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    event.preventDefault(); state = &quot;clear&quot;; unlocked = Math.max(unlocked, Math.min(3, selected + 1));
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="feature-stage-select" aria-labelledby="feature-stage-select-title"><figcaption id="feature-stage-select-title">図：ステージ選択：クリアで次を開く</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="ステージ選択：クリアで次を開く。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/feature-stage-select.svg" width="1000" height="800" alt="最初に遊べるのはステージ1だけです。1をクリアすると2が開きます。Escで選択画面に戻り、次のステージを選びましょう。"></div><p>最初に遊べるのはステージ1だけです。1をクリアすると2が開きます。Escで選択画面に戻り、次のステージを選びましょう。</p><p>1の初回クリア前後を比較。unlocked=1→2、3は未解放。鍵の項目は選択可能だが開始不可。</p></figure><p>unlockedは選べる最大の番号です。最初は1、クリアすると次を開きます。</p><p>鍵の番号は選択できてもEnterでは始まりません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let state, selected, unlocked;
+
+function start() {
+  state = &quot;select&quot;; selected = 1; unlocked = 1;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;26px sans-serif&quot;;
+  if (state === &quot;select&quot;) {
+    ctx.fillText(&quot;ステージを選ぼう&quot;, 250, 90);
+    for (let i = 1; i &lt;= 3; i++) {
+      ctx.fillStyle = selected === i ? &quot;#f8dc8b&quot; : &quot;#dce8ef&quot;; ctx.fillRect(140 + i * 130, 160, 110, 80);
+      ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(i &lt;= unlocked ? String(i) : &quot;鍵 &quot; + i, 165 + i * 130, 210);
+    }
+    ctx.fillText(&quot;選択中: &quot; + selected, 300, 270);
+    ctx.fillText(&quot;←→: 選択　Enter: 決定&quot;, 210, 320);
+  } else if (state === &quot;playing&quot;) ctx.fillText(&quot;ステージ &quot; + selected + &quot;　Space: クリア&quot;, 160, 180);
+  else ctx.fillText(&quot;クリア！ Esc: 選択へ&quot;, 200, 180);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (state === &quot;select&quot;) {
+    if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); selected = Math.max(1, selected - 1); }
+    else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); selected = Math.min(3, selected + 1); }
+    else if (event.key === &quot;Enter&quot; &amp;&amp; selected &lt;= unlocked) state = &quot;playing&quot;;
+  } else if (state === &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) {
+    event.preventDefault(); state = &quot;clear&quot;; unlocked = Math.max(unlocked, Math.min(3, selected + 1));
+  } else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot;Escape&quot;) state = &quot;select&quot;;
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>1をクリアして戻ると2の鍵が外れます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>開く条件を変え、表示も確かめます。 練習後はコードを元に戻してください。</p></section><section><h2>自分のゲームに組み込むには</h2><p>state、selected、unlockedと選択画面の描画・入力を移します。</p><p>Enterで選んだ番号を自分のstartGame(selected)へ渡し、クリア時にunlockedを更新します。</p><p>この欄のstartGame・updateGame・drawGameは、自分のゲーム側の開始・更新・描画の関数名の例です。自分の関数名に合わせて読み替えます。gameLoopは増やさず、既存のstart・update・drawから必要な処理を呼び、再挑戦では持ち込んだ状態や入力も初期化します。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></body></html>

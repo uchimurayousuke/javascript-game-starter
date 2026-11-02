@@ -22,9 +22,10 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 | [template/](template/index.html) | 共通のスタート地点。3ファイルを作業用フォルダーへコピーする |
 | [tutorial/](tutorial/index.html) | コインキャッチの教材と5段階の見本 |
 | [examples/index.html](examples/index.html) | 制作例の一覧。教材と完成版を開く |
+| [features/index.html](features/index.html) | メニューや保存など、共通機能の教材と見本 |
 | `examples/beginner/` | 初心者向けの7ゲーム |
-| `examples/intermediate/` | 中級者向けの7ゲーム |
-| `examples/advanced/` | 上級者向けの9ゲームと発展課題 |
+| `examples/intermediate/` | 中級者向けの9ゲーム |
+| `examples/advanced/` | 上級者向けの11ゲームと発展課題 |
 
 `template/` の3ファイルは [index.html](template/index.html)、[style.css](template/style.css)、[script.js](template/script.js) です。ゲームを作るときは3つとも自分の作業用フォルダーにコピーし、元のひな型を残します。まずコピー先の `script.js` の `draw()` に図形を描き、次に `update()` で位置を変えると、動きを確認できます。変更したらコピー先の `index.html` を再読み込みしてください。
 
@@ -58,7 +59,7 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [3択クイズ](examples/beginner/quiz/tutorial.html)：配列の問題を表示し、選択肢と正解を比べます。
 - [選択肢の冒険](examples/beginner/story/tutorial.html)：選択した番号で物語の場面と結末を変えます。
 
-中級者向けは、次の7本です。
+中級者向けは、次の9本です。
 
 - [ブロックくずし](examples/intermediate/breakout/tutorial.html)：ボールを当ててブロックを消します。
 - [シンプルなシューティング](examples/intermediate/shooting/tutorial.html)：弾を飛ばして敵を倒します。
@@ -69,7 +70,10 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [箱押しパズル](examples/intermediate/sokoban/tutorial.html)：壁と箱を調べ、箱を目標まで押します。
 - [マインスイーパー](examples/intermediate/minesweeper/tutorial.html)：周囲の爆弾を数え、安全なマスを開きます。
 
-上級者向けは、次の9本です。
+- [リズムゲーム](examples/intermediate/rhythm/tutorial.html)：決まったタイミングでキーを押し、判定と得点を学びます。
+- [お絵かきロジック](examples/intermediate/nonogram/tutorial.html)：行と列のヒントを見てマスを塗ります。
+
+上級者向けは、次の11本です。
 
 - [横スクロールのジャンプアクション](examples/advanced/platformer/tutorial.html)：地形を進み、ゴールを目指します。
 - [クリックで脱出ゲーム](examples/advanced/escape/tutorial.html)：番号の謎と持ち物を使って部屋から脱出します。
@@ -82,6 +86,11 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [マス目の戦術ゲーム](examples/advanced/tactics/tutorial.html)：味方を選んで移動し、敵と交互に戦います。
 - [1対1サッカー](examples/advanced/soccer/tutorial.html)：選手とボールを動かし、先に3点を目指します。
 
+- [3つそろえるパズル](examples/advanced/match3/tutorial.html)：隣を交換し、同じ印を3つ以上そろえます。
+- [爆弾迷路アクション](examples/advanced/bomb-maze/tutorial.html)：爆風で箱を壊して敵を倒し、出口へ進みます。
+
 [横スクロールゲームの発展課題](examples/advanced/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。
 
 コインキャッチと制作例の各ゲームには、基本完成版から進む発展編があります。各発展編は3段階で機能を追加し、段階ごとの見本と発展編の完成版を用意しています。[コインキャッチの発展編](tutorial/extensions/tutorial.html)または[制作例の一覧](examples/index.html)から開けます。
+
+[共通機能の一覧](features/index.html)には、タイトル、遊び方、カウント、結果、ステージ選択、一時停止、難易度、音、保存、暗転、粒、タッチ操作の12作例があります。各機能は3段階で作り、自分のゲームへ組み込む方法も説明します。

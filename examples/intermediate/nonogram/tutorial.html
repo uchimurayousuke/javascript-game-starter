@@ -1,0 +1,444 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>お絵かきロジックの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">戻る</a></p><h1>お絵かきロジックを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーにコピーします。各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：5×5の盤面を描く</h2><h3>目標</h3><p>お絵かきロジックを段階的に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 23 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const puzzles = [</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let puzzle, cells, state;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function resetBoard() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  puzzle = 0; resetBoard();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const ox = 180, oy = 110, size = 54;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const puzzles = [</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let puzzle, cells, state;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function resetBoard() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  puzzle = 0; resetBoard();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+const puzzles = [
+  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]
+];
+let puzzle, cells, state;
+function resetBoard() {
+  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+
+function start() {
+  puzzle = 0; resetBoard();
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const ox = 180, oy = 110, size = 54;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ox = 180, oy = 110, size = 54;
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;
+    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);
+    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }
+    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }
+  }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);
+  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);
+}
+
+
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>cellsは5行5列の状態です。0は空、1は塗り、2は×です。塗ったマスは■、塗らない印は×でも示します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const puzzles = [
+  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]
+];
+let puzzle, cells, state;
+function resetBoard() {
+  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+
+function start() {
+  puzzle = 0; resetBoard();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ox = 180, oy = 110, size = 54;
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;
+    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);
+    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }
+    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }
+  }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);
+  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>5×5の盤面が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：行と列のヒントを出す</h2><h3>目標</h3><p>お絵かきロジックを段階的に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 15 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function resetBoard() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function runs(values) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const result = []; let count = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const value of [...values, 0]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (value) count++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (count) { result.push(count); count = 0; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  const ox = 180, oy = 110, size = 54;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; 5; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function runs(values) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const result = []; let count = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (const value of [...values, 0]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (value) count++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (count) { result.push(count); count = 0; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+function runs(values) {
+  const result = []; let count = 0;
+  for (const value of [...values, 0]) {
+    if (value) count++;
+    else if (count) { result.push(count); count = 0; }
+  }
+  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;20px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let i = 0; i &lt; 5; i++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.font = &quot;20px sans-serif&quot;;
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.font = &quot;20px sans-serif&quot;;
+  for (let i = 0; i &lt; 5; i++) {
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);
+  }
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;ヒントは次の段階&quot;, 475, 190);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="nonogram-clues" aria-labelledby="nonogram-clues-title"><figcaption id="nonogram-clues-title">図：お絵かきロジック：数字は連続する数</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="お絵かきロジック：数字は連続する数。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/nonogram-clues.svg" width="1000" height="820" alt="ヒントの2は、2マス続けて塗るという意味です。「2 1」なら、そのあとに空きを入れて1マス塗ります。かたまりの間には1マス以上の空きが必要です。"></div><p>ヒントの2は、2マス続けて塗るという意味です。「2 1」なら、そのあとに空きを入れて1マス塗ります。かたまりの間には1マス以上の空きが必要です。</p><p>runs関数で2 1になる[1,1,0,1,0]と[1,1,0,0,1]を例示。初期問題の行ではないと図中に明記。横110縦100へ模式化。</p></figure><p>runsは連続する1の個数を順番に数えます。「2 2」は2個、空き1個以上、2個です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const puzzles = [
+  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]
+];
+let puzzle, cells, state;
+function resetBoard() {
+  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+function runs(values) {
+  const result = []; let count = 0;
+  for (const value of [...values, 0]) {
+    if (value) count++;
+    else if (count) { result.push(count); count = 0; }
+  }
+  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;
+}
+
+function start() {
+  puzzle = 0; resetBoard();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ox = 180, oy = 110, size = 54;
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let i = 0; i &lt; 5; i++) {
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);
+  }
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;
+    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);
+    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }
+    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }
+  }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);
+  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>行と列に続くマスの数が表示されます。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：マスを塗る</h2><h3>目標</h3><p>お絵かきロジックを段階的に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 12 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function changeCell(event, mark) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 180) / 54);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 110) / 54);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cells[y][x] = cells[y][x] === mark ? 0 : mark;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;5×5の盤面&quot;, 475, 150);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function changeCell(event, mark) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 180) / 54);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 110) / 54);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  cells[y][x] = cells[y][x] === mark ? 0 : mark;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>}
+
+
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>}
+
+function changeCell(event, mark) {
+  event.preventDefault();
+  if (state !== &quot;playing&quot;) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 180) / 54);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 110) / 54);
+  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;
+  cells[y][x] = cells[y][x] === mark ? 0 : mark;
+}
+canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));
+canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>クリックは塗る・戻す、右クリックは×を付ける・戻す操作です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const puzzles = [
+  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]
+];
+let puzzle, cells, state;
+function resetBoard() {
+  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+function runs(values) {
+  const result = []; let count = 0;
+  for (const value of [...values, 0]) {
+    if (value) count++;
+    else if (count) { result.push(count); count = 0; }
+  }
+  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;
+}
+
+function start() {
+  puzzle = 0; resetBoard();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ox = 180, oy = 110, size = 54;
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let i = 0; i &lt; 5; i++) {
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);
+  }
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;
+    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);
+    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }
+    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }
+  }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);
+  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+}
+
+function changeCell(event, mark) {
+  event.preventDefault();
+  if (state !== &quot;playing&quot;) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 180) / 54);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 110) / 54);
+  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;
+  cells[y][x] = cells[y][x] === mark ? 0 : mark;
+}
+canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));
+canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>クリックと右クリックを試します。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 4：完成を判定する</h2><h3>目標</h3><p>お絵かきロジックを段階的に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cells[y][x] = cells[y][x] === mark ? 0 : mark;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (cells.every((row, y) =&gt; row.every((cell, x) =&gt; (cell === 1) === Boolean(puzzles[puzzle][y][x])))) state = &quot;clear&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  cells[y][x] = cells[y][x] === mark ? 0 : mark;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (cells.every((row, y) =&gt; row.every((cell, x) =&gt; (cell === 1) === Boolean(puzzles[puzzle][y][x])))) state = &quot;clear&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  cells[y][x] = cells[y][x] === mark ? 0 : mark;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  cells[y][x] = cells[y][x] === mark ? 0 : mark;
+  if (cells.every((row, y) =&gt; row.every((cell, x) =&gt; (cell === 1) === Boolean(puzzles[puzzle][y][x])))) state = &quot;clear&quot;;
+}
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="nonogram-complete" aria-labelledby="nonogram-complete-title"><figcaption id="nonogram-complete-title">図：お絵かきロジック：全部が合えば完成</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="お絵かきロジック：全部が合えば完成。図を横にスクロールできます"><img src="../../../tutorial/illustrations/astra/nonogram-complete.svg" width="1000" height="800" alt="行と列の数字を合わせて、塗る場所を決めましょう。塗り忘れも余分な塗りもなくなると完成です。塗らない場所は空白のままでも×でもかまいません。"></div><p>行と列の数字を合わせて、塗る場所を決めましょう。塗り忘れも余分な塗りもなくなると完成です。塗らない場所は空白のままでも×でもかまいません。</p><p>推奨nonogram-inputから完成判定を表す名前へ変更。puzzle0の完成形、ヒント1/3/5/3/1。判定は全マスのcell===1と正解Boolean比較。</p></figure><p>塗った位置と問題の答えがすべて一致すると完成です。×は塗らない印です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const puzzles = [
+  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]
+];
+let puzzle, cells, state;
+function resetBoard() {
+  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+function runs(values) {
+  const result = []; let count = 0;
+  for (const value of [...values, 0]) {
+    if (value) count++;
+    else if (count) { result.push(count); count = 0; }
+  }
+  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;
+}
+
+function start() {
+  puzzle = 0; resetBoard();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ox = 180, oy = 110, size = 54;
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let i = 0; i &lt; 5; i++) {
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);
+  }
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;
+    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);
+    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }
+    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }
+  }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);
+  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);
+}
+
+function changeCell(event, mark) {
+  event.preventDefault();
+  if (state !== &quot;playing&quot;) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 180) / 54);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 110) / 54);
+  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;
+  cells[y][x] = cells[y][x] === mark ? 0 : mark;
+  if (cells.every((row, y) =&gt; row.every((cell, x) =&gt; (cell === 1) === Boolean(puzzles[puzzle][y][x])))) state = &quot;clear&quot;;
+}
+canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));
+canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>ヒントを見て塗り、正しければ完成です。 <a href="step4/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 5：再開する</h2><h3>目標</h3><p>お絵かきロジックを段階的に作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 475, 230);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;r&quot;) { resetBoard(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行います。変更前と同じ範囲を探し、変更後のコード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 再開&quot;, 475, 230);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+  ctx.fillText(&quot;R: 再開&quot;, 475, 230);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const key = event.key.toLowerCase();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;r&quot;) { resetBoard(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { resetBoard(); return; }
+});
+
+</code></pre><h3>コードの意味</h3><p>Rでマスをすべて空に戻します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const puzzles = [
+  [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+  [[1,1,0,1,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]]
+];
+let puzzle, cells, state;
+function resetBoard() {
+  cells = Array.from({length: 5}, () =&gt; Array(5).fill(0)); state = &quot;playing&quot;;
+}
+function runs(values) {
+  const result = []; let count = 0;
+  for (const value of [...values, 0]) {
+    if (value) count++;
+    else if (count) { result.push(count); count = 0; }
+  }
+  return result.length ? result.join(&quot; &quot;) : &quot;0&quot;;
+}
+
+function start() {
+  puzzle = 0; resetBoard();
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ox = 180, oy = 110, size = 54;
+  ctx.font = &quot;20px sans-serif&quot;;
+  for (let i = 0; i &lt; 5; i++) {
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle][i]), 100, oy + i * size + 33);
+    ctx.fillStyle = &quot;#26334a&quot;;
+    ctx.fillText(runs(puzzles[puzzle].map(row =&gt; row[i])), ox + i * size + 8, 85);
+  }
+  for (let y = 0; y &lt; 5; y++) for (let x = 0; x &lt; 5; x++) {
+    const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;
+    ctx.fillRect(ox + x * size, oy + y * size, size - 2, size - 2);
+    if (cell === 1) { ctx.fillStyle = &quot;#ffffff&quot;; ctx.fillText(&quot;■&quot;, ox + x * size + 17, oy + y * size + 34); }
+    if (cell === 2) { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;×&quot;, ox + x * size + 17, oy + y * size + 34); }
+  }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;クリック: 塗る / 右クリック: ×&quot;, 475, 150);
+  ctx.fillText(&quot;数字は続くマスの数&quot;, 475, 190);
+  ctx.fillText(&quot;R: 再開&quot;, 475, 230);
+  if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);
+}
+
+function changeCell(event, mark) {
+  event.preventDefault();
+  if (state !== &quot;playing&quot;) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor(((event.clientX - rect.left) * canvas.width / rect.width - 180) / 54);
+  const y = Math.floor(((event.clientY - rect.top) * canvas.height / rect.height - 110) / 54);
+  if (x &lt; 0 || x &gt;= 5 || y &lt; 0 || y &gt;= 5) return;
+  cells[y][x] = cells[y][x] === mark ? 0 : mark;
+  if (cells.every((row, y) =&gt; row.every((cell, x) =&gt; (cell === 1) === Boolean(puzzles[puzzle][y][x])))) state = &quot;clear&quot;;
+}
+canvas.addEventListener(&quot;click&quot;, event =&gt; changeCell(event, 1));
+canvas.addEventListener(&quot;contextmenu&quot;, event =&gt; changeCell(event, 2));
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  const key = event.key.toLowerCase();
+  if (key === &quot;r&quot;) { resetBoard(); return; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>Rで空の盤面に戻ります。 <a href="step5/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>色や表示を変えて試します。 練習後はコードを元に戻してください。</p></section><p><a href="complete/index.html">完成版で遊ぶ</a></p><p><a href="extensions/tutorial.html">発展編に挑戦する</a></p></main></body></html>

@@ -1,0 +1,46 @@
+"use strict";
+
+const canvas = document.querySelector("#game-canvas");
+const ctx = canvas.getContext("2d");
+
+const beats = Array.from({length: 8}, (_, i) => ({time: 2000 + i * 600, lane: i % 2}));
+let state, startTime, judged, score, message;
+
+function start() {
+  state = "ready"; startTime = 0; judged = Array(8).fill(false); score = 0; message = "Enterで開始";
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#26334a"; ctx.font = "24px sans-serif";
+  ctx.fillText("得点 " + score + " / 目標 6", 40, 50);
+  ctx.fillText(message, 40, 400);
+  ctx.fillStyle = "#dce8ef"; ctx.fillRect(250, 70, 90, 270);
+  ctx.fillStyle = "#26334a"; ctx.fillRect(230, 320, 180, 4);
+  const elapsed = state === "ready" ? 0 : 0;
+  for (let i = 0; i < beats.length; i++) {
+    if (judged[i]) continue;
+    const y = 320 - (beats[i].time - elapsed) * 0.12;
+    if (y < 70 || y > 340) continue;
+    const x = 270;
+    ctx.fillStyle = beats[i].lane === 0 ? "#4389bc" : "#b65a87";
+    ctx.fillRect(x, y - 10, 50, 20);
+    ctx.fillStyle = "#ffffff"; ctx.fillText("●", x + 15, y + 8);
+  }
+  ctx.fillStyle = "#26334a"; ctx.fillText("Space: タイミングよく押す", 440, 110);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
