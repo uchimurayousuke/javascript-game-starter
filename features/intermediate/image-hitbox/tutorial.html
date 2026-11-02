@@ -1,0 +1,257 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>画像と当たり判定の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">機能の一覧へ</a></p><h1>画像と当たり判定を作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーへコピーします。この教材の見本にある assets フォルダーも、3ファイルと同じ場所へコピーします。変更前を探し、変更後のコードに置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：絵を中心基準で動かす</h2><h3>目標</h3><p>絵を中心基準で動かす。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 30 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let images, selected, x, showBox;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const y = 225, target = {x: 500, y: 200, width: 50, height: 50};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function loadImage(src) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const image = new Image();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const asset = {image, status: &quot;loading&quot;};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  image.onload = () =&gt; { asset.status = image.naturalWidth &gt; 0 &amp;&amp; image.naturalHeight &gt; 0 ? &quot;ready&quot; : &quot;error&quot;; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  image.onerror = () =&gt; { asset.status = &quot;error&quot;; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  image.src = src;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return asset;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const asset = images[selected];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e7edf2&quot;; ctx.fillRect(target.x, target.y, target.width, target.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;目標&quot;, target.x + 5, target.y + 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (asset.status === &quot;ready&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const width = selected === 0 ? 64 : 96;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let images, selected, x, showBox;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const y = 225, target = {x: 500, y: 200, width: 50, height: 50};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function loadImage(src) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const image = new Image();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const asset = {image, status: &quot;loading&quot;};</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  image.onload = () =&gt; { asset.status = image.naturalWidth &gt; 0 &amp;&amp; image.naturalHeight &gt; 0 ? &quot;ready&quot; : &quot;error&quot;; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  image.onerror = () =&gt; { asset.status = &quot;error&quot;; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  image.src = src;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return asset;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+let images, selected, x, showBox;
+const y = 225, target = {x: 500, y: 200, width: 50, height: 50};
+function loadImage(src) {
+  const image = new Image();
+  const asset = {image, status: &quot;loading&quot;};
+  image.onload = () =&gt; { asset.status = image.naturalWidth &gt; 0 &amp;&amp; image.naturalHeight &gt; 0 ? &quot;ready&quot; : &quot;error&quot;; };
+  image.onerror = () =&gt; { asset.status = &quot;error&quot;; };
+  image.src = src;
+  return asset;
+}
+
+function start() {
+  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const asset = images[selected];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#e7edf2&quot;; ctx.fillRect(target.x, target.y, target.width, target.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;目標&quot;, target.x + 5, target.y + 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (asset.status === &quot;ready&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const width = selected === 0 ? 64 : 96;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const asset = images[selected];
+  ctx.fillStyle = &quot;#e7edf2&quot;; ctx.fillRect(target.x, target.y, target.width, target.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;目標&quot;, target.x + 5, target.y + 30);
+  if (asset.status === &quot;ready&quot;) {
+    const width = selected === 0 ? 64 : 96;
+    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);
+  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);
+
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }
+  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }
+});
+
+function gameLoop() {
+</code></pre><h3>コードの意味</h3><p>xとyは画像の左上ではなく人の中心です。64×64の絵は中心から32引いた位置へ描きます。</p><p>読み込み中や失敗では案内を出します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let images, selected, x, showBox;
+const y = 225, target = {x: 500, y: 200, width: 50, height: 50};
+function loadImage(src) {
+  const image = new Image();
+  const asset = {image, status: &quot;loading&quot;};
+  image.onload = () =&gt; { asset.status = image.naturalWidth &gt; 0 &amp;&amp; image.naturalHeight &gt; 0 ? &quot;ready&quot; : &quot;error&quot;; };
+  image.onerror = () =&gt; { asset.status = &quot;error&quot;; };
+  image.src = src;
+  return asset;
+}
+
+function start() {
+  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const asset = images[selected];
+  ctx.fillStyle = &quot;#e7edf2&quot;; ctx.fillRect(target.x, target.y, target.width, target.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;目標&quot;, target.x + 5, target.y + 30);
+  if (asset.status === &quot;ready&quot;) {
+    const width = selected === 0 ? 64 : 96;
+    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);
+  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);
+
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }
+  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>左右キーで絵を動かします。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>最初のx=200を変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：当たり判定を分ける</h2><h3>目標</h3><p>当たり判定を分ける。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 5 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  image.src = src;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  return asset;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function overlaps() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return x + 16 &gt;= target.x &amp;&amp; x - 16 &lt;= target.x + target.width &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y + 22 &gt;= target.y &amp;&amp; y - 22 &lt;= target.y + target.height;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  return asset;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function overlaps() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return x + 16 &gt;= target.x &amp;&amp; x - 16 &lt;= target.x + target.width &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    y + 22 &gt;= target.y &amp;&amp; y - 22 &lt;= target.y + target.height;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  return asset;
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  return asset;
+}
+function overlaps() {
+  return x + 16 &gt;= target.x &amp;&amp; x - 16 &lt;= target.x + target.width &amp;&amp;
+    y + 22 &gt;= target.y &amp;&amp; y - 22 &lt;= target.y + target.height;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);
+  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);
+
+</code></pre><h3>コードの意味</h3><p>人の当たり判定は中心を基準に幅32、高さ44です。</p><p>目標の四角との重なりを調べ、辺が触れた場合も当たりにします。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let images, selected, x, showBox;
+const y = 225, target = {x: 500, y: 200, width: 50, height: 50};
+function loadImage(src) {
+  const image = new Image();
+  const asset = {image, status: &quot;loading&quot;};
+  image.onload = () =&gt; { asset.status = image.naturalWidth &gt; 0 &amp;&amp; image.naturalHeight &gt; 0 ? &quot;ready&quot; : &quot;error&quot;; };
+  image.onerror = () =&gt; { asset.status = &quot;error&quot;; };
+  image.src = src;
+  return asset;
+}
+function overlaps() {
+  return x + 16 &gt;= target.x &amp;&amp; x - 16 &lt;= target.x + target.width &amp;&amp;
+    y + 22 &gt;= target.y &amp;&amp; y - 22 &lt;= target.y + target.height;
+}
+
+function start() {
+  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const asset = images[selected];
+  ctx.fillStyle = &quot;#e7edf2&quot;; ctx.fillRect(target.x, target.y, target.width, target.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;目標&quot;, target.x + 5, target.y + 30);
+  if (asset.status === &quot;ready&quot;) {
+    const width = selected === 0 ? 64 : 96;
+    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);
+  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);
+  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);
+
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }
+  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>目標に近づけると「当たり」になります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>判定幅32を変更し、左右の16も合わせます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：枠と別の絵を試す</h2><h3>目標</h3><p>枠と別の絵を試す。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 5 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  images = [loadImage(&quot;assets/player-blue.png&quot;), loadImage(&quot;assets/player-alt.png&quot;)]; selected = 0; x = 200; showBox = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (showBox) { ctx.strokeStyle = &quot;#bd422f&quot;; ctx.lineWidth = 3; ctx.strokeRect(x - 16, y - 22, 32, 44); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開 / H: 枠 / Space: 絵&quot;, 60, 380);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key.toLowerCase() === &quot;h&quot;) showBox = !showBox;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key === &quot; &quot;) { event.preventDefault(); selected = 1 - selected; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  images = [loadImage(&quot;assets/player-blue.png&quot;), loadImage(&quot;assets/player-alt.png&quot;)]; selected = 0; x = 200; showBox = false;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  images = [loadImage(&quot;assets/player-blue.png&quot;)]; selected = 0; x = 200; showBox = false;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  images = [loadImage(&quot;assets/player-blue.png&quot;), loadImage(&quot;assets/player-alt.png&quot;)]; selected = 0; x = 200; showBox = false;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (showBox) { ctx.strokeStyle = &quot;#bd422f&quot;; ctx.lineWidth = 3; ctx.strokeRect(x - 16, y - 22, 32, 44); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;←→: 移動 / R: 再開 / H: 枠 / Space: 絵&quot;, 60, 380);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→: 移動 / R: 再開&quot;, 60, 380);
+  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }
+  if (showBox) { ctx.strokeStyle = &quot;#bd422f&quot;; ctx.lineWidth = 3; ctx.strokeRect(x - 16, y - 22, 32, 44); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→: 移動 / R: 再開 / H: 枠 / Space: 絵&quot;, 60, 380);
+  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key.toLowerCase() === &quot;h&quot;) showBox = !showBox;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key === &quot; &quot;) { event.preventDefault(); selected = 1 - selected; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }
+});
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }
+  else if (event.key.toLowerCase() === &quot;h&quot;) showBox = !showBox;
+  else if (event.key === &quot; &quot;) { event.preventDefault(); selected = 1 - selected; }
+});
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="feature-image-hitbox" aria-labelledby="feature-image-hitbox-title"><figcaption id="feature-image-hitbox-title">図：画像と当たり判定：見た目と枠を分ける</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="画像と当たり判定：見た目と枠を分ける。図は横にスクロールできます"><img src="../../../tutorial/illustrations/astra/feature-image-hitbox.svg" width="1000" height="800" alt="画像には透明な余白も含まれます。絵全体の96×64とは別に、中心から左右16・上下22の判定枠を作ります。画像を切り替えても、この32×44の枠は変えません。"></div><p>画像には透明な余白も含まれます。絵全体の96×64とは別に、中心から左右16・上下22の判定枠を作ります。画像を切り替えても、この32×44の枠は変えません。</p></figure><p>Hで当たり判定の枠を表示し、Spaceで64×64と96×64の絵を切り替えます。</p><p>絵の左上は各画像の幅に合わせて計算する一方、判定は中心から横16・縦22のままです。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let images, selected, x, showBox;
+const y = 225, target = {x: 500, y: 200, width: 50, height: 50};
+function loadImage(src) {
+  const image = new Image();
+  const asset = {image, status: &quot;loading&quot;};
+  image.onload = () =&gt; { asset.status = image.naturalWidth &gt; 0 &amp;&amp; image.naturalHeight &gt; 0 ? &quot;ready&quot; : &quot;error&quot;; };
+  image.onerror = () =&gt; { asset.status = &quot;error&quot;; };
+  image.src = src;
+  return asset;
+}
+function overlaps() {
+  return x + 16 &gt;= target.x &amp;&amp; x - 16 &lt;= target.x + target.width &amp;&amp;
+    y + 22 &gt;= target.y &amp;&amp; y - 22 &lt;= target.y + target.height;
+}
+
+function start() {
+  images = [loadImage(&quot;assets/player-blue.png&quot;), loadImage(&quot;assets/player-alt.png&quot;)]; selected = 0; x = 200; showBox = false;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const asset = images[selected];
+  ctx.fillStyle = &quot;#e7edf2&quot;; ctx.fillRect(target.x, target.y, target.width, target.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;18px sans-serif&quot;; ctx.fillText(&quot;目標&quot;, target.x + 5, target.y + 30);
+  if (asset.status === &quot;ready&quot;) {
+    const width = selected === 0 ? 64 : 96;
+    ctx.drawImage(asset.image, x - width / 2, y - 32, width, 64);
+  } else { ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読めません&quot; : &quot;読み込み中&quot;, 80, 100); }
+  if (showBox) { ctx.strokeStyle = &quot;#bd422f&quot;; ctx.lineWidth = 3; ctx.strokeRect(x - 16, y - 22, 32, 44); }
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;←→: 移動 / R: 再開 / H: 枠 / Space: 絵&quot;, 60, 380);
+  ctx.fillText(overlaps() ? &quot;当たり&quot; : &quot;離れている&quot;, 350, 100);
+
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+  if (event.key === &quot;ArrowLeft&quot;) { event.preventDefault(); x = Math.max(16, x - 8); }
+  else if (event.key === &quot;ArrowRight&quot;) { event.preventDefault(); x = Math.min(784, x + 8); }
+  else if (event.key.toLowerCase() === &quot;h&quot;) showBox = !showBox;
+  else if (event.key === &quot; &quot;) { event.preventDefault(); selected = 1 - selected; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>絵を切り替えても判定枠と当たりが変わらないことを確かめます。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>枠の色を変えます。 練習後はコードを元に戻してください。</p></section><section><h2>画像を自分の絵に替えるには</h2><p>透明な余白を含む絵に差し替えても、判定のサイズは自動では変わりません。必要なら判定を自分で調整します。</p><p>3ファイルとassetsフォルダーを一緒にコピーします。</p></section><section><h2>自分のゲームに組み込むには</h2><p>x・yを中心として持ち、overlapsと判定の幅32・高さ44を自分のゲームに移します。</p><p>drawImageは絵の大きさから左上を計算し、判定サイズは別に決めます。初期位置や表示中の絵をstartで戻します。</p><p>gameLoopを増やさず、既存のstart・update・drawから処理を呼びます。再挑戦では持ち込んだ位置や状態、時刻を初期化します。</p></section><p><a href="complete/index.html">完成版を試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></body></html>

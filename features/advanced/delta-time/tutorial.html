@@ -1,0 +1,174 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>時間を使った移動の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"></head><body><main><p><a href="../../index.html">機能の一覧へ</a></p><h1>時間を使った移動を作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><section><h2>始める前に</h2><p>ひな型の index.html、style.css、script.js を作業用フォルダーへコピーします。変更前を探し、変更後のコードに置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><section><h2>ステップ 1：経過秒を測る</h2><h3>目標</h3><p>経過秒を測る。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 18 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let x, previous, delta;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  x = 100; previous = null; delta = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const now = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (previous === null) { previous = now; delta = 0; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  delta = Math.max(0, (now - previous) / 1000); previous = now;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;1回の経過秒: &quot; + delta.toFixed(3), 100, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;x: &quot; + x.toFixed(1) + &quot; / 速さ: 120px/秒&quot;, 100, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(x - 20, 220, 40, 40);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 最初から&quot;, 100, 360);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let x, previous, delta;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  x = 100; previous = null; delta = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
+function start() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+let x, previous, delta;
+
+function start() {
+  x = 100; previous = null; delta = 0;
+}
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const now = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (previous === null) { previous = now; delta = 0; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  delta = Math.max(0, (now - previous) / 1000); previous = now;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>function update() {
+}
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function update() {
+  const now = performance.now();
+  if (previous === null) { previous = now; delta = 0; return; }
+  delta = Math.max(0, (now - previous) / 1000); previous = now;
+
+}
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;1回の経過秒: &quot; + delta.toFixed(3), 100, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;x: &quot; + x.toFixed(1) + &quot; / 速さ: 120px/秒&quot;, 100, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(x - 20, 220, 40, 40);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 最初から&quot;, 100, 360);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;1回の経過秒: &quot; + delta.toFixed(3), 100, 100);
+  ctx.fillText(&quot;x: &quot; + x.toFixed(1) + &quot; / 速さ: 120px/秒&quot;, 100, 150);
+  ctx.fillRect(x - 20, 220, 40, 40);
+  ctx.fillText(&quot;R: 最初から&quot;, 100, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+
+});
+
+</code></pre><h3>コードの意味</h3><p>previousは前回の時刻です。初回は時刻だけ記録し、移動量を0にします。</p><p>差を1000で割ってミリ秒から秒にします。Rは時刻を初期化します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, previous, delta;
+
+function start() {
+  x = 100; previous = null; delta = 0;
+}
+
+function update() {
+  const now = performance.now();
+  if (previous === null) { previous = now; delta = 0; return; }
+  delta = Math.max(0, (now - previous) / 1000); previous = now;
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;1回の経過秒: &quot; + delta.toFixed(3), 100, 100);
+  ctx.fillText(&quot;x: &quot; + x.toFixed(1) + &quot; / 速さ: 120px/秒&quot;, 100, 150);
+  ctx.fillRect(x - 20, 220, 40, 40);
+  ctx.fillText(&quot;R: 最初から&quot;, 100, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>経過秒の表示が更新されます。 <a href="step1/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>表示の小数点以下を変えます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 2：経過秒に応じて動かす</h2><h3>目標</h3><p>経過秒に応じて動かす。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (previous === null) { previous = now; delta = 0; return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  delta = Math.max(0, (now - previous) / 1000); previous = now;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  x += 120 * delta;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (x &gt; 800) x = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  delta = Math.max(0, (now - previous) / 1000); previous = now;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  x += 120 * delta;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (x &gt; 800) x = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  delta = Math.max(0, (now - previous) / 1000); previous = now;
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  delta = Math.max(0, (now - previous) / 1000); previous = now;
+  x += 120 * delta;
+  if (x &gt; 800) x = 0;
+
+</code></pre><h3>コードの意味</h3><p>xに120×deltaを足します。1秒に120ピクセル進む速さです。</p><p>画面の右端を越えると左に戻します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, previous, delta;
+
+function start() {
+  x = 100; previous = null; delta = 0;
+}
+
+function update() {
+  const now = performance.now();
+  if (previous === null) { previous = now; delta = 0; return; }
+  delta = Math.max(0, (now - previous) / 1000); previous = now;
+  x += 120 * delta;
+  if (x &gt; 800) x = 0;
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;1回の経過秒: &quot; + delta.toFixed(3), 100, 100);
+  ctx.fillText(&quot;x: &quot; + x.toFixed(1) + &quot; / 速さ: 120px/秒&quot;, 100, 150);
+  ctx.fillRect(x - 20, 220, 40, 40);
+  ctx.fillText(&quot;R: 最初から&quot;, 100, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>四角が右へ進み、端を越えると左へ戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>120を60に変えて比べます。 練習後はコードを元に戻してください。</p></section><section><h2>ステップ 3：大きすぎる時間を制限する</h2><h3>目標</h3><p>大きすぎる時間を制限する。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (previous === null) { previous = now; delta = 0; return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  delta = Math.max(0, (now - previous) / 1000); previous = now;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  delta = Math.min(delta, 0.05);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  x += 120 * delta;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (x &gt; 800) x = 0;</span></div></div></details><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  delta = Math.max(0, (now - previous) / 1000); previous = now;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  delta = Math.min(delta, 0.05);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  x += 120 * delta;</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  delta = Math.max(0, (now - previous) / 1000); previous = now;
+  x += 120 * delta;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  delta = Math.max(0, (now - previous) / 1000); previous = now;
+  delta = Math.min(delta, 0.05);
+  x += 120 * delta;
+</code></pre><h3>コードの意味</h3><figure class="learning-diagram" id="feature-delta-time" aria-labelledby="feature-delta-time-title"><figcaption id="feature-delta-time-title">図：時間で移動：更新回数が違っても同じ距離</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="時間で移動：更新回数が違っても同じ距離。図は横にスクロールできます"><img src="../../../tutorial/illustrations/astra/feature-delta-time.svg" width="1000" height="900" alt="1秒に120px進むなら、1回に進む量は経過時間から決めます。30回更新でも60回更新でも、合計1秒なら120pxです。長い停止のあとだけは進みすぎないよう、1回の時間を0.05秒までにします。"></div><p>1秒に120px進むなら、1回に進む量は経過時間から決めます。30回更新でも60回更新でも、合計1秒なら120pxです。長い停止のあとだけは進みすぎないよう、1回の時間を0.05秒までにします。</p></figure><p>Math.minで1回のdeltaを最大0.05秒にします。長い停止の後に一度で遠くへ飛ぶのを防ぎます。</p><p>1/30秒を30回でも1/60秒を60回でも、1秒分なら120ピクセルです。上限を超えた分は進めません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let x, previous, delta;
+
+function start() {
+  x = 100; previous = null; delta = 0;
+}
+
+function update() {
+  const now = performance.now();
+  if (previous === null) { previous = now; delta = 0; return; }
+  delta = Math.max(0, (now - previous) / 1000); previous = now;
+  delta = Math.min(delta, 0.05);
+  x += 120 * delta;
+  if (x &gt; 800) x = 0;
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;24px sans-serif&quot;;
+  ctx.fillText(&quot;1回の経過秒: &quot; + delta.toFixed(3), 100, 100);
+  ctx.fillText(&quot;x: &quot; + x.toFixed(1) + &quot; / 速さ: 120px/秒&quot;, 100, 150);
+  ctx.fillRect(x - 20, 220, 40, 40);
+  ctx.fillText(&quot;R: 最初から&quot;, 100, 360);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
+
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><h3>保存後の確認</h3><p>長く停止した後の1回の移動は最大6ピクセルです。R後の初回は進みません。 <a href="step3/index.html">この段階の見本を開く</a></p><h3>小さな練習</h3><p>上限0.05を0.04に変えます。 練習後はコードを元に戻してください。</p></section><section><h2>自分のゲームに組み込むには</h2><p>previousとdelta、経過時間の計算を自分のupdateへ移します。</p><p>startや再開時にpreviousをnullにし、1回のdeltaを制限して、速さ×deltaを位置へ足します。</p><p>gameLoopを増やさず、既存のstart・update・drawから処理を呼びます。再挑戦では持ち込んだ位置や状態、時刻を初期化します。</p></section><p><a href="complete/index.html">完成版を試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></body></html>

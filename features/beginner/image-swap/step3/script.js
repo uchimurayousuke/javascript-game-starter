@@ -1,0 +1,48 @@
+"use strict";
+
+const canvas = document.querySelector("#game-canvas");
+const ctx = canvas.getContext("2d");
+
+let images, selected;
+function loadImage(src) {
+  const image = new Image();
+  const asset = {image, status: "loading"};
+  image.onload = () => { asset.status = image.naturalWidth > 0 && image.naturalHeight > 0 ? "ready" : "error"; };
+  image.onerror = () => { asset.status = "error"; };
+  image.src = src;
+  return asset;
+}
+
+function start() {
+  selected = 0;
+  images = [loadImage("assets/player-blue.png"), loadImage("assets/player-alt.png")];
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const asset = images[selected];
+  ctx.fillStyle = "#26334a"; ctx.font = "24px sans-serif";
+  if (asset.status === "loading") ctx.fillText("画像を読み込み中", 200, 100);
+  else if (asset.status === "error") ctx.fillText("画像を読み込めません。名前と場所を確認", 150, 100);
+  else { ctx.drawImage(asset.image, 300, 150); ctx.fillText("画像を表示中", 200, 100); }
+  ctx.fillText("R: 読み直す / Space: 切替", 200, 350);
+}
+
+window.addEventListener("keydown", event => {
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === "r") { start(); return; }
+  if (event.key === " ") { event.preventDefault(); selected = 1 - selected; }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
