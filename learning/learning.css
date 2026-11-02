@@ -1,0 +1,10 @@
+@media print {
+  body { background: white; color: black; }
+  main { max-width: none; }
+  .worksheet { break-inside: avoid; border: 1px solid black; padding: 1em; }
+  .worksheet p { margin: 1.3em 0; }
+  .diagram-scroll { width: 100%; max-width: 100%; overflow: visible; }
+  .diagram-scroll::before { display: none; }
+  .diagram-scroll img { width: 100%; max-width: 100%; height: auto; }
+  a { color: black; }
+}

@@ -1,0 +1,881 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>コインキャッチを組み合わせる</title><link rel="stylesheet" href="../../examples/guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"></head><body><main><p><a href="../index.html">学びの入口へ</a></p><h1>コインキャッチに機能を組み合わせる</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><p>コインキャッチ完成版のindex.html、style.css、script.jsを新しいフォルダーにコピーします。元の見本は変更しません。各ステップを上から順に行い、保存後にコピー先のindex.htmlを再読み込みします。</p><p><a href="../../tutorial/05-game/index.html">出発点の完成版</a>　<a href="../../tutorial/index.html">コインキャッチの作り方</a></p><section><h2>ステップ 1：メニューから始める</h2><details class="change-fold"><summary>変更の比較を見る（消す 5 行・追加 17 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const startingLives = 3;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let lives = startingLives;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let gameState = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let gameState = &quot;menu&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function handleKeyDown(event) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    leftPressed = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    rightPressed = true;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (gameState !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;menu&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;32px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#2563eb&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><h3>変更する場所とコード</h3><p>変更前の範囲を探し、変更後のコピー用コード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let gameState = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let gameState = &quot;menu&quot;;</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>let gameState = &quot;playing&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>let gameState = &quot;menu&quot;;
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function handleKeyDown(event) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    leftPressed = true;</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>function handleKeyDown(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>function handleKeyDown(event) {
+  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {
+    start();
+    return;
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    rightPressed = true;</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    if (gameState !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>    if (gameState !== &quot;playing&quot;) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState === &quot;menu&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;32px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#2563eb&quot;;</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>
+  ctx.fillStyle = &quot;#2563eb&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+  if (gameState === &quot;menu&quot;) {
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.font = &quot;32px sans-serif&quot;;
+    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    return;
+  }
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+</code></pre><h4>変更 6</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>最初はmenuです。Enterでstartを呼びplayingにします。左右キーはplayingでだけ受け付けます。</p><p>変数：gameStateの初期値をmenuにします。startは従来どおりプレイの値を準備し、playingにします。</p><p>入力：handleKeyDownでmenuのEnterを受け付け、矢印はplayingのときだけ押された状態にします。結果画面ではSpaceで再挑戦できます。</p><p>描画：drawはmenuのとき題名とEnterの案内を描いてreturnします。gameLoopはそのまま1本です。</p><h3>保存後の確認</h3><p>最初はメニューが見え、Enterでゲームが始まります。 <a href="step1/index.html">この段階の見本を開く</a></p><details><summary>この段階のscript.js全文</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;menu&quot;;
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      gameState = &quot;gameover&quot;;
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+}
+
+function handleKeyDown(event) {
+  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {
+    start();
+    return;
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (gameState === &quot;menu&quot;) {
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.font = &quot;32px sans-serif&quot;;
+    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    return;
+  }
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</code></pre></details></section><section><h2>ステップ 2：結果画面から選ぶ</h2><figure class="learning-diagram" id="learning-states" aria-labelledby="learning-states-title"><figcaption id="learning-states-title">図：画面の切り替え：今の状態で操作が変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="画面の切り替え：今の状態で操作が変わる。図は横にスクロールできます"><img src="../../tutorial/illustrations/astra/learning-states.svg" width="1000" height="880" alt="menuからEnterでplayingへ進み、コイン5枚でclear、ミス3回でgameoverになる。どちらの結果からもSpaceで再挑戦、Mでメニューへ戻る図。"></div><p>画面の状態ごとに、受け付ける操作を分けます。5枚集めるとクリア、3回逃すと終了です。結果でSpaceを押すと得点0・残り3から再挑戦し、Mならメニューへ戻ります。</p></figure><details class="change-fold"><summary>変更の比較を見る（消す 1 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    clearKeys();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    gameState = &quot;menu&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.textAlign = &quot;left&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><h3>変更する場所とコード</h3><p>変更前の範囲を探し、変更後のコピー用コード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    clearKeys();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    gameState = &quot;menu&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>  }
+  if (event.code === &quot;Space&quot;) {
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  }
+  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {
+    clearKeys();
+    gameState = &quot;menu&quot;;
+    return;
+  }
+  if (event.code === &quot;Space&quot;) {
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);
+</code></pre><h3>コードの意味</h3><p>clearとgameoverではSpaceで再挑戦し、Mでメニューへ戻ります。startは得点・残り・位置・キーを初期化します。</p><p>変数と関数：新しい状態は増やさず、既存のclearとgameoverを使います。startはscore、lives、位置と押されたキーを初期化します。</p><p>入力：結果でMを押すとclearKeysでキーを解除してmenuに戻り、Spaceならstartで再挑戦します。</p><p>描画：結果の案内を「Space: もう一度 / M: メニュー」に変えます。ゲーム中の描画はそのままです。</p><h3>保存後の確認</h3><p>結果でSpaceとMを試し、再挑戦で得点が0になることを確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><details><summary>この段階のscript.js全文</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;menu&quot;;
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      gameState = &quot;clear&quot;;
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      gameState = &quot;gameover&quot;;
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+}
+
+function handleKeyDown(event) {
+  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {
+    start();
+    return;
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {
+    clearKeys();
+    gameState = &quot;menu&quot;;
+    return;
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (gameState === &quot;menu&quot;) {
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.font = &quot;32px sans-serif&quot;;
+    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    return;
+  }
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</code></pre></details></section><section><h2>ステップ 3：ベストを保存する</h2><details class="change-fold"><summary>変更の比較を見る（消す 3 行・追加 27 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let lives = startingLives;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let gameState = &quot;menu&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const bestKey = &quot;learning-combined-coin-best-v1&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bestScore = readBest();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function readBest() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  try {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const value = localStorage.getItem(bestKey);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (value === null || !/^[0-9]+$/.test(value)) return 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const number = Number(value);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return Number.isSafeInteger(number) &amp;&amp; number &gt;= 0 &amp;&amp; number &lt;= targetScore ? number : 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } catch (error) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function finishGame(result) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  gameState = result;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bestScore = Math.max(bestScore, score);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  try {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    localStorage.setItem(bestKey, String(bestScore));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } catch (error) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    score += 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (score &gt;= targetScore) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      gameState = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      finishGame(&quot;clear&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      resetCoin();</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    lives -= 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (lives === 0) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      gameState = &quot;gameover&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      finishGame(&quot;gameover&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      resetCoin();</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;ベスト: &quot; + bestScore + &quot;枚&quot;, 290, 290);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(message, canvas.width / 2, 195);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚 / ベスト: &quot; + bestScore + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.textAlign = &quot;left&quot;;</span></div></div></details><h3>変更する場所とコード</h3><p>変更前の範囲を探し、変更後のコピー用コード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let gameState = &quot;menu&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const bestKey = &quot;learning-combined-coin-best-v1&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let bestScore = readBest();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function readBest() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  try {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const value = localStorage.getItem(bestKey);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (value === null || !/^[0-9]+$/.test(value)) return 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const number = Number(value);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return Number.isSafeInteger(number) &amp;&amp; number &gt;= 0 &amp;&amp; number &lt;= targetScore ? number : 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } catch (error) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function finishGame(result) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  gameState = result;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  bestScore = Math.max(bestScore, score);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  try {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    localStorage.setItem(bestKey, String(bestScore));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } catch (error) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>let gameState = &quot;menu&quot;;
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>let gameState = &quot;menu&quot;;
+const bestKey = &quot;learning-combined-coin-best-v1&quot;;
+let bestScore = readBest();
+
+function readBest() {
+  try {
+    const value = localStorage.getItem(bestKey);
+    if (value === null || !/^[0-9]+$/.test(value)) return 0;
+    const number = Number(value);
+    return Number.isSafeInteger(number) &amp;&amp; number &gt;= 0 &amp;&amp; number &lt;= targetScore ? number : 0;
+  } catch (error) {
+    return 0;
+  }
+}
+
+function finishGame(result) {
+  gameState = result;
+  clearKeys();
+  bestScore = Math.max(bestScore, score);
+  try {
+    localStorage.setItem(bestKey, String(bestScore));
+  } catch (error) {
+  }
+}
+
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      gameState = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      finishGame(&quot;clear&quot;);</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>      gameState = &quot;clear&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      finishGame(&quot;clear&quot;);
+</code></pre><h4>変更 3</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      gameState = &quot;gameover&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      finishGame(&quot;gameover&quot;);</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>      gameState = &quot;gameover&quot;;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>      finishGame(&quot;gameover&quot;);
+</code></pre><h4>変更 4</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;ベスト: &quot; + bestScore + &quot;枚&quot;, 290, 290);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return;</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    return;
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    ctx.fillText(&quot;ベスト: &quot; + bestScore + &quot;枚&quot;, 290, 290);
+    return;
+</code></pre><h4>変更 5</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚 / ベスト: &quot; + bestScore + &quot; 枚&quot;, canvas.width / 2, 245);</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚 / ベスト: &quot; + bestScore + &quot; 枚&quot;, canvas.width / 2, 245);
+</code></pre><h3>コードの意味</h3><p>結果が決まるとfinishGameでベストを更新します。自分専用の保存キーを使い、値が壊れている場合や保存できない場合は0から遊べます。保存できなくてもその回のベストは表示します。</p><p>変数：bestKeyにこの教材だけの保存先の名前、bestScoreに読み取った記録を持ちます。</p><p>関数：readBestは0〜5の整数以外や読込エラーを0として扱います。finishGameは結果とベストを決め、保存を試みます。失敗しても例外を受け止めて続けます。</p><p>入力と描画：操作の割り当ては変えません。メニューと結果にbestScoreを表示します。保存が禁止されているときは新しい記録を再読み込み後に引き継げません。その画面での表示は続きます。</p><h3>保存後の確認</h3><p>記録を作り、再読み込み後のメニューに表示されるか確かめます。保存を拒否する環境でもプレイできます。 <a href="step3/index.html">この段階の見本を開く</a></p><details><summary>この段階のscript.js全文</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;menu&quot;;
+const bestKey = &quot;learning-combined-coin-best-v1&quot;;
+let bestScore = readBest();
+
+function readBest() {
+  try {
+    const value = localStorage.getItem(bestKey);
+    if (value === null || !/^[0-9]+$/.test(value)) return 0;
+    const number = Number(value);
+    return Number.isSafeInteger(number) &amp;&amp; number &gt;= 0 &amp;&amp; number &lt;= targetScore ? number : 0;
+  } catch (error) {
+    return 0;
+  }
+}
+
+function finishGame(result) {
+  gameState = result;
+  clearKeys();
+  bestScore = Math.max(bestScore, score);
+  try {
+    localStorage.setItem(bestKey, String(bestScore));
+  } catch (error) {
+  }
+}
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      finishGame(&quot;clear&quot;);
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      finishGame(&quot;gameover&quot;);
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+}
+
+function handleKeyDown(event) {
+  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {
+    start();
+    return;
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {
+    clearKeys();
+    gameState = &quot;menu&quot;;
+    return;
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (gameState === &quot;menu&quot;) {
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.font = &quot;32px sans-serif&quot;;
+    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    ctx.fillText(&quot;ベスト: &quot; + bestScore + &quot;枚&quot;, 290, 290);
+    return;
+  }
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚 / ベスト: &quot; + bestScore + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</code></pre></details></section><section><h2>ステップ 4：コインを画像に替える</h2><details class="change-fold"><summary>変更の比較を見る（消す 4 行・追加 13 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const bestKey = &quot;learning-combined-coin-best-v1&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let bestScore = readBest();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const coinImage = new Image();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coinImageReady = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">coinImage.onload = () =&gt; { coinImageReady = coinImage.naturalWidth &gt; 0 &amp;&amp; coinImage.naturalHeight &gt; 0; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">coinImage.onerror = () =&gt; { coinImageReady = false; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">coinImage.src = &quot;assets/coin.png&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function readBest() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.beginPath();</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (coinImageReady) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.drawImage(coinImage, coinX - coinRadius, coinY - coinRadius, coinRadius * 2, coinRadius * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#172b4d&quot;;</span></div></div></details><h3>変更する場所とコード</h3><p>変更前の範囲を探し、変更後のコピー用コード全体に置き換えます。</p><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let bestScore = readBest();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const coinImage = new Image();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coinImageReady = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">coinImage.onload = () =&gt; { coinImageReady = coinImage.naturalWidth &gt; 0 &amp;&amp; coinImage.naturalHeight &gt; 0; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">coinImage.onerror = () =&gt; { coinImageReady = false; };</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">coinImage.src = &quot;assets/coin.png&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>let bestScore = readBest();
+
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>let bestScore = readBest();
+const coinImage = new Image();
+let coinImageReady = false;
+coinImage.onload = () =&gt; { coinImageReady = coinImage.naturalWidth &gt; 0 &amp;&amp; coinImage.naturalHeight &gt; 0; };
+coinImage.onerror = () =&gt; { coinImageReady = false; };
+coinImage.src = &quot;assets/coin.png&quot;;
+
+</code></pre><h4>変更 2</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.beginPath();</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (coinImageReady) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.drawImage(coinImage, coinX - coinRadius, coinY - coinRadius, coinRadius * 2, coinRadius * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div></div><details class="old-code"><summary>変更前を確認</summary><pre><code>  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.beginPath();
+  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+  ctx.fill();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (coinImageReady) {
+    ctx.drawImage(coinImage, coinX - coinRadius, coinY - coinRadius, coinRadius * 2, coinRadius * 2);
+  } else {
+    ctx.fillStyle = &quot;#f5b942&quot;;
+    ctx.beginPath();
+    ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+</code></pre><h3>コードの意味</h3><p>画像の読み込み完了と失敗の処理をsrcより先に設定します。64×64の画像を中心から半径14ずつ引いた位置に28×28で描きます。読み込み中や失敗時は元の円を描き、当たり判定と受け皿は変えません。</p><p>変数：coinImageとcoinImageReadyで画像と準備状態を持ちます。onload・onerrorを設定してからsrcを指定します。</p><p>描画：画像が準備できたらcoinXとcoinYを中心に28×28で描き、それ以外は以前と同じ円を描きます。</p><p>入力と判定：キー操作とcoinTouchesPlayerは変わりません。画像の透明部分も当たり判定には影響しません。</p><h3>保存後の確認</h3><p>コイン画像が表示されます。画像の名前を一時的に変えると円のまま遊べます。 <a href="step4/index.html">この段階の見本を開く</a></p><p>この段階のassetsフォルダーをindex.htmlと同じ場所にコピーします。assets/coin.pngを同じ名前の正方形PNGに替えると自分の絵を表示できます。別の名前にした場合はsrcも変えます。見本の64×64画像には透明な余白があるため、28×28の画像枠の内側に金色の絵が見えます。当たり判定は画像の透明部分に関係なく半径14のままです。</p><details><summary>この段階のscript.js全文</summary><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const playerWidth = 110;
+const playerHeight = 18;
+const playerY = 385;
+const playerSpeed = 6;
+let playerX = (canvas.width - playerWidth) / 2;
+
+const coinRadius = 14;
+const coinSpeed = 3;
+let coinX = canvas.width / 2;
+let coinY = 80;
+
+let leftPressed = false;
+let rightPressed = false;
+let score = 0;
+
+const targetScore = 5;
+const startingLives = 3;
+let lives = startingLives;
+let gameState = &quot;menu&quot;;
+const bestKey = &quot;learning-combined-coin-best-v1&quot;;
+let bestScore = readBest();
+const coinImage = new Image();
+let coinImageReady = false;
+coinImage.onload = () =&gt; { coinImageReady = coinImage.naturalWidth &gt; 0 &amp;&amp; coinImage.naturalHeight &gt; 0; };
+coinImage.onerror = () =&gt; { coinImageReady = false; };
+coinImage.src = &quot;assets/coin.png&quot;;
+
+function readBest() {
+  try {
+    const value = localStorage.getItem(bestKey);
+    if (value === null || !/^[0-9]+$/.test(value)) return 0;
+    const number = Number(value);
+    return Number.isSafeInteger(number) &amp;&amp; number &gt;= 0 &amp;&amp; number &lt;= targetScore ? number : 0;
+  } catch (error) {
+    return 0;
+  }
+}
+
+function finishGame(result) {
+  gameState = result;
+  clearKeys();
+  bestScore = Math.max(bestScore, score);
+  try {
+    localStorage.setItem(bestKey, String(bestScore));
+  } catch (error) {
+  }
+}
+
+function start() {
+  playerX = (canvas.width - playerWidth) / 2;
+  coinX = canvas.width / 2;
+  coinY = 80;
+  clearKeys();
+  score = 0;
+  lives = startingLives;
+  gameState = &quot;playing&quot;;
+}
+
+function update() {
+  if (gameState !== &quot;playing&quot;) {
+    return;
+  }
+
+  if (leftPressed) {
+    playerX -= playerSpeed;
+  }
+  if (rightPressed) {
+    playerX += playerSpeed;
+  }
+  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
+
+  coinY += coinSpeed;
+
+  if (coinTouchesPlayer()) {
+    score += 1;
+    if (score &gt;= targetScore) {
+      finishGame(&quot;clear&quot;);
+    } else {
+      resetCoin();
+    }
+  } else if (coinY - coinRadius &gt; canvas.height) {
+    lives -= 1;
+    if (lives === 0) {
+      finishGame(&quot;gameover&quot;);
+    } else {
+      resetCoin();
+    }
+  }
+}
+
+function coinTouchesPlayer() {
+  return (
+    coinY + coinRadius &gt;= playerY &amp;&amp;
+    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
+    coinX + coinRadius &gt;= playerX &amp;&amp;
+    coinX - coinRadius &lt;= playerX + playerWidth
+  );
+}
+
+function resetCoin() {
+  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
+  coinY = -coinRadius;
+}
+
+function handleKeyDown(event) {
+  if (gameState === &quot;menu&quot; &amp;&amp; event.code === &quot;Enter&quot;) {
+    start();
+    return;
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = true;
+    event.preventDefault();
+  }
+  if (gameState === &quot;playing&quot; &amp;&amp; event.code === &quot;ArrowRight&quot;) {
+    rightPressed = true;
+    event.preventDefault();
+  }
+  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {
+    clearKeys();
+    gameState = &quot;menu&quot;;
+    return;
+  }
+  if (event.code === &quot;Space&quot;) {
+    event.preventDefault();
+    if (gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) {
+      start();
+    }
+  }
+}
+
+function handleKeyUp(event) {
+  if (event.code === &quot;ArrowLeft&quot;) {
+    leftPressed = false;
+  }
+  if (event.code === &quot;ArrowRight&quot;) {
+    rightPressed = false;
+  }
+}
+
+function clearKeys() {
+  leftPressed = false;
+  rightPressed = false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (gameState === &quot;menu&quot;) {
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.font = &quot;32px sans-serif&quot;;
+    ctx.fillText(&quot;コインキャッチ&quot;, 260, 180);
+    ctx.font = &quot;22px sans-serif&quot;;
+    ctx.fillText(&quot;Enterでスタート&quot;, 290, 250);
+    ctx.fillText(&quot;ベスト: &quot; + bestScore + &quot;枚&quot;, 290, 290);
+    return;
+  }
+
+  ctx.fillStyle = &quot;#2563eb&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+
+  if (coinImageReady) {
+    ctx.drawImage(coinImage, coinX - coinRadius, coinY - coinRadius, coinRadius * 2, coinRadius * 2);
+  } else {
+    ctx.fillStyle = &quot;#f5b942&quot;;
+    ctx.beginPath();
+    ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
+  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
+
+  ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
+
+  if (gameState !== &quot;playing&quot;) {
+    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let message = &quot;ゲームオーバー&quot;;
+    if (gameState === &quot;clear&quot;) {
+      message = &quot;クリア！&quot;;
+    }
+
+    ctx.fillStyle = &quot;#172b4d&quot;;
+    ctx.textAlign = &quot;center&quot;;
+    ctx.font = &quot;bold 40px sans-serif&quot;;
+    ctx.fillText(message, canvas.width / 2, 195);
+    ctx.font = &quot;24px sans-serif&quot;;
+    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚 / ベスト: &quot; + bestScore + &quot; 枚&quot;, canvas.width / 2, 245);
+    ctx.fillText(&quot;Space: もう一度 / M: メニュー&quot;, canvas.width / 2, 295);
+    ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+document.addEventListener(&quot;keyup&quot;, handleKeyUp);
+window.addEventListener(&quot;blur&quot;, clearKeys);
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</code></pre></details></section><section><h2>組み合わせるときの確認</h2><p>変数や関数の名前がすでにあるときは同じ名前をもう一つ作らず、役割を確認して既存の処理に統合します。gameLoopは増やさず、start・update・drawを使います。画面の状態を見て、その画面の操作だけを受け付けます。</p><p>保存はこの教材専用のキーを使います。保存が拒否されたり、保存した値が壊れたりしてもゲームを続けられます。画像を表示する大きさと当たり判定は別です。</p></section><p><a href="complete/index.html">完成版を遊ぶ</a>　<a href="../index.html">学びの入口へ戻る</a></p></main></body></html>
