@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="code-changes.css">
   <link rel="stylesheet" href="diagrams.css">
-</head>
-  <body>
+<link rel="stylesheet" href="learning-layout.css"></head>
+  <body class="lesson-page">
     <a class="skip-link" href="#preparation">本文へ移動</a>
     <div class="layout">
       <aside>
-        <nav id="contents" aria-label="教材の目次">
+        <details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#preparation">準備：3ファイルをコピー</a><a href="#step-01">01 丸と四角を描く</a><a href="#step-02">02 位置を更新して落下させる</a><a href="#step-03">03 キーボードで受け皿を動かす</a><a href="#step-04">04 重なりを調べて得点をつける</a><a href="#step-05">05 クリアと再挑戦を作る</a><a href="#help">うまく動かないとき</a></nav></details><nav id="contents" aria-label="教材の目次">
           <p class="eyebrow">CANVAS TUTORIAL</p>
           <h2>学ぶ順番</h2>
           <a href="#preparation">準備：3ファイルをコピー</a>
@@ -24,7 +24,7 @@
           <a href="#help">うまく動かないとき</a>
         </nav>
       </aside>
-      <main><p><a href="../learning/index.html">ゲームづくりの学びの入口</a></p>
+      <main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../learning/index.html">学びの入口</a></li><li><a href="../examples/index.html">ゲーム制作例</a></li><li aria-current="page">コインキャッチを自分で書いて作ろう</li></ol></nav>
         <header class="intro">
           <p class="eyebrow">HTML・CSS・JAVASCRIPT を少しずつ</p>
           <h1>コインキャッチを<br />自分で書いて作ろう</h1>
@@ -122,7 +122,7 @@ let coinY = 80;
 <p><code>=</code> は右の値を左の変数に入れる「代入」です。</p>
 <p>行末の <code>;</code> は文の区切りです。</p>
 <p><code>canvas.width</code> は Canvas に設定した横幅で、ここでは800ピクセルです。<code>(canvas.width - playerWidth) / 2</code> は、受け皿を中央に置く計算です。<code>-</code> は引き算、<code>/</code> は割り算で、丸括弧の中を先に計算します。座標は場所を表す数字の組です。Canvas の左上は <code>(0, 0)</code> で、横の <code>x</code> は右へ、縦の <code>y</code> は下へ進むほど増えます。受け皿は左上の座標で、コインは中心の座標で置きます。</p>
-<figure class="learning-diagram" id="coin-coordinates" aria-labelledby="coin-coordinates-title"><figcaption id="coin-coordinates-title">図：画面の位置と大きさ</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインと受け皿の位置と大きさ。図を横にスクロールできます"><img src="illustrations/astra/coin-position.svg" width="1200" height="1180" alt="画面は横800、縦450。コインの中心は横400、縦80で半径14。受け皿の左上は横345、縦385、幅110、高さ18。下にコインを10倍、受け皿を4倍にした拡大図があります。"></div><p>画面全体は実際の比率です。下の絵ではコインを10倍、受け皿を4倍に拡大しています。図の数字はゲームで使う値です。</p><p><code>coinX = 400</code>、<code>coinY = 80</code>、<code>coinRadius = 14</code>。受け皿の <code>playerX = 345</code>、<code>playerY = 385</code>、幅 110、高さ 18 です。</p></figure>
+<figure class="learning-diagram" id="coin-coordinates" aria-labelledby="coin-coordinates-title"><figcaption id="coin-coordinates-title">図：画面の位置と大きさ</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインと受け皿の位置と大きさ"><img src="illustrations/astra/coin-position.svg" width="1200" height="1180" alt="画面は横800、縦450。コインの中心は横400、縦80で半径14。受け皿の左上は横345、縦385、幅110、高さ18。下にコインを10倍、受け皿を4倍にした拡大図があります。"></div><p>画面全体は実際の比率です。下の絵ではコインを10倍、受け皿を4倍に拡大しています。図の数字はゲームで使う値です。</p><p><code>coinX = 400</code>、<code>coinY = 80</code>、<code>coinRadius = 14</code>。受け皿の <code>playerX = 345</code>、<code>playerY = 385</code>、幅 110、高さ 18 です。</p><p class="diagram-expand"><a href="illustrations/astra/coin-position.svg" target="_blank" rel="noopener" aria-label="図：画面の位置と大きさを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure>
 <p>ひな型の <code>document.querySelector("#game-canvas")</code> は HTML の同じ id を持つ Canvas を見つけます。<code>getContext("2d")</code> で取り出した <code>ctx</code> を使い、2D（平面）の画面に絵を描きます。文字は引用符で囲み、数値は引用符なしで書きます。</p>
 <table><thead><tr><th>命令・設定</th><th>このコードでの意味</th></tr></thead><tbody>
 <tr><td><code>clearRect(0, 0, canvas.width, canvas.height)</code></td><td>左上から画面全体の前の絵を消します。これから毎回描き直すためです。</td></tr>
@@ -134,7 +134,7 @@ let coinY = 80;
 <tr><td><code>font = "22px sans-serif"</code></td><td>このあと描く文字の大きさと書体を指定します。</td></tr>
 <tr><td><code>fillText("コイン: 0", 24, 38)</code></td><td>文字を描きます。24 が左端の x、38 が文字の基準線の y です。</td></tr>
 </tbody></table>
-<figure class="learning-diagram" id="coin-arc" aria-labelledby="coin-arc-title"><figcaption id="coin-arc-title">図：円の右から1周</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="円は、右から時計回りに描く。図を横にスクロールできます"><img src="illustrations/astra/coin-arc.svg" width="1200" height="745" alt="円は右から下を通り、半周でπ、1周で2πになります。"></div><p>右端の 0 から下へ進みます。半周が <code>Math.PI</code>、1周が <code>Math.PI * 2</code> です。下端は <code>Math.PI / 2</code>。角度はラジアンで表し、円周を半径で割ると1周は 2π になります。</p></figure>
+<figure class="learning-diagram" id="coin-arc" aria-labelledby="coin-arc-title"><figcaption id="coin-arc-title">図：円の右から1周</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="円は、右から時計回りに描く"><img src="illustrations/astra/coin-arc.svg" width="1200" height="745" alt="円は右から下を通り、半周でπ、1周で2πになります。"></div><p>右端の 0 から下へ進みます。半周が <code>Math.PI</code>、1周が <code>Math.PI * 2</code> です。下端は <code>Math.PI / 2</code>。角度はラジアンで表し、円周を半径で割ると1周は 2π になります。</p><p class="diagram-expand"><a href="illustrations/astra/coin-arc.svg" target="_blank" rel="noopener" aria-label="図：円の右から1周を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure>
 <p>関数は、いくつかの命令をまとめて名前を付けたものです。<code>function draw() { ... }</code> は <code>draw</code> という関数を作ります。ひな型の <code>gameLoop()</code> は <code>update()</code> と <code>draw()</code> を順に実行し、<code>requestAnimationFrame(gameLoop)</code> で次の実行を予約します。このくり返しをゲームループと呼びます。画面を1回描き直す区切りを「1フレーム」と呼びます。今は位置が変わらないので、絵は止まって見えます。</p>
 <h3>5. 保存・再読み込み後の確認</h3><ol><li>script.js を保存し、作業用フォルダーの index.html を開いて再読み込みします。</li><li>上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。</li><li>しばらく待っても位置が変わらないことを確かめます。</li></ol>
 <h3>6. 小さな練習</h3><p><code>coinRadius</code> を <code>24</code> にして丸を大きくしましょう。<code>draw()</code> の <code>#2563eb</code> を <code>#16a34a</code> にして、受け皿を緑にしてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
@@ -338,7 +338,7 @@ window.addEventListener(&quot;blur&quot;, clearKeys);
 </code></pre>
 <h3>4. コードの意味</h3><p><code>score</code> は集めた枚数です。<code>start()</code> で0に戻し、キャッチしたときに <code>score += 1</code> で1点増やします。<code>"コイン: " + score</code> の <code>+</code> は、片方が文字列なので文字をつなげます。得点の数値も文字に変わって表示されます。</p>
 <p>当たり判定は、コインと受け皿が触れたかを調べる処理です。ここでは丸いコインを囲む四角と、受け皿の四角が重なったかを調べます。コインを囲む四角の角が受け皿と重なると、丸いコインそのものが触れていなくてもキャッチになります。<code>return</code> は計算結果を呼び出した場所に返します。4つの条件を <code>&amp;&amp;</code> でつなぐと、全部が成り立つときだけ <code>true</code> になります。<code>&gt;=</code> は「以上」、<code>&lt;=</code> は「以下」なので、端が接したときもキャッチです。</p>
-<figure class="learning-diagram" id="coin-hit" aria-labelledby="coin-hit-title"><figcaption id="coin-hit-title">図：下の端と上の端を比べよう</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインが届く場合と届かない場合。図を横にスクロールできます"><img src="illustrations/astra/coin-catch.svg" width="1400" height="1000" alt="コインの下端と受け皿の上端を比べます。左はコインの中心が縦371で、下端385が受け皿の上端385に届くのでキャッチ。右は中心が縦370で、下端384が上端385に1届きません。形とすき間は見やすくした模式図です。"></div><p>説明用の例です。コインの中心は x = 400、半径 14、受け皿の上は y = 385。左の絵は中心の y が 371、右は 370 です。見やすいよう形を拡大し、右のすき間も強調した模式図です。</p><p>下端は <code>coinY + coinRadius</code>。左の例では <code>371 + 14 = 385</code>。ほかの3条件も成り立つとき、<code>coinY + coinRadius &gt;= playerY</code>、<code>coinY - coinRadius &lt;= playerY + playerHeight</code>、<code>coinX + coinRadius &gt;= playerX</code>、<code>coinX - coinRadius &lt;= playerX + playerWidth</code> をすべて満たせばキャッチです。円を囲む四角で調べるため、四角の角だけでも当たりになります。</p></figure>
+<figure class="learning-diagram" id="coin-hit" aria-labelledby="coin-hit-title"><figcaption id="coin-hit-title">図：下の端と上の端を比べよう</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインが届く場合と届かない場合"><img src="illustrations/astra/coin-catch.svg" width="1400" height="1000" alt="コインの下端と受け皿の上端を比べます。左はコインの中心が縦371で、下端385が受け皿の上端385に届くのでキャッチ。右は中心が縦370で、下端384が上端385に1届きません。形とすき間は見やすくした模式図です。"></div><p>説明用の例です。コインの中心は x = 400、半径 14、受け皿の上は y = 385。左の絵は中心の y が 371、右は 370 です。見やすいよう形を拡大し、右のすき間も強調した模式図です。</p><p>下端は <code>coinY + coinRadius</code>。左の例では <code>371 + 14 = 385</code>。ほかの3条件も成り立つとき、<code>coinY + coinRadius &gt;= playerY</code>、<code>coinY - coinRadius &lt;= playerY + playerHeight</code>、<code>coinX + coinRadius &gt;= playerX</code>、<code>coinX - coinRadius &lt;= playerX + playerWidth</code> をすべて満たせばキャッチです。円を囲む四角で調べるため、四角の角だけでも当たりになります。</p><p class="diagram-expand"><a href="illustrations/astra/coin-catch.svg" target="_blank" rel="noopener" aria-label="図：下の端と上の端を比べようを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure>
 <table><thead><tr><th>条件</th><th>調べること</th></tr></thead><tbody>
 <tr><td><code>coinY + coinRadius &gt;= playerY</code></td><td>コインの下端が受け皿の上端に届いている。</td></tr>
 <tr><td><code>coinY - coinRadius &lt;= playerY + playerHeight</code></td><td>コインの上端が受け皿の下端を通り過ぎていない。</td></tr>

@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="../../../guide.css">
 <link rel="stylesheet" href="../../../../tutorial/code-changes.css">
   <link rel="stylesheet" href="../../../../tutorial/diagrams.css">
-</head>
-<body><main>
+<link rel="stylesheet" href="../../../../tutorial/learning-layout.css"></head>
+<body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">発展課題 1：敵を上から踏んで倒す</a><a href="#lesson-section-3">発展課題 2：Shift キーでダッシュする</a><a href="#lesson-section-4">発展課題 3：中間ポイントから再挑戦する</a><a href="#lesson-section-5">さらに自分で作るなら</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：横スクロールゲームの発展課題</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">発展課題 1：敵を上から踏んで倒す</a><a href="#lesson-section-3">発展課題 2：Shift キーでダッシュする</a><a href="#lesson-section-4">発展課題 3：中間ポイントから再挑戦する</a><a href="#lesson-section-5">さらに自分で作るなら</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">横スクロールゲームの発展課題</li></ol></nav>
 <p><a href="../tutorial.html">← 基本の作り方へ</a>　<a href="../../../index.html">制作例の一覧へ</a></p>
 <h1>横スクロールゲームの発展課題</h1>
 <p class="tag">上級者向け・基本の6段階の次に</p>
@@ -21,13 +21,13 @@
 <li><a href="#dash">Shift キーでダッシュする</a></li>
 <li><a href="#checkpoint">中間ポイントから再挑戦する</a></li>
 </ol></nav>
-<div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div><section><h2>始める前に</h2>
+<div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2>
 <p>基本のステップ6まで作った作業用フォルダーを、別の名前でコピーしてください。コピーした <code>script.js</code> を編集します。<code>index.html</code> と <code>style.css</code> は変更しません。</p>
 <p>基本版を持っていない場合は、<code>examples/advanced/platformer/complete</code> にある3ファイルを、新しい作業用フォルダーにコピーします。<code>index.html</code>、<code>style.css</code>、<code>script.js</code> は同じフォルダーに置いてください。</p>
 <p>課題1から順番に追加します。各課題を終えたら保存し、作業用の <code>index.html</code> をブラウザで開くか、再読み込みしてください。見本のゲームは別ページで開きます。</p>
 </section>
 
-<section id="stomp" data-stage="stomp">
+<span class="toc-anchor" id="lesson-section-2"></span><section id="stomp" data-stage="stomp">
 <h2>発展課題 1：敵を上から踏んで倒す</h2>
 <p>赤い敵を上から踏むと、その敵が消え、プレイヤーが少しはねるようにします。横や下から触れると、これまでどおり失敗です。</p>
 <h3>できるようにすること</h3>
@@ -40,7 +40,7 @@
 <p>四角形が重なっているだけで、踏んだと決めてよいでしょうか。上から来たことを確かめるには、いつの足元を覚えればよいか考えてください。</p>
 <details><summary>ヒントを見る</summary>
 <p>判定は次の3つに分けます。</p><ol><li><code>overlaps(player, enemy)</code>：今、敵と重なっている。</li><li><code>player.vy &gt; 0</code>：今、下へ進んでいる。</li><li><code>previousBottom &lt;= enemy.y</code>：動く前の足元が敵の上端より上か同じ高さにあった。</li></ol><p>例えば敵の上端が y=360 の場合、足元が 350 から 362 に進むと、上端をまたぎます。一方、足元が 380 から 382 に進んだ場合は、すでに上端より下にいます。落下中でも、後者を踏んだことにはしません。</p><p>判定にはステージ全体の座標を使います。表示位置をずらす <code>cameraX</code> は引きません。</p>
-<figure class="learning-diagram" id="extension-stomp" aria-labelledby="extension-stomp-title"><figcaption id="extension-stomp-title">図：動く前と後の足元</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="敵より上から落ちてきたら、踏める！。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/extension-stomp.svg" width="1200" height="1020" alt="足元が350から362へ動き、上端360の敵を踏んで足元を360にそろえます。"></div><p>説明用の例です。敵の上端は <code>enemy.y = 360</code>、プレイヤーの高さは40。前の足元は <code>previousBottom = 350</code>、動いた後は <code>player.y = 322</code> なので足元は362です。図は上下の間隔を同じ縮尺で描いています。</p><p>前の足元が敵の上以下 <code>350 &lt;= 360</code>、下向き <code>player.vy &gt; 0</code>、<code>overlaps</code> と敵の <code>alive</code> がすべて true なら踏めます。踏んだ後は <code>player.y = 320</code>、<code>vy = -8</code>。横からや上昇中の接触は踏めません。</p></figure>
+<figure class="learning-diagram" id="extension-stomp" aria-labelledby="extension-stomp-title"><figcaption id="extension-stomp-title">図：動く前と後の足元</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="敵より上から落ちてきたら、踏める！"><img src="../../../../tutorial/illustrations/astra/extension-stomp.svg" width="1200" height="1020" alt="足元が350から362へ動き、上端360の敵を踏んで足元を360にそろえます。"></div><p>説明用の例です。敵の上端は <code>enemy.y = 360</code>、プレイヤーの高さは40。前の足元は <code>previousBottom = 350</code>、動いた後は <code>player.y = 322</code> なので足元は362です。図は上下の間隔を同じ縮尺で描いています。</p><p>前の足元が敵の上以下 <code>350 &lt;= 360</code>、下向き <code>player.vy &gt; 0</code>、<code>overlaps</code> と敵の <code>alive</code> がすべて true なら踏めます。踏んだ後は <code>player.y = 320</code>、<code>vy = -8</code>。横からや上昇中の接触は踏めません。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/extension-stomp.svg" target="_blank" rel="noopener" aria-label="図：動く前と後の足元を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure>
 </details>
 <details><summary>書く場所とコードの例を見る</summary>
 <p>作業用の <code>script.js</code> で、「変更前」と同じ部分を探し、「変更後」に置き換えてください。上から順に全ての変更を加えます。</p>
@@ -112,7 +112,7 @@
   ctx.fillText(&quot;倒した敵: &quot; + defeated + &quot; / &quot; + enemies.length, 520, 32);</code></pre>
 <p>画面右上に倒した数を表示します。敵を倒すのはゴールに進むための手段の一つです。全て倒さなくてもクリアできます。</p>
 </details>
-<h3>保存後の確かめ方</h3>
+<span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3>
 <ol>
 <li>敵の少し手前からジャンプし、敵の真上で移動キーを離して着地します。敵が消え、プレイヤーがはねれば成功です。</li>
 <li>ジャンプせずに敵へ歩いてぶつかります。失敗することを確かめます。</li>
@@ -123,7 +123,7 @@
 <h3>小さな工夫</h3>
 <p>bounce() の -8 を -6 に変え、踏んだ後のはねる高さを比べてください。終わったら -8 に戻してから次へ進みます。</p>
 </section>
-<section id="dash" data-stage="dash">
+<span class="toc-anchor" id="lesson-section-3"></span><section id="dash" data-stage="dash">
 <h2>発展課題 2：Shift キーでダッシュする</h2>
 <p>課題1のコードに追加します。左右どちらかの Shift キーを押している間、横へ進む速さを変えます。</p>
 <h3>できるようにすること</h3>
@@ -136,7 +136,7 @@
 <p>Player の update(terrain) にある 4 を、どんな値に置き換えればよいでしょうか。押しているキーを覚える仕組みも、左右移動のコードと見比べてください。</p>
 <details><summary>ヒントを見る</summary>
 <p>速さを入れる <code>speed</code> を用意し、<code>dx</code> の計算に使います。ジャンプの <code>vy</code> や重力の 0.5 は変えません。</p><p>左右の Shift を一つの変数だけで覚えると、両方を押して片方を離した場合に困ります。<code>dashLeft</code> と <code>dashRight</code> を分け、どちらかが押されているか調べてください。</p>
-<figure class="learning-diagram" id="extension-dash" aria-labelledby="extension-dash-title"><figcaption id="extension-dash-title">図：Shift で速さを変える</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="Shiftでダッシュ！ 同じ1回でも遠くへ。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/extension-dash.svg" width="1200" height="850" alt="Shiftを押さない速さ4と、押したときの速さ6を比べます。"></div><p>左右キーで進むとき、Shift を押していなければ速さ4、左右どちらかの Shift を押していれば速さ6です。<code>dashLeft || dashRight</code> で確かめます。両方押して片方を離しても、もう片方が押されたままなら速さ6です。</p></figure>
+<figure class="learning-diagram" id="extension-dash" aria-labelledby="extension-dash-title"><figcaption id="extension-dash-title">図：Shift で速さを変える</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="Shiftでダッシュ！ 同じ1回でも遠くへ"><img src="../../../../tutorial/illustrations/astra/extension-dash.svg" width="1200" height="850" alt="Shiftを押さない速さ4と、押したときの速さ6を比べます。"></div><p>左右キーで進むとき、Shift を押していなければ速さ4、左右どちらかの Shift を押していれば速さ6です。<code>dashLeft || dashRight</code> で確かめます。両方押して片方を離しても、もう片方が押されたままなら速さ6です。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/extension-dash.svg" target="_blank" rel="noopener" aria-label="図：Shift で速さを変えるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure>
 </details>
 <details><summary>書く場所とコードの例を見る</summary>
 <p>作業用の <code>script.js</code> で、「変更前」と同じ部分を探し、「変更後」に置き換えてください。上から順に全ての変更を加えます。</p>
@@ -176,7 +176,7 @@ let dashLeft = false, dashRight = false;</code></pre>
 <div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;←→ 移動   Shift ダッシュ   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</span></div></div><details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;←→ 移動   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;←→ 移動   Shift ダッシュ   Space / ↑ ジャンプ   R 再挑戦&quot;, 20, 438);</code></pre>
 <p>ダッシュの操作も表示します。Shift だけでは進まず、左右キーと一緒に押すと速く進みます。</p>
 </details>
-<h3>保存後の確かめ方</h3>
+<span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3>
 <ol>
 <li>同じ地面で、右キーだけの場合と、Shift と右キーを押した場合の速さを比べます。</li>
 <li>左右の Shift を両方押し、片方だけ離します。ダッシュが続くことを確かめます。</li>
@@ -187,7 +187,7 @@ let dashLeft = false, dashRight = false;</code></pre>
 <h3>小さな工夫</h3>
 <p>ダッシュの 6 を 5 に変え、操作しやすさを比べてください。終わったら 6 に戻してから次へ進みます。</p>
 </section>
-<section id="checkpoint" data-stage="checkpoint">
+<span class="toc-anchor" id="lesson-section-4"></span><section id="checkpoint" data-stage="checkpoint">
 <h2>発展課題 3：中間ポイントから再挑戦する</h2>
 <p>課題2のコードに追加します。ステージの途中に目印を置き、通過した後に失敗したら、その場所から遊び直せるようにします。</p>
 <h3>できるようにすること</h3>
@@ -200,7 +200,7 @@ let dashLeft = false, dashRight = false;</code></pre>
 <p>start() をそのまま呼ぶと、コインも敵も作り直します。途中から再開する場合に戻す値と、残す値を、先に書き出してみてください。</p>
 <details><summary>ヒントを見る</summary>
 <p>途中から再開するときに戻すのは、プレイヤー、キー入力、カメラ、<code>state</code> です。コイン、敵、<code>score</code>、<code>defeated</code>、通過の記録は残します。</p>
-<figure class="learning-diagram" id="extension-retry" aria-labelledby="extension-retry-title"><figcaption id="extension-retry-title">図：R で再開する場所</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="Rで戻る場所は、2つの条件で決まる。図を横にスクロールできます"><img src="../../../../tutorial/illustrations/astra/extension-retry.svg" width="1200" height="1080" alt="失敗して中間通過済みなら中間から、それ以外は最初から再開します。"></div><p><code>state === "over" &amp;&amp; checkpoint.active</code> なら <code>retry()</code> で中間から。それ以外は <code>start()</code> で最初からです。<code>event.repeat</code> が true の繰り返し入力は受け付けません。</p><p>中間から再開すると、プレイヤーの位置と速度、入力、カメラ、状態を戻します。コインと敵の状態、<code>score</code>、<code>defeated</code>、中間地点の記録は残ります。</p></figure><p><code>retry()</code> という関数を作り、最初から遊ぶ <code>start()</code> と使い分けます。目印は、地面があり、壁や敵と重ならない場所に置いてください。</p>
+<figure class="learning-diagram" id="extension-retry" aria-labelledby="extension-retry-title"><figcaption id="extension-retry-title">図：R で再開する場所</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="Rで戻る場所は、2つの条件で決まる"><img src="../../../../tutorial/illustrations/astra/extension-retry.svg" width="1200" height="1080" alt="失敗して中間通過済みなら中間から、それ以外は最初から再開します。"></div><p><code>state === "over" &amp;&amp; checkpoint.active</code> なら <code>retry()</code> で中間から。それ以外は <code>start()</code> で最初からです。<code>event.repeat</code> が true の繰り返し入力は受け付けません。</p><p>中間から再開すると、プレイヤーの位置と速度、入力、カメラ、状態を戻します。コインと敵の状態、<code>score</code>、<code>defeated</code>、中間地点の記録は残ります。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/extension-retry.svg" target="_blank" rel="noopener" aria-label="図：R で再開する場所を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p><code>retry()</code> という関数を作り、最初から遊ぶ <code>start()</code> と使い分けます。目印は、地面があり、壁や敵と重ならない場所に置いてください。</p>
 </details>
 <details><summary>書く場所とコードの例を見る</summary>
 <p>作業用の <code>script.js</code> で、「変更前」と同じ部分を探し、「変更後」に置き換えてください。上から順に全ての変更を加えます。</p>
@@ -264,7 +264,7 @@ function update() {
 });</code></pre>
 <p>失敗していて、中間ポイントも通過済みなら retry()、それ以外なら start() を呼びます。プレイ中やクリア後の R は、全てを最初に戻します。</p><p>event.repeat は、長押しで同じキーの入力が繰り返されたとき true になります。!event.repeat で最初の1回だけ受け付け、再開直後に start() が呼ばれるのを防ぎます。</p>
 </details>
-<h3>保存後の確かめ方</h3>
+<span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3>
 <ol>
 <li>目印に触れ、色と左上の表示が変わることを確かめます。</li>
 <li>目印の先のすき間へ落ち、R を押します。中間から再開し、それまでのコインと倒した敵の数が残ることを確かめます。</li>
@@ -276,7 +276,7 @@ function update() {
 <h3>小さな工夫</h3>
 <p>中間ポイントを別の安全な場所に移してください。移動先に地面があり、再開するプレイヤーが壁や敵と重ならないか確かめます。</p>
 </section>
-<section><h2>さらに自分で作るなら</h2>
+<span class="toc-anchor" id="lesson-section-5"></span><section><h2>さらに自分で作るなら</h2>
 <p>3つを作れたら、次の中から一つ選んで計画を立ててください。ここからはコードの例を載せていません。変える場所と、成功したときの動きを先に書いてみましょう。</p>
 <ul>
 <li><strong>残り回数：</strong>失敗するたびに 1 減らし、0 になったら最初からにします。減らすのはどの関数か、R キーの長押しで何度も減らないかを考えます。</li>
@@ -284,4 +284,4 @@ function update() {
 <li><strong>動く足場：</strong>足場のクラスを作り、左右へ動かします。プレイヤーが乗っている間、足場と一緒に動くにはどうすればよいかを考えます。</li>
 </ul></section>
 <p class="links"><a href="complete/index.html">発展課題の完成例で遊ぶ</a><a href="../tutorial.html">基本の作り方へ戻る</a><a href="../../../index.html">制作例の一覧へ戻る</a></p>
-</main></body></html>
+</main></div></body></html>
