@@ -1,0 +1,7 @@
+.starter-download { margin: 1.3em 0; padding: 1em 1.2em; border: 1px solid #a9cbd4; border-left: 5px solid #4b8191; border-radius: 6px; background: #f0f7f8; }
+.starter-download p { margin: 0.5em 0; }
+.starter-download .download-link, .save-lesson-shortcut { display: inline-block; padding: 0.55em 1em; border: 2px solid #075a83; border-radius: 5px; background: #075a83; color: white; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+.starter-download .download-link:hover, .save-lesson-shortcut:hover { background: #123f5a; color: white; }
+.save-lesson-shortcut[hidden] { display: none; }
+.shortcut-status:empty { display: none; }
+@media print { .save-lesson-shortcut { display: none; } }

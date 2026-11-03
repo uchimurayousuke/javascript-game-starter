@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ゲームづくりの教材を開く</title>
+  <link rel="stylesheet" href="examples/guide.css">
+  <link rel="stylesheet" href="tutorial/learning-layout.css">
+  <link rel="stylesheet" href="downloads/starter.css">
+  <script src="downloads/shortcut.js" defer></script>
+</head>
+<body class="lesson-page">
+  <a class="lesson-skip" href="#lesson-main">本文へ移動</a>
+  <main id="lesson-main" tabindex="-1">
+    <h1>ゲームづくりの教材を開く</h1>
+    <p>このファイルを開けば、パソコンに保存した教材へ進めます。初めての人は、学びの入口から始めましょう。</p>
+    <section>
+      <h2>教材を選ぶ</h2>
+      <ul>
+        <li><a href="learning/index.html">学びの入口を開く</a></li>
+        <li><a href="tutorial/index.html">コインキャッチの作り方を開く</a></li>
+        <li><a href="examples/index.html">ゲーム制作例の一覧を開く</a></li>
+        <li><a href="features/index.html">共通機能の一覧を開く</a></li>
+      </ul>
+    </section>
+    <section class="starter-download">
+      <h2>ひな型を用意する</h2>
+      <p><a class="download-link" href="downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p>
+      <p>ZIPを展開し、できたフォルダー（通常はmy-game）のindex.htmlを開きます。詳しくは<a href="learning/setup.html">準備と操作</a>を見てください。</p>
+    </section>
+    <section>
+      <h2>次からすぐに開く</h2>
+      <p><button class="save-lesson-shortcut" type="button" data-status="shortcut-status" data-shortcut="entry" hidden>この教材のショートカットを保存（Windows・ZIP）</button></p>
+      <noscript><p>Windowsショートカットの保存にはJavaScriptが必要です。</p></noscript>
+      <p id="shortcut-status" class="shortcut-status" role="status" aria-live="polite"></p>
+      <p>保存したZIPを展開し、中の.urlファイルをデスクトップに置くと、このページを開けます。教材フォルダーを動かしたときは、移動先でこのページを開いて作り直してください。</p>
+      <p>Macなどでは教材を開く.htmlを開くか、ブラウザーのブックマークを使えます。</p>
+    </section>
+  </main>
+</body>
+</html>
