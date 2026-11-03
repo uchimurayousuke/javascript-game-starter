@@ -102,9 +102,7 @@ test("the published instructions reproduce all three files at every step", async
 });
 
 test("reading pages and game pages stay separate", () => {
-  const scripts = [...tutorial.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map((match) => match[0]);
-  assert.deepEqual(scripts, ['<script src="../downloads/shortcut.js" defer></script>']);
-  assert.doesNotMatch(tutorial.replace(scripts[0], ""), /<(?:canvas|iframe|object|embed|script)\b/i);
+  assert.doesNotMatch(tutorial, /<(?:canvas|iframe|object|embed|script)\b/i);
   const requiredHeadings = ["目標", "編集するファイルと場所", "追加または置換するコード", "コードの意味", "保存・再読み込み後の確認", "小さな練習"];
   for (const lesson of lessons) {
     const headings = Array.from(lesson[2].matchAll(/<h3>\d\. ([^<]+)<\/h3>/g), (match) => match[1]);
