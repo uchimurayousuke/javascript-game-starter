@@ -1,10 +1,10 @@
 .change-guide {
   margin: 1.5rem 0;
   padding: 1rem;
-  border: 2px solid #51637a;
+  border: 2px solid var(--lesson-line-diff-guide);
   border-radius: 8px;
-  background: #f3f5f8;
-  color: #26334a;
+  background: var(--lesson-diff-wash);
+  color: var(--lesson-ink-deep);
 }
 .change-guide p { margin: 0.5em 0; }
 .change-key { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -12,9 +12,9 @@
 .change-view {
   overflow-x: auto;
   margin: 1rem 0;
-  border: 1px solid #8796a8;
+  border: 1px solid var(--lesson-line-diff);
   border-radius: 6px;
-  background: #f3f5f8;
+  background: var(--lesson-diff-wash);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -27,14 +27,14 @@
   min-width: max-content;
   border-left: 5px solid;
   line-height: 1.55;
-  font-family: Consolas, "Courier New", monospace;
+  font-family: var(--lesson-font-code-legacy);
   font-size: 0.875rem;
 }
 .change-label {
   flex: 0 0 9em;
   padding: 0 0.5em;
   border-right: 1px solid currentColor;
-  font-family: system-ui, sans-serif;
+  font-family: var(--lesson-font-base);
   font-weight: bold;
   white-space: nowrap;
 }
@@ -43,8 +43,8 @@
   padding: 0 0.7em;
   white-space: pre;
 }
-.change-removed { color: #751d1d; background: #fff0f0; border-color: #a52b2b; }
-.change-added { color: #0d512c; background: #e8f8ee; border-color: #237b45; }
-.change-same { color: #26334a; background: #f3f5f8; border-color: #6a7b8d; }
-.change-hunk { color: #26334a; background: #e5eaf0; border-color: #6a7b8d; }
+.change-removed { color: var(--lesson-diff-removed-ink); background: var(--lesson-diff-removed-wash); border-color: var(--lesson-diff-removed-line); }
+.change-added { color: var(--lesson-diff-added-ink); background: var(--lesson-diff-added-wash); border-color: var(--lesson-diff-added-line); }
+.change-same { color: var(--lesson-ink-deep); background: var(--lesson-diff-wash); border-color: var(--lesson-line-diff-neutral); }
+.change-hunk { color: var(--lesson-ink-deep); background: var(--lesson-diff-hunk-wash); border-color: var(--lesson-line-diff-neutral); }
 .copy-label { margin: 0.75rem 0 0; font-weight: bold; }

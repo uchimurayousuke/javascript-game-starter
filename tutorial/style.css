@@ -1,7 +1,7 @@
 :root {
-  color: #1c304c;
-  background: #eef3f8;
-  font-family: system-ui, sans-serif;
+  color: var(--lesson-ink-base);
+  background: var(--lesson-tutorial-ground);
+  font-family: var(--lesson-font-base);
   line-height: 1.85;
 }
 
@@ -61,18 +61,17 @@ h1 {
 
 .eyebrow {
   margin: 0;
-  color: #315b8c;
-  font-size: 0.8rem;
-  font-weight: 750;
-  letter-spacing: 0.06em;
+  color: var(--lesson-ink-step);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .lesson {
   margin-bottom: 32px;
   padding: 36px;
-  border: 1px solid #d5dfeb;
+  border: 1px solid var(--lesson-line-legacy);
   border-radius: 12px;
-  background: #fff;
+  background: var(--lesson-paper);
   scroll-margin-top: 24px;
 }
 
@@ -85,7 +84,7 @@ h2 {
 h3 {
   margin: 36px 0 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #e1eaf4;
+  border-bottom: 2px solid var(--lesson-line-heading);
   font-size: 1.2rem;
 }
 
@@ -107,16 +106,16 @@ ol, ul {
 }
 
 a {
-  color: #174f97;
+  color: var(--lesson-link-tutorial);
   text-underline-offset: 3px;
 }
 
 a:hover {
-  color: #0c356b;
+  color: var(--lesson-link-tutorial-hover);
 }
 
 a:focus-visible {
-  outline: 3px solid #296bc5;
+  outline: 3px solid var(--lesson-focus-legacy);
   outline-offset: 4px;
 }
 
@@ -125,15 +124,15 @@ a:focus-visible {
   margin-top: 12px;
   padding: 10px 20px;
   border-radius: 6px;
-  background: #174f97;
-  color: #fff;
+  background: var(--lesson-link-tutorial);
+  color: var(--lesson-paper);
   font-weight: 700;
   text-decoration: none;
 }
 
 .primary-link:hover {
-  background: #0c356b;
-  color: #fff;
+  background: var(--lesson-link-tutorial-hover);
+  color: var(--lesson-paper);
 }
 
 .result-links {
@@ -142,7 +141,7 @@ a:focus-visible {
   gap: 10px 24px;
   padding: 14px 18px;
   border-radius: 6px;
-  background: #edf4ff;
+  background: var(--lesson-result-wash);
   font-size: 0.9rem;
   font-weight: 650;
 }
@@ -150,8 +149,8 @@ a:focus-visible {
 code {
   padding: 2px 4px;
   border-radius: 3px;
-  background: #edf2f8;
-  font-family: Consolas, "Courier New", monospace;
+  background: var(--lesson-code-inline-wash);
+  font-family: var(--lesson-font-code-legacy);
   font-size: 0.93em;
   overflow-wrap: anywhere;
 }
@@ -161,8 +160,8 @@ pre {
   overflow-x: auto;
   padding: 20px;
   border-radius: 6px;
-  background: #142139;
-  color: #e4eefb;
+  background: var(--lesson-code-background-tutorial);
+  color: var(--lesson-code-ink-tutorial);
   line-height: 1.7;
   tab-size: 2;
 }
@@ -184,20 +183,20 @@ table {
 
 th, td {
   padding: 12px;
-  border: 1px solid #d5dfeb;
+  border: 1px solid var(--lesson-line-legacy);
   text-align: left;
   vertical-align: top;
   overflow-wrap: anywhere;
 }
 
 th {
-  background: #edf2f8;
+  background: var(--lesson-code-inline-wash);
 }
 
 .notice, .practice-note {
   padding: 14px 18px;
-  border-left: 4px solid #6e9bcf;
-  background: #f1f6fd;
+  border-left: 4px solid var(--lesson-notice);
+  background: var(--lesson-notice-wash);
 }
 
 .back-top {
@@ -211,7 +210,7 @@ th {
   top: -80px;
   left: 16px;
   padding: 8px 16px;
-  background: #fff;
+  background: var(--lesson-paper);
 }
 
 .skip-link:focus {

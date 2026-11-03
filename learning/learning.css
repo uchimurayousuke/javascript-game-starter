@@ -1,10 +1,10 @@
 @media print {
-  body { background: white; color: black; }
+  body { background: var(--lesson-paper); color: var(--lesson-print-ink); }
   main { max-width: none; }
-  .worksheet { break-inside: avoid; border: 1px solid black; padding: 1em; }
+  .worksheet { break-inside: avoid; border: 1px solid var(--lesson-print-ink); padding: 1em; }
   .worksheet p { margin: 1.3em 0; }
   .diagram-scroll { width: 100%; max-width: 100%; overflow: visible; }
   .diagram-scroll::before { display: none; }
   .diagram-scroll img { width: 100%; max-width: 100%; height: auto; }
-  a { color: black; }
+  a { color: var(--lesson-print-ink); }
 }

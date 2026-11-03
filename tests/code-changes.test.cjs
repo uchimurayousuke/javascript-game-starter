@@ -123,17 +123,27 @@ test("コインキャッチの比較は各手順の変更範囲と一致する",
 
 test("比較欄は選択できず、文字色と背景のコントラストが4.5以上", () => {
   const css = read("tutorial/code-changes.css");
+  const tokens = read("tutorial/learning-layout.css");
   assert.match(css, /\.change-view\s*\{[^}]*user-select:\s*none/s);
   assert.match(css, /\.change-label\s*\{[^}]*white-space:\s*nowrap/s);
   function luminance(hex) {
     const rgb = hex.match(/[0-9a-f]{2}/gi).map((x) => parseInt(x, 16) / 255).map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
   }
+  function color(rule, property) {
+    const declaration = rule.match(new RegExp('(?:^|;)\\s*' + property + ':\\s*(#[0-9a-f]{6}|var\\(--[\\w-]+\\))', 'i'));
+    assert.ok(declaration, `${property} is declared`);
+    const token = declaration[1].match(/^var\((--[\w-]+)\)$/);
+    if (!token) return declaration[1];
+    const value = tokens.match(new RegExp('(?:^|[;{])\\s*' + token[1] + ':\\s*(#[0-9a-f]{6})\\s*;', 'i'));
+    assert.ok(value, `${token[1]} is defined`);
+    return value[1];
+  }
   for (const kind of ["added", "removed", "same", "hunk"]) {
     const rule = css.match(new RegExp('\\.change-' + kind + '\\s*\\{([^}]*)\\}'))[1];
-    const foreground = rule.match(/(?:^|;)\s*color:\s*(#[0-9a-f]{6})/i)[1];
-    const background = rule.match(/(?:^|;)\s*background:\s*(#[0-9a-f]{6})/i)[1];
-    const border = rule.match(/(?:^|;)\s*border-color:\s*(#[0-9a-f]{6})/i)[1];
+    const foreground = color(rule, "color");
+    const background = color(rule, "background");
+    const border = color(rule, "border-color");
     const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
     assert.ok((values[0] + 0.05) / (values[1] + 0.05) >= 4.5, `${kind} contrast`);
     const edges = [luminance(border), luminance(background)].sort((a, b) => b - a);

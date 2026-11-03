@@ -1,10 +1,10 @@
 .learning-diagram {
   margin: 1.5rem 0;
   padding: 1rem;
-  border: 2px solid #9aadc2;
+  border: 2px solid var(--lesson-line-diagram);
   border-radius: 10px;
-  background: #f7faff;
-  color: #172b45;
+  background: var(--lesson-diagram-base-wash);
+  color: var(--lesson-ink-diagram);
 }
 .learning-diagram figcaption { font-size: 1.1rem; font-weight: 700; }
 .learning-diagram p { margin: 0.7rem 0; line-height: 1.7; }
@@ -14,12 +14,12 @@
   max-width: 100%;
   margin: 0.8rem 0;
   overflow-x: auto;
-  border: 1px solid #b9c8d8;
+  border: 1px solid var(--lesson-line-diagram-inner);
   border-radius: 8px;
-  background: #fff;
+  background: var(--lesson-paper);
   overscroll-behavior-inline: contain;
 }
-.diagram-scroll:focus-visible { outline: 3px solid #275a89; outline-offset: 2px; }
+.diagram-scroll:focus-visible { outline: 3px solid var(--lesson-focus-diagram); outline-offset: 2px; }
 .diagram-scroll::before {
   content: "図が見切れるときは横に動かせます →";
   position: sticky;
@@ -27,7 +27,7 @@
   display: block;
   width: max-content;
   padding: 0.35rem 0.65rem;
-  color: #294867;
+  color: var(--lesson-ink-caption);
   font-size: 0.875rem;
 }
 .diagram-scroll img {
@@ -38,5 +38,5 @@
 }
 @media (max-width: 560px) {
   .learning-diagram { margin-left: 0; margin-right: 0; padding: 0.75rem; }
-  .diagram-scroll { scrollbar-color: #536c86 #edf4fd; }
+  .diagram-scroll { scrollbar-color: var(--lesson-scroll-thumb) var(--lesson-scroll-wash); }
 }
