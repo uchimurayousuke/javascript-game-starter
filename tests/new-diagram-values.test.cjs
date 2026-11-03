@@ -61,7 +61,7 @@ test("剣と弓の射程は各ステップの実際の攻撃判定に一致す�
  assert.equal(attack("step3","sword",1,1,2,1),4);assert.equal(attack("step3","sword",1,1,2,2),6);assert.equal(attack("extensions/step1","archer",1,3,2,2),4);assert.equal(attack("extensions/step1","sword",1,3,2,2),6);
  labels("tactics-distance-basic",["敵A：列2・行1","1＋0＝1 → 届く","敵B：列2・行2","1＋1＝2 → 届かない"]);labels("tactics-distance",["敵が (列2, 行2)","弓の射程2 → 届く","剣の射程1 → 届かない"]);
 });
-test("2種類のZIPの入口とひな型の中身は図と一致する",()=>{
+test("ひな型ZIPの入口と中身は図と一致する",()=>{
  const entry=read("教材を開く.html"),setup=read("learning/setup.html");assert.match(entry,/href="learning\/index.html"/);assert.match(setup,/href="\.\.\/downloads\/my-game\.zip" download="my-game.zip"/);
- for(const name of ["index.html","style.css","script.js"])assert.ok(fs.existsSync(path.join(root,"template",name)));labels("learning-two-zips",["教材を開く.html","my-game.zip","index.html","style.css","script.js"]);
+ for(const name of ["index.html","style.css","script.js"])assert.ok(fs.existsSync(path.join(root,"template",name)));labels("learning-two-zips",["index.html","style.css","script.js"]);
 });
