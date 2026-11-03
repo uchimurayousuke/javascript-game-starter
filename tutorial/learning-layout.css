@@ -132,9 +132,7 @@ body.lesson-page {
 .workshop-home .lesson-shell { max-width: 1600px; grid-template-columns: minmax(180px, 235px) minmax(0, 1fr); }
 .workshop-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: clamp(20px, 4vw, 60px); padding: clamp(24px, 4vw, 52px); border: 1px solid #c5e3ee; border-radius: 26px; background: #eaf5fb; }
 .workshop-hero h1 { margin: .25em 0 .55em; font-size: clamp(2rem, 3.3vw, 3.3rem); }
-.workshop-hero-copy p:not(.workshop-eyebrow) { max-width: 38em; }
-.workshop-hero-copy p { text-wrap: balance; word-break: auto-phrase; }
-.workshop-eyebrow { margin: 0; color: #146bb5; font-weight: 700; }
+.workshop-hero-copy p { max-width: 38em; text-wrap: balance; word-break: auto-phrase; }
 .workshop-hero img { display: block; width: 100%; height: auto; border-radius: 16px; }
 .lesson-page .workshop-primary { display: inline-block; margin-top: .7em; padding: .65em 1.2em; border-radius: 10px; color: white; background: #146bb5; font-weight: 700; text-decoration: none; }
 .lesson-page .workshop-primary:hover { background: #0f548d; }
@@ -189,7 +187,6 @@ body.lesson-page {
 
 @media (max-width: 700px) {
   .workshop-hero { grid-template-columns: minmax(0, 1fr); }
-  .workshop-eyebrow { font-size: .85em; }
   .workshop-hero img { max-width: 360px; justify-self: center; }
   .workshop-routes { grid-template-columns: minmax(0, 1fr); }
   .workshop-route img { flex: 0 0 80px; width: 80px; }
