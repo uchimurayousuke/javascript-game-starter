@@ -7,7 +7,7 @@
 </code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;Enter: 敵の番 / R: 再開&quot;, 440, 145);
   ctx.fillText(&quot;弓は距離2まで攻撃&quot;, 440, 180);
   if (game.selected) ctx.fillText(&quot;移動 &quot; + (game.selected.moved ? &quot;済&quot; : &quot;可&quot;) + &quot; / 行動 &quot; + (game.selected.acted ? &quot;済&quot; : &quot;可&quot;), 440, 250);
-</code></pre><h3>コードの意味</h3><p>弓役は距離2まで攻撃できます。剣役は距離1です。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+</code></pre><h3>コードの意味</h3><p>弓役は距離2まで攻撃できます。剣役は距離1です。</p><figure class="learning-diagram" id="tactics-distance" aria-labelledby="tactics-distance-title"><figcaption id="tactics-distance-title">図：横と縦の差を足すと斜め隣は距離2</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="横と縦の差を足すと斜め隣は距離2"><img src="../../../../tutorial/illustrations/astra/tactics-distance.svg" width="1200" height="820" alt="列1行3の弓から列2行2の敵までの横と縦の差はそれぞれ1。距離は2で、弓の射程なら届き、剣の射程では届かない。"></div><p>横と縦に何マス離れているかを足して距離を求めます。図の <code>|1−2|</code> はコードの <code>Math.abs(1 - 2)</code> と同じで、引き算が-1でも距離は1マスと数えます。斜め隣は横1と縦1で距離2です。このステップで追加する弓は射程2、剣は射程1なので、図の位置には弓だけが届きます。矢印は距離の数え方を表し、移動経路ではありません。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/tactics-distance.svg" target="_blank" rel="noopener" aria-label="図：横と縦の差を足すと斜め隣は距離2を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
 
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);

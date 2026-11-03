@@ -508,7 +508,7 @@ class Car {
 
 let course, car, keys;
 
-</code></pre><h3>コードの意味</h3><p><code>Course.contains(x, y)</code> は外側の長方形の中で、内側の長方形の外かを返します。<code>outer &amp;&amp; !inside</code> は、両方の条件を満たす車の中心を道路上とみなします。</p><p>まず <code>nextX</code> と <code>nextY</code> を計算し、道路なら車の座標を更新します。道路でなければ位置を直前の道路上に残し、速さを0にします。ハンドルを切って道路内へ進めば再び走れます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+</code></pre><h3>コードの意味</h3><p><code>Course.contains(x, y)</code> は外側の長方形の中で、内側の長方形の外かを返します。<code>outer &amp;&amp; !inside</code> は、両方の条件を満たす車の中心を道路上とみなします。</p><figure class="learning-diagram" id="race-road" aria-labelledby="race-road-title"><figcaption id="race-road-title">図：外側の四角から中央を除くと道路になる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="外側の四角から中央を除くと道路になる"><img src="../../../tutorial/illustrations/astra/race-road.svg" width="1200" height="840" alt="外側の四角のうち中央の内側を除いた部分が道路。点Aは道路、点Bは中央、点Cは外側で、車の中心を判定する。"></div><p>車の中心が外側の四角に入り、中央の内側に入らないときに道路と判定します。外側と中央の境界は道路に含みます。道路外へ進もうとすると、位置を変えず速さを0にします。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/race-road.svg" target="_blank" rel="noopener" aria-label="図：外側の四角から中央を除くと道路になるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>まず <code>nextX</code> と <code>nextY</code> を計算し、道路なら車の座標を更新します。道路でなければ位置を直前の道路上に残し、速さを0にします。ハンドルを切って道路内へ進めば再び走れます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
 
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);

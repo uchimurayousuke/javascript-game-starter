@@ -281,7 +281,7 @@ let game;
 </code></pre></details><p>変更後（コピー用）：</p><pre><code>  else if (event.key === &quot;ArrowDown&quot;) game.move(0, 1);
   else if (event.key === &quot;ArrowUp&quot;) game.rotate();
 });
-</code></pre><h3>コードの意味</h3><p>rotatedは行と列を入れ替えて回転した配列を作ります。</p><p>回転先が盤外や固定済みのマスに重なるなら形を変えません。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+</code></pre><h3>コードの意味</h3><p>rotatedは行と列を入れ替えて回転した配列を作ります。</p><p>回転先が盤外や固定済みのマスに重なるなら形を変えません。</p><figure class="learning-diagram" id="blocks-rotation" aria-labelledby="blocks-rotation-title"><figcaption id="blocks-rotation-title">図：列を取り出して逆順にすると右へ90度回転する</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="列を取り出して逆順にすると右へ90度回転する"><img src="../../../tutorial/illustrations/astra/blocks-rotation.svg" width="1200" height="800" alt="L形の3行2列から列を取り出し、逆順にして2行3列の新しい形を作る。置けなければ元の形を残す。"></div><p>元の列をそれぞれ取り出して逆順にすると、回転後の行になります。まず候補を作り、<code>fits</code> で置けると確かめた場合だけ形を変えます。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/blocks-rotation.svg" target="_blank" rel="noopener" aria-label="図：列を取り出して逆順にすると右へ90度回転するを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
 
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);

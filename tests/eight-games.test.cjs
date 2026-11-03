@@ -119,9 +119,9 @@ test("探索RPGは物の名前を表示し、取得した宝のマスを通れ�
  const g=game("advanced","quest-rpg","extensions/complete");const shown=g.show();for(const label of ["人","宝","扉","店","敵"])assert.ok(shown.includes(label),label);g.run('game.hasItem=true');assert.equal(g.run('game.blocked(5,1)'),false);g.run('game.hasItem=false;game.key=true');assert.equal(g.run('game.blocked(5,1)'),false);
 });
 
-test("各教材の図は基本2枚・発展1枚で、画像と説明のリンクがある",()=>{
+test("各教材の図に画像と説明のリンクがある",()=>{
  const games=[["beginner","quiz"],["beginner","story"],["intermediate","sokoban"],["intermediate","minesweeper"],["advanced","falling-blocks"],["advanced","quest-rpg"],["advanced","tactics"],["advanced","soccer"]];
- for(const [level,name] of games)for(const [sub,count] of [["",2],["extensions",1]]){
+ for(const [level,name] of games)for(const [sub,count] of [["",["falling-blocks","tactics","soccer"].includes(name)?3:2],["extensions",["quiz","tactics"].includes(name)?2:1]]){
   const folder=path.join(root,"examples",level,name,sub),html=fs.readFileSync(path.join(folder,"tutorial.html"),"utf8");const figures=[...html.matchAll(/<figure class="learning-diagram"[\s\S]*?<\/figure>/g)];assert.equal(figures.length,count,`${name} ${sub}`);
   for(const f of figures){assert.match(f[0],/<figcaption[^>]*>図：/);assert.match(f[0],/alt="[^"]+"/);assert.match(f[0],/role="region" tabindex="0"/);const src=f[0].match(/<img src="([^"]+)"/)[1];const svg=fs.readFileSync(path.resolve(folder,src),"utf8"),view=svg.match(/viewBox="0 0 (\d+) (\d+)"/);assert.ok(view);assert.match(f[0],new RegExp(`width="${view[1]}" height="${view[2]}"`));}
  }

@@ -91,9 +91,9 @@ test("コイン画像の原画と独立した見本のコピーがそろう",()=
  assert.ok(fs.existsSync(path.join(root,"learning/assets/coin.svg")));
  for(const stage of ["step4","complete"])assert.deepEqual(fs.readFileSync(path.join(root,"learning/combine",stage,"assets/coin.png")),master);
 });
-test("図8枚が各説明に置かれ、代替テキストとSVGの大きさが一致する",()=>{
+test("図9枚が各説明に置かれ、代替テキストとSVGの大きさが一致する",()=>{
  const pages=["learning/index.html","learning/setup.html","learning/basics.html","learning/debug/index.html","learning/combine/tutorial.html","learning/project.html"];
  const images=pages.flatMap(p=>[...read(p).matchAll(/<img src="(?:\.\.\/)+tutorial\/illustrations\/astra\/(learning-[^"]+\.svg)" width="(\d+)" height="(\d+)" alt="([^"]+)">/g)]);
- assert.equal(images.length,8);assert.equal(new Set(images.map(m=>m[1])).size,8);
+ assert.equal(images.length,9);assert.equal(new Set(images.map(m=>m[1])).size,9);
  for(const m of images){const svg=read(`tutorial/illustrations/astra/${m[1]}`),box=svg.match(/viewBox="0 0 (\d+) (\d+)"/);assert.ok(box);assert.deepEqual(m.slice(2,4),box.slice(1,3));}
 });

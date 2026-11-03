@@ -154,7 +154,7 @@ window.addEventListener(&quot;keyup&quot;, event =&gt; {
 window.addEventListener(&quot;blur&quot;, () =&gt; { game.keys = {}; });
 
 function gameLoop() {
-</code></pre><h3>コードの意味</h3><p>矢印の入力から移動方向を作り、斜めでも速くなりすぎないよう長さで割ります。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+</code></pre><h3>コードの意味</h3><p>矢印の入力から移動方向を作り、斜めでも速くなりすぎないよう長さで割ります。</p><figure class="learning-diagram" id="soccer-normalize" aria-labelledby="soccer-normalize-title"><figcaption id="soccer-normalize-title">図：斜めでも1回の移動距離を2.5にそろえる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="斜めでも1回の移動距離を2.5にそろえる"><img src="../../../tutorial/illustrations/astra/soccer-normalize.svg" width="1200" height="820" alt="右だけなら横に2.5、右下なら入力の長さを√2で割って横と縦にそれぞれ約1.768進む。斜めの移動距離も2.5になる。"></div><p>右と下を同時に押すと入力は (1, 1) になり、長さは√2です。長さで割ってから速さ2.5を掛けるので、斜めも1回の移動距離は2.5になります。何も押していないときは <code>|| 1</code> で0による割り算を避け、動きは0のままです。図は壁から離れた場所の例です。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/soccer-normalize.svg" target="_blank" rel="noopener" aria-label="図：斜めでも1回の移動距離を2.5にそろえるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
 
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);

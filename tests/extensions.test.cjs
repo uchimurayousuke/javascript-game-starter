@@ -143,7 +143,7 @@ test("15教材の手順は各見本を再現し、図と導線が有効",()=>{
    assert.equal(code,fs.readFileSync(path.join(folder,`extensions/step${i+1}/script.js`),"utf8"),base);
   }
   assert.equal(code,fs.readFileSync(path.join(folder,"extensions/complete/script.js"),"utf8"),base);
-  const figure=page.match(/<figure class="learning-diagram"[\s\S]*?<\/figure>/g);assert.equal(figure.length,1,base);assert.match(figure[0],/<img [^>]*alt="[^"]+"/);const src=figure[0].match(/<img src="([^"]+)"/)[1];assert.ok(fs.existsSync(path.resolve(folder,"extensions",src)),base);
+  const figure=page.match(/<figure class="learning-diagram"[\s\S]*?<\/figure>/g);assert.equal(figure.length,base==="examples/beginner/typing"?2:1,base);for(const item of figure){assert.match(item,/<img [^>]*alt="[^"]+"/);const src=item.match(/<img src="([^"]+)"/)[1];assert.ok(fs.existsSync(path.resolve(folder,"extensions",src)),base);}
   const basic=fs.readFileSync(path.join(folder,base==="tutorial"?"index.html":"tutorial.html"),"utf8");assert.ok(basic.includes('href="extensions/tutorial.html"'),base);
  }
 });

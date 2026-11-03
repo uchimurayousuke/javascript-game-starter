@@ -18,12 +18,12 @@ const pages = {
   "examples/beginner/typing/tutorial.html": {"typing-index":"typing-index", "typing-key":"typing-key"},
   "examples/beginner/number-guess/tutorial.html": {"number-compare":"number-compare", "number-range":"number-range"},
   "examples/intermediate/snake/tutorial.html": {"snake-move":"snake-move", "snake-grow":"snake-grow"},
-  "examples/intermediate/memory/tutorial.html": {"memory-pair":"memory-pair", "memory-wait":"memory-wait", "memory-position":"memory-position"},
+  "examples/intermediate/memory/tutorial.html": {"memory-pair":"memory-pair", "memory-wait":"memory-wait", "memory-position":"memory-position", "memory-grid-index":"memory-grid-index", "memory-index-wrap":"memory-index-wrap", "shuffle-memory":"shared-shuffle"},
   "examples/intermediate/shop/tutorial.html": {"shop-product":"shop-product", "shop-money":"shop-money"},
   "examples/advanced/escape/tutorial.html": {"escape-classes":"escape-classes", "escape-flow":"escape-flow", "escape-items":"escape-items"},
   "examples/advanced/tower-defense/tutorial.html": {"tower-route":"tower-route", "tower-money":"tower-money", "tower-range":"tower-range"},
-  "examples/advanced/card-battle/tutorial.html": {"card-effect":"card-effect", "card-turn":"card-turn", "card-piles":"card-piles"},
-  "examples/advanced/racing/tutorial.html": {"race-direction":"race-direction", "race-checkpoints":"race-checkpoints", "race-classes":"race-classes"}
+  "examples/advanced/card-battle/tutorial.html": {"card-effect":"card-effect", "card-turn":"card-turn", "card-piles":"card-piles", "shuffle-cards":"shared-shuffle"},
+  "examples/advanced/racing/tutorial.html": {"race-direction":"race-direction", "race-checkpoints":"race-checkpoints", "race-classes":"race-classes", "race-road":"race-road"}
 };
 const illustration = name => read(`tutorial/illustrations/astra/${name}.svg`);
 const figure = (file,id) => {

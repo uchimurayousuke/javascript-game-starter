@@ -26,7 +26,7 @@ function start() {
   wordIndex = 0;
   position = 0;
   state = &quot;playing&quot;;
-</code></pre><h3>コードの意味</h3><p><code>[...wordList]</code> は元の単語を新しい配列にコピーします。コピーを混ぜても <code>wordList</code> の並びは変わりません。</p><p>最後の番号 <code>i</code> と0〜iの番号 <code>j</code> の単語を交換します。<code>Math.floor(Math.random() * (i + 1))</code> で0からiまでを選び、5語はそれぞれ1回ずつ出ます。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
+</code></pre><h3>コードの意味</h3><p><code>[...wordList]</code> は元の単語を新しい配列にコピーします。コピーを混ぜても <code>wordList</code> の並びは変わりません。</p><p>最後の番号 <code>i</code> と0〜iの番号 <code>j</code> の単語を交換します。<code>Math.floor(Math.random() * (i + 1))</code> で0からiまでを選び、5語はそれぞれ1回ずつ出ます。</p><figure class="learning-diagram" id="shuffle-typing" aria-labelledby="shuffle-typing-title"><figcaption id="shuffle-typing-title">図：一時保存して2枚を交換し、後ろから混ぜる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="一時保存して2枚を交換し、後ろから混ぜる"><img src="../../../../tutorial/illustrations/astra/shared-shuffle.svg" width="1200" height="880" alt="神経衰弱の8枚でiが7、jが1のとき、番号7のCを一時保存し、番号1のBを7へ、保存したCを1へ入れる。次は0から6を混ぜる。"></div><p>図は神経衰弱のカードを混ぜる例です。タイピングでは5語のコピーを <code>i</code> が4から順に混ぜ、<code>word</code> に単語を一時保存して交換します。後ろ側を次の候補から外す流れは同じです。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/shared-shuffle.svg" target="_blank" rel="noopener" aria-label="図：一時保存して2枚を交換し、後ろから混ぜるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
 
 const canvas = document.querySelector(&quot;#game-canvas&quot;);
 const ctx = canvas.getContext(&quot;2d&quot;);
