@@ -20,7 +20,7 @@
 .compare-page textarea { font: 16px/1.6 Consolas, "Cascadia Mono", Menlo, monospace; white-space: pre; overflow: auto; }
 .compare-page .check-option { display: flex; align-items: flex-start; gap: 0.6em; margin: 1em 0; }
 .compare-page .check-option input { width: 1.2em; height: 1.2em; flex: 0 0 auto; margin: 0.3em 0 0; }
-.compare-page button { padding: 0.6em 1.2em; border: 2px solid #075a83; border-radius: 5px; color: white; background: #075a83; font: inherit; font-weight: 700; cursor: pointer; }
+.compare-page button { padding: 0.6em 1.2em; border: 2px solid #146bb5; border-radius: 10px; color: white; background: #146bb5; font: inherit; font-weight: 700; cursor: pointer; }
 .compare-page button:hover { background: #123f5a; }
 .compare-page button:disabled { opacity: 0.6; cursor: wait; }
 .compare-page #status { padding: 0.7em 0.9em; border-left: 5px solid #4b8191; background: #f0f7f8; }
@@ -28,6 +28,9 @@
 .compare-page #step-context { margin: 1em 0; padding: 0.7em 1em; border-left: 4px solid #4b8191; background: #f0f7f8; }
 .compare-page #expectation-heading { margin: 0; font-weight: 700; }
 .compare-page #step-expectations { margin: 0.4em 0; padding-left: 1.5em; }
+.compare-page #result { border-color: #9bcfe4; }
+.compare-page #result-heading { margin-top: 0; padding: .55em .8em; border-left: 6px solid #146bb5; border-radius: 0 10px 10px 0; background: #eaf5fb; }
+.compare-page #result-count { font-weight: 700; }
 .compare-page .reference-links a { display: inline-block; margin-right: 1em; }
 .compare-page .diff-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin: 10px 0; }
 .compare-page .diff-cell { min-width: 0; border: 1px solid #b5cbd1; border-left: 5px solid #758b92; background: #f5f8f9; }
@@ -40,7 +43,7 @@
 .compare-page mark { background: #ffe29b; color: #20334a; text-decoration: underline; text-decoration-thickness: 2px; }
 .compare-page [hidden] { display: none !important; }
 
-@media (max-width: 820px) {
+@media (max-width: 1050px) {
   .compare-page main { padding: 20px 16px 48px; }
   .compare-page .diff-row { grid-template-columns: minmax(0, 1fr); }
   .compare-page .diff-cell pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
