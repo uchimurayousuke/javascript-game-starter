@@ -8,6 +8,7 @@
   const ignore = el("ignore-space"), ignoreBlank = el("ignore-blank"), filter = el("differences-only"), button = el("compare-button");
   const status = el("status"), result = el("result"), output = el("diff-output"), count = el("result-count");
   const description = el("chapter-description"), back = el("back-link"), game = el("game-link"), resultGame = el("result-game-link"), help = el("matching-help");
+  const stepContext = el("step-context"), expectationHeading = el("expectation-heading"), expectations = el("step-expectations");
   let hasInput = false, pending = false, revision = 0, comparison = null;
 
   function setStatus(message) { status.textContent = message; }
@@ -33,11 +34,22 @@
     game.hidden = !entry;
     if (!entry) {
       back.removeAttribute("href"); game.removeAttribute("href");
-      description.textContent = "教材から開くと、その章が選ばれます。";
-      setStatus("比べる章を選んでください。");
+      stepContext.hidden = true;
+      expectations.replaceChildren();
+      description.textContent = "教材から開くと、そのステップが選ばれます。";
+      setStatus("比べるステップを選んでください。");
       return;
     }
-    description.textContent = `${entry.title}：${entry.chapter}`;
+    const debug = entry.page === "learning/debug/index.html";
+    description.textContent = `教材：${entry.title} / ${entry.stepLabel}`;
+    expectationHeading.textContent = debug ? "この練習の修正版で確認すること" : "このステップが終わったとき";
+    const list = document.createDocumentFragment();
+    for (const text of entry.expectations) { const item = document.createElement("li"); item.textContent = text; list.append(item); }
+    expectations.replaceChildren(list);
+    stepContext.hidden = false;
+    back.textContent = debug ? "元の練習へ戻る" : "元のステップへ戻る";
+    game.textContent = debug ? "この練習の修正版を開く" : "このステップの見本ゲームを開く";
+    resultGame.textContent = game.textContent;
     back.href = `../../${entry.page}#${encodeURIComponent(entry.anchor)}`;
     game.href = `../../${entry.game}`;
     resultGame.href = game.href;
@@ -100,7 +112,7 @@
     }
     const option = document.createElement("option");
     option.value = entry.id;
-    option.textContent = entry.chapter;
+    option.textContent = entry.stepLabel;
     group.append(option);
   }
   chapter.addEventListener("change", updateChapter);
@@ -161,7 +173,7 @@
   button.addEventListener("click", () => {
     clearResult();
     const entry = byId.get(chapter.value);
-    if (!entry) { setStatus("比べる章を選んでください。"); return; }
+    if (!entry) { setStatus("比べるステップを選んでください。"); return; }
     if (pending) { setStatus("ファイルの読み込みが終わるまで待ってください。"); return; }
     if (!hasInput) { setStatus(`${kind.value}を選ぶか、コードを貼り付けてください。`); return; }
     try {
@@ -183,6 +195,6 @@
   if (requested && byId.has(requested)) { chapter.value = requested; updateChapter(); }
   else {
     updateChapter();
-    if (requested) setStatus("指定された章が見つかりません。章の一覧から選び直してください。");
+    if (requested) setStatus("指定されたステップが見つかりません。一覧から選び直してください。");
   }
 })();

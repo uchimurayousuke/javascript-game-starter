@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>この章のコードを見本と比べる</title>
+  <title>ステップ終了時のコードを見本と比べる</title>
   <link rel="stylesheet" href="../../examples/guide.css">
   <link rel="stylesheet" href="../learning-layout.css">
   <link rel="stylesheet" href="compare.css">
@@ -15,15 +15,16 @@
   <a class="lesson-skip" href="#lesson-main">本文へ移動</a>
   <main id="lesson-main" tabindex="-1">
     <nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../learning/index.html">学びの入口</a></li><li aria-current="page">コードを比べる</li></ol></nav>
-    <h1>この章のコードを見本と比べる</h1>
-    <p>ファイルを選ぶか、コードを貼り付けてから「比べる」を押します。コードはこのブラウザーの中で文字として比べます。実行したり、送信・保存・上書きしたりしません。</p>
+    <h1>ステップ終了時の見本とコードを比べる</h1>
+    <p>今の自分のコードを、そのステップを終えたときの見本と比べます。ファイルを選ぶか、コードを貼り付けてから「比べる」を押します。コードはこのブラウザーの中で文字として比べます。実行したり、送信・保存・上書きしたりしません。</p>
     <noscript><p>比較にはJavaScriptを有効にしてください。教材の見本は別のページで開けます。</p></noscript>
     <section aria-labelledby="choose-heading">
-      <h2 id="choose-heading">1. 章とファイルを選ぶ</h2>
-      <label for="chapter">比べる章</label>
-      <select id="chapter"><option value="">章を選んでください</option></select>
-      <p id="chapter-description">教材から開くと、その章が選ばれます。</p>
-      <p class="reference-links"><a id="back-link" hidden>元の章へ戻る</a> <a id="game-link" hidden>この章の見本ゲームを開く</a></p>
+      <h2 id="choose-heading">1. ステップとファイルを選ぶ</h2>
+      <label for="chapter">比べるステップ</label>
+      <select id="chapter" aria-describedby="chapter-description"><option value="">ステップを選んでください</option></select>
+      <p id="chapter-description">教材から開くと、そのステップが選ばれます。</p>
+      <div id="step-context" hidden aria-live="polite"><p id="expectation-heading">このステップが終わったとき</p><ul id="step-expectations"></ul></div>
+      <p class="reference-links"><a id="back-link" hidden>元のステップへ戻る</a> <a id="game-link" hidden>このステップの見本ゲームを開く</a></p>
       <label for="file-kind">比べるファイル</label>
       <select id="file-kind"><option value="script.js">script.js（動き）</option><option value="index.html">index.html（画面の置き場所）</option><option value="style.css">style.css（見た目）</option></select>
       <p>HTMLとCSSは教材の手順で用意した内容を見本にします。見本ゲームのタイトルとは異なる場合があります。</p>
@@ -40,7 +41,7 @@
       <label class="check-option"><input id="ignore-blank" type="checkbox"> 空白だけの行を除いて比べる</label>
       <p>文字列の中や行の途中の空白は無視しません。HTML・CSSや判別が難しいコードでは、空白と空白行をそのまま比べます。</p>
       <button id="compare-button" type="button">比べる</button>
-      <p id="status" role="status" aria-live="polite">章を選び、ファイルを選ぶかコードを貼り付けてください。</p>
+      <p id="status" role="status" aria-live="polite">ステップを選び、ファイルを選ぶかコードを貼り付けてください。</p>
     </section>
     <section id="result" hidden tabindex="-1" aria-labelledby="result-heading">
       <h2 id="result-heading">3. 違いを確かめる</h2>
@@ -52,7 +53,7 @@
       <div id="matching-help" hidden>
         <h3>同じでも動かないとき</h3>
         <p>コードの一致だけでは動作を確認できません。保存したか、同じ作業フォルダーのindex.htmlを開いているか、必要なassetsの場所、Consoleのエラーを確かめてください。</p>
-        <p><a id="result-game-link">この章の見本ゲームを開く</a>　<a href="../../learning/debug/index.html">エラーを直す練習を見る</a></p>
+        <p><a id="result-game-link">このステップの見本ゲームを開く</a>　<a href="../../learning/debug/index.html">エラーを直す練習を見る</a></p>
       </div>
     </section>
   </main>

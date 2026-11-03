@@ -4,11 +4,11 @@ const root=path.resolve(__dirname,".."),compareDir=path.join(root,"tutorial/comp
 const engine=require("../tutorial/compare/diff.js");
 const chapters=JSON.parse(read("tutorial/compare/chapters.json"));
 const sandbox={};vm.runInNewContext(read("tutorial/compare/references.js"),sandbox);const data=sandbox.CHAPTER_REFERENCES;
-test("全289章のリンクと章末の見本データが、それぞれ正しいファイルを指す",()=>{
+test("全289ステップのリンクと終了時の見本データが、それぞれ正しいファイルを指す",()=>{
  assert.equal(chapters.length,289);assert.equal(data.length,289);assert.equal(new Set(chapters.map(c=>c.id)).size,289);
  const byPage=new Map();
  for(let i=0;i<chapters.length;i++){
-  const c=chapters[i],d=data[i];assert.equal(d.id,c.id);assert.equal(d.title,c.title);assert.equal(d.chapter,c.chapter);
+  const c=chapters[i],d=data[i];assert.equal(d.id,c.id);assert.equal(d.title,c.title);assert.equal(d.chapter,c.chapter);assert.equal(d.stepLabel,c.stepLabel);assert.equal(JSON.stringify(d.expectations),JSON.stringify(c.expectations));assert.ok(c.expectations.length);
   for(const f of ["index.html","style.css","script.js"])assert.equal(d.files[f],read(c.sources[f]),`${c.id} ${f}`);
   const folder=path.posix.dirname(c.sources["script.js"]);assert.equal(c.game,`${folder}/index.html`);assert.ok(fs.existsSync(path.join(root,c.game)));
   const base=c.page.startsWith("tutorial/")||c.page==="learning/combine/tutorial.html"?"tutorial/05-game":c.page==="learning/debug/index.html"?folder:"template";
@@ -16,6 +16,13 @@ test("全289章のリンクと章末の見本データが、それぞれ正し�
   const page=read(c.page);assert.ok(page.includes(`id="${c.anchor}"`),c.id);const parts=[...page.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)];const chosen=parts.filter(m=>m[0].includes(`?chapter=${c.id}"`));assert.equal(chosen.length,1,c.id);
   const open=chosen[0][0].match(/^<section\b[^>]*>/)[0],sectionId=open.match(/\bid="([^"]+)"/),previous=page.slice(0,chosen[0].index).match(/<span class="toc-anchor" id="([^"]+)"><\/span>\s*$/);assert.equal(sectionId?sectionId[1]:previous&&previous[1],c.anchor,c.id);
   const heading=chosen[0][0].match(/<h2[^>]*>([\s\S]*?)<\/h2>/);assert.ok(heading,c.id);assert.equal(heading[1].replace(/<[^>]+>/g,"").replace(/&amp;/g,"&"),c.chapter,c.id);
+  if(c.page!=="learning/debug/index.html"){
+   const confirmation=chosen[0][0].match(/<h3[^>]*>[^<]*保存[^<]*(?:確認|確かめ)[^<]*<\/h3>([\s\S]*?)(?=<h3|<\/section>)/);assert.ok(confirmation,c.id);
+   const plain=confirmation[1].replace(/<[^>]+>/g,"").replace(/&(?:amp|lt|gt|quot|#39|#x27);/g,x=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#39;":"'","&#x27;":"'"}[x])).replace(/\s+/g," ");
+   for(const expected of c.expectations)assert.ok(plain.includes(expected.replace(/\s+/g," ")),`${c.id}: ${expected}`);
+   assert.match(c.stepLabel,/^ステップ [0-9]+/);
+   assert.ok(chosen[0][0].includes("このステップ終了時の見本と自分のコードを比べる"));
+  }else {assert.match(c.stepLabel,/^修正版：/);assert.equal(c.expectationSource,"練習問題と修正版");assert.ok(chosen[0][0].includes("この練習の修正版と自分のコードを比べる"));}
   const num=heading[1].match(/^ステップ ([0-9]+)/);if(num)assert.equal(path.posix.basename(folder),`step${num[1]}`,c.id);
   const stage=chosen[0][0].match(/data-stage="([^"]+)"/);if(stage)assert.equal(path.posix.basename(folder),stage[1],c.id);
   const coin=chosen[0][0].match(/data-step="([^"]+)"/);if(coin)assert.equal(path.posix.basename(folder),coin[1],c.id);
@@ -67,7 +74,7 @@ class Element {
  fire(type){return Promise.all((this.listeners[type]||[]).map(fn=>fn({target:this})));}
 }
 function ui(query=""){
- const ids=["chapter","file-kind","file-input","own-code","ignore-space","ignore-blank","differences-only","compare-button","status","result","diff-output","result-count","chapter-description","back-link","game-link","result-game-link","matching-help"], elements=Object.fromEntries(ids.map(id=>[id,new Element()]));elements["file-kind"].value="script.js";
+ const ids=["chapter","file-kind","file-input","own-code","ignore-space","ignore-blank","differences-only","compare-button","status","result","diff-output","result-count","chapter-description","back-link","game-link","result-game-link","matching-help","step-context","expectation-heading","step-expectations"], elements=Object.fromEntries(ids.map(id=>[id,new Element()]));elements["file-kind"].value="script.js";
  const document={getElementById:id=>elements[id],createElement:tag=>new Element(tag),createTextNode:text=>{const n=new Element("#text");n.textContent=text;return n;},createDocumentFragment:()=>new Element("#fragment")};
  const context=vm.createContext({document,window:{location:{search:query}},URLSearchParams,Uint16Array,Map,console});
  vm.runInContext(read("tutorial/compare/references.js"),context);vm.runInContext(read("tutorial/compare/diff.js"),context);vm.runInContext(read("tutorial/compare/compare.js"),context);
@@ -81,6 +88,11 @@ test("章指定と種類別データ、入力更新、危険な文字列を文�
  e["own-code"].value=data[0].files["script.js"];await e["own-code"].fire("input");assert.equal(e.result.hidden,true);await e["compare-button"].fire("click");assert.match(e.status.textContent,/見本と同じ/);assert.equal(e["matching-help"].hidden,false);assert.equal(e["diff-output"].children.length,0);e["differences-only"].checked=false;await e["differences-only"].fire("change");assert.ok(e["diff-output"].children.length>0);
  e["file-kind"].value="style.css";await e["file-kind"].fire("change");assert.equal(e.result.hidden,true);assert.equal(e["own-code"].value,"");await e["compare-button"].fire("click");assert.match(e.status.textContent,/style.css/);
  const invalid=ui("?chapter=missing");assert.match(invalid.status.textContent,/見つかりません/);assert.equal(invalid["game-link"].hidden,true);
+});
+test("コインのステップ03とデバッグ修正版は、それぞれの終了時点を表示する",()=>{
+ const coin=chapters.find(c=>c.id==="tutorial-index-html-03-input"),view=ui(`?chapter=${coin.id}`);
+ assert.match(view["chapter-description"].textContent,/ステップ 03/);assert.match(view["step-expectations"].textContent,/移動し、離すと止まります/);assert.match(view["step-expectations"].textContent,/得点はまだ増えません/);assert.equal(view["step-context"].hidden,false);
+ const debug=chapters.find(c=>c.id==="learning-debug-index-html-input"),practice=ui(`?chapter=${debug.id}`);assert.match(practice["chapter-description"].textContent,/修正版/);assert.match(practice["expectation-heading"].textContent,/練習の修正版/);assert.match(practice["step-expectations"].textContent,/100から110/);assert.match(practice["game-link"].textContent,/修正版/);
 });
 test("種類違い、空ファイル、失敗、古い読込結果と入力超過を扱う",async()=>{
  const c=chapters[0],e=ui(`?chapter=${c.id}`);let called=0;

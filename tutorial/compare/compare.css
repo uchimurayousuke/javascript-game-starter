@@ -24,6 +24,10 @@
 .compare-page button:hover { background: #123f5a; }
 .compare-page button:disabled { opacity: 0.6; cursor: wait; }
 .compare-page #status { padding: 0.7em 0.9em; border-left: 5px solid #4b8191; background: #f0f7f8; }
+.compare-page #chapter-description { font-weight: 700; }
+.compare-page #step-context { margin: 1em 0; padding: 0.7em 1em; border-left: 4px solid #4b8191; background: #f0f7f8; }
+.compare-page #expectation-heading { margin: 0; font-weight: 700; }
+.compare-page #step-expectations { margin: 0.4em 0; padding-left: 1.5em; }
 .compare-page .reference-links a { display: inline-block; margin-right: 1em; }
 .compare-page .diff-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin: 10px 0; }
 .compare-page .diff-cell { min-width: 0; border: 1px solid #b5cbd1; border-left: 5px solid #758b92; background: #f5f8f9; }

@@ -10,7 +10,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：爆風を長くする",
+    "expectations": [
+      "爆風が最大2マスまで届くことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-extensions-tutorial-html-step2",
@@ -23,7 +28,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：爆弾を2個まで置く",
+    "expectations": [
+      "違うマスに2個置き、2つの爆発を確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-extensions-tutorial-html-step3",
@@ -36,7 +46,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：敵を巡回させる",
+    "expectations": [
+      "敵が2つのマスを往復し、爆風で倒せます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-tutorial-html-step1",
@@ -49,7 +64,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：盤面を歩く",
+    "expectations": [
+      "矢印で動き、壁と箱で止まります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-tutorial-html-step2",
@@ -62,7 +82,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：爆弾を置く",
+    "expectations": [
+      "Bで爆弾を置き、2秒後に消えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-tutorial-html-step3",
@@ -75,7 +100,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：十字の爆風を作る",
+    "expectations": [
+      "爆弾から離れ、箱が壊れることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-tutorial-html-step4",
@@ -88,7 +118,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：敵と接触を判定する",
+    "expectations": [
+      "爆風を敵へ届かせ、接触で失敗することも確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-bomb-maze-tutorial-html-step5",
@@ -101,7 +136,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/bomb-maze/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：出口と勝敗",
+    "expectations": [
+      "敵を倒して出口まで進みます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-extensions-tutorial-html-step1",
@@ -114,7 +154,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：敵の次の行動を予告する",
+    "expectations": [
+      "敵の予告が攻撃6から防御4へ変わり、次の手番ではその通りに行動します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-extensions-tutorial-html-step2",
@@ -127,7 +172,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：行動力2の強いカード",
+    "expectations": [
+      "強攻撃は行動力2を使って12ダメージを与えます。行動力1では使えません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-extensions-tutorial-html-step3",
@@ -140,7 +190,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：毒の継続効果を加える",
+    "expectations": [
+      "毒を使うと敵の手番開始時に2ずつ減り、3回で効果が終わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-tutorial-html-step1",
@@ -153,7 +208,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：カードとキャラクターを作る",
+    "expectations": [
+      "攻撃6、防御4、回復5のカード、自分HP30、敵HP24が見えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-tutorial-html-step2",
@@ -166,7 +226,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：山札から手札を引く",
+    "expectations": [
+      "手札が3枚、山札が6枚と表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-tutorial-html-step3",
@@ -179,7 +244,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：カードを使って効果を出す",
+    "expectations": [
+      "2枚使うと行動力0になり、3枚目を押してもカードとHPは変わりません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-tutorial-html-step4",
@@ -192,7 +262,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：敵の手番と結果を作る",
+    "expectations": [
+      "防御4の後に敵の攻撃6を受けるとHPは2減ります。敵を倒すと敵の手番はありません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-card-battle-tutorial-html-step5",
@@ -205,7 +280,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/card-battle/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：捨て札を混ぜて再び引く",
+    "expectations": [
+      "カードの合計9枚を保ったまま戦い続けられ、勝敗後はRで最初に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-extensions-tutorial-html-step1",
@@ -218,7 +298,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：アイテムを組み合わせる",
+    "expectations": [
+      "2つを続けて選ぶと点灯ライトが持ち物に現れます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-extensions-tutorial-html-step2",
@@ -231,7 +316,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：隣の部屋へ移動する",
+    "expectations": [
+      "鍵で隣へ進み、戻る扉で戻れます。隣の出口に鍵を使うとクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-extensions-tutorial-html-step3",
@@ -244,7 +334,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：暗い箱と出口の番号",
+    "expectations": [
+      "電池と懐中電灯で箱を照らし、鍵と314で出口を開けます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-tutorial-html-step1",
@@ -257,7 +352,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：部屋の物をクラスで表す",
+    "expectations": [
+      "本棚、引き出し、換気口、扉が表示され、クリックした物の名前が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-tutorial-html-step2",
@@ -270,7 +370,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：引き出しの番号を合わせる",
+    "expectations": [
+      "本棚に241のヒントが出ます。引き出しを開いて数字をクリックし、241で確かめます。戻るで部屋へ戻れます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-tutorial-html-step3",
@@ -283,7 +388,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：持ち物をクラスで管理する",
+    "expectations": [
+      "241でドライバーが出て、部屋に戻り持ち物欄をクリックすると選択の枠が付きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-tutorial-html-step4",
@@ -296,7 +406,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：道具を使って脱出する",
+    "expectations": [
+      "道具なしでは換気口と扉は開きません。ドライバーを選んで換気口、鍵を選んで扉を押すとクリアです。Rで再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-escape-tutorial-html-step5",
@@ -309,7 +424,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/escape/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：ゲーム全体をクラスにまとめる",
+    "expectations": [
+      "脱出してからRを押すと番号、持ち物、状態が初期化されます。道具の順番を変えても先に進めます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-extensions-tutorial-html-step1",
@@ -322,7 +442,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：着地点を予告する",
+    "expectations": [
+      "薄い形が図形を落としたときの位置に表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-extensions-tutorial-html-step2",
@@ -335,7 +460,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：一気に落とす",
+    "expectations": [
+      "Spaceで図形が一気に落ちて固定されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-extensions-tutorial-html-step3",
@@ -348,7 +478,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：次の形を予告する",
+    "expectations": [
+      "次の形を見てから落とし、その形が次に現れることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-tutorial-html-step1",
@@ -361,7 +496,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：盤面と図形を描く",
+    "expectations": [
+      "8列14行の盤面と正方形が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-tutorial-html-step2",
@@ -374,7 +514,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：落下と移動",
+    "expectations": [
+      "左右と下のキーで図形を動かし、自動で落ちる様子を見ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-tutorial-html-step3",
@@ -387,7 +532,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：回転を試す",
+    "expectations": [
+      "上キーで回転し、盤外や固定したマスに重なる回転が止まることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-tutorial-html-step4",
@@ -400,7 +550,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：図形を固定する",
+    "expectations": [
+      "図形を下まで落とすと固定され、次の図形が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-falling-blocks-tutorial-html-step5",
@@ -413,7 +568,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/falling-blocks/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：行を消して得点する",
+    "expectations": [
+      "横一列を埋めると100点が入り、合計2行でクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-extensions-tutorial-html-step1",
@@ -426,7 +586,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：連鎖の追加点",
+    "expectations": [
+      "連鎖が起きたときの得点を確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-extensions-tutorial-html-step2",
@@ -439,7 +604,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：制限時間",
+    "expectations": [
+      "60秒を過ぎると時間切れになります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-extensions-tutorial-html-step3",
@@ -452,7 +622,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：選んだ列を消す",
+    "expectations": [
+      "マスを選んでCを押し、その列が消えることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-tutorial-html-step1",
@@ -465,7 +640,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：盤面を作る",
+    "expectations": [
+      "6×6にA〜Dの文字が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-tutorial-html-step2",
@@ -478,7 +658,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：隣を交換する",
+    "expectations": [
+      "隣同士をクリックすると交換されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-tutorial-html-step3",
@@ -491,7 +676,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：3つ以上を判定する",
+    "expectations": [
+      "そろわない交換は元に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-tutorial-html-step4",
@@ -504,7 +694,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：消去と落下",
+    "expectations": [
+      "そろう交換で消えて補充されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-match3-tutorial-html-step5",
@@ -517,7 +712,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/match3/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：手数と勝敗",
+    "expectations": [
+      "120点を目指し、10手以内に達すればクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-extensions-tutorial-html-stomp",
@@ -530,7 +730,13 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/extensions/stomp/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1（発展課題）：敵を上から踏んで倒す",
+    "expectations": [
+      "敵の少し手前からジャンプし、敵の真上で移動キーを離して着地します。敵が消え、プレイヤーがはねれば成功です。",
+      "ジャンプせずに敵へ歩いてぶつかります。失敗することを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-extensions-tutorial-html-dash",
@@ -543,7 +749,13 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/extensions/dash/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2（発展課題）：Shift キーでダッシュする",
+    "expectations": [
+      "同じ地面で、右キーだけの場合と、Shift と右キーを押した場合の速さを比べます。",
+      "左右の Shift を両方押し、片方だけ離します。ダッシュが続くことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-extensions-tutorial-html-checkpoint",
@@ -556,7 +768,13 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/extensions/checkpoint/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3（発展課題）：中間ポイントから再挑戦する",
+    "expectations": [
+      "目印に触れ、色と左上の表示が変わることを確かめます。",
+      "目印の先のすき間へ落ち、R を押します。中間から再開し、それまでのコインと倒した敵の数が残ることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-tutorial-html-step1",
@@ -569,7 +787,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：プレイヤーと地面を描く",
+    "expectations": [
+      "青い四角が緑の地面の上に見えます。まだ動きません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-tutorial-html-step2",
@@ -582,7 +805,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：移動とジャンプ・重力",
+    "expectations": [
+      "左右キーで移動し、Space または上キーでジャンプします。空中で押し直しても二段ジャンプしません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-tutorial-html-step3",
@@ -595,7 +823,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：複数の地形と衝突する",
+    "expectations": [
+      "壁に向かうと止まり、ジャンプで乗れます。頭上の足場の下から跳ぶと頭が止まり、上から落ちると着地します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-tutorial-html-step4",
@@ -608,7 +841,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：長いステージとカメラ",
+    "expectations": [
+      "右へ進むと背景が左へ流れます。二つのすき間はジャンプで越えます。落ちたら最初に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-tutorial-html-step5",
@@ -621,7 +859,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：コインと敵を置く",
+    "expectations": [
+      "黄色いコインに触れると数が増えます。右へ進み、2体の赤い敵が別々の場所を動くことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-platformer-tutorial-html-step6",
@@ -634,7 +877,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/platformer/step6/script.js"
-    }
+    },
+    "stepLabel": "ステップ 6：ゴール・失敗・再挑戦",
+    "expectations": [
+      "敵に触れるか落下すると終了し、右端の紫色のゴールに触れるとクリアです。R で最初から遊べます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-extensions-tutorial-html-step1",
@@ -647,7 +895,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：店で薬を買う",
+    "expectations": [
+      "店を向いてSpaceを押すと、3コインで薬を1個買えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-extensions-tutorial-html-step2",
@@ -660,7 +913,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：敵との戦闘",
+    "expectations": [
+      "赤い敵を調べ、Aで2回攻撃して倒します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-extensions-tutorial-html-step3",
@@ -673,7 +931,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：経験値とレベル",
+    "expectations": [
+      "敵を倒すと経験値4でレベル2になり、最大HPが12になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-tutorial-html-step1",
@@ -686,7 +949,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：マップと人物を描く",
+    "expectations": [
+      "壁、住人、宝、扉と自分が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-tutorial-html-step2",
@@ -699,7 +967,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：壁と移動",
+    "expectations": [
+      "矢印で歩き、壁や物のマスへは入れないことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-tutorial-html-step3",
@@ -712,7 +985,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：住人と会話する",
+    "expectations": [
+      "住人を向いてSpaceを押すと会話が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-tutorial-html-step4",
@@ -725,7 +1003,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：宝を渡して鍵をもらう",
+    "expectations": [
+      "住人に話し、宝を拾ってから住人へ戻ると鍵をもらえます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-quest-rpg-tutorial-html-step5",
@@ -738,7 +1021,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/quest-rpg/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：鍵で扉を開ける",
+    "expectations": [
+      "鍵をもらって扉を向き、Spaceを押すとクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-extensions-tutorial-html-step1",
@@ -751,7 +1039,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：期間限定のブースト",
+    "expectations": [
+      "Spaceで残り回数が1減り、加速中の最高速度が上がります。Rで2回に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-extensions-tutorial-html-step2",
@@ -764,7 +1057,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：道路外で減速する",
+    "expectations": [
+      "道路から外れると遅くなり、戻ると加速できます。画面の外へは出ません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-extensions-tutorial-html-step3",
@@ -777,7 +1075,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ラップとベストを記録する",
+    "expectations": [
+      "番号順に2周すると各周の時間と最速が表示されます。Rで再挑戦しても最速は残ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-tutorial-html-step1",
@@ -790,7 +1093,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：コースと車をクラスで描く",
+    "expectations": [
+      "道路と、左上に右向きの車が見えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-tutorial-html-step2",
@@ -803,7 +1111,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：加速して向きに進む",
+    "expectations": [
+      "上で加速し、左右で曲がります。キーを離すと少しずつ減速します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-tutorial-html-step3",
@@ -816,7 +1129,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：道路の外へ出ない",
+    "expectations": [
+      "道路の端に進もうとすると、車は直前の位置に残り速さが0になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-tutorial-html-step4",
@@ -829,7 +1147,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：4地点を順に通る",
+    "expectations": [
+      "右上から順に4地点を通ると周回が1増えます。ゴール近くを往復するだけでは増えません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-racing-tutorial-html-step5",
@@ -842,7 +1165,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/racing/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：2周の時間を記録する",
+    "expectations": [
+      "実際に道路を2周すると時間が止まり、Rで時間、車、周回と次の地点が戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-extensions-tutorial-html-step1",
@@ -855,7 +1183,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：ためてシュート",
+    "expectations": [
+      "Spaceを押し続け、離したときにシュートします。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-extensions-tutorial-html-step2",
@@ -868,7 +1201,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：スタミナとダッシュ",
+    "expectations": [
+      "Shiftを押して走ると体力が減り、離すと回復します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-extensions-tutorial-html-step3",
@@ -881,7 +1219,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：相手の速さを切り替える",
+    "expectations": [
+      "Dを押すと相手の速さが切り替わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-tutorial-html-step1",
@@ -894,7 +1237,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：ピッチと選手を描く",
+    "expectations": [
+      "ピッチ、両ゴール、青と赤の選手、ボールが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-tutorial-html-step2",
@@ -907,7 +1255,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：選手を動かす",
+    "expectations": [
+      "矢印キーで青い選手が動き、キーを離すと止まります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-tutorial-html-step3",
@@ -920,7 +1273,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ボールを蹴る",
+    "expectations": [
+      "ボールに近づいてSpaceを押すと、ボールが進んで減速します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-tutorial-html-step4",
@@ -933,7 +1291,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：相手を動かす",
+    "expectations": [
+      "相手がボールへ近づき、近いときに左へ蹴ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-soccer-tutorial-html-step5",
@@ -946,7 +1309,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/soccer/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：ゴールと勝敗",
+    "expectations": [
+      "ゴールの枠に入ると得点し、3点先取で勝敗が決まります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-extensions-tutorial-html-step1",
@@ -959,7 +1327,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：射程の違う仲間",
+    "expectations": [
+      "弓を選ぶと、距離2の敵にも攻撃できます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-extensions-tutorial-html-step2",
@@ -972,7 +1345,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：地形と移動コスト",
+    "expectations": [
+      "森へは移動力2が必要で、壁やほかのユニットは通り抜けられません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-extensions-tutorial-html-step3",
@@ -985,7 +1363,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：回復役を加える",
+    "expectations": [
+      "回復役を選んでHを押し、隣の味方をクリックするとHPが2回復します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-tutorial-html-step1",
@@ -998,7 +1381,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：盤面とユニットを描く",
+    "expectations": [
+      "6列5行の盤面に青い味方2体と赤い敵2体が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-tutorial-html-step2",
@@ -1011,7 +1399,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：選択して移動する",
+    "expectations": [
+      "味方をクリックして隣の空きマスへ移動し、同じ番に二度は移動できないことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-tutorial-html-step3",
@@ -1024,7 +1417,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：隣を攻撃する",
+    "expectations": [
+      "選んだ味方の隣にいる敵をクリックすると、敵のHPが2減ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-tutorial-html-step4",
@@ -1037,7 +1435,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：敵の番を作る",
+    "expectations": [
+      "Enterで敵が1体ずつ動き、味方の番が戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tactics-tutorial-html-step5",
@@ -1050,7 +1453,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tactics/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：勝敗を判定する",
+    "expectations": [
+      "敵を全員倒すと勝ち、味方が全員倒れると負けになります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-extensions-tutorial-html-step1",
@@ -1063,7 +1471,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：タワーを強化する",
+    "expectations": [
+      "3基置いた後は所持金が0なので強化できません。敵を倒した報酬で20たまると強化できます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-extensions-tutorial-html-step2",
@@ -1076,7 +1489,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：速い敵と硬い敵",
+    "expectations": [
+      "各集団で通常、速い敵、硬い敵の順に現れます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-extensions-tutorial-html-step3",
@@ -1089,7 +1507,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：最後にボスを出す",
+    "expectations": [
+      "最後に紫色のボスが現れ、防ぎきるとクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-tutorial-html-step1",
@@ -1102,7 +1525,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：敵をクラスで作り道を進む",
+    "expectations": [
+      "赤い敵が左から進み、曲がって右側へ向かいます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-tutorial-html-step2",
@@ -1115,7 +1543,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：タワーを置く",
+    "expectations": [
+      "枠をクリックすると青いタワーが置かれ、所持金60から20減ります。同じ枠には重ねて置けません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-tutorial-html-step3",
@@ -1128,7 +1561,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：射程内の敵を探す",
+    "expectations": [
+      "タワーを敵の近くに置くと、体力がなくなった敵が消えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-tutorial-html-step4",
@@ -1141,7 +1579,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：弾を飛ばす",
+    "expectations": [
+      "敵が射程に入ると黄色い弾が飛び、2回当たると敵が消えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-advanced-tower-defense-tutorial-html-step5",
@@ -1154,7 +1597,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/advanced/tower-defense/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：3回の波と結果を作る",
+    "expectations": [
+      "3つの枠にタワーを置き、3回の波を防ぐとクリアです。3体通すと失敗し、Rで最初からやり直せます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-bounce-extensions-tutorial-html-step1",
@@ -1167,7 +1615,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/bounce/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：残り回数を作る",
+    "expectations": [
+      "落とすと残りが2になり、ボールが中央へ戻ります。3回落とすと終了し、Rで再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-bounce-extensions-tutorial-html-step2",
@@ -1180,7 +1633,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/bounce/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：当てる場所で向きを変える",
+    "expectations": [
+      "板の中央ではほぼ真上、左右ではそれぞれの側へはね返ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-bounce-extensions-tutorial-html-step3",
@@ -1193,7 +1651,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/bounce/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：回数で速くなる",
+    "expectations": [
+      "3回はね返すと、それまでより速く動きます。残り0で終了し、Rで速さも戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-bounce-tutorial-html-step1",
@@ -1206,7 +1669,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/bounce/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：ボールを動かす",
+    "expectations": [
+      "ボールが四方の端ではね返ることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-bounce-tutorial-html-step2",
@@ -1219,7 +1687,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/bounce/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：板を左右に動かす",
+    "expectations": [
+      "左右の矢印キーで板が動き、画面の端で止まることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-bounce-tutorial-html-step3",
@@ -1232,7 +1705,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/bounce/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：板で反射して得点する",
+    "expectations": [
+      "板に当たると回数が増え、落とすと終了します。R で初期状態に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-number-guess-extensions-tutorial-html-step1",
@@ -1245,7 +1723,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/number-guess/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：回答の履歴を残す",
+    "expectations": [
+      "8と15を答えた後も履歴が残り、Rで消えることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-number-guess-extensions-tutorial-html-step2",
@@ -1258,7 +1741,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/number-guess/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：候補の範囲をしぼる",
+    "expectations": [
+      "答えが12の例で8、15の順に入力すると候補が9〜14になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-number-guess-extensions-tutorial-html-step3",
@@ -1271,7 +1759,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/number-guess/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：難易度を切り替える",
+    "expectations": [
+      "Dで1〜100・7回に切り替わり、100を入力できます。もう一度Dで1〜20に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-number-guess-tutorial-html-step1",
@@ -1284,7 +1777,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/number-guess/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：数字を入力して表示する",
+    "expectations": [
+      "数字を打つと表示され、Backspace で最後の1文字が消えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-number-guess-tutorial-html-step2",
@@ -1297,7 +1795,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/number-guess/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：大小を比べてヒントを出す",
+    "expectations": [
+      "8、15、12をそれぞれ入力して Enter を押し、3種類の表示を確かめます。空欄や21も試します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-number-guess-tutorial-html-step3",
@@ -1310,7 +1813,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/number-guess/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ランダムな数と回数を付ける",
+    "expectations": [
+      "空欄、0、21は回数が減らないことを確かめます。ヒントを使って当て、5回外す場合も試し、R で再挑戦します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-extensions-tutorial-html-step1",
@@ -1323,7 +1831,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：出題順を混ぜる",
+    "expectations": [
+      "Rで数回再開すると、問題の順番が変わることがあります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-extensions-tutorial-html-step2",
@@ -1336,7 +1849,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：答えの解説を出す",
+    "expectations": [
+      "答えた後に、その問題の計算の説明が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-extensions-tutorial-html-step3",
@@ -1349,7 +1867,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：1問ごとの時間制限",
+    "expectations": [
+      "10秒答えずに待つと時間切れになり、Enterで次の問題へ進みます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-tutorial-html-step1",
@@ -1362,7 +1885,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：問題を表示する",
+    "expectations": [
+      "「3 + 4 は？」と表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-tutorial-html-step2",
@@ -1375,7 +1903,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：3つの選択肢を出す",
+    "expectations": [
+      "6・7・8の選択肢が1〜3に並びます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-tutorial-html-step3",
@@ -1388,7 +1921,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：答えを判定する",
+    "expectations": [
+      "2を押すと正解になり、Enterで結果へ進みます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-tutorial-html-step4",
@@ -1401,7 +1939,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：次の問題へ進む",
+    "expectations": [
+      "答えた後にEnterを押して5問進め、結果を見ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-quiz-tutorial-html-step5",
@@ -1414,7 +1957,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/quiz/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：結果と目標を確認する",
+    "expectations": [
+      "3問以上正解してクリア表示を確かめ、Rで再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-extensions-tutorial-html-step1",
@@ -1427,7 +1975,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：持ち物と鍵の扉",
+    "expectations": [
+      "鍵を拾い、広場の3で扉を開けます。鍵なしでは扉が開きません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-extensions-tutorial-html-step2",
@@ -1440,7 +1993,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：前の選択へ戻る",
+    "expectations": [
+      "鍵を拾った直後にBを押すと、鍵を持っていない場面に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-extensions-tutorial-html-step3",
@@ -1453,7 +2011,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：花を持った結末",
+    "expectations": [
+      "鍵と花を両方集めて扉へ行くと、花を手にした結末になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-tutorial-html-step1",
@@ -1466,7 +2029,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：森の場面を描く",
+    "expectations": [
+      "森の入口の文章が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-tutorial-html-step2",
@@ -1479,7 +2047,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：選択肢を並べる",
+    "expectations": [
+      "広場へ進む1と川へ進む2が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-tutorial-html-step3",
@@ -1492,7 +2065,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：選択して場面を変える",
+    "expectations": [
+      "1で広場、再読み込み後に2で川の場面を表示します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-tutorial-html-step4",
@@ -1505,7 +2083,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：2つの結末を作る",
+    "expectations": [
+      "広場で1か2を選ぶと、それぞれ違う結末になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-story-tutorial-html-step5",
@@ -1518,7 +2101,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/story/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：結末から再開する",
+    "expectations": [
+      "結末でRを押すと森の入口に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-target-extensions-tutorial-html-step1",
@@ -1531,7 +2119,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/target/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：動く的",
+    "expectations": [
+      "的が動き、端まで来ると向きを変えます。Rで中央から再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-target-extensions-tutorial-html-step2",
@@ -1544,7 +2137,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/target/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：命中すると小さくなる",
+    "expectations": [
+      "クリックで命中すると半径の表示が35から33に変わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-target-extensions-tutorial-html-step3",
@@ -1557,7 +2155,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/target/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：連続命中のボーナス",
+    "expectations": [
+      "3回連続で当てると得点は5、半径は29です。外すと連続回数が0になり、Rで全部戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-target-tutorial-html-step1",
@@ -1570,7 +2173,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/target/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：的を描く",
+    "expectations": [
+      "赤い円が中央に見えることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-target-tutorial-html-step2",
@@ -1583,7 +2191,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/target/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：クリックで得点する",
+    "expectations": [
+      "的をクリックすると得点が増え、別の場所に移ることを確かめます。外側では増えません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-target-tutorial-html-step3",
@@ -1596,7 +2209,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/target/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：制限時間をつける",
+    "expectations": [
+      "20秒後に終了と表示され、クリックしても得点が増えないことを確かめます。R で再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-timing-extensions-tutorial-html-step1",
@@ -1609,7 +2227,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/timing/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：3ラウンドにする",
+    "expectations": [
+      "Spaceで止めて次に進み、3回を終えます。終了後のRで1回目から再挑戦します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-timing-extensions-tutorial-html-step2",
@@ -1622,7 +2245,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/timing/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：成功範囲を狭くする",
+    "expectations": [
+      "1回目から3回目へ進むと緑の帯が狭くなります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-timing-extensions-tutorial-html-step3",
@@ -1635,7 +2263,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/timing/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：中央付近に追加点",
+    "expectations": [
+      "中央に近い位置で止めると2点、成功範囲の端では1点です。Rで得点も戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-timing-tutorial-html-step1",
@@ -1648,7 +2281,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/timing/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：画面に目標と線を描く",
+    "expectations": [
+      "緑の帯と、その左側に青い線が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-timing-tutorial-html-step2",
@@ -1661,7 +2299,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/timing/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：線を左右に動かす",
+    "expectations": [
+      "青い線が左右に動き、端で折り返します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-timing-tutorial-html-step3",
@@ -1674,7 +2317,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/timing/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：止めて成功を判定する",
+    "expectations": [
+      "スペースで緑の中と外に止めて結果を確かめ、R で左端から再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-typing-extensions-tutorial-html-step1",
@@ -1687,7 +2335,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/typing/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：単語を混ぜて出す",
+    "expectations": [
+      "終了後にRを押して何回か始めると、単語の順番が変わることがあります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-typing-extensions-tutorial-html-step2",
@@ -1700,7 +2353,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/typing/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：連続正解で追加点",
+    "expectations": [
+      "ミスなしで3語打つと、3語目の得点に連続ボーナス5点が加わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-typing-extensions-tutorial-html-step3",
@@ -1713,7 +2371,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/typing/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ミスで残り時間を減らす",
+    "expectations": [
+      "誤った英字を押すと残り時間が2秒減ります。時間切れ後はRで再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-typing-tutorial-html-step1",
@@ -1726,7 +2389,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/typing/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：英字を画面に表示する",
+    "expectations": [
+      "画面に a が大きく表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-typing-tutorial-html-step2",
@@ -1739,7 +2407,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/typing/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：打った文字を順番に確かめる",
+    "expectations": [
+      "a、c、a、t、d、o、g の順に打つと終了します。途中で違う英字を打っても進みません。R で再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-beginner-typing-tutorial-html-step3",
@@ -1752,7 +2425,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/beginner/typing/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：時間と得点を付ける",
+    "expectations": [
+      "英字を打って得点を確認します。30秒待つと時間切れになり、R で得点と時間が戻ります。全部打てた場合も R で再開できます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-breakout-extensions-tutorial-html-step1",
@@ -1765,7 +2443,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/breakout/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：丈夫なブロック",
+    "expectations": [
+      "濃いブロックに1回当てると色が変わり、もう一度当てると消えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-breakout-extensions-tutorial-html-step2",
@@ -1778,7 +2461,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/breakout/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：残り回数を作る",
+    "expectations": [
+      "一度落とすと残り2で続き、3回落とすと終了します。Rで残りとブロックが戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-breakout-extensions-tutorial-html-step3",
@@ -1791,7 +2479,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/breakout/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：2ステージにする",
+    "expectations": [
+      "1面目をすべて壊すと2面目が始まり、2面目を壊すとクリアです。Rで1面目から再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-breakout-tutorial-html-step1",
@@ -1804,7 +2497,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/breakout/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：板とボールを動かす",
+    "expectations": [
+      "左右で板が動き、ボールを受け止められることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-breakout-tutorial-html-step2",
@@ -1817,7 +2515,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/breakout/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：ブロックを並べる",
+    "expectations": [
+      "3行8列のブロックが表示されることを確かめます。この段階ではまだこわれません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-breakout-tutorial-html-step3",
@@ -1830,7 +2533,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/breakout/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：当たり判定と終了を加える",
+    "expectations": [
+      "ブロックが消え、全部こわすとクリアになります。落とすと終了し、R で再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-extensions-tutorial-html-step1",
@@ -1843,7 +2551,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：最初にカードを見せる",
+    "expectations": [
+      "始めると全部の文字が2秒見え、その間はカードをめくれません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-extensions-tutorial-html-step2",
@@ -1856,7 +2569,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：比較した回数を数える",
+    "expectations": [
+      "同じ組を見つけても、違う2枚でも、比較回数が1増えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-extensions-tutorial-html-step3",
@@ -1869,7 +2587,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：制限時間を加える",
+    "expectations": [
+      "公開後に60秒を過ぎると時間切れになり、Rで再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-tutorial-html-step1",
@@ -1882,7 +2605,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：カードを並べる",
+    "expectations": [
+      "裏向きのカードが2行4列で表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-tutorial-html-step2",
@@ -1895,7 +2623,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：選んだカードをめくる",
+    "expectations": [
+      "枠が左右に動き、Enterで選んだカードの文字が見えます。もう一度押すと閉じます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-tutorial-html-step3",
@@ -1908,7 +2641,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：2枚を比べてそろえる",
+    "expectations": [
+      "AとBを開くと1秒後に閉じ、AとAは残ります。待ち中は3枚目を選べず、Rでいつでもやり直せます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-memory-tutorial-html-step4",
@@ -1921,7 +2659,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/memory/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：並びを混ぜてクリックでも遊ぶ",
+    "expectations": [
+      "何度かRでやり直すと並びが変わることがあります。カードの隙間は反応せず、待ち中やそろったカードもめくれません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-extensions-tutorial-html-step1",
@@ -1934,7 +2677,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：経過時間を表示する",
+    "expectations": [
+      "初めて開いてから秒数が増え、終了すると止まります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-extensions-tutorial-html-step2",
@@ -1947,7 +2695,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：難易度を切り替える",
+    "expectations": [
+      "Dで5×5と8×8を切り替え、表示される爆弾数を確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-extensions-tutorial-html-step3",
@@ -1960,7 +2713,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：数字から周囲を開く",
+    "expectations": [
+      "開いた数字の周囲に同じ数の旗を置き、数字をクリックして残りを開きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-tutorial-html-step1",
@@ -1973,7 +2731,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：盤面を作る",
+    "expectations": [
+      "25マスの盤面が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-tutorial-html-step2",
@@ -1986,7 +2749,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：周囲の爆弾を数える",
+    "expectations": [
+      "左上の角の爆弾の斜め隣には1が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-tutorial-html-step3",
@@ -1999,7 +2767,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：開いて勝敗を決める",
+    "expectations": [
+      "爆弾を開くと失敗し、爆弾以外を開くとクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-tutorial-html-step4",
@@ -2012,7 +2785,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：旗を置く",
+    "expectations": [
+      "右クリックで旗を付け、もう一度右クリックして外します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-minesweeper-tutorial-html-step5",
@@ -2025,7 +2803,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/minesweeper/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：安全な初手と連鎖",
+    "expectations": [
+      "最初に開いたマスとその周囲が安全で、0のマスから周囲が開きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-extensions-tutorial-html-step1",
@@ -2038,7 +2821,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：1手戻す",
+    "expectations": [
+      "塗った後Uを押すと前の状態に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-extensions-tutorial-html-step2",
@@ -2051,7 +2839,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：完成した行列を示す",
+    "expectations": [
+      "正しい行や列の数字が緑になり、印が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-extensions-tutorial-html-step3",
@@ -2064,7 +2857,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：問題を選ぶ",
+    "expectations": [
+      "1と2で問題とヒントが切り替わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-tutorial-html-step1",
@@ -2077,7 +2875,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：5×5の盤面を描く",
+    "expectations": [
+      "5×5の盤面が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-tutorial-html-step2",
@@ -2090,7 +2893,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：行と列のヒントを出す",
+    "expectations": [
+      "行と列に続くマスの数が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-tutorial-html-step3",
@@ -2103,7 +2911,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：マスを塗る",
+    "expectations": [
+      "クリックと右クリックを試します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-tutorial-html-step4",
@@ -2116,7 +2929,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：完成を判定する",
+    "expectations": [
+      "ヒントを見て塗り、正しければ完成です。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-nonogram-tutorial-html-step5",
@@ -2129,7 +2947,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/nonogram/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：再開する",
+    "expectations": [
+      "Rで空の盤面に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-extensions-tutorial-html-step1",
@@ -2142,7 +2965,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：2レーンにする",
+    "expectations": [
+      "DとFで交互のレーンを押します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-extensions-tutorial-html-step2",
@@ -2155,7 +2983,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：連続成功を数える",
+    "expectations": [
+      "3連続成功で追加の1点を確認します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-extensions-tutorial-html-step3",
@@ -2168,7 +3001,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：判定を細かく分ける",
+    "expectations": [
+      "線に近いタイミングと少しずれたタイミングを比べます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-tutorial-html-step1",
@@ -2181,7 +3019,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：レーンと譜面を描く",
+    "expectations": [
+      "譜面とレーンが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-tutorial-html-step2",
@@ -2194,7 +3037,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：時刻でノートを動かす",
+    "expectations": [
+      "Enterで開始するとノートが判定線へ近づきます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-tutorial-html-step3",
@@ -2207,7 +3055,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：タイミングで判定する",
+    "expectations": [
+      "線に重なるころSpaceを押すと1点になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-tutorial-html-step4",
@@ -2220,7 +3073,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：見逃しを数える",
+    "expectations": [
+      "押さずに待つと見逃しになります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-rhythm-tutorial-html-step5",
@@ -2233,7 +3091,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/rhythm/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：結果と再挑戦",
+    "expectations": [
+      "8拍を終え、6点以上でクリアを確認します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shooting-extensions-tutorial-html-step1",
@@ -2246,7 +3109,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shooting/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：速さと耐久の違う敵",
+    "expectations": [
+      "濃い色の敵には2発、赤い敵には1発当てると倒せます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shooting-extensions-tutorial-html-step2",
@@ -2259,7 +3127,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shooting/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：敵弾と残り回数",
+    "expectations": [
+      "敵弾に当たると残りが1減り、「無敵中」が表示されます。Rで残り3に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shooting-extensions-tutorial-html-step3",
@@ -2272,7 +3145,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shooting/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ボスを倒す",
+    "expectations": [
+      "敵を6体倒すと大きなボスが現れ、6発当てるとクリアです。Rで最初から再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shooting-tutorial-html-step1",
@@ -2285,7 +3163,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shooting/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：自機を動かす",
+    "expectations": [
+      "左右の矢印キーで青い自機が動くことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shooting-tutorial-html-step2",
@@ -2298,7 +3181,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shooting/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：弾を撃つ",
+    "expectations": [
+      "スペースキーを押し続けると弾が間隔をあけて上へ進むことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shooting-tutorial-html-step3",
@@ -2311,7 +3199,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shooting/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：敵と当たり判定を加える",
+    "expectations": [
+      "敵に弾が当たると両方が消え、得点が増えます。敵を見逃すと終了し、R で再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-extensions-tutorial-html-step1",
@@ -2324,7 +3217,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：売値を調整する",
+    "expectations": [
+      "パンを選んで上キーを押すと売値40、下キーを2回押すと30になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-extensions-tutorial-html-step2",
@@ -2337,7 +3235,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：値段で需要を変える",
+    "expectations": [
+      "上下キーで売値を変えると需要が変わります。在庫より多く売れないことも確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-extensions-tutorial-html-step3",
@@ -2350,7 +3253,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：日ごとの出来事を加える",
+    "expectations": [
+      "2日目はパン、3日目はジュースの需要が増えると表示されます。所持金160以上を目指して3日間遊びます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-tutorial-html-step1",
@@ -2363,7 +3271,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：商品を並べる",
+    "expectations": [
+      "パン、ジュース、りんごの値段と所持金100が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-tutorial-html-step2",
@@ -2376,7 +3289,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：商品を仕入れる",
+    "expectations": [
+      "パンを3個仕入れると所持金40、在庫3になります。お金が足りない仕入れはできません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-tutorial-html-step3",
@@ -2389,7 +3307,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：販売と日数を加える",
+    "expectations": [
+      "パン3個を仕入れ、販売で2個売ると所持金110、在庫1です。3日間を終え、Rで再挑戦します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-shop-tutorial-html-step4",
@@ -2402,7 +3325,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/shop/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：需要を見て仕入れ、自動で売る",
+    "expectations": [
+      "需要が2のパンを3個仕入れて販売に進むと、所持金は40から110、在庫は1になります。3日後に160以上ならクリアです。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-snake-extensions-tutorial-html-step1",
@@ -2415,7 +3343,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/snake/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：障害物を置く",
+    "expectations": [
+      "灰色の3マスに当たると終了し、Rで再開できます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-snake-extensions-tutorial-html-step2",
@@ -2428,7 +3361,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/snake/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：得点で速くする",
+    "expectations": [
+      "得点が増えると間隔の表示が小さくなり、動きが速くなります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-snake-extensions-tutorial-html-step3",
@@ -2441,7 +3379,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/snake/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：時間限定のボーナス",
+    "expectations": [
+      "得点2で紫の食べ物が現れ、5秒後に消えます。取れたときは2点増えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-snake-tutorial-html-step1",
@@ -2454,7 +3397,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/snake/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：マス目とヘビを描く",
+    "expectations": [
+      "マス目と横向きの緑のヘビが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-snake-tutorial-html-step2",
@@ -2467,7 +3415,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/snake/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：マス目を移動する",
+    "expectations": [
+      "矢印キーで進み、反対向きには急に戻れないことを確かめます。この段階は端を越えると反対側へ出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-snake-tutorial-html-step3",
@@ -2480,7 +3433,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/snake/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：食べ物と衝突を加える",
+    "expectations": [
+      "食べ物を取ると体と得点が増えます。壁や体に当たった後、Rで最初から再開します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-extensions-tutorial-html-step1",
@@ -2493,7 +3451,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：1手戻す",
+    "expectations": [
+      "箱を押した後にUを押すと、人と箱が前の位置へ戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-extensions-tutorial-html-step2",
@@ -2506,7 +3469,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：歩数と評価",
+    "expectations": [
+      "移動すると歩数が増え、Uで戻すと歩数も戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-extensions-tutorial-html-step3",
@@ -2519,7 +3487,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：2つのステージ",
+    "expectations": [
+      "1面を解いてEnterを押し、2面を解きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-tutorial-html-step1",
@@ -2532,7 +3505,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：盤面を描く",
+    "expectations": [
+      "7列7行の盤面に人、箱2個、目標2個が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-tutorial-html-step2",
@@ -2545,7 +3523,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：壁と移動を作る",
+    "expectations": [
+      "矢印で人を動かし、壁と箱には入れないことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-tutorial-html-step3",
@@ -2558,7 +3541,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：箱を押す",
+    "expectations": [
+      "箱の先が空いていれば押せ、壁や箱なら押せません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-tutorial-html-step4",
@@ -2571,7 +3559,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：目標を判定する",
+    "expectations": [
+      "2個の箱を目標へ置くと移動が止まります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "examples-intermediate-sokoban-tutorial-html-step5",
@@ -2584,7 +3577,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "examples/intermediate/sokoban/step5/script.js"
-    }
+    },
+    "stepLabel": "ステップ 5：クリアを表示する",
+    "expectations": [
+      "箱を2個とも目標に置くとクリアと表示され、Rで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-camera-tutorial-html-step1",
@@ -2597,7 +3595,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/camera/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：世界の中で人を動かす",
+    "expectations": [
+      "矢印で人を動かします。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-camera-tutorial-html-step2",
@@ -2610,7 +3613,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/camera/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：カメラを追従させる",
+    "expectations": [
+      "右へ進むとカメラが動き、左端では0より小さくなりません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-camera-tutorial-html-step3",
@@ -2623,7 +3631,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/camera/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：クリックを世界座標へ戻す",
+    "expectations": [
+      "カメラを動かしてクリックすると、世界の座標が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-delta-time-tutorial-html-step1",
@@ -2636,7 +3649,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/delta-time/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：経過秒を測る",
+    "expectations": [
+      "経過秒の表示が更新されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-delta-time-tutorial-html-step2",
@@ -2649,7 +3667,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/delta-time/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：経過秒に応じて動かす",
+    "expectations": [
+      "四角が右へ進み、端を越えると左へ戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-delta-time-tutorial-html-step3",
@@ -2662,7 +3685,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/delta-time/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：大きすぎる時間を制限する",
+    "expectations": [
+      "長く停止した後の1回の移動は最大6ピクセルです。R後の初回は進みません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-fade-tutorial-html-step1",
@@ -2675,7 +3703,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/fade/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：画面を表示する",
+    "expectations": [
+      "画面Aが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-fade-tutorial-html-step2",
@@ -2688,7 +3721,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/fade/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：暗くして切り替える",
+    "expectations": [
+      "Enterで暗くなり、画面Bへ変わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-fade-tutorial-html-step3",
@@ -2701,7 +3739,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/fade/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：切り替え後に明るくする",
+    "expectations": [
+      "Enterで暗転し、Bになってから明るくなります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-image-transform-tutorial-html-step1",
@@ -2714,7 +3757,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/image-transform/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：画像を中心に置く",
+    "expectations": [
+      "画像の中心に赤い点が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-image-transform-tutorial-html-step2",
@@ -2727,7 +3775,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/image-transform/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：左右を反転する",
+    "expectations": [
+      "Fで同じ中心のまま左右反転します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-image-transform-tutorial-html-step3",
@@ -2740,7 +3793,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/image-transform/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：中心まわりに回転する",
+    "expectations": [
+      "Aで45度ずつ回転し、赤い点と文字が同じ位置のままか確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-particles-tutorial-html-step1",
@@ -2753,7 +3811,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/particles/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：クリック位置に粒を作る",
+    "expectations": [
+      "クリックした場所に四角い粒が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-particles-tutorial-html-step2",
@@ -2766,7 +3829,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/particles/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：粒を動かす",
+    "expectations": [
+      "クリックした粒が広がりながら落ちます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-particles-tutorial-html-step3",
@@ -2779,7 +3847,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/particles/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：寿命を付けて消す",
+    "expectations": [
+      "1回のクリックで最大8個出て、30回の更新で消えます。Rですべて消えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-sprite-animation-tutorial-html-step1",
@@ -2792,7 +3865,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/sprite-animation/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：シートから1コマを切り出す",
+    "expectations": [
+      "先頭のコマが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-sprite-animation-tutorial-html-step2",
@@ -2805,7 +3883,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/sprite-animation/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：動いている間にコマを進める",
+    "expectations": [
+      "左右を押し続け、コマが順に変わることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-sprite-animation-tutorial-html-step3",
@@ -2818,7 +3901,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/sprite-animation/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：停止と再開を扱う",
+    "expectations": [
+      "キーを離すと先頭コマになり、押すと新しく動きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-touch-controls-tutorial-html-step1",
@@ -2831,7 +3919,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/touch-controls/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：画面内のボタンで動かす",
+    "expectations": [
+      "左右のボタンを押して動かします。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-touch-controls-tutorial-html-step2",
@@ -2844,7 +3937,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/touch-controls/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：複数の指を別々に扱う",
+    "expectations": [
+      "左右を同時に押して片方を離し、残った方向に動くことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-advanced-touch-controls-tutorial-html-step3",
@@ -2857,7 +3955,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/advanced/touch-controls/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：キーボードと併用する",
+    "expectations": [
+      "キーとタッチを組み合わせ、離したときの動きを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-countdown-tutorial-html-step1",
@@ -2870,7 +3973,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/countdown/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：開始前の画面を表示する",
+    "expectations": [
+      "開始前の画面が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-countdown-tutorial-html-step2",
@@ -2883,7 +3991,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/countdown/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：3秒を数える",
+    "expectations": [
+      "Enterを押し、3→2→1の後に開始表示が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-countdown-tutorial-html-step3",
@@ -2896,7 +4009,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/countdown/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：開始後に動かす",
+    "expectations": [
+      "カウント中は静止し、開始後に四角が動きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-health-bar-tutorial-html-step1",
@@ -2909,7 +4027,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/health-bar/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：残り体力を表示する",
+    "expectations": [
+      "HP 100 / 100と表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-health-bar-tutorial-html-step2",
@@ -2922,7 +4045,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/health-bar/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：ダメージと回復を加える",
+    "expectations": [
+      "DとHを押し、0〜100の範囲を確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-health-bar-tutorial-html-step3",
@@ -2935,7 +4063,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/health-bar/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：体力バーを描く",
+    "expectations": [
+      "HPに応じてバーが短くなり、回復すると伸びます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-help-tutorial-html-step1",
@@ -2948,7 +4081,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/help/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：タイトル画面を表示する",
+    "expectations": [
+      "タイトル画面が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-help-tutorial-html-step2",
@@ -2961,7 +4099,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/help/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：遊び方を開いて戻る",
+    "expectations": [
+      "Hで遊び方、Escでタイトルに戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-help-tutorial-html-step3",
@@ -2974,7 +4117,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/help/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ゲームへ進む",
+    "expectations": [
+      "Enterでゲーム中へ進み、Escで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-image-layout-tutorial-html-step1",
@@ -2987,7 +4135,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/image-layout/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：位置と大きさを指定する",
+    "expectations": [
+      "長方形の画像を240×180の枠に表示します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-image-layout-tutorial-html-step2",
@@ -3000,7 +4153,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/image-layout/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：縦横比を保つ",
+    "expectations": [
+      "Bで引き伸ばしと比率を保つ表示を比べます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-image-layout-tutorial-html-step3",
@@ -3013,7 +4171,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/image-layout/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：枠の中心に置く",
+    "expectations": [
+      "Bで比率を保つ表示にすると上下に同じ余白ができます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-image-swap-tutorial-html-step1",
@@ -3026,7 +4189,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/image-swap/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：画像を読み込んで表示する",
+    "expectations": [
+      "青い画像を表示し、Rで読み直します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-image-swap-tutorial-html-step2",
@@ -3039,7 +4207,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/image-swap/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：2枚を切り替える",
+    "expectations": [
+      "Spaceで2枚を切り替えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-image-swap-tutorial-html-step3",
@@ -3052,7 +4225,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/image-swap/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：読込中と失敗を知らせる",
+    "expectations": [
+      "画像がある場合は表示され、名前を変えると読込失敗を知らせます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-menu-tutorial-html-step1",
@@ -3065,7 +4243,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/menu/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：メニューを表示する",
+    "expectations": [
+      "「はじめる」と「遊び方」が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-menu-tutorial-html-step2",
@@ -3078,7 +4261,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/menu/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：キーで項目を選ぶ",
+    "expectations": [
+      "上下キーで選択し、Enterで画面が変わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-menu-tutorial-html-step3",
@@ -3091,7 +4279,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/menu/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：クリックと戻る操作を加える",
+    "expectations": [
+      "項目をクリックして開き、Escで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-results-tutorial-html-step1",
@@ -3104,7 +4297,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/results/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：得点を増やす",
+    "expectations": [
+      "Spaceを押すたびに得点が増えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-results-tutorial-html-step2",
@@ -3117,7 +4315,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/results/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：結果を表示する",
+    "expectations": [
+      "3点にすると結果が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-beginner-results-tutorial-html-step3",
@@ -3130,7 +4333,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/beginner/results/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：再挑戦とメニューに戻る",
+    "expectations": [
+      "結果でRとMをそれぞれ試します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-buttons-tutorial-html-step1",
@@ -3143,7 +4351,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/buttons/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：ボタンの四角を描く",
+    "expectations": [
+      "「押す」と書いたボタンが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-buttons-tutorial-html-step2",
@@ -3156,7 +4369,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/buttons/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：座標と押下を調べる",
+    "expectations": [
+      "ボタンに乗せると色が変わり、押して離すと元に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-buttons-tutorial-html-step3",
@@ -3169,7 +4387,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/buttons/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：押したときの処理と無効状態",
+    "expectations": [
+      "内から内、外から内、内から外の操作を比べ、Dでも確認します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-checkpoint-tutorial-html-step1",
@@ -3182,7 +4405,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/checkpoint/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：移動と再開位置を用意する",
+    "expectations": [
+      "左右キーで動き、RとNで最初の位置へ戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-checkpoint-tutorial-html-step2",
@@ -3195,7 +4423,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/checkpoint/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：中間地点を記録する",
+    "expectations": [
+      "400を右へ通過した後にRを押すと420に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-checkpoint-tutorial-html-step3",
@@ -3208,7 +4441,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/checkpoint/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：危険区域から戻す",
+    "expectations": [
+      "危険区域に触れると420へ戻ります。Nでは記録も最初の80に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-collision-tutorial-html-step1",
@@ -3221,7 +4459,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/collision/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：円と四角を描く",
+    "expectations": [
+      "円と四角、円の中心と半径が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-collision-tutorial-html-step2",
@@ -3234,7 +4477,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/collision/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：円を動かす",
+    "expectations": [
+      "矢印で円を四角の近くまで動かします。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-collision-tutorial-html-step3",
@@ -3247,7 +4495,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/collision/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：一番近い点を調べる",
+    "expectations": [
+      "円を近づけ、距離30の境界でも接触と表示されることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-difficulty-tutorial-html-step1",
@@ -3260,7 +4513,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/difficulty/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：難易度を表示する",
+    "expectations": [
+      "普通と表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-difficulty-tutorial-html-step2",
@@ -3273,7 +4531,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/difficulty/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：設定を選んで開始する",
+    "expectations": [
+      "左右で選択し、Enterで開始します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-difficulty-tutorial-html-step3",
@@ -3286,7 +4549,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/difficulty/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：速さに設定を反映する",
+    "expectations": [
+      "普通と速いを選んで動く速さを比べます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-image-background-tutorial-html-step1",
@@ -3299,7 +4567,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/image-background/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：背景を先に描く",
+    "expectations": [
+      "背景の上に「人」と書いた四角が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-image-background-tutorial-html-step2",
@@ -3312,7 +4585,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/image-background/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：収める方法と埋める方法",
+    "expectations": [
+      "Cで収める表示と埋める表示を切り替えます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-image-background-tutorial-html-step3",
@@ -3325,7 +4603,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/image-background/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：背景を中央にそろえる",
+    "expectations": [
+      "Cで切り替え、余白や切り抜きが左右または上下で等しいことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-image-hitbox-tutorial-html-step1",
@@ -3338,7 +4621,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/image-hitbox/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：絵を中心基準で動かす",
+    "expectations": [
+      "左右キーで絵を動かします。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-image-hitbox-tutorial-html-step2",
@@ -3351,7 +4639,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/image-hitbox/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：当たり判定を分ける",
+    "expectations": [
+      "目標に近づけると「当たり」になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-image-hitbox-tutorial-html-step3",
@@ -3364,7 +4657,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/image-hitbox/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：枠と別の絵を試す",
+    "expectations": [
+      "絵を切り替えても判定枠と当たりが変わらないことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-pause-tutorial-html-step1",
@@ -3377,7 +4675,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/pause/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：動きと制限時間を作る",
+    "expectations": [
+      "四角が動き、10秒で時間切れになります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-pause-tutorial-html-step2",
@@ -3390,7 +4693,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/pause/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：動きを一時停止する",
+    "expectations": [
+      "Pで四角が止まり、もう一度Pで動きます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-pause-tutorial-html-step3",
@@ -3403,7 +4711,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/pause/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：停止中の時間を除く",
+    "expectations": [
+      "停止中は残り秒が変わらず、再開後に続きから減ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-save-tutorial-html-step1",
@@ -3416,7 +4729,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/save/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：得点とベストを数える",
+    "expectations": [
+      "Spaceを押して得点とベストを増やします。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-save-tutorial-html-step2",
@@ -3429,7 +4747,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/save/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：保存と読み込みを試す",
+    "expectations": [
+      "Sで保存し、Rの後にLで読み込みます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-save-tutorial-html-step3",
@@ -3442,7 +4765,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/save/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：不正なデータと削除に対応する",
+    "expectations": [
+      "Dでこの例の記録を削除し、Lで保存データがないことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-sound-tutorial-html-step1",
@@ -3455,7 +4783,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/sound/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：音を試す入力を受け取る",
+    "expectations": [
+      "Spaceを押すと案内が変わります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-sound-tutorial-html-step2",
@@ -3468,7 +4801,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/sound/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：音量とミュートを選ぶ",
+    "expectations": [
+      "VとMを押して値と状態を確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-sound-tutorial-html-step3",
@@ -3481,7 +4819,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/sound/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：利用できるときに音を鳴らす",
+    "expectations": [
+      "Spaceで音を試し、未対応なら案内を確認します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-stage-select-tutorial-html-step1",
@@ -3494,7 +4837,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/stage-select/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：3つのステージを表示する",
+    "expectations": [
+      "3つの番号が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-stage-select-tutorial-html-step2",
@@ -3507,7 +4855,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/stage-select/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：ステージを選んで遊ぶ",
+    "expectations": [
+      "ステージを選んでSpaceでクリアし、Escで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "features-intermediate-stage-select-tutorial-html-step3",
@@ -3520,7 +4873,12 @@
       "index.html": "template/index.html",
       "style.css": "template/style.css",
       "script.js": "features/intermediate/stage-select/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：クリアで次を開く",
+    "expectations": [
+      "1をクリアして戻ると2の鍵が外れます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "learning-combine-tutorial-html-step1",
@@ -3533,7 +4891,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "learning/combine/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：メニューから始める",
+    "expectations": [
+      "最初はメニューが見え、Enterでゲームが始まります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "learning-combine-tutorial-html-step2",
@@ -3546,7 +4909,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "learning/combine/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：結果画面から選ぶ",
+    "expectations": [
+      "結果でSpaceとMを試し、再挑戦で得点が0になることを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "learning-combine-tutorial-html-step3",
@@ -3559,7 +4927,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "learning/combine/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ベストを保存する",
+    "expectations": [
+      "記録を作り、再読み込み後のメニューに表示されるか確かめます。保存を拒否する環境でもプレイできます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "learning-combine-tutorial-html-step4",
@@ -3572,7 +4945,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "learning/combine/step4/script.js"
-    }
+    },
+    "stepLabel": "ステップ 4：コインを画像に替える",
+    "expectations": [
+      "コイン画像が表示されます。画像の名前を一時的に変えると円のまま遊べます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "learning-debug-index-html-syntax",
@@ -3585,7 +4963,12 @@
       "index.html": "learning/debug/syntax/fixed/index.html",
       "style.css": "learning/debug/syntax/fixed/style.css",
       "script.js": "learning/debug/syntax/fixed/script.js"
-    }
+    },
+    "stepLabel": "修正版：閉じ括弧が足りない",
+    "expectations": [
+      "青い四角が出るはずです。"
+    ],
+    "expectationSource": "練習問題と修正版"
   },
   {
     "id": "learning-debug-index-html-name",
@@ -3598,7 +4981,12 @@
       "index.html": "learning/debug/name/fixed/index.html",
       "style.css": "learning/debug/name/fixed/style.css",
       "script.js": "learning/debug/name/fixed/script.js"
-    }
+    },
+    "stepLabel": "修正版：変数名が違う",
+    "expectations": [
+      "得点0が表示されるはずです。"
+    ],
+    "expectationSource": "練習問題と修正版"
   },
   {
     "id": "learning-debug-index-html-input",
@@ -3611,7 +4999,12 @@
       "index.html": "learning/debug/input/fixed/index.html",
       "style.css": "learning/debug/input/fixed/style.css",
       "script.js": "learning/debug/input/fixed/script.js"
-    }
+    },
+    "stepLabel": "修正版：右矢印が効かない",
+    "expectations": [
+      "右矢印を1回押すとxが100から110へ変わるはずです。"
+    ],
+    "expectationSource": "練習問題と修正版"
   },
   {
     "id": "learning-debug-index-html-score",
@@ -3624,7 +5017,12 @@
       "index.html": "learning/debug/score/fixed/index.html",
       "style.css": "learning/debug/score/fixed/style.css",
       "script.js": "learning/debug/score/fixed/script.js"
-    }
+    },
+    "stepLabel": "修正版：触れている間に点が増え続ける",
+    "expectations": [
+      "Spaceを1回押すと、得点が1点だけ増えます。"
+    ],
+    "expectationSource": "練習問題と修正版"
   },
   {
     "id": "learning-debug-index-html-reset",
@@ -3637,7 +5035,12 @@
       "index.html": "learning/debug/reset/fixed/index.html",
       "style.css": "learning/debug/reset/fixed/style.css",
       "script.js": "learning/debug/reset/fixed/script.js"
-    }
+    },
+    "stepLabel": "修正版：やり直しても得点が残る",
+    "expectations": [
+      "Spaceで得点してRを押すと0に戻るはずです。"
+    ],
+    "expectationSource": "練習問題と修正版"
   },
   {
     "id": "learning-debug-index-html-image",
@@ -3650,7 +5053,12 @@
       "index.html": "learning/debug/image/fixed/index.html",
       "style.css": "learning/debug/image/fixed/style.css",
       "script.js": "learning/debug/image/fixed/script.js"
-    }
+    },
+    "stepLabel": "修正版：画像の場所が違う",
+    "expectations": [
+      "青い画像が出るはずです。"
+    ],
+    "expectationSource": "練習問題と修正版"
   },
   {
     "id": "tutorial-extensions-tutorial-html-step1",
@@ -3663,7 +5071,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/extensions/step1/script.js"
-    }
+    },
+    "stepLabel": "ステップ 1：横にも動くコイン",
+    "expectations": [
+      "落ちるコインが横にも動き、端で折り返すことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-extensions-tutorial-html-step2",
@@ -3676,7 +5089,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/extensions/step2/script.js"
-    }
+    },
+    "stepLabel": "ステップ 2：得点で落ちる速さを変える",
+    "expectations": [
+      "得点が2になると表示される落下速度が4になります。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-extensions-tutorial-html-step3",
@@ -3689,7 +5107,12 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/extensions/step3/script.js"
-    }
+    },
+    "stepLabel": "ステップ 3：ボーナスコイン",
+    "expectations": [
+      "ピンクのコインは2点増え、5点以上でクリアになります。Spaceで最初から再挑戦します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-index-html-01-draw",
@@ -3702,7 +5125,13 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/01-draw/script.js"
-    }
+    },
+    "stepLabel": "ステップ 01：丸と四角を描く",
+    "expectations": [
+      "上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。",
+      "しばらく待っても位置が変わらないことを確かめます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-index-html-02-update",
@@ -3715,7 +5144,14 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/02-update/script.js"
-    }
+    },
+    "stepLabel": "ステップ 02：位置を更新して落下させる",
+    "expectations": [
+      "保存して再読み込みします。上からコインが落ちてきます。",
+      "コインが画面の下まで落ちると、次は別の横位置から現れます。",
+      "受け皿は動かず、コインは受け皿を通り抜けます。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-index-html-03-input",
@@ -3728,7 +5164,13 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/03-input/script.js"
-    }
+    },
+    "stepLabel": "ステップ 03：キーボードで受け皿を動かす",
+    "expectations": [
+      "← と → を押し続けると移動し、離すと止まります。",
+      "コインに触れても得点はまだ増えません。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-index-html-04-collision",
@@ -3741,7 +5183,14 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/04-collision/script.js"
-    }
+    },
+    "stepLabel": "ステップ 04：重なりを調べて得点をつける",
+    "expectations": [
+      "保存して再読み込みします。最初のコインは中央に落ちるので、動かずに待つと1点増えます。",
+      "次のコインを左右キーで追いかけます。1回のキャッチで1点だけ増え、コインは上に戻ります。",
+      "わざと落としても得点が減らず、次のコインが現れます。受け皿の端でもキャッチできるか試します。"
+    ],
+    "expectationSource": "保存後の確認"
   },
   {
     "id": "tutorial-index-html-05-game",
@@ -3754,6 +5203,13 @@
       "index.html": "tutorial/05-game/index.html",
       "style.css": "tutorial/05-game/style.css",
       "script.js": "tutorial/05-game/script.js"
-    }
+    },
+    "stepLabel": "ステップ 05：クリアと再挑戦を作る",
+    "expectations": [
+      "保存して再読み込みします。画面に得点、残り回数、操作とルールが表示されます。",
+      "5枚集めて「クリア！」を確認します。終了後に左右キーを押しても受け皿は動きません。Space キーで得点0・残り3・中央の位置に戻ります。",
+      "今度は3回落とし「ゲームオーバー」を確認します。こちらも Space キーで再挑戦でき、何度繰り返しても動きが速くならないことを確認します。"
+    ],
+    "expectationSource": "保存後の確認"
   }
 ]
