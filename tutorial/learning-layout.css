@@ -287,6 +287,101 @@ body.lesson-page {
 .lesson-page .starter-download { border-color: var(--lesson-line); background: var(--lesson-blue-wash); }
 .lesson-page h1, .lesson-page h2, .lesson-page h3 { min-width: 0; overflow-wrap: break-word; }
 
+.grammar-page main :not(pre) > code, .feature-lesson main :not(pre) > code {
+  padding: 0.08em 0.25em;
+  border-radius: 4px;
+  color: var(--lesson-ink-deep);
+  background: var(--lesson-code-inline-wash);
+  font-family: var(--lesson-font-code);
+  font-size: 1em;
+  overflow-wrap: anywhere;
+}
+.grammar-index main > p a[href^="basics/"] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.1em 0.5em;
+  border-radius: 5px;
+  background: var(--lesson-practice-wash);
+  color: var(--lesson-link-tutorial);
+  font-weight: 700;
+}
+.grammar-index main > p a[href^="basics/"]:hover { background: var(--lesson-step-gold); }
+.grammar-index main > p a[href^="basics/"]:active { background: var(--lesson-blue-wash); }
+.grammar-page main > section > h2 {
+  margin: 0 0 0.85em;
+  padding: 0 0 0.45em;
+  border-bottom: 2px solid var(--lesson-line);
+}
+.grammar-page main section > details {
+  margin: 1.25em 0;
+  border: 1px solid var(--lesson-line-fold);
+  border-radius: 10px;
+  background: var(--lesson-paper);
+}
+.grammar-page main section > details > summary {
+  padding: 10px 14px;
+  border-radius: 9px;
+  background: var(--lesson-practice-wash);
+  color: var(--lesson-ink);
+}
+.grammar-page main section > details > summary:hover { background: var(--lesson-step-gold); }
+.grammar-page main section > details > summary:active { background: var(--lesson-goal-wash); }
+.grammar-page main section > details > p { margin: 0.9em 1em; }
+.feature-catalog main > article h3 { font-size: 1.22rem; line-height: 1.45; word-break: auto-phrase; }
+.feature-catalog main > article .links { padding-top: 14px; border-top: 1px solid var(--lesson-line-section); }
+.feature-lesson .change-guide { padding: 0; border: 1px solid var(--lesson-line-fold); border-radius: 10px; }
+.feature-lesson .change-guide > details > summary {
+  padding: 10px 16px;
+  border-radius: 9px;
+  background: var(--lesson-fold-wash);
+  color: var(--lesson-ink);
+}
+.feature-lesson .change-guide > details > summary:hover { background: var(--lesson-blue-wash); }
+.feature-lesson .change-guide > details > summary:active { background: var(--lesson-goal-wash); }
+.feature-lesson .change-guide > details > p, .feature-lesson .change-guide .change-key { margin: 0.8em 1em; }
+.feature-lesson pre, .feature-lesson .change-view { scrollbar-color: var(--lesson-scroll-thumb) var(--lesson-scroll-wash); scrollbar-width: auto; }
+.feature-lesson pre::before, .feature-lesson .change-view::before {
+  content: "長い行は左右に動かして読めます。";
+  position: sticky;
+  left: 0;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin-bottom: 0.6em;
+  font-family: var(--lesson-font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: normal;
+  user-select: none;
+}
+.feature-lesson pre::before { color: var(--lesson-paper); background: var(--lesson-code-background); }
+.feature-lesson .change-view::before { padding: 0.5em 0.75em 0; color: var(--lesson-ink-deep); background: var(--lesson-diff-wash); }
+.feature-lesson section > h3 {
+  margin: 1.7em 0 0.7em;
+  padding: 0.35em 0.7em;
+  border-left: 5px solid var(--lesson-stage);
+  background: var(--lesson-goal-wash);
+}
+.feature-lesson .lesson-stage--code + h3 { border-left-color: var(--lesson-link); background: var(--lesson-blue-wash); }
+.feature-lesson .lesson-stage--check + h3 { border-left-color: var(--lesson-check); background: var(--lesson-check-wash); }
+.feature-lesson .lesson-stage--practice + h3 { border-left-color: var(--lesson-practice-strong); background: var(--lesson-practice-wash); }
+.feature-lesson .lesson-stage--check + h3 + p a[href^="step"] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1px solid var(--lesson-link-tutorial);
+  border-radius: 10px;
+  color: var(--lesson-link-tutorial);
+  background: var(--lesson-paper);
+  font-weight: 700;
+  text-decoration: none;
+}
+.feature-lesson .lesson-stage--check + h3 + p a[href^="step"]:hover { color: var(--lesson-link-tutorial-hover); background: var(--lesson-blue-wash); }
+.feature-lesson .lesson-stage--check + h3 + p a[href^="step"]:active { color: var(--lesson-action-active); background: var(--lesson-goal-wash); }
+
 @media (min-width: 701px) and (max-width: 1300px) {
   .lesson-page .workshop-route { flex-direction: column; align-items: flex-start; }
   .workshop-route img { flex: none; width: 80px; }

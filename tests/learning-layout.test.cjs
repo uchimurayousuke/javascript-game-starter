@@ -11,7 +11,11 @@ test("すべての教材に本文への移動と、同じページ内の目次�
 });
 test("各図は元SVGを別タブで開け、ヒントや答えは閉じた状態",()=>{
  let count=0;for(const p of pages){const page=fs.readFileSync(p,"utf8");for(const [,figure] of page.matchAll(/(<figure class="learning-diagram"[\s\S]*?<\/figure>)/g)){count++;const image=figure.match(/<img[^>]*\bsrc="([^"]+\.svg)"/);assert.ok(image,p);assert.ok(figure.includes(`href="${image[1]}" target="_blank" rel="noopener"`),p);assert.match(figure,/alt="[^"]+"/);assert.doesNotMatch(figure,/図[はを]横にスクロールできます/);}
-  for(const [,tag] of page.matchAll(/(<details\b[^>]*>)/g))assert.doesNotMatch(tag,/\bopen\b/,p);
+  const id=path.relative(root,p).split(path.sep).join("/");
+  const guide='<div class="change-guide"><details open><summary>コードの比較の読み方</summary>';
+  if(id.startsWith("features/")&&id.endsWith("/tutorial.html"))assert.equal(page.split(guide).length,2,p);
+  const otherDetails=page.replace(guide,'<div class="change-guide"><details><summary>コードの比較の読み方</summary>');
+  for(const [,tag] of otherDetails.matchAll(/(<details\b[^>]*>)/g))assert.doesNotMatch(tag,/\bopen\b/,p);
  }assert.ok(count>=100);
 });
 
