@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JavaScriptの基本文法</title><link rel="stylesheet" href="../../examples/guide.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"><link rel="stylesheet" href="../learning.css"><link rel="stylesheet" href="../../tutorial/learning-layout.css"></head>
+<body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#writing">基本：文と記号</a><a href="#values">基本：値と変数</a><a href="#operators">基本：計算と比較</a><a href="#conditions">基本：条件で分ける</a><a href="#loops">基本：繰り返す</a><a href="#functions">基本：処理をまとめる</a><a href="#arrays">基本：値を並べる</a><a href="#objects">基本：名前で値をまとめる</a><a href="#copies">補足：同じものとコピー</a><a href="#callbacks">補足：関数を渡す</a><a href="#events">基本：画面と操作</a><a href="#math">補足：よく使う道具</a><a href="#classes">上級への橋渡し：クラス</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><a href="#writing">基本：文と記号</a><a href="#values">基本：値と変数</a><a href="#operators">基本：計算と比較</a><a href="#conditions">基本：条件で分ける</a><a href="#loops">基本：繰り返す</a><a href="#functions">基本：処理をまとめる</a><a href="#arrays">基本：値を並べる</a><a href="#objects">基本：名前で値をまとめる</a><a href="#copies">補足：同じものとコピー</a><a href="#callbacks">補足：関数を渡す</a><a href="#events">基本：画面と操作</a><a href="#math">補足：よく使う道具</a><a href="#classes">上級への橋渡し：クラス</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../index.html">学びの入口</a></li><li><a href="../basics.html">作る前に確かめる基礎</a></li><li aria-current="page">JavaScriptの基本文法</li></ol></nav><h1>JavaScriptの基本文法</h1><p>ゲームの値を変えたり、操作を受け取ったりする書き方を学びます。基本から必要な節を選んでください。補足と上級は後から読めます。</p><p><a href="../setup.html">準備と操作</a>の「ひな型をダウンロード（ZIP）」から練習用の3ファイルを用意します。各Consoleの例は独立しています。コピー先の <code>script.js</code> を開き、<code>function start() { }</code> の波括弧の中に例を入れて保存します。コピー先の <code>index.html</code> を開くか再読み込みし、ブラウザーの開発者ツールのConsoleを見ます。次の例は前の例を消してから入れてください。ゲーム画面ではなくConsoleに結果が出ます。</p>
+<section id="writing"><h2>基本：文と記号</h2><p>JavaScriptは指示を順に読みます。一つの指示を文と呼びます。文の終わりには <code>;</code> を付け、まとまった処理は <code>{ }</code> で囲みます。文字を表す値は引用符で囲みます。大文字と小文字は区別するので、<code>score</code> と <code>Score</code> は別の名前です。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;得点&quot;,3]]"><code>const score = 3;
+console.log(&quot;得点&quot;, score);</code></pre><p>Consoleに「得点 3」と出ます。文の途中の記号、引用符、括弧は半角で入力します。</p><details><summary>確認：scoreとScoreは同じ名前？</summary><p>違います。大文字と小文字を区別します。</p></details></section>
+<section id="values"><h2>基本：値と変数</h2><p>数の10、文字の <code>"10"</code>、正しいかどうかの <code>true</code> / <code>false</code> は別の種類の値です。<code>null</code> は値がないことを明示する値、<code>undefined</code> はまだ値が入っていないときなどの値です。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[11,&quot;101&quot;,true,null,&quot;undefined&quot;]]"><code>const number = 10;
+const text = &quot;10&quot;;
+const ready = true;
+let missing;
+console.log(number + 1, text + 1, ready, null, typeof missing);</code></pre><span id="diagram-js-number-string"></span><figure class="learning-diagram" id="syntax-js-number-string" aria-labelledby="syntax-js-number-string-title"><figcaption id="syntax-js-number-string-title">図：数の足し算と文字のつながり</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="数の足し算と文字のつながり"><img src="../../tutorial/illustrations/astra/js-number-string.svg" width="1200" height="960" alt="数値10に1を足すと11、文字列「10」に1をつなぐと「101」。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-number-string.svg" target="_blank" rel="noopener" aria-label="図：数の足し算と文字のつながりを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>数の10に1を足すと11、文字の「10」に1をつなぐと「101」です。<code>typeof missing</code> は <code>"undefined"</code> と表示します。</p><p>値に名前を付ける場所を変数といいます。<code>let</code> で作った変数には後で別の値を入れられます。<code>const</code> は別の値を再代入できません。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[7,10]]"><code>let hp = 10;
+const maxHp = 10;
+hp -= 3;
+console.log(hp, maxHp);</code></pre><span id="diagram-js-variables"></span><figure class="learning-diagram" id="syntax-js-variables" aria-labelledby="syntax-js-variables-title"><figcaption id="syntax-js-variables-title">図：変数の値が変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="変数の値が変わる"><img src="../../tutorial/illustrations/astra/js-variables.svg" width="1200" height="800" alt="hpは10から3減って7になり、maxHpは10のまま。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-variables.svg" target="_blank" rel="noopener" aria-label="図：変数の値が変わるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p><code>=</code> は右の値を左に入れる代入です。<code>hp -= 3</code> は <code>hp = hp - 3</code> と同じです。</p><details><summary>確認：hpは最後にいくつ？</summary><p>10から3を引くので7です。</p></details></section>
+<section id="operators"><h2>基本：計算と比較</h2><p><code>+</code>、<code>-</code>、<code>*</code>、<code>/</code> は足し算、引き算、掛け算、割り算です。<code>%</code> は割った余りです。<code>+=</code> などは計算して同じ変数に入れる短い書き方です。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[7,3,6]]"><code>let score = 5;
+score += 2;
+console.log(score, 7 % 4, 3 * 2);</code></pre><p><code>===</code> と <code>!==</code> は種類も含めて等しいか、違うかを比べます。<code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code> は大小を比べます。<code>&amp;&amp;</code> は両方、<code>||</code> は少なくとも一方、<code>!</code> は真偽を反対にします。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[true,false,false]]"><code>const hp = 7;
+const hasKey = true;
+console.log(hp &gt; 5 &amp;&amp; hasKey, hp === &quot;7&quot;, !hasKey);</code></pre><p>7と文字列の「7」は種類が違うので <code>===</code> では等しくありません。</p><p><code>++</code> は値を1増やします。単独の文 <code>count++;</code> は <code>count += 1;</code> と同じように1増やせます。</p><pre data-kind="js-start" data-expected="[[3]]"><code>let count = 2;
+count++;
+console.log(count);</code></pre><p><code>||</code> は真偽値だけでなく値も返します。左が0などの偽として扱われる値なら、右の値を返します。</p><pre data-kind="js-start" data-expected="[[1]]"><code>const length = 0 || 1;
+console.log(length);</code></pre><p>例えば、長さが0のとき割り算に使う数を1にする場合に使います。</p><details><summary>確認：7 % 4は？</summary><p>7を4で割った余りの3です。</p></details></section>
+<section id="conditions"><h2>基本：条件で分ける</h2><p>条件が正しいときだけ処理を行うには <code>if</code> を使います。正しい・正しくないは真・偽とも呼びます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;元気&quot;]]"><code>const hp = 7;
+if (hp &gt; 5) {
+  console.log(&quot;元気&quot;);
+} else {
+  console.log(&quot;注意&quot;);
+}</code></pre><span id="diagram-js-conditions"></span><figure class="learning-diagram" id="syntax-js-conditions" aria-labelledby="syntax-js-conditions-title"><figcaption id="syntax-js-conditions-title">図：条件で進む道が変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="条件で進む道が変わる"><img src="../../tutorial/illustrations/astra/js-conditions.svg" width="1200" height="800" alt="hpが7なら5より大きいので元気、そうでなければ注意。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-conditions.svg" target="_blank" rel="noopener" aria-label="図：条件で進む道が変わるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>7は5より大きいので「元気」です。条件を増やすときは <code>else if</code> を間に書きます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;注意&quot;]]"><code>const hp = 3;
+if (hp === 0) {
+  console.log(&quot;終了&quot;);
+} else if (hp &lt;= 3) {
+  console.log(&quot;注意&quot;);
+} else {
+  console.log(&quot;元気&quot;);
+}</code></pre><p>短い値の選択には <code>条件 ? 真の値 : 偽の値</code> も使えます。同じ値と複数の候補を比べるときは <code>switch</code> も使えます。<code>break</code> はその場合の処理を終えます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;プレイ中&quot;]]"><code>const state = &quot;play&quot;;
+const label = state === &quot;play&quot; ? &quot;プレイ中&quot; : &quot;停止&quot;;
+switch (state) {
+  case &quot;play&quot;:
+    console.log(label);
+    break;
+  default:
+    console.log(&quot;その他&quot;);
+}</code></pre><details><summary>確認：hpが3の例ではどの条件に入る？</summary><p>hpは0ではなく、3以下なので「注意」です。</p></details></section>
+<section id="loops"><h2>基本：繰り返す</h2><p>同じ処理を何度か行うには繰り返しを使います。<code>for</code> は最初の値、続ける条件、毎回の更新を順に書きます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[0],[1],[2]]"><code>for (let i = 0; i &lt; 3; i += 1) {
+  console.log(i);
+}</code></pre><span id="diagram-js-loop"></span><figure class="learning-diagram" id="syntax-js-loop" aria-labelledby="syntax-js-loop-title"><figcaption id="syntax-js-loop-title">図：繰り返しの順番</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="繰り返しの順番"><img src="../../tutorial/illustrations/astra/js-loop.svg" width="1200" height="860" alt="iが0、1、2のとき実行し、3で条件が偽になって終わる。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-loop.svg" target="_blank" rel="noopener" aria-label="図：繰り返しの順番を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>0、1、2を表示し、iが3になると条件が偽になって止まります。<code>for...of</code> は配列の値を順に取り出します。<code>while</code> は条件が真の間だけ続きます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;赤&quot;],[&quot;青&quot;],[2]]"><code>const colors = [&quot;赤&quot;, &quot;青&quot;];
+for (const color of colors) {
+  console.log(color);
+}
+let count = 0;
+while (count &lt; 2) {
+  count += 1;
+}
+console.log(count);</code></pre><p><code>break</code> は繰り返し全体を終え、<code>continue</code> はその回の残りを飛ばして次へ進みます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[0],[2]]"><code>for (let i = 0; i &lt; 5; i += 1) {
+  if (i === 1) continue;
+  if (i === 3) break;
+  console.log(i);
+}</code></pre><details><summary>確認：iが1のとき表示する？</summary><p>continueでその回を飛ばすので表示しません。</p></details></section>
+<section id="functions"><h2>基本：処理をまとめる</h2><p>処理に名前を付けて、必要なときに呼び出せます。このまとまりを関数といいます。呼び出し時に渡す値を引数、返す結果を戻り値といいます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[5]]"><code>function add(a, b) {
+  return a + b;
+}
+const result = add(2, 3);
+console.log(result);</code></pre><span id="diagram-js-function"></span><figure class="learning-diagram" id="syntax-js-function" aria-labelledby="syntax-js-function-title"><figcaption id="syntax-js-function-title">図：関数に渡し、結果を受け取る</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="関数に渡し、結果を受け取る"><img src="../../tutorial/illustrations/astra/js-function.svg" width="1200" height="830" alt="2と3を関数に渡すと5が返り、resultに入る。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-function.svg" target="_blank" rel="noopener" aria-label="図：関数に渡し、結果を受け取るを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>2がa、3がbに入り、<code>return</code> で5を返します。関数の中で作った変数はその外からは使えません。この使える範囲をスコープといいます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[8]]"><code>function double(value) {
+  const result = value * 2;
+  return result;
+}
+console.log(double(4));</code></pre><p>引数が渡されないときに使う値を、引数の名前の後に書けます。処理の途中で <code>return</code> すると、残りを実行せずに関数を終えます。</p><pre data-kind="js-start" data-expected="[[1,3,0]]"><code>function addPoint(score = 0) {
+  if (score &lt; 0) return 0;
+  return score + 1;
+}
+console.log(addPoint(), addPoint(2), addPoint(-1));</code></pre><p>引数なしなら0を使って1、2なら3です。負の数なら早くreturnするので0です。</p><details><summary>確認：add(2, 3)が返す値は？</summary><p>2 + 3で5です。</p></details></section>
+<section id="arrays"><h2>基本：値を並べる</h2><p>複数の値を順番に入れたものを配列といいます。番号は0から始まり、<code>length</code> は数です。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;赤&quot;,&quot;青&quot;,3]]"><code>const colors = [&quot;赤&quot;, &quot;青&quot;, &quot;緑&quot;];
+console.log(colors[0], colors[1], colors.length);</code></pre><p><code>push</code> は末尾に追加し、<code>pop</code> は末尾を取り出します。次の例では追加後が「赤,青,緑」、取り出した値が「緑」で、その後は「赤,青」です。<code>join</code> はその時点の並びを文字列にして表示します。<code>const</code> は配列そのものの再代入を禁止しますが、中身の変更はできます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;赤,青,緑&quot;],[&quot;緑&quot;,&quot;赤,青&quot;]]"><code>const colors = [&quot;赤&quot;, &quot;青&quot;];
+colors.push(&quot;緑&quot;);
+console.log(colors.join(&quot;,&quot;));
+const last = colors.pop();
+console.log(last, colors.join(&quot;,&quot;));</code></pre><span id="diagram-js-array"></span><figure class="learning-diagram" id="syntax-js-array" aria-labelledby="syntax-js-array-title"><figcaption id="syntax-js-array-title">図：配列の番号は0から</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="配列の番号は0から"><img src="../../tutorial/illustrations/astra/js-array.svg" width="1200" height="1010" alt="赤・青・緑の番号は0・1・2でlengthは3。別の例では赤・青に緑を追加し、緑を取り出すと赤・青が残る。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-array.svg" target="_blank" rel="noopener" aria-label="図：配列の番号は0からを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><details><summary>確認：colors[1]は？</summary><p>0から数えるので「青」です。</p></details></section>
+<section id="objects"><h2>基本：名前で値をまとめる</h2><p>関連する値を名前付きでまとめたものをオブジェクトといいます。それぞれの名前と値の組をプロパティと呼びます。<code>player.x</code> のように取り出します。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[120,3]]"><code>const player = { x: 100, hp: 3 };
+player.x += 20;
+console.log(player.x, player.hp);</code></pre><span id="diagram-js-object"></span><figure class="learning-diagram" id="syntax-js-object" aria-labelledby="syntax-js-object-title"><figcaption id="syntax-js-object-title">図：名前をつけて値をまとめる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="名前をつけて値をまとめる"><img src="../../tutorial/illustrations/astra/js-object.svg" width="1200" height="810" alt="playerのxは100から120に変わり、hpは3のまま。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-object.svg" target="_blank" rel="noopener" aria-label="図：名前をつけて値をまとめるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p><code>player</code> 自体を別の値に再代入しなくても、中の <code>x</code> を変更できます。</p><details><summary>確認：player.hpは最後にいくつ？</summary><p>xだけを変えたので3のままです。</p></details></section>
+<section id="copies"><h2>補足：同じものとコピー</h2><p>配列やオブジェクトを別の変数に代入すると、同じものを指します。一方、<code>...</code> で中身を広げて新しい配列やオブジェクトを作れます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;9,2&quot;,&quot;1,2&quot;]]"><code>const original = [1, 2];
+const alias = original;
+const copy = [...original];
+alias[0] = 9;
+console.log(original.join(&quot;,&quot;), copy.join(&quot;,&quot;));</code></pre><p>originalとaliasは同じ配列なので両方で9、2が見えます。copyは別の配列なので1、2のままです。これは浅いコピーです。中にさらに配列やオブジェクトがあれば、その内側は共有されます。</p><p>次も前の例を消し、startの中に入れます。</p><pre data-kind="js-start" data-expected="[[9,9,false,true]]"><code>const board = [[1, 2], [3, 4]];
+const copied = [...board];
+copied[0][0] = 9;
+console.log(board[0][0], copied[0][0], board === copied, board[0] === copied[0]);</code></pre><span id="diagram-js-reference"></span><figure class="learning-diagram" id="syntax-js-reference" aria-labelledby="syntax-js-reference-title"><figcaption id="syntax-js-reference-title">図：同じ配列と別のコピー</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="同じ配列と別のコピー"><img src="../../tutorial/illustrations/astra/js-reference.svg" width="1200" height="1220" alt="上段は元とaliasが同じ配列を指し、copyは別。下段は外側だけ別にコピーしても最初の内側配列を共有する。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-reference.svg" target="_blank" rel="noopener" aria-label="図：同じ配列と別のコピーを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>外側の配列は別なので <code>board === copied</code> はfalseです。内側の最初の配列は同じなので <code>board[0] === copied[0]</code> はtrueで、どちらの最初の数も9になります。</p><p>値を取り出して別の名前に入れる書き方を分割代入といいます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[3,4,&quot;赤&quot;,&quot;青&quot;]]"><code>const point = { x: 3, y: 4 };
+const { x, y } = point;
+const [first, second] = [&quot;赤&quot;, &quot;青&quot;];
+console.log(x, y, first, second);</code></pre><details><summary>確認：alias[0]を変えたときoriginalは？</summary><p>同じ配列を指すのでoriginal[0]も9です。</p></details></section>
+<section id="callbacks"><h2>補足：関数を渡す</h2><p>関数も値として渡せます。渡された関数を後から呼ぶ仕組みをコールバックと呼びます。<code>() =&gt; ...</code> は関数を短く書くアロー関数です。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[[2,4,6],[2,3],2]]"><code>const numbers = [1, 2, 3];
+const doubled = numbers.map(value =&gt; value * 2);
+const large = numbers.filter(value =&gt; value &gt; 1);
+const found = numbers.find(value =&gt; value === 2);
+console.log(doubled, large, found);</code></pre><p><code>map</code> は各値を変えて新しい配列、<code>filter</code> は条件に合う値の新しい配列、<code>find</code> は最初に合う一つの値を返します。見つからないときのfindは <code>undefined</code> です。元の <code>numbers</code> は変わりません。</p><p>関数名に <code>()</code> を付けるとその場で呼びます。関数そのものを渡すと、受け取った側が後で呼べます。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[&quot;こんにちは&quot;]]"><code>function say() {
+  console.log(&quot;こんにちは&quot;);
+}
+const action = say;
+action();</code></pre><p><code>forEach</code> は配列の値を順に関数へ渡して処理します。新しい配列を作る <code>map</code> とは役割が違います。</p><pre data-kind="js-start" data-expected="[[&quot;赤&quot;],[&quot;青&quot;]]"><code>const names = [&quot;赤&quot;, &quot;青&quot;];
+names.forEach(name =&gt; console.log(name));</code></pre><details><summary>確認：findで一致する値がなければ？</summary><p>undefinedが返ります。</p></details></section>
+<section id="events"><h2>基本：画面と操作</h2><p>HTMLの要素をJavaScriptから見つけて内容を変えられます。画面の部品のつながりをDOMと呼びます。クリックなどの出来事はイベントです。</p><p><a href="demo/index.html">練習見本</a>を開き、ボタンを押してください。<code>demo</code> フォルダーを丸ごとコピーし、その中の <code>script.js</code> 全体を次のコードに置き換えても同じ動きを試せます。見本の <code>demo/index.html</code> には <code>id="add"</code> のボタンと <code>id="score"</code> の表示が用意されています。この例はひな型のstartの中には入れません。</p><pre data-kind="js-file"><code>const button = document.querySelector(&quot;#add&quot;);
+const score = document.querySelector(&quot;#score&quot;);
+let points = 0;
+button.addEventListener(&quot;click&quot;, () =&gt; {
+  points += 1;
+  score.textContent = points;
+});</code></pre><span id="diagram-js-callback"></span><figure class="learning-diagram" id="syntax-js-callback" aria-labelledby="syntax-js-callback-title"><figcaption id="syntax-js-callback-title">図：押されたときに関数を呼ぶ</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="押されたときに関数を呼ぶ"><img src="../../tutorial/illustrations/astra/js-callback.svg" width="1200" height="880" alt="ボタンを押すと関数が呼ばれ、得点表示が0から1に変わる。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/js-callback.svg" target="_blank" rel="noopener" aria-label="図：押されたときに関数を呼ぶを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p><code>querySelector("#add")</code> はidがaddのボタンを選びます。<code>addEventListener</code> には関数を渡し、押されたときに関数が呼ばれます。<code>textContent</code> で得点の文字を変えます。1回押すと1、2回押すと2です。</p><p>CanvasもHTMLの要素です。ひな型では <code>document.querySelector("#game-canvas")</code> でCanvasを選び、<code>getContext("2d")</code> で描く道具を得ます。その後 <code>draw()</code> で描きます。</p><details><summary>確認：この例で関数が呼ばれるのはいつ？</summary><p>ボタンをクリックしたときです。</p></details></section>
+<section id="math"><h2>補足：よく使う道具</h2><p><code>Math.floor</code> は小数を下の整数にし、<code>Math.min</code> と <code>Math.max</code> は小さい方・大きい方を選びます。<code>Math.random()</code> は0以上1未満の数を返します。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[2,4,7]]"><code>console.log(Math.floor(2.8), Math.min(4, 7), Math.max(4, 7));</code></pre><p><code>Math.floor(Math.random() * 3)</code> は0、1、2のどれかです。例えば乱数が0.8なら0.8×3=2.4なので2になります。乱数の結果は毎回変わり得ます。</p><p>次も前の例を消して <code>start()</code> の中に入れます。Consoleには0、1、2のどれかが出ます。</p><pre data-kind="js-start-random"><code>const index = Math.floor(Math.random() * 3);
+console.log(index);</code></pre><details><summary>確認：乱数が0.8のとき floor(0.8 * 3) は？</summary><p>2.4を下の整数にして2です。</p></details></section>
+<section id="classes"><h2>上級への橋渡し：クラス</h2><p>似た値と処理を持つものを何個も作る書き方がクラスです。<code>new</code> は新しい実体を作り、<code>this</code> は今の実体自身を表します。初めは関数やオブジェクトに慣れてからで大丈夫です。</p><p>独立した例：前の例を消して、練習用 <code>script.js</code> の <code>start()</code> の中に入れます。</p><pre data-kind="js-start" data-expected="[[110,200]]"><code>class Player {
+  constructor(x) { this.x = x; }
+  move(amount) { this.x += amount; }
+}
+const a = new Player(100);
+const b = new Player(200);
+a.move(10);
+console.log(a.x, b.x);</code></pre><p>aだけを動かしたので110と200です。<a href="../../examples/advanced/escape/tutorial.html#escape-classes">別々の実体を作る図</a>も参照できます。図は本棚と引き出しの例です。</p><details><summary>確認：aを動かすとbの位置も変わる？</summary><p>別々の実体なので変わりません。</p></details></section>
+<p><a href="../basics.html">作る前に確かめる基礎へ戻る</a></p></main></div></body></html>

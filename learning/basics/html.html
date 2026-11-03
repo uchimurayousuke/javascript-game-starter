@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HTMLの基本文法</title><link rel="stylesheet" href="../../examples/guide.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"><link rel="stylesheet" href="../learning.css"><link rel="stylesheet" href="../../tutorial/learning-layout.css"></head>
+<body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#tags">基本：タグと入れ子</a><a href="#document">基本：文書の骨組み</a><a href="#elements">基本：よく使う要素</a><a href="#attributes">基本：属性と目印</a><a href="#paths">基本：ファイルの場所</a><a href="#entities">補足：記号を文字として書く</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><a href="#tags">基本：タグと入れ子</a><a href="#document">基本：文書の骨組み</a><a href="#elements">基本：よく使う要素</a><a href="#attributes">基本：属性と目印</a><a href="#paths">基本：ファイルの場所</a><a href="#entities">補足：記号を文字として書く</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../index.html">学びの入口</a></li><li><a href="../basics.html">作る前に確かめる基礎</a></li><li aria-current="page">HTMLの基本文法</li></ol></nav><h1>HTMLの基本文法</h1><p>HTMLはページの部品とつながりを表します。最初から全部覚えなくて大丈夫です。必要な節を選んでください。</p><p><a href="../setup.html">準備と操作</a>で教材一式を展開してから、見本を開けます。</p><p>タグだけの例は、特に指定がない限り「文書の骨組み」の例を保存した練習用 <code>index.html</code> の <code>body</code> の中で一つずつ試せます。次の例を試す前に前の例を消し、保存してブラウザーを再読み込みします。パスの例は下の説明に従ってください。</p>
+<section id="tags"><h2>基本：タグと入れ子</h2><p>文章を「見出し」「段落」のように分けて、ブラウザーに役割を伝えます。囲む印をタグと呼びます。開始タグと終了タグの間が中身です。<code>strong</code> を <code>p</code> の中に入れることを入れ子といいます。</p><pre data-kind="html-fragment"><code>&lt;p&gt;こんにちは &lt;strong&gt;ゲーム&lt;/strong&gt;&lt;/p&gt;</code></pre><span id="diagram-html-nesting"></span><figure class="learning-diagram" id="syntax-html-nesting" aria-labelledby="syntax-html-nesting-title"><figcaption id="syntax-html-nesting-title">図：タグの中にタグを入れる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="タグの中にタグを入れる"><img src="../../tutorial/illustrations/astra/html-nesting.svg" width="1200" height="800" alt="pの中にstrongが入り、開始タグと終了タグがそれぞれ対応する。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/html-nesting.svg" target="_blank" rel="noopener" aria-label="図：タグの中にタグを入れるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p><code>img</code> や <code>meta</code> は中身を囲まない空要素です。<code>&lt;img ...&gt;</code> に対応する終了タグは書きません。</p><details><summary>確認：strongの中身は？</summary><p>「ゲーム」です。pの中に入っています。</p></details></section>
+<section id="document"><h2>基本：文書の骨組み</h2><p>一つのHTML文書では、<code>head</code> に文字コードやタブの題名などを書き、<code>body</code> に画面に表示する内容を書きます。最初の <code>&lt;!doctype html&gt;</code> はHTMLとして表示するための宣言です。</p><pre data-kind="html-complete"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;練習&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h1&gt;ゲーム&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;</code></pre><span id="diagram-html-document"></span><figure class="learning-diagram" id="syntax-html-document" aria-labelledby="syntax-html-document-title"><figcaption id="syntax-html-document-title">図：文書の骨組み</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="文書の骨組み"><img src="../../tutorial/illustrations/astra/html-document.svg" width="1200" height="850" alt="htmlの中にheadとbodyが並び、bodyの見出しが画面に現れる。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/html-document.svg" target="_blank" rel="noopener" aria-label="図：文書の骨組みを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>これは単独で保存できる小さな例です。新しいフォルダーに <code>index.html</code> として保存して開くと、ページに「ゲーム」が表示され、タブには「練習」と出ます。</p><details><summary>確認：h1はheadとbodyのどちら？</summary><p>画面に表示する見出しなのでbodyです。</p></details></section>
+<section id="elements"><h2>基本：よく使う要素</h2><p><code>h1</code> はページの見出し、<code>p</code> は段落、<code>a</code> はリンクです。<code>img</code> は画像、<code>button</code> は押せるボタン、<code>canvas</code> はJavaScriptで絵を描く場所です。Canvasの幅と高さは、CSSの表示サイズとは別に描画の座標を決めます。</p><p>以下は実際に動く見本です。リンク先・画像・CSS・JavaScriptも一緒にあります。<a href="demo/index.html">文法の練習見本を開く</a>と、ボタンを押すたびに得点が増えます。見本ファイル全体は次のとおりです。</p><pre data-kind="html-file"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;文法の練習&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+  &lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;div class=&quot;panel&quot;&gt;
+    &lt;h1&gt;ゲームの練習&lt;/h1&gt;
+    &lt;p&gt;コインを集めよう &lt;strong&gt;楽しく&lt;/strong&gt;！&lt;/p&gt;
+    &lt;img src=&quot;assets/coin.png&quot; alt=&quot;コイン&quot; width=&quot;64&quot; height=&quot;64&quot;&gt;
+    &lt;p id=&quot;score&quot; class=&quot;notice&quot;&gt;0&lt;/p&gt;
+    &lt;button id=&quot;add&quot; type=&quot;button&quot;&gt;点を増やす&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;tile&quot;&gt;赤&lt;/div&gt;
+      &lt;div class=&quot;tile&quot;&gt;青&lt;/div&gt;
+      &lt;div class=&quot;tile&quot;&gt;緑&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;field&quot;&gt;&lt;span class=&quot;marker&quot;&gt;星&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;幅半分&lt;/div&gt;&lt;/div&gt;
+    &lt;canvas id=&quot;game-canvas&quot; width=&quot;200&quot; height=&quot;80&quot;&gt;Canvasを表示できません。&lt;/canvas&gt;
+    &lt;p&gt;&lt;a href=&quot;../html.html&quot;&gt;教材に戻る&lt;/a&gt;&lt;/p&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>見本を編集する場合は <code>demo</code> フォルダーを丸ごと練習用の場所にコピーします。<code>index.html</code> だけをコピーすると画像や関連ファイルを読めません。</p><details><summary>確認：絵を描く場所はどの要素？</summary><p>canvasです。中身の文章はCanvasを表示できない場合の案内です。</p></details><h3>リストと入力欄</h3><p>項目を並べるには <code>ul</code> または <code>ol</code> の中に <code>li</code> を置きます。<code>ul</code> は番号のないリスト、<code>ol</code> は番号付きリストです。</p><p>次はHTML断片です。「文書の骨組み」の例を練習用の <code>index.html</code> に保存し、<code>body</code> の開始タグと終了タグの間にある見出しを消して、この断片を入れます。保存して開くと2つのリストが表示されます。</p><pre data-kind="html-fragment"><code>&lt;ul&gt;
+  &lt;li&gt;コインを集める&lt;/li&gt;
+  &lt;li&gt;ゴールへ進む&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+  &lt;li&gt;準備する&lt;/li&gt;
+  &lt;li&gt;ゲームを始める&lt;/li&gt;
+&lt;/ol&gt;</code></pre><p>入力する欄には <code>input</code>、その説明には <code>label</code> を使えます。<code>for</code> の値と入力欄の <code>id</code> をそろえると、説明をクリックしても入力欄を選べます。<code>input</code> は終了タグのない空要素です。</p><p>次も独立したHTML断片です。前のリストを消し、同じ <code>body</code> の中に入れて保存・再読み込みし、「名前」をクリックして入力欄に文字を打ってみましょう。</p><pre data-kind="html-fragment"><code>&lt;label for=&quot;player-name&quot;&gt;名前&lt;/label&gt;
+&lt;input id=&quot;player-name&quot; type=&quot;text&quot;&gt;</code></pre><details><summary>確認：labelとinputを結び付けるには？</summary><p>labelのforとinputのidに同じ名前を入れます。</p></details></section>
+<section id="attributes"><h2>基本：属性と目印</h2><p>開始タグの中の追加情報を属性と呼びます。例えば <code>id="score"</code> は一つの要素を見つける目印、<code>class="tile"</code> は複数の要素に共通の目印です。同じページで同じidを使うのは一つにします。classは複数の要素に使えます。</p><pre data-kind="html-fragment"><code>&lt;p id=&quot;score&quot; class=&quot;notice&quot;&gt;0&lt;/p&gt;
+&lt;div class=&quot;tile&quot;&gt;赤&lt;/div&gt;
+&lt;div class=&quot;tile&quot;&gt;青&lt;/div&gt;</code></pre><p>文字列は引用符で囲みます。<code>alt</code> は画像を見られない人にも内容を伝える代わりの説明です。</p><details><summary>確認：2つの箱に同じ見た目を付ける目印は？</summary><p>同じclassを使えます。</p></details></section>
+<section id="paths"><h2>基本：ファイルの場所</h2><p><code>href</code> はリンク先、<code>src</code> は画像やスクリプトの読み込み先です。今のHTMLファイルの場所から数える書き方を相対パスといいます。</p><pre data-kind="html-fragment"><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;img src=&quot;assets/coin.png&quot; alt=&quot;コイン&quot;&gt;
+&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;</code></pre><span id="diagram-html-paths"></span><figure class="learning-diagram" id="syntax-html-paths" aria-labelledby="syntax-html-paths-title"><figcaption id="syntax-html-paths-title">図：ファイルの場所と相対パス</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="ファイルの場所と相対パス"><img src="../../tutorial/illustrations/astra/html-paths.svg" width="1200" height="880" alt="同じフォルダーのHTML・CSS・JavaScriptと、その下のassetsにある画像の関係。"></div><p class="diagram-expand"><a href="../../tutorial/illustrations/astra/html-paths.svg" target="_blank" rel="noopener" aria-label="図：ファイルの場所と相対パスを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p>このパスの断片は一つの場所にまとめて入れる例ではありません。<code>link</code> と <code>script</code> は <code>head</code> に、<code>img</code> は <code>body</code> に書きます。ファイルがそろった練習見本でも確認できます。</p><p>この例ではHTML、<code>style.css</code>、<code>script.js</code> は同じフォルダーです。画像はその中の <code>assets</code> フォルダーにあります。<code>../</code> は一つ上のフォルダーです。<code>defer</code> を付けるとHTMLの読み込み後にスクリプトを実行します。</p><details><summary>確認：同じフォルダーのstyle.cssを指す書き方は？</summary><p>href="style.css" です。</p></details></section>
+<section id="entities"><h2>補足：記号を文字として書く</h2><p>HTMLでは <code>&lt;</code> はタグの始まり、<code>&amp;</code> は特別な文字の書き方の始まりです。文章として表示したいときは、それぞれ <code>&amp;lt;</code> と <code>&amp;amp;</code> と書きます。</p><pre data-kind="html-fragment"><code>&lt;p&gt;1 &amp;lt; 2 &amp;amp; 3&lt;/p&gt;</code></pre><p>表示は「1 &lt; 2 &amp; 3」です。これはHTMLに書くときの約束で、JavaScriptの比較演算子の書き方とは別です。</p><details><summary>確認：画面に &lt; を表示するには？</summary><p>HTMLでは &amp;lt; と書きます。</p></details></section>
+<p><a href="../basics.html">作る前に確かめる基礎へ戻る</a></p></main></div></body></html>
