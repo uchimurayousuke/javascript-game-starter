@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>この章のコードを見本と比べる</title>
+  <link rel="stylesheet" href="../../examples/guide.css">
+  <link rel="stylesheet" href="../learning-layout.css">
+  <link rel="stylesheet" href="compare.css">
+  <script src="references.js" defer></script>
+  <script src="diff.js" defer></script>
+  <script src="compare.js" defer></script>
+</head>
+<body class="lesson-page compare-page">
+  <a class="lesson-skip" href="#lesson-main">本文へ移動</a>
+  <main id="lesson-main" tabindex="-1">
+    <nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../learning/index.html">学びの入口</a></li><li aria-current="page">コードを比べる</li></ol></nav>
+    <h1>この章のコードを見本と比べる</h1>
+    <p>ファイルを選ぶか、コードを貼り付けてから「比べる」を押します。コードはこのブラウザーの中で文字として比べます。実行したり、送信・保存・上書きしたりしません。</p>
+    <noscript><p>比較にはJavaScriptを有効にしてください。教材の見本は別のページで開けます。</p></noscript>
+    <section aria-labelledby="choose-heading">
+      <h2 id="choose-heading">1. 章とファイルを選ぶ</h2>
+      <label for="chapter">比べる章</label>
+      <select id="chapter"><option value="">章を選んでください</option></select>
+      <p id="chapter-description">教材から開くと、その章が選ばれます。</p>
+      <p class="reference-links"><a id="back-link" hidden>元の章へ戻る</a> <a id="game-link" hidden>この章の見本ゲームを開く</a></p>
+      <label for="file-kind">比べるファイル</label>
+      <select id="file-kind"><option value="script.js">script.js（動き）</option><option value="index.html">index.html（画面の置き場所）</option><option value="style.css">style.css（見た目）</option></select>
+      <p>HTMLとCSSは教材の手順で用意した内容を見本にします。見本ゲームのタイトルとは異なる場合があります。</p>
+    </section>
+    <section aria-labelledby="input-heading">
+      <h2 id="input-heading">2. 自分のコードを用意する</h2>
+      <label for="file-input">自分のファイルを選ぶ</label>
+      <input id="file-input" type="file" accept=".js,.html,.htm,.css,.txt,text/plain">
+      <p>または、下の欄にコードを貼り付けます。ファイルの種類を変えると入力欄は空になります。</p>
+      <label for="own-code">自分のコード</label>
+      <textarea id="own-code" rows="12" spellcheck="false" placeholder="ここにコードを貼り付ける"></textarea>
+      <p>空のファイルも比較できます。大きな入力は600行・1行3000文字まで、ファイルは120KBまでです。</p>
+      <label class="check-option"><input id="ignore-space" type="checkbox"> 行のはじめ・終わりの空白をそろえて比べる</label>
+      <label class="check-option"><input id="ignore-blank" type="checkbox"> 空白だけの行を除いて比べる</label>
+      <p>文字列の中や行の途中の空白は無視しません。HTML・CSSや判別が難しいコードでは、空白と空白行をそのまま比べます。</p>
+      <button id="compare-button" type="button">比べる</button>
+      <p id="status" role="status" aria-live="polite">章を選び、ファイルを選ぶかコードを貼り付けてください。</p>
+    </section>
+    <section id="result" hidden tabindex="-1" aria-labelledby="result-heading">
+      <h2 id="result-heading">3. 違いを確かめる</h2>
+      <p>左が自分、右が見本です。色だけでなく「自分だけ」「見本だけ」「違う」と行番号でも示します。狭い画面では自分、見本の順に並びます。</p>
+      <p>違いがあっても不正解とは限りません。小さな練習や自分の改造も違いとして表示されます。</p>
+      <label class="check-option"><input id="differences-only" type="checkbox"> 違う行だけ表示する</label>
+      <p id="result-count"></p>
+      <div id="diff-output" aria-label="自分と見本の行ごとの比較"></div>
+      <div id="matching-help" hidden>
+        <h3>同じでも動かないとき</h3>
+        <p>コードの一致だけでは動作を確認できません。保存したか、同じ作業フォルダーのindex.htmlを開いているか、必要なassetsの場所、Consoleのエラーを確かめてください。</p>
+        <p><a id="result-game-link">この章の見本ゲームを開く</a>　<a href="../../learning/debug/index.html">エラーを直す練習を見る</a></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -45,7 +45,10 @@ test("教材と各見本のリンク先、CSS と JavaScript が存在する", (
       if (target.startsWith("#")) {
         assert.ok(html.includes(`id="${target.slice(1)}"`), target);
       } else {
-        assert.ok(fs.existsSync(path.resolve(here, path.dirname(file), target)), `${file}: ${target}`);
+        const [pathAndQuery, fragment] = target.split("#");
+        const linked = path.resolve(here, path.dirname(file), pathAndQuery.split("?")[0]);
+        assert.ok(fs.existsSync(linked), `${file}: ${target}`);
+        if (fragment) assert.ok(fs.readFileSync(linked, "utf8").includes(`id="${decodeURIComponent(fragment)}"`), `${file}: ${target}`);
       }
     }
   }

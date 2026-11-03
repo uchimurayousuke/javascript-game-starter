@@ -139,7 +139,7 @@ let coinY = 80;
 <h3>5. 保存・再読み込み後の確認</h3><ol><li>script.js を保存し、作業用フォルダーの index.html を開いて再読み込みします。</li><li>上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。</li><li>しばらく待っても位置が変わらないことを確かめます。</li></ol>
 <h3>6. 小さな練習</h3><p><code>coinRadius</code> を <code>24</code> にして丸を大きくしましょう。<code>draw()</code> の <code>#2563eb</code> を <code>#16a34a</code> にして、受け皿を緑にしてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
-</section>
+<p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-01-draw">この章の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-02" data-step="02-update">
 <p class="eyebrow">STEP 02</p><h2>位置を更新して落下させる</h2>
 <div class="result-links"><a href="02-update/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="02-update/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
@@ -179,7 +179,7 @@ let coinY = 80;
 <h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。上からコインが落ちてきます。</li><li>コインが画面の下まで落ちると、次は別の横位置から現れます。</li><li>受け皿は動かず、コインは受け皿を通り抜けます。</li></ol>
 <h3>6. 小さな練習</h3><p><code>coinSpeed</code> を <code>1</code> と <code>5</code> に変え、速さを比べましょう。次に <code>resetCoin()</code> の <code>coinX = ...;</code> を <code>coinX = canvas.width / 2;</code> にすると、毎回中央から落ちます。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
-</section>
+<p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-02-update">この章の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-03" data-step="03-input">
 <p class="eyebrow">STEP 03</p><h2>キーボードで受け皿を動かす</h2>
 <div class="result-links"><a href="03-input/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="03-input/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
@@ -265,7 +265,7 @@ window.addEventListener(&quot;blur&quot;, clearKeys);
 <h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みし、ゲームのタブをクリックして、ゲームがキー操作を受け取れるようにします。</li><li>← と → を押し続けると移動し、離すと止まります。両端でも受け皿全体が画面に収まります。</li><li>移動中に別のタブへ切り替えて戻り、キーを離したあとに動き続けないことを確認します。コインに触れても得点はまだ増えません。</li></ol>
 <h3>6. 小さな練習</h3><p><code>playerSpeed</code> を <code>3</code>、次に <code>9</code> に変えて操作感を比べましょう。両方の矢印キーを同時に押すと、左右の移動量が打ち消し合うことも確かめましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
-</section>
+<p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-03-input">この章の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-04" data-step="04-collision">
 <p class="eyebrow">STEP 04</p><h2>重なりを調べて得点をつける</h2>
 <div class="result-links"><a href="04-collision/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="04-collision/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
@@ -349,7 +349,7 @@ window.addEventListener(&quot;blur&quot;, clearKeys);
 <h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。最初のコインは中央に落ちるので、動かずに待つと1点増えます。</li><li>次のコインを左右キーで追いかけます。1回のキャッチで1点だけ増え、コインは上に戻ります。</li><li>わざと落としても得点が減らず、次のコインが現れます。受け皿の端でもキャッチできるか試します。</li></ol>
 <h3>6. 小さな練習</h3><p><code>playerWidth</code> を <code>60</code> に変え、キャッチしにくくなるか確かめましょう。次に <code>score += 1</code> を <code>score += 2</code> にして、1枚の得点を変えてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
-</section>
+<p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-04-collision">この章の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-05" data-step="05-game">
 <p class="eyebrow">STEP 05</p><h2>クリアと再挑戦を作る</h2>
 <div class="result-links"><a href="05-game/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="05-game/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
@@ -475,7 +475,7 @@ let gameState = &quot;playing&quot;;
 <h3>5. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。画面に得点、残り回数、操作とルールが表示されます。</li><li>5枚集めて「クリア！」を確認します。終了後に左右キーを押しても受け皿は動きません。Space キーで得点0・残り3・中央の位置に戻ります。</li><li>今度は3回落とし「ゲームオーバー」を確認します。こちらも Space キーで再挑戦でき、何度繰り返しても動きが速くならないことを確認します。</li></ol>
 <h3>6. 小さな練習</h3><p><code>targetScore</code> を <code>8</code>、<code>startingLives</code> を <code>5</code> に変えましょう。画面下のルール表示も変数から描いているので一緒に変わります。さらに受け皿の幅と落下速度を調整し、遊びやすい組み合わせを探しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
-</section>
+<p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-05-game">この章の見本と自分のコードを比べる</a></p></section>
         <section id="help" class="lesson">
           <h2>うまく動かないとき</h2>
           <ul><li>エディターで保存してから、ゲームを開いているタブを再読み込みします。教材のタブだけを再読み込みしてもゲームは変わりません。</li><li>編集している <code>script.js</code> と、開いている <code>index.html</code> が同じ作業用フォルダーにあるか確認します。</li><li>丸括弧 <code>()</code>、波括弧 <code>{}</code>、引用符 <code>""</code> の閉じ忘れを確認します。コード内の記号と英数字は半角で書きます。</li><li>ブラウザの開発者ツール（動作を調べるための画面）を開き、Console という欄を見ます。赤いエラーがあれば、表示されたファイル名と行番号を確かめます。変数名は大文字・小文字も区別します。</li><li>各段階の <code>script.js 全体</code> と見比べます。特に STEP 03 のイベント登録と、ファイル末尾の <code>start();</code>・<code>gameLoop();</code> を確認します。</li></ul>

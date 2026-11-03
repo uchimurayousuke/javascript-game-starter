@@ -119,7 +119,8 @@ test("reading pages and game pages stay separate", () => {
 
 function checkLink(file, link) {
   assert.doesNotMatch(link, /^[a-z]+:/i, "links and assets must work locally");
-  const [relative, fragment] = link.split("#");
+  const [pathAndQuery, fragment] = link.split("#");
+  const relative = pathAndQuery.split("?")[0];
   const target = relative ? path.resolve(root, path.dirname(file), decodeURIComponent(relative)) : path.join(root, file);
   assert.ok(fs.existsSync(target), file + " links to missing file " + link);
   if (fragment) {

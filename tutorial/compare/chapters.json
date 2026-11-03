@@ -1,0 +1,3759 @@
+[
+  {
+    "id": "examples-advanced-bomb-maze-extensions-tutorial-html-step1",
+    "title": "爆弾迷路アクションの発展",
+    "chapter": "ステップ 1：爆風を長くする",
+    "page": "examples/advanced/bomb-maze/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/bomb-maze/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-extensions-tutorial-html-step2",
+    "title": "爆弾迷路アクションの発展",
+    "chapter": "ステップ 2：爆弾を2個まで置く",
+    "page": "examples/advanced/bomb-maze/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/bomb-maze/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-extensions-tutorial-html-step3",
+    "title": "爆弾迷路アクションの発展",
+    "chapter": "ステップ 3：敵を巡回させる",
+    "page": "examples/advanced/bomb-maze/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/bomb-maze/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-tutorial-html-step1",
+    "title": "爆弾迷路アクションを作る",
+    "chapter": "ステップ 1：盤面を歩く",
+    "page": "examples/advanced/bomb-maze/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/bomb-maze/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-tutorial-html-step2",
+    "title": "爆弾迷路アクションを作る",
+    "chapter": "ステップ 2：爆弾を置く",
+    "page": "examples/advanced/bomb-maze/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/bomb-maze/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-tutorial-html-step3",
+    "title": "爆弾迷路アクションを作る",
+    "chapter": "ステップ 3：十字の爆風を作る",
+    "page": "examples/advanced/bomb-maze/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/bomb-maze/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-tutorial-html-step4",
+    "title": "爆弾迷路アクションを作る",
+    "chapter": "ステップ 4：敵と接触を判定する",
+    "page": "examples/advanced/bomb-maze/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/bomb-maze/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-bomb-maze-tutorial-html-step5",
+    "title": "爆弾迷路アクションを作る",
+    "chapter": "ステップ 5：出口と勝敗",
+    "page": "examples/advanced/bomb-maze/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/bomb-maze/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bomb-maze/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-extensions-tutorial-html-step1",
+    "title": "小さなカードバトルの発展",
+    "chapter": "ステップ 1：敵の次の行動を予告する",
+    "page": "examples/advanced/card-battle/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/card-battle/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-extensions-tutorial-html-step2",
+    "title": "小さなカードバトルの発展",
+    "chapter": "ステップ 2：行動力2の強いカード",
+    "page": "examples/advanced/card-battle/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/card-battle/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-extensions-tutorial-html-step3",
+    "title": "小さなカードバトルの発展",
+    "chapter": "ステップ 3：毒の継続効果を加える",
+    "page": "examples/advanced/card-battle/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/card-battle/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-tutorial-html-step1",
+    "title": "小さなカードバトル",
+    "chapter": "ステップ 1：カードとキャラクターを作る",
+    "page": "examples/advanced/card-battle/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/card-battle/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-tutorial-html-step2",
+    "title": "小さなカードバトル",
+    "chapter": "ステップ 2：山札から手札を引く",
+    "page": "examples/advanced/card-battle/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/card-battle/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-tutorial-html-step3",
+    "title": "小さなカードバトル",
+    "chapter": "ステップ 3：カードを使って効果を出す",
+    "page": "examples/advanced/card-battle/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/card-battle/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-tutorial-html-step4",
+    "title": "小さなカードバトル",
+    "chapter": "ステップ 4：敵の手番と結果を作る",
+    "page": "examples/advanced/card-battle/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/card-battle/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-card-battle-tutorial-html-step5",
+    "title": "小さなカードバトル",
+    "chapter": "ステップ 5：捨て札を混ぜて再び引く",
+    "page": "examples/advanced/card-battle/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/card-battle/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/card-battle/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-extensions-tutorial-html-step1",
+    "title": "脱出ゲームの発展",
+    "chapter": "ステップ 1：アイテムを組み合わせる",
+    "page": "examples/advanced/escape/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/escape/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-extensions-tutorial-html-step2",
+    "title": "脱出ゲームの発展",
+    "chapter": "ステップ 2：隣の部屋へ移動する",
+    "page": "examples/advanced/escape/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/escape/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-extensions-tutorial-html-step3",
+    "title": "脱出ゲームの発展",
+    "chapter": "ステップ 3：暗い箱と出口の番号",
+    "page": "examples/advanced/escape/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/escape/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-tutorial-html-step1",
+    "title": "クリックで脱出ゲーム",
+    "chapter": "ステップ 1：部屋の物をクラスで表す",
+    "page": "examples/advanced/escape/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/escape/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-tutorial-html-step2",
+    "title": "クリックで脱出ゲーム",
+    "chapter": "ステップ 2：引き出しの番号を合わせる",
+    "page": "examples/advanced/escape/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/escape/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-tutorial-html-step3",
+    "title": "クリックで脱出ゲーム",
+    "chapter": "ステップ 3：持ち物をクラスで管理する",
+    "page": "examples/advanced/escape/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/escape/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-tutorial-html-step4",
+    "title": "クリックで脱出ゲーム",
+    "chapter": "ステップ 4：道具を使って脱出する",
+    "page": "examples/advanced/escape/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/escape/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-escape-tutorial-html-step5",
+    "title": "クリックで脱出ゲーム",
+    "chapter": "ステップ 5：ゲーム全体をクラスにまとめる",
+    "page": "examples/advanced/escape/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/escape/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/escape/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-extensions-tutorial-html-step1",
+    "title": "落ちものパズルの発展",
+    "chapter": "ステップ 1：着地点を予告する",
+    "page": "examples/advanced/falling-blocks/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/falling-blocks/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-extensions-tutorial-html-step2",
+    "title": "落ちものパズルの発展",
+    "chapter": "ステップ 2：一気に落とす",
+    "page": "examples/advanced/falling-blocks/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/falling-blocks/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-extensions-tutorial-html-step3",
+    "title": "落ちものパズルの発展",
+    "chapter": "ステップ 3：次の形を予告する",
+    "page": "examples/advanced/falling-blocks/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/falling-blocks/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-tutorial-html-step1",
+    "title": "落ちものパズルを作る",
+    "chapter": "ステップ 1：盤面と図形を描く",
+    "page": "examples/advanced/falling-blocks/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/falling-blocks/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-tutorial-html-step2",
+    "title": "落ちものパズルを作る",
+    "chapter": "ステップ 2：落下と移動",
+    "page": "examples/advanced/falling-blocks/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/falling-blocks/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-tutorial-html-step3",
+    "title": "落ちものパズルを作る",
+    "chapter": "ステップ 3：回転を試す",
+    "page": "examples/advanced/falling-blocks/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/falling-blocks/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-tutorial-html-step4",
+    "title": "落ちものパズルを作る",
+    "chapter": "ステップ 4：図形を固定する",
+    "page": "examples/advanced/falling-blocks/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/falling-blocks/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-falling-blocks-tutorial-html-step5",
+    "title": "落ちものパズルを作る",
+    "chapter": "ステップ 5：行を消して得点する",
+    "page": "examples/advanced/falling-blocks/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/falling-blocks/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/falling-blocks/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-extensions-tutorial-html-step1",
+    "title": "3つそろえるパズルの発展",
+    "chapter": "ステップ 1：連鎖の追加点",
+    "page": "examples/advanced/match3/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/match3/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-extensions-tutorial-html-step2",
+    "title": "3つそろえるパズルの発展",
+    "chapter": "ステップ 2：制限時間",
+    "page": "examples/advanced/match3/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/match3/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-extensions-tutorial-html-step3",
+    "title": "3つそろえるパズルの発展",
+    "chapter": "ステップ 3：選んだ列を消す",
+    "page": "examples/advanced/match3/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/match3/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-tutorial-html-step1",
+    "title": "3つそろえるパズルを作る",
+    "chapter": "ステップ 1：盤面を作る",
+    "page": "examples/advanced/match3/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/match3/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-tutorial-html-step2",
+    "title": "3つそろえるパズルを作る",
+    "chapter": "ステップ 2：隣を交換する",
+    "page": "examples/advanced/match3/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/match3/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-tutorial-html-step3",
+    "title": "3つそろえるパズルを作る",
+    "chapter": "ステップ 3：3つ以上を判定する",
+    "page": "examples/advanced/match3/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/match3/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-tutorial-html-step4",
+    "title": "3つそろえるパズルを作る",
+    "chapter": "ステップ 4：消去と落下",
+    "page": "examples/advanced/match3/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/match3/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-match3-tutorial-html-step5",
+    "title": "3つそろえるパズルを作る",
+    "chapter": "ステップ 5：手数と勝敗",
+    "page": "examples/advanced/match3/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/match3/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/match3/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-extensions-tutorial-html-stomp",
+    "title": "横スクロールゲームの発展課題",
+    "chapter": "発展課題 1：敵を上から踏んで倒す",
+    "page": "examples/advanced/platformer/extensions/tutorial.html",
+    "anchor": "stomp",
+    "game": "examples/advanced/platformer/extensions/stomp/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/extensions/stomp/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-extensions-tutorial-html-dash",
+    "title": "横スクロールゲームの発展課題",
+    "chapter": "発展課題 2：Shift キーでダッシュする",
+    "page": "examples/advanced/platformer/extensions/tutorial.html",
+    "anchor": "dash",
+    "game": "examples/advanced/platformer/extensions/dash/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/extensions/dash/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-extensions-tutorial-html-checkpoint",
+    "title": "横スクロールゲームの発展課題",
+    "chapter": "発展課題 3：中間ポイントから再挑戦する",
+    "page": "examples/advanced/platformer/extensions/tutorial.html",
+    "anchor": "checkpoint",
+    "game": "examples/advanced/platformer/extensions/checkpoint/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/extensions/checkpoint/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-tutorial-html-step1",
+    "title": "横スクロールのジャンプアクション",
+    "chapter": "ステップ 1：プレイヤーと地面を描く",
+    "page": "examples/advanced/platformer/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/platformer/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-tutorial-html-step2",
+    "title": "横スクロールのジャンプアクション",
+    "chapter": "ステップ 2：移動とジャンプ・重力",
+    "page": "examples/advanced/platformer/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/platformer/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-tutorial-html-step3",
+    "title": "横スクロールのジャンプアクション",
+    "chapter": "ステップ 3：複数の地形と衝突する",
+    "page": "examples/advanced/platformer/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/platformer/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-tutorial-html-step4",
+    "title": "横スクロールのジャンプアクション",
+    "chapter": "ステップ 4：長いステージとカメラ",
+    "page": "examples/advanced/platformer/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/platformer/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-tutorial-html-step5",
+    "title": "横スクロールのジャンプアクション",
+    "chapter": "ステップ 5：コインと敵を置く",
+    "page": "examples/advanced/platformer/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/platformer/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-platformer-tutorial-html-step6",
+    "title": "横スクロールのジャンプアクション",
+    "chapter": "ステップ 6：ゴール・失敗・再挑戦",
+    "page": "examples/advanced/platformer/tutorial.html",
+    "anchor": "lesson-section-7",
+    "game": "examples/advanced/platformer/step6/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/platformer/step6/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-extensions-tutorial-html-step1",
+    "title": "探索RPGの発展",
+    "chapter": "ステップ 1：店で薬を買う",
+    "page": "examples/advanced/quest-rpg/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/quest-rpg/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-extensions-tutorial-html-step2",
+    "title": "探索RPGの発展",
+    "chapter": "ステップ 2：敵との戦闘",
+    "page": "examples/advanced/quest-rpg/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/quest-rpg/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-extensions-tutorial-html-step3",
+    "title": "探索RPGの発展",
+    "chapter": "ステップ 3：経験値とレベル",
+    "page": "examples/advanced/quest-rpg/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/quest-rpg/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-tutorial-html-step1",
+    "title": "探索RPGを作る",
+    "chapter": "ステップ 1：マップと人物を描く",
+    "page": "examples/advanced/quest-rpg/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/quest-rpg/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-tutorial-html-step2",
+    "title": "探索RPGを作る",
+    "chapter": "ステップ 2：壁と移動",
+    "page": "examples/advanced/quest-rpg/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/quest-rpg/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-tutorial-html-step3",
+    "title": "探索RPGを作る",
+    "chapter": "ステップ 3：住人と会話する",
+    "page": "examples/advanced/quest-rpg/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/quest-rpg/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-tutorial-html-step4",
+    "title": "探索RPGを作る",
+    "chapter": "ステップ 4：宝を渡して鍵をもらう",
+    "page": "examples/advanced/quest-rpg/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/quest-rpg/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-quest-rpg-tutorial-html-step5",
+    "title": "探索RPGを作る",
+    "chapter": "ステップ 5：鍵で扉を開ける",
+    "page": "examples/advanced/quest-rpg/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/quest-rpg/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/quest-rpg/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-extensions-tutorial-html-step1",
+    "title": "周回タイムアタックの発展",
+    "chapter": "ステップ 1：期間限定のブースト",
+    "page": "examples/advanced/racing/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/racing/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-extensions-tutorial-html-step2",
+    "title": "周回タイムアタックの発展",
+    "chapter": "ステップ 2：道路外で減速する",
+    "page": "examples/advanced/racing/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/racing/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-extensions-tutorial-html-step3",
+    "title": "周回タイムアタックの発展",
+    "chapter": "ステップ 3：ラップとベストを記録する",
+    "page": "examples/advanced/racing/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/racing/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-tutorial-html-step1",
+    "title": "周回タイムアタック",
+    "chapter": "ステップ 1：コースと車をクラスで描く",
+    "page": "examples/advanced/racing/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/racing/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-tutorial-html-step2",
+    "title": "周回タイムアタック",
+    "chapter": "ステップ 2：加速して向きに進む",
+    "page": "examples/advanced/racing/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/racing/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-tutorial-html-step3",
+    "title": "周回タイムアタック",
+    "chapter": "ステップ 3：道路の外へ出ない",
+    "page": "examples/advanced/racing/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/racing/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-tutorial-html-step4",
+    "title": "周回タイムアタック",
+    "chapter": "ステップ 4：4地点を順に通る",
+    "page": "examples/advanced/racing/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/racing/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-racing-tutorial-html-step5",
+    "title": "周回タイムアタック",
+    "chapter": "ステップ 5：2周の時間を記録する",
+    "page": "examples/advanced/racing/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/racing/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/racing/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-extensions-tutorial-html-step1",
+    "title": "1対1サッカーの発展",
+    "chapter": "ステップ 1：ためてシュート",
+    "page": "examples/advanced/soccer/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/soccer/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-extensions-tutorial-html-step2",
+    "title": "1対1サッカーの発展",
+    "chapter": "ステップ 2：スタミナとダッシュ",
+    "page": "examples/advanced/soccer/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/soccer/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-extensions-tutorial-html-step3",
+    "title": "1対1サッカーの発展",
+    "chapter": "ステップ 3：相手の速さを切り替える",
+    "page": "examples/advanced/soccer/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/soccer/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-tutorial-html-step1",
+    "title": "1対1サッカーを作る",
+    "chapter": "ステップ 1：ピッチと選手を描く",
+    "page": "examples/advanced/soccer/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/soccer/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-tutorial-html-step2",
+    "title": "1対1サッカーを作る",
+    "chapter": "ステップ 2：選手を動かす",
+    "page": "examples/advanced/soccer/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/soccer/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-tutorial-html-step3",
+    "title": "1対1サッカーを作る",
+    "chapter": "ステップ 3：ボールを蹴る",
+    "page": "examples/advanced/soccer/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/soccer/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-tutorial-html-step4",
+    "title": "1対1サッカーを作る",
+    "chapter": "ステップ 4：相手を動かす",
+    "page": "examples/advanced/soccer/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/soccer/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-soccer-tutorial-html-step5",
+    "title": "1対1サッカーを作る",
+    "chapter": "ステップ 5：ゴールと勝敗",
+    "page": "examples/advanced/soccer/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/soccer/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/soccer/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-extensions-tutorial-html-step1",
+    "title": "マス目の戦術ゲームの発展",
+    "chapter": "ステップ 1：射程の違う仲間",
+    "page": "examples/advanced/tactics/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/tactics/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-extensions-tutorial-html-step2",
+    "title": "マス目の戦術ゲームの発展",
+    "chapter": "ステップ 2：地形と移動コスト",
+    "page": "examples/advanced/tactics/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/tactics/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-extensions-tutorial-html-step3",
+    "title": "マス目の戦術ゲームの発展",
+    "chapter": "ステップ 3：回復役を加える",
+    "page": "examples/advanced/tactics/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/tactics/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-tutorial-html-step1",
+    "title": "マス目の戦術ゲームを作る",
+    "chapter": "ステップ 1：盤面とユニットを描く",
+    "page": "examples/advanced/tactics/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/tactics/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-tutorial-html-step2",
+    "title": "マス目の戦術ゲームを作る",
+    "chapter": "ステップ 2：選択して移動する",
+    "page": "examples/advanced/tactics/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/tactics/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-tutorial-html-step3",
+    "title": "マス目の戦術ゲームを作る",
+    "chapter": "ステップ 3：隣を攻撃する",
+    "page": "examples/advanced/tactics/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/tactics/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-tutorial-html-step4",
+    "title": "マス目の戦術ゲームを作る",
+    "chapter": "ステップ 4：敵の番を作る",
+    "page": "examples/advanced/tactics/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/tactics/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tactics-tutorial-html-step5",
+    "title": "マス目の戦術ゲームを作る",
+    "chapter": "ステップ 5：勝敗を判定する",
+    "page": "examples/advanced/tactics/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/tactics/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tactics/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-extensions-tutorial-html-step1",
+    "title": "タワーディフェンスの発展",
+    "chapter": "ステップ 1：タワーを強化する",
+    "page": "examples/advanced/tower-defense/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/tower-defense/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-extensions-tutorial-html-step2",
+    "title": "タワーディフェンスの発展",
+    "chapter": "ステップ 2：速い敵と硬い敵",
+    "page": "examples/advanced/tower-defense/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/tower-defense/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-extensions-tutorial-html-step3",
+    "title": "タワーディフェンスの発展",
+    "chapter": "ステップ 3：最後にボスを出す",
+    "page": "examples/advanced/tower-defense/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/tower-defense/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-tutorial-html-step1",
+    "title": "タワーディフェンス",
+    "chapter": "ステップ 1：敵をクラスで作り道を進む",
+    "page": "examples/advanced/tower-defense/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/tower-defense/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-tutorial-html-step2",
+    "title": "タワーディフェンス",
+    "chapter": "ステップ 2：タワーを置く",
+    "page": "examples/advanced/tower-defense/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/tower-defense/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-tutorial-html-step3",
+    "title": "タワーディフェンス",
+    "chapter": "ステップ 3：射程内の敵を探す",
+    "page": "examples/advanced/tower-defense/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/tower-defense/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-tutorial-html-step4",
+    "title": "タワーディフェンス",
+    "chapter": "ステップ 4：弾を飛ばす",
+    "page": "examples/advanced/tower-defense/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/tower-defense/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-advanced-tower-defense-tutorial-html-step5",
+    "title": "タワーディフェンス",
+    "chapter": "ステップ 5：3回の波と結果を作る",
+    "page": "examples/advanced/tower-defense/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/tower-defense/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/tower-defense/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-bounce-extensions-tutorial-html-step1",
+    "title": "ボールをはね返すゲームの発展",
+    "chapter": "ステップ 1：残り回数を作る",
+    "page": "examples/beginner/bounce/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/bounce/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/bounce/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-bounce-extensions-tutorial-html-step2",
+    "title": "ボールをはね返すゲームの発展",
+    "chapter": "ステップ 2：当てる場所で向きを変える",
+    "page": "examples/beginner/bounce/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/bounce/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/bounce/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-bounce-extensions-tutorial-html-step3",
+    "title": "ボールをはね返すゲームの発展",
+    "chapter": "ステップ 3：回数で速くなる",
+    "page": "examples/beginner/bounce/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/bounce/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/bounce/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-bounce-tutorial-html-step1",
+    "title": "ボールをはね返すゲーム",
+    "chapter": "ステップ 1：ボールを動かす",
+    "page": "examples/beginner/bounce/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/bounce/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/bounce/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-bounce-tutorial-html-step2",
+    "title": "ボールをはね返すゲーム",
+    "chapter": "ステップ 2：板を左右に動かす",
+    "page": "examples/beginner/bounce/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/bounce/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/bounce/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-bounce-tutorial-html-step3",
+    "title": "ボールをはね返すゲーム",
+    "chapter": "ステップ 3：板で反射して得点する",
+    "page": "examples/beginner/bounce/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/bounce/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/bounce/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-number-guess-extensions-tutorial-html-step1",
+    "title": "ヒントで数あての発展",
+    "chapter": "ステップ 1：回答の履歴を残す",
+    "page": "examples/beginner/number-guess/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/number-guess/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/number-guess/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-number-guess-extensions-tutorial-html-step2",
+    "title": "ヒントで数あての発展",
+    "chapter": "ステップ 2：候補の範囲をしぼる",
+    "page": "examples/beginner/number-guess/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/number-guess/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/number-guess/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-number-guess-extensions-tutorial-html-step3",
+    "title": "ヒントで数あての発展",
+    "chapter": "ステップ 3：難易度を切り替える",
+    "page": "examples/beginner/number-guess/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/number-guess/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/number-guess/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-number-guess-tutorial-html-step1",
+    "title": "ヒントで数あて",
+    "chapter": "ステップ 1：数字を入力して表示する",
+    "page": "examples/beginner/number-guess/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/number-guess/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/number-guess/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-number-guess-tutorial-html-step2",
+    "title": "ヒントで数あて",
+    "chapter": "ステップ 2：大小を比べてヒントを出す",
+    "page": "examples/beginner/number-guess/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/number-guess/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/number-guess/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-number-guess-tutorial-html-step3",
+    "title": "ヒントで数あて",
+    "chapter": "ステップ 3：ランダムな数と回数を付ける",
+    "page": "examples/beginner/number-guess/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/number-guess/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/number-guess/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-extensions-tutorial-html-step1",
+    "title": "3択クイズの発展",
+    "chapter": "ステップ 1：出題順を混ぜる",
+    "page": "examples/beginner/quiz/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/quiz/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-extensions-tutorial-html-step2",
+    "title": "3択クイズの発展",
+    "chapter": "ステップ 2：答えの解説を出す",
+    "page": "examples/beginner/quiz/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/quiz/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-extensions-tutorial-html-step3",
+    "title": "3択クイズの発展",
+    "chapter": "ステップ 3：1問ごとの時間制限",
+    "page": "examples/beginner/quiz/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/quiz/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-tutorial-html-step1",
+    "title": "3択クイズを作る",
+    "chapter": "ステップ 1：問題を表示する",
+    "page": "examples/beginner/quiz/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/quiz/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-tutorial-html-step2",
+    "title": "3択クイズを作る",
+    "chapter": "ステップ 2：3つの選択肢を出す",
+    "page": "examples/beginner/quiz/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/quiz/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-tutorial-html-step3",
+    "title": "3択クイズを作る",
+    "chapter": "ステップ 3：答えを判定する",
+    "page": "examples/beginner/quiz/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/quiz/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-tutorial-html-step4",
+    "title": "3択クイズを作る",
+    "chapter": "ステップ 4：次の問題へ進む",
+    "page": "examples/beginner/quiz/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/beginner/quiz/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-quiz-tutorial-html-step5",
+    "title": "3択クイズを作る",
+    "chapter": "ステップ 5：結果と目標を確認する",
+    "page": "examples/beginner/quiz/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/beginner/quiz/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/quiz/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-extensions-tutorial-html-step1",
+    "title": "選択肢の冒険の発展",
+    "chapter": "ステップ 1：持ち物と鍵の扉",
+    "page": "examples/beginner/story/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/story/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-extensions-tutorial-html-step2",
+    "title": "選択肢の冒険の発展",
+    "chapter": "ステップ 2：前の選択へ戻る",
+    "page": "examples/beginner/story/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/story/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-extensions-tutorial-html-step3",
+    "title": "選択肢の冒険の発展",
+    "chapter": "ステップ 3：花を持った結末",
+    "page": "examples/beginner/story/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/story/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-tutorial-html-step1",
+    "title": "選択肢の冒険を作る",
+    "chapter": "ステップ 1：森の場面を描く",
+    "page": "examples/beginner/story/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/story/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-tutorial-html-step2",
+    "title": "選択肢の冒険を作る",
+    "chapter": "ステップ 2：選択肢を並べる",
+    "page": "examples/beginner/story/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/story/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-tutorial-html-step3",
+    "title": "選択肢の冒険を作る",
+    "chapter": "ステップ 3：選択して場面を変える",
+    "page": "examples/beginner/story/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/story/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-tutorial-html-step4",
+    "title": "選択肢の冒険を作る",
+    "chapter": "ステップ 4：2つの結末を作る",
+    "page": "examples/beginner/story/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/beginner/story/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-story-tutorial-html-step5",
+    "title": "選択肢の冒険を作る",
+    "chapter": "ステップ 5：結末から再開する",
+    "page": "examples/beginner/story/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/beginner/story/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/story/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-target-extensions-tutorial-html-step1",
+    "title": "クリックで的あての発展",
+    "chapter": "ステップ 1：動く的",
+    "page": "examples/beginner/target/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/target/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/target/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-target-extensions-tutorial-html-step2",
+    "title": "クリックで的あての発展",
+    "chapter": "ステップ 2：命中すると小さくなる",
+    "page": "examples/beginner/target/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/target/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/target/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-target-extensions-tutorial-html-step3",
+    "title": "クリックで的あての発展",
+    "chapter": "ステップ 3：連続命中のボーナス",
+    "page": "examples/beginner/target/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/target/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/target/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-target-tutorial-html-step1",
+    "title": "クリックで的あて",
+    "chapter": "ステップ 1：的を描く",
+    "page": "examples/beginner/target/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/target/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/target/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-target-tutorial-html-step2",
+    "title": "クリックで的あて",
+    "chapter": "ステップ 2：クリックで得点する",
+    "page": "examples/beginner/target/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/target/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/target/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-target-tutorial-html-step3",
+    "title": "クリックで的あて",
+    "chapter": "ステップ 3：制限時間をつける",
+    "page": "examples/beginner/target/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/target/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/target/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-timing-extensions-tutorial-html-step1",
+    "title": "タイミングストップの発展",
+    "chapter": "ステップ 1：3ラウンドにする",
+    "page": "examples/beginner/timing/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/timing/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/timing/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-timing-extensions-tutorial-html-step2",
+    "title": "タイミングストップの発展",
+    "chapter": "ステップ 2：成功範囲を狭くする",
+    "page": "examples/beginner/timing/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/timing/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/timing/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-timing-extensions-tutorial-html-step3",
+    "title": "タイミングストップの発展",
+    "chapter": "ステップ 3：中央付近に追加点",
+    "page": "examples/beginner/timing/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/timing/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/timing/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-timing-tutorial-html-step1",
+    "title": "タイミングストップ",
+    "chapter": "ステップ 1：画面に目標と線を描く",
+    "page": "examples/beginner/timing/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/timing/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/timing/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-timing-tutorial-html-step2",
+    "title": "タイミングストップ",
+    "chapter": "ステップ 2：線を左右に動かす",
+    "page": "examples/beginner/timing/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/timing/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/timing/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-timing-tutorial-html-step3",
+    "title": "タイミングストップ",
+    "chapter": "ステップ 3：止めて成功を判定する",
+    "page": "examples/beginner/timing/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/timing/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/timing/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-typing-extensions-tutorial-html-step1",
+    "title": "タイピングゲームの発展",
+    "chapter": "ステップ 1：単語を混ぜて出す",
+    "page": "examples/beginner/typing/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/typing/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/typing/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-typing-extensions-tutorial-html-step2",
+    "title": "タイピングゲームの発展",
+    "chapter": "ステップ 2：連続正解で追加点",
+    "page": "examples/beginner/typing/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/typing/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/typing/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-typing-extensions-tutorial-html-step3",
+    "title": "タイピングゲームの発展",
+    "chapter": "ステップ 3：ミスで残り時間を減らす",
+    "page": "examples/beginner/typing/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/typing/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/typing/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-typing-tutorial-html-step1",
+    "title": "タイピングゲーム",
+    "chapter": "ステップ 1：英字を画面に表示する",
+    "page": "examples/beginner/typing/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/beginner/typing/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/typing/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-typing-tutorial-html-step2",
+    "title": "タイピングゲーム",
+    "chapter": "ステップ 2：打った文字を順番に確かめる",
+    "page": "examples/beginner/typing/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/beginner/typing/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/typing/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-beginner-typing-tutorial-html-step3",
+    "title": "タイピングゲーム",
+    "chapter": "ステップ 3：時間と得点を付ける",
+    "page": "examples/beginner/typing/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/beginner/typing/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/beginner/typing/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-breakout-extensions-tutorial-html-step1",
+    "title": "ブロックくずしの発展",
+    "chapter": "ステップ 1：丈夫なブロック",
+    "page": "examples/intermediate/breakout/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/breakout/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/breakout/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-breakout-extensions-tutorial-html-step2",
+    "title": "ブロックくずしの発展",
+    "chapter": "ステップ 2：残り回数を作る",
+    "page": "examples/intermediate/breakout/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/breakout/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/breakout/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-breakout-extensions-tutorial-html-step3",
+    "title": "ブロックくずしの発展",
+    "chapter": "ステップ 3：2ステージにする",
+    "page": "examples/intermediate/breakout/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/breakout/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/breakout/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-breakout-tutorial-html-step1",
+    "title": "ブロックくずし",
+    "chapter": "ステップ 1：板とボールを動かす",
+    "page": "examples/intermediate/breakout/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/breakout/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/breakout/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-breakout-tutorial-html-step2",
+    "title": "ブロックくずし",
+    "chapter": "ステップ 2：ブロックを並べる",
+    "page": "examples/intermediate/breakout/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/breakout/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/breakout/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-breakout-tutorial-html-step3",
+    "title": "ブロックくずし",
+    "chapter": "ステップ 3：当たり判定と終了を加える",
+    "page": "examples/intermediate/breakout/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/breakout/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/breakout/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-extensions-tutorial-html-step1",
+    "title": "神経衰弱の発展",
+    "chapter": "ステップ 1：最初にカードを見せる",
+    "page": "examples/intermediate/memory/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/memory/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-extensions-tutorial-html-step2",
+    "title": "神経衰弱の発展",
+    "chapter": "ステップ 2：比較した回数を数える",
+    "page": "examples/intermediate/memory/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/memory/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-extensions-tutorial-html-step3",
+    "title": "神経衰弱の発展",
+    "chapter": "ステップ 3：制限時間を加える",
+    "page": "examples/intermediate/memory/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/memory/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-tutorial-html-step1",
+    "title": "神経衰弱",
+    "chapter": "ステップ 1：カードを並べる",
+    "page": "examples/intermediate/memory/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/memory/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-tutorial-html-step2",
+    "title": "神経衰弱",
+    "chapter": "ステップ 2：選んだカードをめくる",
+    "page": "examples/intermediate/memory/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/memory/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-tutorial-html-step3",
+    "title": "神経衰弱",
+    "chapter": "ステップ 3：2枚を比べてそろえる",
+    "page": "examples/intermediate/memory/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/memory/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-memory-tutorial-html-step4",
+    "title": "神経衰弱",
+    "chapter": "ステップ 4：並びを混ぜてクリックでも遊ぶ",
+    "page": "examples/intermediate/memory/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/memory/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/memory/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-extensions-tutorial-html-step1",
+    "title": "マインスイーパーの発展",
+    "chapter": "ステップ 1：経過時間を表示する",
+    "page": "examples/intermediate/minesweeper/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/minesweeper/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-extensions-tutorial-html-step2",
+    "title": "マインスイーパーの発展",
+    "chapter": "ステップ 2：難易度を切り替える",
+    "page": "examples/intermediate/minesweeper/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/minesweeper/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-extensions-tutorial-html-step3",
+    "title": "マインスイーパーの発展",
+    "chapter": "ステップ 3：数字から周囲を開く",
+    "page": "examples/intermediate/minesweeper/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/minesweeper/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-tutorial-html-step1",
+    "title": "マインスイーパーを作る",
+    "chapter": "ステップ 1：盤面を作る",
+    "page": "examples/intermediate/minesweeper/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/minesweeper/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-tutorial-html-step2",
+    "title": "マインスイーパーを作る",
+    "chapter": "ステップ 2：周囲の爆弾を数える",
+    "page": "examples/intermediate/minesweeper/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/minesweeper/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-tutorial-html-step3",
+    "title": "マインスイーパーを作る",
+    "chapter": "ステップ 3：開いて勝敗を決める",
+    "page": "examples/intermediate/minesweeper/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/minesweeper/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-tutorial-html-step4",
+    "title": "マインスイーパーを作る",
+    "chapter": "ステップ 4：旗を置く",
+    "page": "examples/intermediate/minesweeper/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/minesweeper/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-minesweeper-tutorial-html-step5",
+    "title": "マインスイーパーを作る",
+    "chapter": "ステップ 5：安全な初手と連鎖",
+    "page": "examples/intermediate/minesweeper/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/minesweeper/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/minesweeper/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-extensions-tutorial-html-step1",
+    "title": "お絵かきロジックの発展",
+    "chapter": "ステップ 1：1手戻す",
+    "page": "examples/intermediate/nonogram/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/nonogram/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-extensions-tutorial-html-step2",
+    "title": "お絵かきロジックの発展",
+    "chapter": "ステップ 2：完成した行列を示す",
+    "page": "examples/intermediate/nonogram/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/nonogram/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-extensions-tutorial-html-step3",
+    "title": "お絵かきロジックの発展",
+    "chapter": "ステップ 3：問題を選ぶ",
+    "page": "examples/intermediate/nonogram/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/nonogram/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-tutorial-html-step1",
+    "title": "お絵かきロジックを作る",
+    "chapter": "ステップ 1：5×5の盤面を描く",
+    "page": "examples/intermediate/nonogram/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/nonogram/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-tutorial-html-step2",
+    "title": "お絵かきロジックを作る",
+    "chapter": "ステップ 2：行と列のヒントを出す",
+    "page": "examples/intermediate/nonogram/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/nonogram/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-tutorial-html-step3",
+    "title": "お絵かきロジックを作る",
+    "chapter": "ステップ 3：マスを塗る",
+    "page": "examples/intermediate/nonogram/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/nonogram/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-tutorial-html-step4",
+    "title": "お絵かきロジックを作る",
+    "chapter": "ステップ 4：完成を判定する",
+    "page": "examples/intermediate/nonogram/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/nonogram/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-nonogram-tutorial-html-step5",
+    "title": "お絵かきロジックを作る",
+    "chapter": "ステップ 5：再開する",
+    "page": "examples/intermediate/nonogram/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/nonogram/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/nonogram/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-extensions-tutorial-html-step1",
+    "title": "リズムゲームの発展",
+    "chapter": "ステップ 1：2レーンにする",
+    "page": "examples/intermediate/rhythm/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/rhythm/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-extensions-tutorial-html-step2",
+    "title": "リズムゲームの発展",
+    "chapter": "ステップ 2：連続成功を数える",
+    "page": "examples/intermediate/rhythm/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/rhythm/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-extensions-tutorial-html-step3",
+    "title": "リズムゲームの発展",
+    "chapter": "ステップ 3：判定を細かく分ける",
+    "page": "examples/intermediate/rhythm/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/rhythm/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-tutorial-html-step1",
+    "title": "リズムゲームを作る",
+    "chapter": "ステップ 1：レーンと譜面を描く",
+    "page": "examples/intermediate/rhythm/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/rhythm/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-tutorial-html-step2",
+    "title": "リズムゲームを作る",
+    "chapter": "ステップ 2：時刻でノートを動かす",
+    "page": "examples/intermediate/rhythm/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/rhythm/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-tutorial-html-step3",
+    "title": "リズムゲームを作る",
+    "chapter": "ステップ 3：タイミングで判定する",
+    "page": "examples/intermediate/rhythm/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/rhythm/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-tutorial-html-step4",
+    "title": "リズムゲームを作る",
+    "chapter": "ステップ 4：見逃しを数える",
+    "page": "examples/intermediate/rhythm/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/rhythm/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-rhythm-tutorial-html-step5",
+    "title": "リズムゲームを作る",
+    "chapter": "ステップ 5：結果と再挑戦",
+    "page": "examples/intermediate/rhythm/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/rhythm/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/rhythm/step5/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shooting-extensions-tutorial-html-step1",
+    "title": "シンプルなシューティングの発展",
+    "chapter": "ステップ 1：速さと耐久の違う敵",
+    "page": "examples/intermediate/shooting/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/shooting/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shooting/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shooting-extensions-tutorial-html-step2",
+    "title": "シンプルなシューティングの発展",
+    "chapter": "ステップ 2：敵弾と残り回数",
+    "page": "examples/intermediate/shooting/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/shooting/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shooting/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shooting-extensions-tutorial-html-step3",
+    "title": "シンプルなシューティングの発展",
+    "chapter": "ステップ 3：ボスを倒す",
+    "page": "examples/intermediate/shooting/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/shooting/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shooting/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shooting-tutorial-html-step1",
+    "title": "シンプルなシューティング",
+    "chapter": "ステップ 1：自機を動かす",
+    "page": "examples/intermediate/shooting/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/shooting/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shooting/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shooting-tutorial-html-step2",
+    "title": "シンプルなシューティング",
+    "chapter": "ステップ 2：弾を撃つ",
+    "page": "examples/intermediate/shooting/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/shooting/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shooting/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shooting-tutorial-html-step3",
+    "title": "シンプルなシューティング",
+    "chapter": "ステップ 3：敵と当たり判定を加える",
+    "page": "examples/intermediate/shooting/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/shooting/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shooting/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-extensions-tutorial-html-step1",
+    "title": "小さなお店の経営ゲームの発展",
+    "chapter": "ステップ 1：売値を調整する",
+    "page": "examples/intermediate/shop/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/shop/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-extensions-tutorial-html-step2",
+    "title": "小さなお店の経営ゲームの発展",
+    "chapter": "ステップ 2：値段で需要を変える",
+    "page": "examples/intermediate/shop/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/shop/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-extensions-tutorial-html-step3",
+    "title": "小さなお店の経営ゲームの発展",
+    "chapter": "ステップ 3：日ごとの出来事を加える",
+    "page": "examples/intermediate/shop/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/shop/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-tutorial-html-step1",
+    "title": "小さなお店の経営ゲーム",
+    "chapter": "ステップ 1：商品を並べる",
+    "page": "examples/intermediate/shop/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/shop/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-tutorial-html-step2",
+    "title": "小さなお店の経営ゲーム",
+    "chapter": "ステップ 2：商品を仕入れる",
+    "page": "examples/intermediate/shop/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/shop/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-tutorial-html-step3",
+    "title": "小さなお店の経営ゲーム",
+    "chapter": "ステップ 3：販売と日数を加える",
+    "page": "examples/intermediate/shop/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/shop/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-shop-tutorial-html-step4",
+    "title": "小さなお店の経営ゲーム",
+    "chapter": "ステップ 4：需要を見て仕入れ、自動で売る",
+    "page": "examples/intermediate/shop/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/shop/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/shop/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-snake-extensions-tutorial-html-step1",
+    "title": "スネークゲームの発展",
+    "chapter": "ステップ 1：障害物を置く",
+    "page": "examples/intermediate/snake/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/snake/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/snake/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-snake-extensions-tutorial-html-step2",
+    "title": "スネークゲームの発展",
+    "chapter": "ステップ 2：得点で速くする",
+    "page": "examples/intermediate/snake/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/snake/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/snake/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-snake-extensions-tutorial-html-step3",
+    "title": "スネークゲームの発展",
+    "chapter": "ステップ 3：時間限定のボーナス",
+    "page": "examples/intermediate/snake/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/snake/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/snake/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-snake-tutorial-html-step1",
+    "title": "スネークゲーム",
+    "chapter": "ステップ 1：マス目とヘビを描く",
+    "page": "examples/intermediate/snake/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/snake/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/snake/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-snake-tutorial-html-step2",
+    "title": "スネークゲーム",
+    "chapter": "ステップ 2：マス目を移動する",
+    "page": "examples/intermediate/snake/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/snake/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/snake/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-snake-tutorial-html-step3",
+    "title": "スネークゲーム",
+    "chapter": "ステップ 3：食べ物と衝突を加える",
+    "page": "examples/intermediate/snake/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/snake/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/snake/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-extensions-tutorial-html-step1",
+    "title": "箱押しパズルの発展",
+    "chapter": "ステップ 1：1手戻す",
+    "page": "examples/intermediate/sokoban/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/sokoban/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-extensions-tutorial-html-step2",
+    "title": "箱押しパズルの発展",
+    "chapter": "ステップ 2：歩数と評価",
+    "page": "examples/intermediate/sokoban/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/sokoban/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-extensions-tutorial-html-step3",
+    "title": "箱押しパズルの発展",
+    "chapter": "ステップ 3：2つのステージ",
+    "page": "examples/intermediate/sokoban/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/sokoban/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-tutorial-html-step1",
+    "title": "箱押しパズルを作る",
+    "chapter": "ステップ 1：盤面を描く",
+    "page": "examples/intermediate/sokoban/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/sokoban/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/step1/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-tutorial-html-step2",
+    "title": "箱押しパズルを作る",
+    "chapter": "ステップ 2：壁と移動を作る",
+    "page": "examples/intermediate/sokoban/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/sokoban/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/step2/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-tutorial-html-step3",
+    "title": "箱押しパズルを作る",
+    "chapter": "ステップ 3：箱を押す",
+    "page": "examples/intermediate/sokoban/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/sokoban/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/step3/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-tutorial-html-step4",
+    "title": "箱押しパズルを作る",
+    "chapter": "ステップ 4：目標を判定する",
+    "page": "examples/intermediate/sokoban/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/sokoban/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/step4/script.js"
+    }
+  },
+  {
+    "id": "examples-intermediate-sokoban-tutorial-html-step5",
+    "title": "箱押しパズルを作る",
+    "chapter": "ステップ 5：クリアを表示する",
+    "page": "examples/intermediate/sokoban/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/sokoban/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/sokoban/step5/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-camera-tutorial-html-step1",
+    "title": "カメラ追従と座標を作る",
+    "chapter": "ステップ 1：世界の中で人を動かす",
+    "page": "features/advanced/camera/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/camera/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/camera/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-camera-tutorial-html-step2",
+    "title": "カメラ追従と座標を作る",
+    "chapter": "ステップ 2：カメラを追従させる",
+    "page": "features/advanced/camera/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/camera/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/camera/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-camera-tutorial-html-step3",
+    "title": "カメラ追従と座標を作る",
+    "chapter": "ステップ 3：クリックを世界座標へ戻す",
+    "page": "features/advanced/camera/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/camera/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/camera/step3/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-delta-time-tutorial-html-step1",
+    "title": "時間を使った移動を作る",
+    "chapter": "ステップ 1：経過秒を測る",
+    "page": "features/advanced/delta-time/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/delta-time/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/delta-time/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-delta-time-tutorial-html-step2",
+    "title": "時間を使った移動を作る",
+    "chapter": "ステップ 2：経過秒に応じて動かす",
+    "page": "features/advanced/delta-time/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/delta-time/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/delta-time/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-delta-time-tutorial-html-step3",
+    "title": "時間を使った移動を作る",
+    "chapter": "ステップ 3：大きすぎる時間を制限する",
+    "page": "features/advanced/delta-time/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/delta-time/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/delta-time/step3/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-fade-tutorial-html-step1",
+    "title": "画面の暗転を作る",
+    "chapter": "ステップ 1：画面を表示する",
+    "page": "features/advanced/fade/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/fade/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/fade/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-fade-tutorial-html-step2",
+    "title": "画面の暗転を作る",
+    "chapter": "ステップ 2：暗くして切り替える",
+    "page": "features/advanced/fade/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/fade/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/fade/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-fade-tutorial-html-step3",
+    "title": "画面の暗転を作る",
+    "chapter": "ステップ 3：切り替え後に明るくする",
+    "page": "features/advanced/fade/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/fade/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/fade/step3/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-image-transform-tutorial-html-step1",
+    "title": "画像の反転と回転を作る",
+    "chapter": "ステップ 1：画像を中心に置く",
+    "page": "features/advanced/image-transform/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/image-transform/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/image-transform/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-image-transform-tutorial-html-step2",
+    "title": "画像の反転と回転を作る",
+    "chapter": "ステップ 2：左右を反転する",
+    "page": "features/advanced/image-transform/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/image-transform/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/image-transform/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-image-transform-tutorial-html-step3",
+    "title": "画像の反転と回転を作る",
+    "chapter": "ステップ 3：中心まわりに回転する",
+    "page": "features/advanced/image-transform/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/image-transform/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/image-transform/step3/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-particles-tutorial-html-step1",
+    "title": "粒の演出を作る",
+    "chapter": "ステップ 1：クリック位置に粒を作る",
+    "page": "features/advanced/particles/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/particles/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/particles/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-particles-tutorial-html-step2",
+    "title": "粒の演出を作る",
+    "chapter": "ステップ 2：粒を動かす",
+    "page": "features/advanced/particles/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/particles/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/particles/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-particles-tutorial-html-step3",
+    "title": "粒の演出を作る",
+    "chapter": "ステップ 3：寿命を付けて消す",
+    "page": "features/advanced/particles/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/particles/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/particles/step3/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-sprite-animation-tutorial-html-step1",
+    "title": "スプライトアニメーションを作る",
+    "chapter": "ステップ 1：シートから1コマを切り出す",
+    "page": "features/advanced/sprite-animation/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/sprite-animation/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/sprite-animation/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-sprite-animation-tutorial-html-step2",
+    "title": "スプライトアニメーションを作る",
+    "chapter": "ステップ 2：動いている間にコマを進める",
+    "page": "features/advanced/sprite-animation/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/sprite-animation/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/sprite-animation/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-sprite-animation-tutorial-html-step3",
+    "title": "スプライトアニメーションを作る",
+    "chapter": "ステップ 3：停止と再開を扱う",
+    "page": "features/advanced/sprite-animation/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/sprite-animation/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/sprite-animation/step3/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-touch-controls-tutorial-html-step1",
+    "title": "タッチ操作を作る",
+    "chapter": "ステップ 1：画面内のボタンで動かす",
+    "page": "features/advanced/touch-controls/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/touch-controls/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/touch-controls/step1/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-touch-controls-tutorial-html-step2",
+    "title": "タッチ操作を作る",
+    "chapter": "ステップ 2：複数の指を別々に扱う",
+    "page": "features/advanced/touch-controls/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/touch-controls/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/touch-controls/step2/script.js"
+    }
+  },
+  {
+    "id": "features-advanced-touch-controls-tutorial-html-step3",
+    "title": "タッチ操作を作る",
+    "chapter": "ステップ 3：キーボードと併用する",
+    "page": "features/advanced/touch-controls/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/touch-controls/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/advanced/touch-controls/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-countdown-tutorial-html-step1",
+    "title": "開始前のカウントを作る",
+    "chapter": "ステップ 1：開始前の画面を表示する",
+    "page": "features/beginner/countdown/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/countdown/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/countdown/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-countdown-tutorial-html-step2",
+    "title": "開始前のカウントを作る",
+    "chapter": "ステップ 2：3秒を数える",
+    "page": "features/beginner/countdown/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/countdown/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/countdown/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-countdown-tutorial-html-step3",
+    "title": "開始前のカウントを作る",
+    "chapter": "ステップ 3：開始後に動かす",
+    "page": "features/beginner/countdown/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/countdown/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/countdown/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-health-bar-tutorial-html-step1",
+    "title": "体力バーを作る",
+    "chapter": "ステップ 1：残り体力を表示する",
+    "page": "features/beginner/health-bar/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/health-bar/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/health-bar/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-health-bar-tutorial-html-step2",
+    "title": "体力バーを作る",
+    "chapter": "ステップ 2：ダメージと回復を加える",
+    "page": "features/beginner/health-bar/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/health-bar/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/health-bar/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-health-bar-tutorial-html-step3",
+    "title": "体力バーを作る",
+    "chapter": "ステップ 3：体力バーを描く",
+    "page": "features/beginner/health-bar/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/health-bar/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/health-bar/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-help-tutorial-html-step1",
+    "title": "遊び方画面を作る",
+    "chapter": "ステップ 1：タイトル画面を表示する",
+    "page": "features/beginner/help/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/help/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/help/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-help-tutorial-html-step2",
+    "title": "遊び方画面を作る",
+    "chapter": "ステップ 2：遊び方を開いて戻る",
+    "page": "features/beginner/help/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/help/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/help/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-help-tutorial-html-step3",
+    "title": "遊び方画面を作る",
+    "chapter": "ステップ 3：ゲームへ進む",
+    "page": "features/beginner/help/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/help/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/help/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-image-layout-tutorial-html-step1",
+    "title": "画像の位置と大きさを作る",
+    "chapter": "ステップ 1：位置と大きさを指定する",
+    "page": "features/beginner/image-layout/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/image-layout/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/image-layout/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-image-layout-tutorial-html-step2",
+    "title": "画像の位置と大きさを作る",
+    "chapter": "ステップ 2：縦横比を保つ",
+    "page": "features/beginner/image-layout/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/image-layout/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/image-layout/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-image-layout-tutorial-html-step3",
+    "title": "画像の位置と大きさを作る",
+    "chapter": "ステップ 3：枠の中心に置く",
+    "page": "features/beginner/image-layout/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/image-layout/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/image-layout/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-image-swap-tutorial-html-step1",
+    "title": "画像の差し替えを作る",
+    "chapter": "ステップ 1：画像を読み込んで表示する",
+    "page": "features/beginner/image-swap/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/image-swap/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/image-swap/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-image-swap-tutorial-html-step2",
+    "title": "画像の差し替えを作る",
+    "chapter": "ステップ 2：2枚を切り替える",
+    "page": "features/beginner/image-swap/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/image-swap/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/image-swap/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-image-swap-tutorial-html-step3",
+    "title": "画像の差し替えを作る",
+    "chapter": "ステップ 3：読込中と失敗を知らせる",
+    "page": "features/beginner/image-swap/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/image-swap/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/image-swap/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-menu-tutorial-html-step1",
+    "title": "タイトルとメニューを作る",
+    "chapter": "ステップ 1：メニューを表示する",
+    "page": "features/beginner/menu/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/menu/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/menu/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-menu-tutorial-html-step2",
+    "title": "タイトルとメニューを作る",
+    "chapter": "ステップ 2：キーで項目を選ぶ",
+    "page": "features/beginner/menu/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/menu/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/menu/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-menu-tutorial-html-step3",
+    "title": "タイトルとメニューを作る",
+    "chapter": "ステップ 3：クリックと戻る操作を加える",
+    "page": "features/beginner/menu/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/menu/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/menu/step3/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-results-tutorial-html-step1",
+    "title": "結果と再挑戦を作る",
+    "chapter": "ステップ 1：得点を増やす",
+    "page": "features/beginner/results/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/results/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/results/step1/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-results-tutorial-html-step2",
+    "title": "結果と再挑戦を作る",
+    "chapter": "ステップ 2：結果を表示する",
+    "page": "features/beginner/results/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/results/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/results/step2/script.js"
+    }
+  },
+  {
+    "id": "features-beginner-results-tutorial-html-step3",
+    "title": "結果と再挑戦を作る",
+    "chapter": "ステップ 3：再挑戦とメニューに戻る",
+    "page": "features/beginner/results/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/results/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/beginner/results/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-buttons-tutorial-html-step1",
+    "title": "Canvasのボタンを作る",
+    "chapter": "ステップ 1：ボタンの四角を描く",
+    "page": "features/intermediate/buttons/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/buttons/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/buttons/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-buttons-tutorial-html-step2",
+    "title": "Canvasのボタンを作る",
+    "chapter": "ステップ 2：座標と押下を調べる",
+    "page": "features/intermediate/buttons/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/buttons/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/buttons/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-buttons-tutorial-html-step3",
+    "title": "Canvasのボタンを作る",
+    "chapter": "ステップ 3：押したときの処理と無効状態",
+    "page": "features/intermediate/buttons/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/buttons/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/buttons/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-checkpoint-tutorial-html-step1",
+    "title": "中間地点と再挑戦を作る",
+    "chapter": "ステップ 1：移動と再開位置を用意する",
+    "page": "features/intermediate/checkpoint/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/checkpoint/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/checkpoint/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-checkpoint-tutorial-html-step2",
+    "title": "中間地点と再挑戦を作る",
+    "chapter": "ステップ 2：中間地点を記録する",
+    "page": "features/intermediate/checkpoint/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/checkpoint/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/checkpoint/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-checkpoint-tutorial-html-step3",
+    "title": "中間地点と再挑戦を作る",
+    "chapter": "ステップ 3：危険区域から戻す",
+    "page": "features/intermediate/checkpoint/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/checkpoint/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/checkpoint/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-collision-tutorial-html-step1",
+    "title": "円と四角の当たり判定を作る",
+    "chapter": "ステップ 1：円と四角を描く",
+    "page": "features/intermediate/collision/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/collision/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/collision/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-collision-tutorial-html-step2",
+    "title": "円と四角の当たり判定を作る",
+    "chapter": "ステップ 2：円を動かす",
+    "page": "features/intermediate/collision/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/collision/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/collision/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-collision-tutorial-html-step3",
+    "title": "円と四角の当たり判定を作る",
+    "chapter": "ステップ 3：一番近い点を調べる",
+    "page": "features/intermediate/collision/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/collision/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/collision/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-difficulty-tutorial-html-step1",
+    "title": "難易度設定を作る",
+    "chapter": "ステップ 1：難易度を表示する",
+    "page": "features/intermediate/difficulty/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/difficulty/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/difficulty/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-difficulty-tutorial-html-step2",
+    "title": "難易度設定を作る",
+    "chapter": "ステップ 2：設定を選んで開始する",
+    "page": "features/intermediate/difficulty/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/difficulty/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/difficulty/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-difficulty-tutorial-html-step3",
+    "title": "難易度設定を作る",
+    "chapter": "ステップ 3：速さに設定を反映する",
+    "page": "features/intermediate/difficulty/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/difficulty/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/difficulty/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-image-background-tutorial-html-step1",
+    "title": "背景画像を作る",
+    "chapter": "ステップ 1：背景を先に描く",
+    "page": "features/intermediate/image-background/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/image-background/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/image-background/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-image-background-tutorial-html-step2",
+    "title": "背景画像を作る",
+    "chapter": "ステップ 2：収める方法と埋める方法",
+    "page": "features/intermediate/image-background/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/image-background/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/image-background/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-image-background-tutorial-html-step3",
+    "title": "背景画像を作る",
+    "chapter": "ステップ 3：背景を中央にそろえる",
+    "page": "features/intermediate/image-background/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/image-background/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/image-background/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-image-hitbox-tutorial-html-step1",
+    "title": "画像と当たり判定を作る",
+    "chapter": "ステップ 1：絵を中心基準で動かす",
+    "page": "features/intermediate/image-hitbox/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/image-hitbox/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/image-hitbox/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-image-hitbox-tutorial-html-step2",
+    "title": "画像と当たり判定を作る",
+    "chapter": "ステップ 2：当たり判定を分ける",
+    "page": "features/intermediate/image-hitbox/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/image-hitbox/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/image-hitbox/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-image-hitbox-tutorial-html-step3",
+    "title": "画像と当たり判定を作る",
+    "chapter": "ステップ 3：枠と別の絵を試す",
+    "page": "features/intermediate/image-hitbox/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/image-hitbox/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/image-hitbox/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-pause-tutorial-html-step1",
+    "title": "一時停止を作る",
+    "chapter": "ステップ 1：動きと制限時間を作る",
+    "page": "features/intermediate/pause/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/pause/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/pause/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-pause-tutorial-html-step2",
+    "title": "一時停止を作る",
+    "chapter": "ステップ 2：動きを一時停止する",
+    "page": "features/intermediate/pause/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/pause/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/pause/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-pause-tutorial-html-step3",
+    "title": "一時停止を作る",
+    "chapter": "ステップ 3：停止中の時間を除く",
+    "page": "features/intermediate/pause/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/pause/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/pause/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-save-tutorial-html-step1",
+    "title": "記録の保存を作る",
+    "chapter": "ステップ 1：得点とベストを数える",
+    "page": "features/intermediate/save/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/save/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/save/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-save-tutorial-html-step2",
+    "title": "記録の保存を作る",
+    "chapter": "ステップ 2：保存と読み込みを試す",
+    "page": "features/intermediate/save/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/save/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/save/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-save-tutorial-html-step3",
+    "title": "記録の保存を作る",
+    "chapter": "ステップ 3：不正なデータと削除に対応する",
+    "page": "features/intermediate/save/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/save/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/save/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-sound-tutorial-html-step1",
+    "title": "効果音と音量を作る",
+    "chapter": "ステップ 1：音を試す入力を受け取る",
+    "page": "features/intermediate/sound/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/sound/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/sound/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-sound-tutorial-html-step2",
+    "title": "効果音と音量を作る",
+    "chapter": "ステップ 2：音量とミュートを選ぶ",
+    "page": "features/intermediate/sound/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/sound/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/sound/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-sound-tutorial-html-step3",
+    "title": "効果音と音量を作る",
+    "chapter": "ステップ 3：利用できるときに音を鳴らす",
+    "page": "features/intermediate/sound/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/sound/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/sound/step3/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-stage-select-tutorial-html-step1",
+    "title": "ステージ選択を作る",
+    "chapter": "ステップ 1：3つのステージを表示する",
+    "page": "features/intermediate/stage-select/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/stage-select/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/stage-select/step1/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-stage-select-tutorial-html-step2",
+    "title": "ステージ選択を作る",
+    "chapter": "ステップ 2：ステージを選んで遊ぶ",
+    "page": "features/intermediate/stage-select/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/stage-select/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/stage-select/step2/script.js"
+    }
+  },
+  {
+    "id": "features-intermediate-stage-select-tutorial-html-step3",
+    "title": "ステージ選択を作る",
+    "chapter": "ステップ 3：クリアで次を開く",
+    "page": "features/intermediate/stage-select/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/stage-select/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "features/intermediate/stage-select/step3/script.js"
+    }
+  },
+  {
+    "id": "learning-combine-tutorial-html-step1",
+    "title": "コインキャッチに機能を組み合わせる",
+    "chapter": "ステップ 1：メニューから始める",
+    "page": "learning/combine/tutorial.html",
+    "anchor": "lesson-section-1",
+    "game": "learning/combine/step1/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "learning/combine/step1/script.js"
+    }
+  },
+  {
+    "id": "learning-combine-tutorial-html-step2",
+    "title": "コインキャッチに機能を組み合わせる",
+    "chapter": "ステップ 2：結果画面から選ぶ",
+    "page": "learning/combine/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "learning/combine/step2/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "learning/combine/step2/script.js"
+    }
+  },
+  {
+    "id": "learning-combine-tutorial-html-step3",
+    "title": "コインキャッチに機能を組み合わせる",
+    "chapter": "ステップ 3：ベストを保存する",
+    "page": "learning/combine/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "learning/combine/step3/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "learning/combine/step3/script.js"
+    }
+  },
+  {
+    "id": "learning-combine-tutorial-html-step4",
+    "title": "コインキャッチに機能を組み合わせる",
+    "chapter": "ステップ 4：コインを画像に替える",
+    "page": "learning/combine/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "learning/combine/step4/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "learning/combine/step4/script.js"
+    }
+  },
+  {
+    "id": "learning-debug-index-html-syntax",
+    "title": "こわれた見本を調べて直す",
+    "chapter": "閉じ括弧が足りない",
+    "page": "learning/debug/index.html",
+    "anchor": "syntax",
+    "game": "learning/debug/syntax/fixed/index.html",
+    "sources": {
+      "index.html": "learning/debug/syntax/fixed/index.html",
+      "style.css": "learning/debug/syntax/fixed/style.css",
+      "script.js": "learning/debug/syntax/fixed/script.js"
+    }
+  },
+  {
+    "id": "learning-debug-index-html-name",
+    "title": "こわれた見本を調べて直す",
+    "chapter": "変数名が違う",
+    "page": "learning/debug/index.html",
+    "anchor": "name",
+    "game": "learning/debug/name/fixed/index.html",
+    "sources": {
+      "index.html": "learning/debug/name/fixed/index.html",
+      "style.css": "learning/debug/name/fixed/style.css",
+      "script.js": "learning/debug/name/fixed/script.js"
+    }
+  },
+  {
+    "id": "learning-debug-index-html-input",
+    "title": "こわれた見本を調べて直す",
+    "chapter": "右矢印が効かない",
+    "page": "learning/debug/index.html",
+    "anchor": "input",
+    "game": "learning/debug/input/fixed/index.html",
+    "sources": {
+      "index.html": "learning/debug/input/fixed/index.html",
+      "style.css": "learning/debug/input/fixed/style.css",
+      "script.js": "learning/debug/input/fixed/script.js"
+    }
+  },
+  {
+    "id": "learning-debug-index-html-score",
+    "title": "こわれた見本を調べて直す",
+    "chapter": "触れている間に点が増え続ける",
+    "page": "learning/debug/index.html",
+    "anchor": "score",
+    "game": "learning/debug/score/fixed/index.html",
+    "sources": {
+      "index.html": "learning/debug/score/fixed/index.html",
+      "style.css": "learning/debug/score/fixed/style.css",
+      "script.js": "learning/debug/score/fixed/script.js"
+    }
+  },
+  {
+    "id": "learning-debug-index-html-reset",
+    "title": "こわれた見本を調べて直す",
+    "chapter": "やり直しても得点が残る",
+    "page": "learning/debug/index.html",
+    "anchor": "reset",
+    "game": "learning/debug/reset/fixed/index.html",
+    "sources": {
+      "index.html": "learning/debug/reset/fixed/index.html",
+      "style.css": "learning/debug/reset/fixed/style.css",
+      "script.js": "learning/debug/reset/fixed/script.js"
+    }
+  },
+  {
+    "id": "learning-debug-index-html-image",
+    "title": "こわれた見本を調べて直す",
+    "chapter": "画像の場所が違う",
+    "page": "learning/debug/index.html",
+    "anchor": "image",
+    "game": "learning/debug/image/fixed/index.html",
+    "sources": {
+      "index.html": "learning/debug/image/fixed/index.html",
+      "style.css": "learning/debug/image/fixed/style.css",
+      "script.js": "learning/debug/image/fixed/script.js"
+    }
+  },
+  {
+    "id": "tutorial-extensions-tutorial-html-step1",
+    "title": "コインキャッチの発展",
+    "chapter": "ステップ 1：横にも動くコイン",
+    "page": "tutorial/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "tutorial/extensions/step1/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/extensions/step1/script.js"
+    }
+  },
+  {
+    "id": "tutorial-extensions-tutorial-html-step2",
+    "title": "コインキャッチの発展",
+    "chapter": "ステップ 2：得点で落ちる速さを変える",
+    "page": "tutorial/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "tutorial/extensions/step2/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/extensions/step2/script.js"
+    }
+  },
+  {
+    "id": "tutorial-extensions-tutorial-html-step3",
+    "title": "コインキャッチの発展",
+    "chapter": "ステップ 3：ボーナスコイン",
+    "page": "tutorial/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "tutorial/extensions/step3/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/extensions/step3/script.js"
+    }
+  },
+  {
+    "id": "tutorial-index-html-01-draw",
+    "title": "コインキャッチを自分で書いて作ろう",
+    "chapter": "丸と四角を描く",
+    "page": "tutorial/index.html",
+    "anchor": "step-01",
+    "game": "tutorial/01-draw/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/01-draw/script.js"
+    }
+  },
+  {
+    "id": "tutorial-index-html-02-update",
+    "title": "コインキャッチを自分で書いて作ろう",
+    "chapter": "位置を更新して落下させる",
+    "page": "tutorial/index.html",
+    "anchor": "step-02",
+    "game": "tutorial/02-update/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/02-update/script.js"
+    }
+  },
+  {
+    "id": "tutorial-index-html-03-input",
+    "title": "コインキャッチを自分で書いて作ろう",
+    "chapter": "キーボードで受け皿を動かす",
+    "page": "tutorial/index.html",
+    "anchor": "step-03",
+    "game": "tutorial/03-input/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/03-input/script.js"
+    }
+  },
+  {
+    "id": "tutorial-index-html-04-collision",
+    "title": "コインキャッチを自分で書いて作ろう",
+    "chapter": "重なりを調べて得点をつける",
+    "page": "tutorial/index.html",
+    "anchor": "step-04",
+    "game": "tutorial/04-collision/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/04-collision/script.js"
+    }
+  },
+  {
+    "id": "tutorial-index-html-05-game",
+    "title": "コインキャッチを自分で書いて作ろう",
+    "chapter": "クリアと再挑戦を作る",
+    "page": "tutorial/index.html",
+    "anchor": "step-05",
+    "game": "tutorial/05-game/index.html",
+    "sources": {
+      "index.html": "tutorial/05-game/index.html",
+      "style.css": "tutorial/05-game/style.css",
+      "script.js": "tutorial/05-game/script.js"
+    }
+  }
+]
