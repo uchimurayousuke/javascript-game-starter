@@ -1,0 +1,599 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>4文字ことば当ての発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：画面キーを使う</a><a href="#lesson-section-3">ステップ 2：5文字の候補を使う</a><a href="#lesson-section-4">ステップ 3：成績を保存する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：4文字ことば当ての発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：画面キーを使う</a><a href="#lesson-section-3">ステップ 2：5文字の候補を使う</a><a href="#lesson-section-4">ステップ 3：成績を保存する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">4文字ことば当ての発展</li></ol></nav><h1>4文字ことば当ての発展</h1><p>候補と意味を見ながら、4文字の英単語を6回以内に当てます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-intermediate-word-guess-extension.zip" download="example-intermediate-word-guess-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div><p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：画面キーを使う</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>画面の文字をクリックして入力します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 20 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(message, 30, 342);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;英字を入力、Backspaceで消す、Enterで決定&quot;, 30, 385);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 370);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 425);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let row = 0; row &lt; keyboard.length; row++) for (let col = 0; col &lt; keyboard[row].length; col++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(30 + col * 31, 350 + row * 28, 28, 25);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(keyboard[row][col], 37 + col * 31, 368 + row * 28);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, handleKey);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">canvas.addEventListener(&quot;click&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const rect = canvas.getBoundingClientRect();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const x = (event.clientX - rect.left) * canvas.width / rect.width;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const y = (event.clientY - rect.top) * canvas.height / rect.height;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  for (let row = 0; row &lt; keyboard.length; row++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (let col = 0; col &lt; keyboard[row].length; col++) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (x &gt;= 30 + col * 31 &amp;&amp; x &lt; 58 + col * 31 &amp;&amp; y &gt;= 350 + row * 28 &amp;&amp; y &lt; 375 + row * 28) handleKey({key:keyboard[row][col], repeat:false, preventDefault(){}});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 350 &amp;&amp; y &lt;= 380) handleKey({key:&quot;Backspace&quot;, repeat:false, preventDefault(){}});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 385 &amp;&amp; y &lt;= 415) handleKey({key:state === &quot;playing&quot; ? &quot;Enter&quot; : &quot; &quot;, repeat:false, preventDefault(){}});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];
+const words = words4;
+const wordLength = 4;
+const maxRows = 6;
+let answer, rows, draft, state, message;
+
+function start() {
+  answer = words[Math.floor(Math.random() * words.length)].word;
+  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;
+}
+
+function judge(guess, target) {
+  const result = Array(wordLength).fill(&quot;absent&quot;);
+  const remaining = {};
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (guess[i] === target[i]) result[i] = &quot;exact&quot;;
+    else remaining[target[i]] = (remaining[target[i]] || 0) + 1;
+  }
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (result[i] === &quot;exact&quot;) continue;
+    if ((remaining[guess[i]] || 0) &gt; 0) { result[i] = &quot;present&quot;; remaining[guess[i]]--; }
+  }
+  return result;
+}
+function handleKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (state !== &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); return; }
+  if (state !== &quot;playing&quot;) return;
+  if (event.key === &quot;Backspace&quot;) { event.preventDefault(); draft = draft.slice(0, -1); message = &quot;&quot;; return; }
+  if (/^[a-zA-Z]$/.test(event.key) &amp;&amp; draft.length &lt; wordLength) { draft += event.key.toUpperCase(); message = &quot;&quot;; return; }
+  if (event.key !== &quot;Enter&quot;) return;
+  if (draft.length !== wordLength || !words.some(item =&gt; item.word === draft)) { message = &quot;候補のことばを入力してください&quot;; return; }
+  const result = judge(draft, answer);
+  rows.push({word:draft, result});
+  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }
+  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }
+  draft = &quot;&quot;;
+}
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(wordLength + &quot;文字ことば当て&quot;, 30, 38);
+  ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(&quot;候補と意味&quot;, 390, 70);
+  const rowsPerColumn = Math.ceil(words.length / 2);
+  words.forEach((item, i) =&gt; ctx.fillText(item.word + &quot;：&quot; + item.meaning, 390 + Math.floor(i / rowsPerColumn) * 190, 100 + (i % rowsPerColumn) * 25));
+  ctx.fillText(&quot;緑：位置も文字も同じ&quot;, 390, 285);
+  ctx.fillText(&quot;黄：別の場所に残っている&quot;, 390, 308);
+  ctx.fillText(&quot;灰：残りの文字にはない&quot;, 390, 331);
+  for (let row = 0; row &lt; maxRows; row++) {
+    const entry = rows[row];
+    for (let col = 0; col &lt; wordLength; col++) {
+      const x = 30 + col * 48, y = 60 + row * 46;
+      const color = entry ? entry.result[col] : &quot;empty&quot;;
+      ctx.fillStyle = color === &quot;exact&quot; ? &quot;#23835d&quot; : color === &quot;present&quot; ? &quot;#a06c00&quot; : color === &quot;absent&quot; ? &quot;#576579&quot; : &quot;#eaf5fb&quot;;
+      ctx.fillRect(x, y, 42, 40);
+      ctx.fillStyle = entry ? &quot;white&quot; : &quot;#1f3d5b&quot;; ctx.font = &quot;bold 23px sans-serif&quot;;
+      ctx.fillText(entry ? entry.word[col] : row === rows.length ? (draft[col] || &quot;&quot;) : &quot;&quot;, x + 12, y + 28);
+    }
+  }
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(message, 30, 342);
+  ctx.fillText(&quot;英字を入力、Backspaceで消す、Enterで決定&quot;, 30, 385);
+  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 370);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKey);
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];
+const words = words4;
+const wordLength = 4;
+const maxRows = 6;
+let answer, rows, draft, state, message;
+
+function start() {
+  answer = words[Math.floor(Math.random() * words.length)].word;
+  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;
+}
+
+function judge(guess, target) {
+  const result = Array(wordLength).fill(&quot;absent&quot;);
+  const remaining = {};
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (guess[i] === target[i]) result[i] = &quot;exact&quot;;
+    else remaining[target[i]] = (remaining[target[i]] || 0) + 1;
+  }
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (result[i] === &quot;exact&quot;) continue;
+    if ((remaining[guess[i]] || 0) &gt; 0) { result[i] = &quot;present&quot;; remaining[guess[i]]--; }
+  }
+  return result;
+}
+function handleKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (state !== &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); return; }
+  if (state !== &quot;playing&quot;) return;
+  if (event.key === &quot;Backspace&quot;) { event.preventDefault(); draft = draft.slice(0, -1); message = &quot;&quot;; return; }
+  if (/^[a-zA-Z]$/.test(event.key) &amp;&amp; draft.length &lt; wordLength) { draft += event.key.toUpperCase(); message = &quot;&quot;; return; }
+  if (event.key !== &quot;Enter&quot;) return;
+  if (draft.length !== wordLength || !words.some(item =&gt; item.word === draft)) { message = &quot;候補のことばを入力してください&quot;; return; }
+  const result = judge(draft, answer);
+  rows.push({word:draft, result});
+  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }
+  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }
+  draft = &quot;&quot;;
+}
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(wordLength + &quot;文字ことば当て&quot;, 30, 38);
+  ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(&quot;候補と意味&quot;, 390, 70);
+  const rowsPerColumn = Math.ceil(words.length / 2);
+  words.forEach((item, i) =&gt; ctx.fillText(item.word + &quot;：&quot; + item.meaning, 390 + Math.floor(i / rowsPerColumn) * 190, 100 + (i % rowsPerColumn) * 25));
+  ctx.fillText(&quot;緑：位置も文字も同じ&quot;, 390, 285);
+  ctx.fillText(&quot;黄：別の場所に残っている&quot;, 390, 308);
+  ctx.fillText(&quot;灰：残りの文字にはない&quot;, 390, 331);
+  for (let row = 0; row &lt; maxRows; row++) {
+    const entry = rows[row];
+    for (let col = 0; col &lt; wordLength; col++) {
+      const x = 30 + col * 48, y = 60 + row * 46;
+      const color = entry ? entry.result[col] : &quot;empty&quot;;
+      ctx.fillStyle = color === &quot;exact&quot; ? &quot;#23835d&quot; : color === &quot;present&quot; ? &quot;#a06c00&quot; : color === &quot;absent&quot; ? &quot;#576579&quot; : &quot;#eaf5fb&quot;;
+      ctx.fillRect(x, y, 42, 40);
+      ctx.fillStyle = entry ? &quot;white&quot; : &quot;#1f3d5b&quot;; ctx.font = &quot;bold 23px sans-serif&quot;;
+      ctx.fillText(entry ? entry.word[col] : row === rows.length ? (draft[col] || &quot;&quot;) : &quot;&quot;, x + 12, y + 28);
+    }
+  }
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(message, 30, 342);
+  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 425);
+  for (let row = 0; row &lt; keyboard.length; row++) for (let col = 0; col &lt; keyboard[row].length; col++) {
+    ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(30 + col * 31, 350 + row * 28, 28, 25);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(keyboard[row][col], 37 + col * 31, 368 + row * 28);
+  }
+  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKey);
+const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let row = 0; row &lt; keyboard.length; row++) {
+    for (let col = 0; col &lt; keyboard[row].length; col++) {
+      if (x &gt;= 30 + col * 31 &amp;&amp; x &lt; 58 + col * 31 &amp;&amp; y &gt;= 350 + row * 28 &amp;&amp; y &lt; 375 + row * 28) handleKey({key:keyboard[row][col], repeat:false, preventDefault(){}});
+    }
+  }
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 350 &amp;&amp; y &lt;= 380) handleKey({key:&quot;Backspace&quot;, repeat:false, preventDefault(){}});
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 385 &amp;&amp; y &lt;= 415) handleKey({key:state === &quot;playing&quot; ? &quot;Enter&quot; : &quot; &quot;, repeat:false, preventDefault(){}});
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>画面の位置をCanvasの座標に直し、クリックした文字をhandleKeyへ渡します。</p><p>消すと決定も同じ入力処理を使います。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>画面の文字をクリックして候補を入力し、決定を押せます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>画面の決定とEnterは別々の判定を持ちますか。</p><details><summary>練習の答え</summary><p>どちらもhandleKeyの同じ判定を使います。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-intermediate-word-guess-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：5文字の候補を使う</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>5文字の単語でも同じ判定を使います。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">const words = words4;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">const wordLength = 4;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const words5 = [{word:&quot;APPLE&quot;, meaning:&quot;りんご&quot;}, {word:&quot;GRAPE&quot;, meaning:&quot;ぶどう&quot;}, {word:&quot;PEACH&quot;, meaning:&quot;もも&quot;}, {word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}, {word:&quot;PLANT&quot;, meaning:&quot;植物&quot;}, {word:&quot;STONE&quot;, meaning:&quot;石&quot;}, {word:&quot;BREAD&quot;, meaning:&quot;パン&quot;}, {word:&quot;HEART&quot;, meaning:&quot;心&quot;}];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const words = words5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const wordLength = 5;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const maxRows = 6;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let answer, rows, draft, state, message;</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];
+const words = words4;
+const wordLength = 4;
+const maxRows = 6;
+let answer, rows, draft, state, message;
+
+function start() {
+  answer = words[Math.floor(Math.random() * words.length)].word;
+  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;
+}
+
+function judge(guess, target) {
+  const result = Array(wordLength).fill(&quot;absent&quot;);
+  const remaining = {};
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (guess[i] === target[i]) result[i] = &quot;exact&quot;;
+    else remaining[target[i]] = (remaining[target[i]] || 0) + 1;
+  }
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (result[i] === &quot;exact&quot;) continue;
+    if ((remaining[guess[i]] || 0) &gt; 0) { result[i] = &quot;present&quot;; remaining[guess[i]]--; }
+  }
+  return result;
+}
+function handleKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (state !== &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); return; }
+  if (state !== &quot;playing&quot;) return;
+  if (event.key === &quot;Backspace&quot;) { event.preventDefault(); draft = draft.slice(0, -1); message = &quot;&quot;; return; }
+  if (/^[a-zA-Z]$/.test(event.key) &amp;&amp; draft.length &lt; wordLength) { draft += event.key.toUpperCase(); message = &quot;&quot;; return; }
+  if (event.key !== &quot;Enter&quot;) return;
+  if (draft.length !== wordLength || !words.some(item =&gt; item.word === draft)) { message = &quot;候補のことばを入力してください&quot;; return; }
+  const result = judge(draft, answer);
+  rows.push({word:draft, result});
+  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }
+  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }
+  draft = &quot;&quot;;
+}
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(wordLength + &quot;文字ことば当て&quot;, 30, 38);
+  ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(&quot;候補と意味&quot;, 390, 70);
+  const rowsPerColumn = Math.ceil(words.length / 2);
+  words.forEach((item, i) =&gt; ctx.fillText(item.word + &quot;：&quot; + item.meaning, 390 + Math.floor(i / rowsPerColumn) * 190, 100 + (i % rowsPerColumn) * 25));
+  ctx.fillText(&quot;緑：位置も文字も同じ&quot;, 390, 285);
+  ctx.fillText(&quot;黄：別の場所に残っている&quot;, 390, 308);
+  ctx.fillText(&quot;灰：残りの文字にはない&quot;, 390, 331);
+  for (let row = 0; row &lt; maxRows; row++) {
+    const entry = rows[row];
+    for (let col = 0; col &lt; wordLength; col++) {
+      const x = 30 + col * 48, y = 60 + row * 46;
+      const color = entry ? entry.result[col] : &quot;empty&quot;;
+      ctx.fillStyle = color === &quot;exact&quot; ? &quot;#23835d&quot; : color === &quot;present&quot; ? &quot;#a06c00&quot; : color === &quot;absent&quot; ? &quot;#576579&quot; : &quot;#eaf5fb&quot;;
+      ctx.fillRect(x, y, 42, 40);
+      ctx.fillStyle = entry ? &quot;white&quot; : &quot;#1f3d5b&quot;; ctx.font = &quot;bold 23px sans-serif&quot;;
+      ctx.fillText(entry ? entry.word[col] : row === rows.length ? (draft[col] || &quot;&quot;) : &quot;&quot;, x + 12, y + 28);
+    }
+  }
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(message, 30, 342);
+  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 425);
+  for (let row = 0; row &lt; keyboard.length; row++) for (let col = 0; col &lt; keyboard[row].length; col++) {
+    ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(30 + col * 31, 350 + row * 28, 28, 25);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(keyboard[row][col], 37 + col * 31, 368 + row * 28);
+  }
+  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKey);
+const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let row = 0; row &lt; keyboard.length; row++) {
+    for (let col = 0; col &lt; keyboard[row].length; col++) {
+      if (x &gt;= 30 + col * 31 &amp;&amp; x &lt; 58 + col * 31 &amp;&amp; y &gt;= 350 + row * 28 &amp;&amp; y &lt; 375 + row * 28) handleKey({key:keyboard[row][col], repeat:false, preventDefault(){}});
+    }
+  }
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 350 &amp;&amp; y &lt;= 380) handleKey({key:&quot;Backspace&quot;, repeat:false, preventDefault(){}});
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 385 &amp;&amp; y &lt;= 415) handleKey({key:state === &quot;playing&quot; ? &quot;Enter&quot; : &quot; &quot;, repeat:false, preventDefault(){}});
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];
+const words5 = [{word:&quot;APPLE&quot;, meaning:&quot;りんご&quot;}, {word:&quot;GRAPE&quot;, meaning:&quot;ぶどう&quot;}, {word:&quot;PEACH&quot;, meaning:&quot;もも&quot;}, {word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}, {word:&quot;PLANT&quot;, meaning:&quot;植物&quot;}, {word:&quot;STONE&quot;, meaning:&quot;石&quot;}, {word:&quot;BREAD&quot;, meaning:&quot;パン&quot;}, {word:&quot;HEART&quot;, meaning:&quot;心&quot;}];
+const words = words5;
+const wordLength = 5;
+const maxRows = 6;
+let answer, rows, draft, state, message;
+
+function start() {
+  answer = words[Math.floor(Math.random() * words.length)].word;
+  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;
+}
+
+function judge(guess, target) {
+  const result = Array(wordLength).fill(&quot;absent&quot;);
+  const remaining = {};
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (guess[i] === target[i]) result[i] = &quot;exact&quot;;
+    else remaining[target[i]] = (remaining[target[i]] || 0) + 1;
+  }
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (result[i] === &quot;exact&quot;) continue;
+    if ((remaining[guess[i]] || 0) &gt; 0) { result[i] = &quot;present&quot;; remaining[guess[i]]--; }
+  }
+  return result;
+}
+function handleKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (state !== &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); return; }
+  if (state !== &quot;playing&quot;) return;
+  if (event.key === &quot;Backspace&quot;) { event.preventDefault(); draft = draft.slice(0, -1); message = &quot;&quot;; return; }
+  if (/^[a-zA-Z]$/.test(event.key) &amp;&amp; draft.length &lt; wordLength) { draft += event.key.toUpperCase(); message = &quot;&quot;; return; }
+  if (event.key !== &quot;Enter&quot;) return;
+  if (draft.length !== wordLength || !words.some(item =&gt; item.word === draft)) { message = &quot;候補のことばを入力してください&quot;; return; }
+  const result = judge(draft, answer);
+  rows.push({word:draft, result});
+  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }
+  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }
+  draft = &quot;&quot;;
+}
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(wordLength + &quot;文字ことば当て&quot;, 30, 38);
+  ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(&quot;候補と意味&quot;, 390, 70);
+  const rowsPerColumn = Math.ceil(words.length / 2);
+  words.forEach((item, i) =&gt; ctx.fillText(item.word + &quot;：&quot; + item.meaning, 390 + Math.floor(i / rowsPerColumn) * 190, 100 + (i % rowsPerColumn) * 25));
+  ctx.fillText(&quot;緑：位置も文字も同じ&quot;, 390, 285);
+  ctx.fillText(&quot;黄：別の場所に残っている&quot;, 390, 308);
+  ctx.fillText(&quot;灰：残りの文字にはない&quot;, 390, 331);
+  for (let row = 0; row &lt; maxRows; row++) {
+    const entry = rows[row];
+    for (let col = 0; col &lt; wordLength; col++) {
+      const x = 30 + col * 48, y = 60 + row * 46;
+      const color = entry ? entry.result[col] : &quot;empty&quot;;
+      ctx.fillStyle = color === &quot;exact&quot; ? &quot;#23835d&quot; : color === &quot;present&quot; ? &quot;#a06c00&quot; : color === &quot;absent&quot; ? &quot;#576579&quot; : &quot;#eaf5fb&quot;;
+      ctx.fillRect(x, y, 42, 40);
+      ctx.fillStyle = entry ? &quot;white&quot; : &quot;#1f3d5b&quot;; ctx.font = &quot;bold 23px sans-serif&quot;;
+      ctx.fillText(entry ? entry.word[col] : row === rows.length ? (draft[col] || &quot;&quot;) : &quot;&quot;, x + 12, y + 28);
+    }
+  }
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(message, 30, 342);
+  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 425);
+  for (let row = 0; row &lt; keyboard.length; row++) for (let col = 0; col &lt; keyboard[row].length; col++) {
+    ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(30 + col * 31, 350 + row * 28, 28, 25);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(keyboard[row][col], 37 + col * 31, 368 + row * 28);
+  }
+  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKey);
+const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let row = 0; row &lt; keyboard.length; row++) {
+    for (let col = 0; col &lt; keyboard[row].length; col++) {
+      if (x &gt;= 30 + col * 31 &amp;&amp; x &lt; 58 + col * 31 &amp;&amp; y &gt;= 350 + row * 28 &amp;&amp; y &lt; 375 + row * 28) handleKey({key:keyboard[row][col], repeat:false, preventDefault(){}});
+    }
+  }
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 350 &amp;&amp; y &lt;= 380) handleKey({key:&quot;Backspace&quot;, repeat:false, preventDefault(){}});
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 385 &amp;&amp; y &lt;= 415) handleKey({key:state === &quot;playing&quot; ? &quot;Enter&quot; : &quot; &quot;, repeat:false, preventDefault(){}});
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>wordLengthを5にし、APPLEなどの候補へ切り替えます。</p><p>盤面とjudgeの繰り返しはwordLengthを使うため、文字数に合わせて動きます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>盤面が5列になり、5文字の候補を入力できます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>APPLEにはPが何個ありますか。</p><details><summary>練習の答え</summary><p>2個です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-intermediate-word-guess-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：成績を保存する</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>挑戦回数と正解回数を保存します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 8 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const wordLength = 5;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const maxRows = 6;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let answer, rows, draft, state, message;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let answer, rows, draft, state, message, stats;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  answer = words[Math.floor(Math.random() * words.length)].word;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  try { stats = JSON.parse(localStorage.getItem(&quot;word-guess-stats&quot;) || &quot;null&quot;); } catch { stats = null; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (!stats || !Number.isInteger(stats.played) || !Number.isInteger(stats.won) || stats.played &lt; 0 || stats.won &lt; 0 || stats.won &gt; stats.played) stats = {played:0, won:0};</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    stats.played++; if (state === &quot;clear&quot;) stats.won++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    try { localStorage.setItem(&quot;word-guess-stats&quot;, JSON.stringify(stats)); } catch {}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draft = &quot;&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;記録：&quot; + stats.won + &quot;勝 / &quot; + stats.played + &quot;回&quot;, 490, 385);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];
+const words5 = [{word:&quot;APPLE&quot;, meaning:&quot;りんご&quot;}, {word:&quot;GRAPE&quot;, meaning:&quot;ぶどう&quot;}, {word:&quot;PEACH&quot;, meaning:&quot;もも&quot;}, {word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}, {word:&quot;PLANT&quot;, meaning:&quot;植物&quot;}, {word:&quot;STONE&quot;, meaning:&quot;石&quot;}, {word:&quot;BREAD&quot;, meaning:&quot;パン&quot;}, {word:&quot;HEART&quot;, meaning:&quot;心&quot;}];
+const words = words5;
+const wordLength = 5;
+const maxRows = 6;
+let answer, rows, draft, state, message;
+
+function start() {
+  answer = words[Math.floor(Math.random() * words.length)].word;
+  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;
+}
+
+function judge(guess, target) {
+  const result = Array(wordLength).fill(&quot;absent&quot;);
+  const remaining = {};
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (guess[i] === target[i]) result[i] = &quot;exact&quot;;
+    else remaining[target[i]] = (remaining[target[i]] || 0) + 1;
+  }
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (result[i] === &quot;exact&quot;) continue;
+    if ((remaining[guess[i]] || 0) &gt; 0) { result[i] = &quot;present&quot;; remaining[guess[i]]--; }
+  }
+  return result;
+}
+function handleKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (state !== &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); return; }
+  if (state !== &quot;playing&quot;) return;
+  if (event.key === &quot;Backspace&quot;) { event.preventDefault(); draft = draft.slice(0, -1); message = &quot;&quot;; return; }
+  if (/^[a-zA-Z]$/.test(event.key) &amp;&amp; draft.length &lt; wordLength) { draft += event.key.toUpperCase(); message = &quot;&quot;; return; }
+  if (event.key !== &quot;Enter&quot;) return;
+  if (draft.length !== wordLength || !words.some(item =&gt; item.word === draft)) { message = &quot;候補のことばを入力してください&quot;; return; }
+  const result = judge(draft, answer);
+  rows.push({word:draft, result});
+  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }
+  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }
+  draft = &quot;&quot;;
+}
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(wordLength + &quot;文字ことば当て&quot;, 30, 38);
+  ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(&quot;候補と意味&quot;, 390, 70);
+  const rowsPerColumn = Math.ceil(words.length / 2);
+  words.forEach((item, i) =&gt; ctx.fillText(item.word + &quot;：&quot; + item.meaning, 390 + Math.floor(i / rowsPerColumn) * 190, 100 + (i % rowsPerColumn) * 25));
+  ctx.fillText(&quot;緑：位置も文字も同じ&quot;, 390, 285);
+  ctx.fillText(&quot;黄：別の場所に残っている&quot;, 390, 308);
+  ctx.fillText(&quot;灰：残りの文字にはない&quot;, 390, 331);
+  for (let row = 0; row &lt; maxRows; row++) {
+    const entry = rows[row];
+    for (let col = 0; col &lt; wordLength; col++) {
+      const x = 30 + col * 48, y = 60 + row * 46;
+      const color = entry ? entry.result[col] : &quot;empty&quot;;
+      ctx.fillStyle = color === &quot;exact&quot; ? &quot;#23835d&quot; : color === &quot;present&quot; ? &quot;#a06c00&quot; : color === &quot;absent&quot; ? &quot;#576579&quot; : &quot;#eaf5fb&quot;;
+      ctx.fillRect(x, y, 42, 40);
+      ctx.fillStyle = entry ? &quot;white&quot; : &quot;#1f3d5b&quot;; ctx.font = &quot;bold 23px sans-serif&quot;;
+      ctx.fillText(entry ? entry.word[col] : row === rows.length ? (draft[col] || &quot;&quot;) : &quot;&quot;, x + 12, y + 28);
+    }
+  }
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(message, 30, 342);
+  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 425);
+  for (let row = 0; row &lt; keyboard.length; row++) for (let col = 0; col &lt; keyboard[row].length; col++) {
+    ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(30 + col * 31, 350 + row * 28, 28, 25);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(keyboard[row][col], 37 + col * 31, 368 + row * 28);
+  }
+  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKey);
+const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let row = 0; row &lt; keyboard.length; row++) {
+    for (let col = 0; col &lt; keyboard[row].length; col++) {
+      if (x &gt;= 30 + col * 31 &amp;&amp; x &lt; 58 + col * 31 &amp;&amp; y &gt;= 350 + row * 28 &amp;&amp; y &lt; 375 + row * 28) handleKey({key:keyboard[row][col], repeat:false, preventDefault(){}});
+    }
+  }
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 350 &amp;&amp; y &lt;= 380) handleKey({key:&quot;Backspace&quot;, repeat:false, preventDefault(){}});
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 385 &amp;&amp; y &lt;= 415) handleKey({key:state === &quot;playing&quot; ? &quot;Enter&quot; : &quot; &quot;, repeat:false, preventDefault(){}});
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const words4 = [{word:&quot;BIRD&quot;, meaning:&quot;鳥&quot;}, {word:&quot;FISH&quot;, meaning:&quot;魚&quot;}, {word:&quot;TREE&quot;, meaning:&quot;木&quot;}, {word:&quot;MOON&quot;, meaning:&quot;月&quot;}, {word:&quot;NOON&quot;, meaning:&quot;正午&quot;}, {word:&quot;BOOK&quot;, meaning:&quot;本&quot;}, {word:&quot;ROOM&quot;, meaning:&quot;部屋&quot;}, {word:&quot;STAR&quot;, meaning:&quot;星&quot;}, {word:&quot;LEAF&quot;, meaning:&quot;葉&quot;}, {word:&quot;SNOW&quot;, meaning:&quot;雪&quot;}, {word:&quot;RAIN&quot;, meaning:&quot;雨&quot;}, {word:&quot;FOOD&quot;, meaning:&quot;食べ物&quot;}, {word:&quot;FROG&quot;, meaning:&quot;カエル&quot;}, {word:&quot;DUCK&quot;, meaning:&quot;アヒル&quot;}];
+const words5 = [{word:&quot;APPLE&quot;, meaning:&quot;りんご&quot;}, {word:&quot;GRAPE&quot;, meaning:&quot;ぶどう&quot;}, {word:&quot;PEACH&quot;, meaning:&quot;もも&quot;}, {word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}, {word:&quot;PLANT&quot;, meaning:&quot;植物&quot;}, {word:&quot;STONE&quot;, meaning:&quot;石&quot;}, {word:&quot;BREAD&quot;, meaning:&quot;パン&quot;}, {word:&quot;HEART&quot;, meaning:&quot;心&quot;}];
+const words = words5;
+const wordLength = 5;
+const maxRows = 6;
+let answer, rows, draft, state, message, stats;
+
+function start() {
+  answer = words[Math.floor(Math.random() * words.length)].word;
+  rows = []; draft = &quot;&quot;; state = &quot;playing&quot;; message = &quot;&quot;;
+  try { stats = JSON.parse(localStorage.getItem(&quot;word-guess-stats&quot;) || &quot;null&quot;); } catch { stats = null; }
+  if (!stats || !Number.isInteger(stats.played) || !Number.isInteger(stats.won) || stats.played &lt; 0 || stats.won &lt; 0 || stats.won &gt; stats.played) stats = {played:0, won:0};
+}
+
+function judge(guess, target) {
+  const result = Array(wordLength).fill(&quot;absent&quot;);
+  const remaining = {};
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (guess[i] === target[i]) result[i] = &quot;exact&quot;;
+    else remaining[target[i]] = (remaining[target[i]] || 0) + 1;
+  }
+  for (let i = 0; i &lt; wordLength; i++) {
+    if (result[i] === &quot;exact&quot;) continue;
+    if ((remaining[guess[i]] || 0) &gt; 0) { result[i] = &quot;present&quot;; remaining[guess[i]]--; }
+  }
+  return result;
+}
+function handleKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (state !== &quot;playing&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); return; }
+  if (state !== &quot;playing&quot;) return;
+  if (event.key === &quot;Backspace&quot;) { event.preventDefault(); draft = draft.slice(0, -1); message = &quot;&quot;; return; }
+  if (/^[a-zA-Z]$/.test(event.key) &amp;&amp; draft.length &lt; wordLength) { draft += event.key.toUpperCase(); message = &quot;&quot;; return; }
+  if (event.key !== &quot;Enter&quot;) return;
+  if (draft.length !== wordLength || !words.some(item =&gt; item.word === draft)) { message = &quot;候補のことばを入力してください&quot;; return; }
+  const result = judge(draft, answer);
+  rows.push({word:draft, result});
+  if (draft === answer) { state = &quot;clear&quot;; message = &quot;正解！&quot;; }
+  else if (rows.length &gt;= maxRows) { state = &quot;over&quot;; message = &quot;答えは &quot; + answer; }
+  if (state !== &quot;playing&quot;) {
+    stats.played++; if (state === &quot;clear&quot;) stats.won++;
+    try { localStorage.setItem(&quot;word-guess-stats&quot;, JSON.stringify(stats)); } catch {}
+  }
+  draft = &quot;&quot;;
+}
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;22px sans-serif&quot;;
+  ctx.fillText(wordLength + &quot;文字ことば当て&quot;, 30, 38);
+  ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(&quot;候補と意味&quot;, 390, 70);
+  const rowsPerColumn = Math.ceil(words.length / 2);
+  words.forEach((item, i) =&gt; ctx.fillText(item.word + &quot;：&quot; + item.meaning, 390 + Math.floor(i / rowsPerColumn) * 190, 100 + (i % rowsPerColumn) * 25));
+  ctx.fillText(&quot;緑：位置も文字も同じ&quot;, 390, 285);
+  ctx.fillText(&quot;黄：別の場所に残っている&quot;, 390, 308);
+  ctx.fillText(&quot;灰：残りの文字にはない&quot;, 390, 331);
+  for (let row = 0; row &lt; maxRows; row++) {
+    const entry = rows[row];
+    for (let col = 0; col &lt; wordLength; col++) {
+      const x = 30 + col * 48, y = 60 + row * 46;
+      const color = entry ? entry.result[col] : &quot;empty&quot;;
+      ctx.fillStyle = color === &quot;exact&quot; ? &quot;#23835d&quot; : color === &quot;present&quot; ? &quot;#a06c00&quot; : color === &quot;absent&quot; ? &quot;#576579&quot; : &quot;#eaf5fb&quot;;
+      ctx.fillRect(x, y, 42, 40);
+      ctx.fillStyle = entry ? &quot;white&quot; : &quot;#1f3d5b&quot;; ctx.font = &quot;bold 23px sans-serif&quot;;
+      ctx.fillText(entry ? entry.word[col] : row === rows.length ? (draft[col] || &quot;&quot;) : &quot;&quot;, x + 12, y + 28);
+    }
+  }
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  ctx.fillText(message, 30, 342);
+  if (state !== &quot;playing&quot;) ctx.fillText(&quot;Spaceで再挑戦&quot;, 490, 425);
+  for (let row = 0; row &lt; keyboard.length; row++) for (let col = 0; col &lt; keyboard[row].length; col++) {
+    ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(30 + col * 31, 350 + row * 28, 28, 25);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(keyboard[row][col], 37 + col * 31, 368 + row * 28);
+  }
+  ctx.fillStyle = &quot;#d8eaf5&quot;; ctx.fillRect(360, 350, 90, 30); ctx.fillRect(360, 385, 90, 30);
+  ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;消す&quot;, 380, 371); ctx.fillText(state === &quot;playing&quot; ? &quot;決定&quot; : &quot;再挑戦&quot;, 375, 406);
+  ctx.fillText(&quot;記録：&quot; + stats.won + &quot;勝 / &quot; + stats.played + &quot;回&quot;, 490, 385);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKey);
+const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  const y = (event.clientY - rect.top) * canvas.height / rect.height;
+  for (let row = 0; row &lt; keyboard.length; row++) {
+    for (let col = 0; col &lt; keyboard[row].length; col++) {
+      if (x &gt;= 30 + col * 31 &amp;&amp; x &lt; 58 + col * 31 &amp;&amp; y &gt;= 350 + row * 28 &amp;&amp; y &lt; 375 + row * 28) handleKey({key:keyboard[row][col], repeat:false, preventDefault(){}});
+    }
+  }
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 350 &amp;&amp; y &lt;= 380) handleKey({key:&quot;Backspace&quot;, repeat:false, preventDefault(){}});
+  if (x &gt;= 360 &amp;&amp; x &lt;= 450 &amp;&amp; y &gt;= 385 &amp;&amp; y &lt;= 415) handleKey({key:state === &quot;playing&quot; ? &quot;Enter&quot; : &quot; &quot;, repeat:false, preventDefault(){}});
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>終了したときにplayedを増やし、正解ならwonも増やします。</p><p>localStorageを使い、読み書きできない場合はエラーで止まらないようにします。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>1回正解し、再読み込みすると成績が残ります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>3回遊んで2回正解したときwonとplayedはいくつですか。</p><details><summary>練習の答え</summary><p>wonは2、playedは3です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-intermediate-word-guess-extensions-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></div></body></html>

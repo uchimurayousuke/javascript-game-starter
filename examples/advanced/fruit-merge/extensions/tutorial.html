@@ -1,0 +1,852 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>フルーツ合体パズルの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：次のフルーツを表示する</a><a href="#lesson-section-3">ステップ 2：落下位置の線を出す</a><a href="#lesson-section-4">ステップ 3：続けて合体した得点を増やす</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：フルーツ合体パズルの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：次のフルーツを表示する</a><a href="#lesson-section-3">ステップ 2：落下位置の線を出す</a><a href="#lesson-section-4">ステップ 3：続けて合体した得点を増やす</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">フルーツ合体パズルの発展</li></ol></nav><h1>フルーツ合体パズルの発展</h1><p>丸いフルーツを落とし、同じ数字を合体させます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-fruit-merge-extension.zip" download="example-advanced-fruit-merge-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div><p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p><p>クラスはデータと処理の設計図です。constructorはnewで作るときに呼ばれ、thisは作られた一つ一つのインスタンスを指します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：次のフルーツを表示する</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>次に落ちる数字を表示します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const radii = [18, 24, 31, 39, 48, 60];
+const colors = [&quot;#e76c72&quot;, &quot;#f3a447&quot;, &quot;#f7d65e&quot;, &quot;#84b86a&quot;, &quot;#75b8dc&quot;, &quot;#bb86c8&quot;];
+const leftWall = 70, rightWall = 570, floorY = 410, dangerY = 110;
+const maxFruits = 40;
+const keys = {};
+class Fruit {
+  constructor(x, y, level) {
+    this.x = x; this.y = y; this.level = level;
+    this.radius = radii[level]; this.vx = 0; this.vy = 0; this.age = 0;
+  }
+  draw() {
+    ctx.fillStyle = colors[this.level]; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;bold 18px sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+    ctx.fillText(String(this.level + 1), this.x, this.y + 6); ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+class Game {
+  constructor() {
+    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;
+    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;
+  }
+  drop() {
+    if (this.state !== &quot;playing&quot; || this.cooldown &gt; 0 || this.fruits.length &gt;= maxFruits) return;
+    this.fruits.push(new Fruit(this.aim, 75, this.nextLevel));
+    this.nextLevel = Math.floor(Math.random() * 2); this.cooldown = 30;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));
+    if (this.cooldown &gt; 0) this.cooldown--;
+    for (const fruit of this.fruits) fruit.age++;
+    for (let sub = 0; sub &lt; 4; sub++) {
+      for (const fruit of this.fruits) {
+        fruit.vy = Math.min(9, fruit.vy + 0.22 / 4);
+        fruit.x += fruit.vx / 4; fruit.y += fruit.vy / 4;
+        if (fruit.x - fruit.radius &lt; leftWall) { fruit.x = leftWall + fruit.radius; fruit.vx = Math.abs(fruit.vx) * 0.25; }
+        if (fruit.x + fruit.radius &gt; rightWall) { fruit.x = rightWall - fruit.radius; fruit.vx = -Math.abs(fruit.vx) * 0.25; }
+        if (fruit.y + fruit.radius &gt; floorY) { fruit.y = floorY - fruit.radius; fruit.vy = -Math.abs(fruit.vy) * 0.12; fruit.vx *= 0.96; }
+      }
+      for (let pass = 0; pass &lt; 3; pass++) {
+        this.resolvePairs();
+        for (const fruit of this.fruits) {
+          fruit.x = Math.max(leftWall + fruit.radius, Math.min(rightWall - fruit.radius, fruit.x));
+          fruit.y = Math.min(floorY - fruit.radius, fruit.y);
+        }
+      }
+    }
+    const above = this.fruits.some(fruit =&gt; fruit.age &gt; 180 &amp;&amp; fruit.y - fruit.radius &lt; dangerY &amp;&amp; Math.abs(fruit.vy) &lt; 0.8 &amp;&amp; Math.abs(fruit.vx) &lt; 0.8);
+    this.dangerFrames = above ? this.dangerFrames + 1 : 0;
+    if (this.dangerFrames &gt;= 60 || (this.fruits.length &gt;= maxFruits &amp;&amp; this.cooldown === 0)) this.state = &quot;over&quot;;
+  }
+  resolvePairs() {
+    const removed = new Set(), added = [];
+    for (let i = 0; i &lt; this.fruits.length; i++) {
+      const a = this.fruits[i];
+      if (removed.has(a)) continue;
+      for (let j = i + 1; j &lt; this.fruits.length; j++) {
+        const b = this.fruits[j];
+        if (removed.has(b)) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, distance = Math.hypot(dx, dy), total = a.radius + b.radius;
+        if (distance &gt;= total) continue;
+        if (a.level === b.level &amp;&amp; a.level &lt; radii.length - 1) {
+          removed.add(a); removed.add(b);
+          const merged = new Fruit((a.x + b.x) / 2, (a.y + b.y) / 2, a.level + 1);
+          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;
+          added.push(merged);
+          this.score += (merged.level + 1) * 10;
+          break;
+        }
+        const nx = distance &gt; 0 ? dx / distance : 1, ny = distance &gt; 0 ? dy / distance : 0;
+        const overlap = total - distance;
+        a.x -= nx * overlap / 2; a.y -= ny * overlap / 2;
+        b.x += nx * overlap / 2; b.y += ny * overlap / 2;
+        const relative = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+        if (relative &lt; 0) {
+          const impulse = -relative * 0.55;
+          a.vx -= impulse * nx; a.vy -= impulse * ny;
+          b.vx += impulse * nx; b.vy += impulse * ny;
+        }
+      }
+    }
+    if (removed.size) this.fruits = this.fruits.filter(item =&gt; !removed.has(item)).concat(added);
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5fb&quot;; ctx.fillRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.strokeStyle = &quot;#1f3d5b&quot;; ctx.lineWidth = 3; ctx.strokeRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.fillStyle = &quot;#a53737&quot;; ctx.fillRect(leftWall, dangerY, rightWall - leftWall, 2);
+    this.fruits.forEach(fruit =&gt; fruit.draw());
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(&quot;フルーツ合体&quot;, 590, 65); ctx.fillText(&quot;得点：&quot; + this.score, 590, 100);
+    ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);
+    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();
+    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) { keys[event.key] = true; event.preventDefault(); }
+  if (event.code === &quot;Space&quot; &amp;&amp; !event.repeat) { event.preventDefault(); game.drop(); }
+  if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;over&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) keys[event.key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { keys.ArrowLeft = false; keys.ArrowRight = false; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  if (x &lt; leftWall || x &gt; rightWall) return;
+  game.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, x)); game.drop();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const radii = [18, 24, 31, 39, 48, 60];
+const colors = [&quot;#e76c72&quot;, &quot;#f3a447&quot;, &quot;#f7d65e&quot;, &quot;#84b86a&quot;, &quot;#75b8dc&quot;, &quot;#bb86c8&quot;];
+const leftWall = 70, rightWall = 570, floorY = 410, dangerY = 110;
+const maxFruits = 40;
+const keys = {};
+class Fruit {
+  constructor(x, y, level) {
+    this.x = x; this.y = y; this.level = level;
+    this.radius = radii[level]; this.vx = 0; this.vy = 0; this.age = 0;
+  }
+  draw() {
+    ctx.fillStyle = colors[this.level]; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;bold 18px sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+    ctx.fillText(String(this.level + 1), this.x, this.y + 6); ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+class Game {
+  constructor() {
+    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;
+    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;
+  }
+  drop() {
+    if (this.state !== &quot;playing&quot; || this.cooldown &gt; 0 || this.fruits.length &gt;= maxFruits) return;
+    this.fruits.push(new Fruit(this.aim, 75, this.nextLevel));
+    this.nextLevel = Math.floor(Math.random() * 2); this.cooldown = 30;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));
+    if (this.cooldown &gt; 0) this.cooldown--;
+    for (const fruit of this.fruits) fruit.age++;
+    for (let sub = 0; sub &lt; 4; sub++) {
+      for (const fruit of this.fruits) {
+        fruit.vy = Math.min(9, fruit.vy + 0.22 / 4);
+        fruit.x += fruit.vx / 4; fruit.y += fruit.vy / 4;
+        if (fruit.x - fruit.radius &lt; leftWall) { fruit.x = leftWall + fruit.radius; fruit.vx = Math.abs(fruit.vx) * 0.25; }
+        if (fruit.x + fruit.radius &gt; rightWall) { fruit.x = rightWall - fruit.radius; fruit.vx = -Math.abs(fruit.vx) * 0.25; }
+        if (fruit.y + fruit.radius &gt; floorY) { fruit.y = floorY - fruit.radius; fruit.vy = -Math.abs(fruit.vy) * 0.12; fruit.vx *= 0.96; }
+      }
+      for (let pass = 0; pass &lt; 3; pass++) {
+        this.resolvePairs();
+        for (const fruit of this.fruits) {
+          fruit.x = Math.max(leftWall + fruit.radius, Math.min(rightWall - fruit.radius, fruit.x));
+          fruit.y = Math.min(floorY - fruit.radius, fruit.y);
+        }
+      }
+    }
+    const above = this.fruits.some(fruit =&gt; fruit.age &gt; 180 &amp;&amp; fruit.y - fruit.radius &lt; dangerY &amp;&amp; Math.abs(fruit.vy) &lt; 0.8 &amp;&amp; Math.abs(fruit.vx) &lt; 0.8);
+    this.dangerFrames = above ? this.dangerFrames + 1 : 0;
+    if (this.dangerFrames &gt;= 60 || (this.fruits.length &gt;= maxFruits &amp;&amp; this.cooldown === 0)) this.state = &quot;over&quot;;
+  }
+  resolvePairs() {
+    const removed = new Set(), added = [];
+    for (let i = 0; i &lt; this.fruits.length; i++) {
+      const a = this.fruits[i];
+      if (removed.has(a)) continue;
+      for (let j = i + 1; j &lt; this.fruits.length; j++) {
+        const b = this.fruits[j];
+        if (removed.has(b)) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, distance = Math.hypot(dx, dy), total = a.radius + b.radius;
+        if (distance &gt;= total) continue;
+        if (a.level === b.level &amp;&amp; a.level &lt; radii.length - 1) {
+          removed.add(a); removed.add(b);
+          const merged = new Fruit((a.x + b.x) / 2, (a.y + b.y) / 2, a.level + 1);
+          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;
+          added.push(merged);
+          this.score += (merged.level + 1) * 10;
+          break;
+        }
+        const nx = distance &gt; 0 ? dx / distance : 1, ny = distance &gt; 0 ? dy / distance : 0;
+        const overlap = total - distance;
+        a.x -= nx * overlap / 2; a.y -= ny * overlap / 2;
+        b.x += nx * overlap / 2; b.y += ny * overlap / 2;
+        const relative = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+        if (relative &lt; 0) {
+          const impulse = -relative * 0.55;
+          a.vx -= impulse * nx; a.vy -= impulse * ny;
+          b.vx += impulse * nx; b.vy += impulse * ny;
+        }
+      }
+    }
+    if (removed.size) this.fruits = this.fruits.filter(item =&gt; !removed.has(item)).concat(added);
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5fb&quot;; ctx.fillRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.strokeStyle = &quot;#1f3d5b&quot;; ctx.lineWidth = 3; ctx.strokeRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.fillStyle = &quot;#a53737&quot;; ctx.fillRect(leftWall, dangerY, rightWall - leftWall, 2);
+    this.fruits.forEach(fruit =&gt; fruit.draw());
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(&quot;フルーツ合体&quot;, 590, 65); ctx.fillText(&quot;得点：&quot; + this.score, 590, 100);
+    ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);
+    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);
+    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();
+    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) { keys[event.key] = true; event.preventDefault(); }
+  if (event.code === &quot;Space&quot; &amp;&amp; !event.repeat) { event.preventDefault(); game.drop(); }
+  if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;over&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) keys[event.key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { keys.ArrowLeft = false; keys.ArrowRight = false; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  if (x &lt; leftWall || x &gt; rightWall) return;
+  game.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, x)); game.drop();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>nextLevelは次に作る果物のレベルです。落とした後、0か1を選びます。</p><p>画面に出す数字は配列の番号より1大きくしています。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>右側に次の数字が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>nextLevelが0なら画面には何と表示しますか。</p><details><summary>練習の答え</summary><p>1です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-fruit-merge-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：落下位置の線を出す</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>落とす位置に点線を表示します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const radii = [18, 24, 31, 39, 48, 60];
+const colors = [&quot;#e76c72&quot;, &quot;#f3a447&quot;, &quot;#f7d65e&quot;, &quot;#84b86a&quot;, &quot;#75b8dc&quot;, &quot;#bb86c8&quot;];
+const leftWall = 70, rightWall = 570, floorY = 410, dangerY = 110;
+const maxFruits = 40;
+const keys = {};
+class Fruit {
+  constructor(x, y, level) {
+    this.x = x; this.y = y; this.level = level;
+    this.radius = radii[level]; this.vx = 0; this.vy = 0; this.age = 0;
+  }
+  draw() {
+    ctx.fillStyle = colors[this.level]; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;bold 18px sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+    ctx.fillText(String(this.level + 1), this.x, this.y + 6); ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+class Game {
+  constructor() {
+    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;
+    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;
+  }
+  drop() {
+    if (this.state !== &quot;playing&quot; || this.cooldown &gt; 0 || this.fruits.length &gt;= maxFruits) return;
+    this.fruits.push(new Fruit(this.aim, 75, this.nextLevel));
+    this.nextLevel = Math.floor(Math.random() * 2); this.cooldown = 30;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));
+    if (this.cooldown &gt; 0) this.cooldown--;
+    for (const fruit of this.fruits) fruit.age++;
+    for (let sub = 0; sub &lt; 4; sub++) {
+      for (const fruit of this.fruits) {
+        fruit.vy = Math.min(9, fruit.vy + 0.22 / 4);
+        fruit.x += fruit.vx / 4; fruit.y += fruit.vy / 4;
+        if (fruit.x - fruit.radius &lt; leftWall) { fruit.x = leftWall + fruit.radius; fruit.vx = Math.abs(fruit.vx) * 0.25; }
+        if (fruit.x + fruit.radius &gt; rightWall) { fruit.x = rightWall - fruit.radius; fruit.vx = -Math.abs(fruit.vx) * 0.25; }
+        if (fruit.y + fruit.radius &gt; floorY) { fruit.y = floorY - fruit.radius; fruit.vy = -Math.abs(fruit.vy) * 0.12; fruit.vx *= 0.96; }
+      }
+      for (let pass = 0; pass &lt; 3; pass++) {
+        this.resolvePairs();
+        for (const fruit of this.fruits) {
+          fruit.x = Math.max(leftWall + fruit.radius, Math.min(rightWall - fruit.radius, fruit.x));
+          fruit.y = Math.min(floorY - fruit.radius, fruit.y);
+        }
+      }
+    }
+    const above = this.fruits.some(fruit =&gt; fruit.age &gt; 180 &amp;&amp; fruit.y - fruit.radius &lt; dangerY &amp;&amp; Math.abs(fruit.vy) &lt; 0.8 &amp;&amp; Math.abs(fruit.vx) &lt; 0.8);
+    this.dangerFrames = above ? this.dangerFrames + 1 : 0;
+    if (this.dangerFrames &gt;= 60 || (this.fruits.length &gt;= maxFruits &amp;&amp; this.cooldown === 0)) this.state = &quot;over&quot;;
+  }
+  resolvePairs() {
+    const removed = new Set(), added = [];
+    for (let i = 0; i &lt; this.fruits.length; i++) {
+      const a = this.fruits[i];
+      if (removed.has(a)) continue;
+      for (let j = i + 1; j &lt; this.fruits.length; j++) {
+        const b = this.fruits[j];
+        if (removed.has(b)) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, distance = Math.hypot(dx, dy), total = a.radius + b.radius;
+        if (distance &gt;= total) continue;
+        if (a.level === b.level &amp;&amp; a.level &lt; radii.length - 1) {
+          removed.add(a); removed.add(b);
+          const merged = new Fruit((a.x + b.x) / 2, (a.y + b.y) / 2, a.level + 1);
+          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;
+          added.push(merged);
+          this.score += (merged.level + 1) * 10;
+          break;
+        }
+        const nx = distance &gt; 0 ? dx / distance : 1, ny = distance &gt; 0 ? dy / distance : 0;
+        const overlap = total - distance;
+        a.x -= nx * overlap / 2; a.y -= ny * overlap / 2;
+        b.x += nx * overlap / 2; b.y += ny * overlap / 2;
+        const relative = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+        if (relative &lt; 0) {
+          const impulse = -relative * 0.55;
+          a.vx -= impulse * nx; a.vy -= impulse * ny;
+          b.vx += impulse * nx; b.vy += impulse * ny;
+        }
+      }
+    }
+    if (removed.size) this.fruits = this.fruits.filter(item =&gt; !removed.has(item)).concat(added);
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5fb&quot;; ctx.fillRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.strokeStyle = &quot;#1f3d5b&quot;; ctx.lineWidth = 3; ctx.strokeRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.fillStyle = &quot;#a53737&quot;; ctx.fillRect(leftWall, dangerY, rightWall - leftWall, 2);
+    this.fruits.forEach(fruit =&gt; fruit.draw());
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(&quot;フルーツ合体&quot;, 590, 65); ctx.fillText(&quot;得点：&quot; + this.score, 590, 100);
+    ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);
+    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);
+    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();
+    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) { keys[event.key] = true; event.preventDefault(); }
+  if (event.code === &quot;Space&quot; &amp;&amp; !event.repeat) { event.preventDefault(); game.drop(); }
+  if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;over&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) keys[event.key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { keys.ArrowLeft = false; keys.ArrowRight = false; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  if (x &lt; leftWall || x &gt; rightWall) return;
+  game.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, x)); game.drop();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const radii = [18, 24, 31, 39, 48, 60];
+const colors = [&quot;#e76c72&quot;, &quot;#f3a447&quot;, &quot;#f7d65e&quot;, &quot;#84b86a&quot;, &quot;#75b8dc&quot;, &quot;#bb86c8&quot;];
+const leftWall = 70, rightWall = 570, floorY = 410, dangerY = 110;
+const maxFruits = 40;
+const keys = {};
+class Fruit {
+  constructor(x, y, level) {
+    this.x = x; this.y = y; this.level = level;
+    this.radius = radii[level]; this.vx = 0; this.vy = 0; this.age = 0;
+  }
+  draw() {
+    ctx.fillStyle = colors[this.level]; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;bold 18px sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+    ctx.fillText(String(this.level + 1), this.x, this.y + 6); ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+class Game {
+  constructor() {
+    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;
+    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;
+  }
+  drop() {
+    if (this.state !== &quot;playing&quot; || this.cooldown &gt; 0 || this.fruits.length &gt;= maxFruits) return;
+    this.fruits.push(new Fruit(this.aim, 75, this.nextLevel));
+    this.nextLevel = Math.floor(Math.random() * 2); this.cooldown = 30;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));
+    if (this.cooldown &gt; 0) this.cooldown--;
+    for (const fruit of this.fruits) fruit.age++;
+    for (let sub = 0; sub &lt; 4; sub++) {
+      for (const fruit of this.fruits) {
+        fruit.vy = Math.min(9, fruit.vy + 0.22 / 4);
+        fruit.x += fruit.vx / 4; fruit.y += fruit.vy / 4;
+        if (fruit.x - fruit.radius &lt; leftWall) { fruit.x = leftWall + fruit.radius; fruit.vx = Math.abs(fruit.vx) * 0.25; }
+        if (fruit.x + fruit.radius &gt; rightWall) { fruit.x = rightWall - fruit.radius; fruit.vx = -Math.abs(fruit.vx) * 0.25; }
+        if (fruit.y + fruit.radius &gt; floorY) { fruit.y = floorY - fruit.radius; fruit.vy = -Math.abs(fruit.vy) * 0.12; fruit.vx *= 0.96; }
+      }
+      for (let pass = 0; pass &lt; 3; pass++) {
+        this.resolvePairs();
+        for (const fruit of this.fruits) {
+          fruit.x = Math.max(leftWall + fruit.radius, Math.min(rightWall - fruit.radius, fruit.x));
+          fruit.y = Math.min(floorY - fruit.radius, fruit.y);
+        }
+      }
+    }
+    const above = this.fruits.some(fruit =&gt; fruit.age &gt; 180 &amp;&amp; fruit.y - fruit.radius &lt; dangerY &amp;&amp; Math.abs(fruit.vy) &lt; 0.8 &amp;&amp; Math.abs(fruit.vx) &lt; 0.8);
+    this.dangerFrames = above ? this.dangerFrames + 1 : 0;
+    if (this.dangerFrames &gt;= 60 || (this.fruits.length &gt;= maxFruits &amp;&amp; this.cooldown === 0)) this.state = &quot;over&quot;;
+  }
+  resolvePairs() {
+    const removed = new Set(), added = [];
+    for (let i = 0; i &lt; this.fruits.length; i++) {
+      const a = this.fruits[i];
+      if (removed.has(a)) continue;
+      for (let j = i + 1; j &lt; this.fruits.length; j++) {
+        const b = this.fruits[j];
+        if (removed.has(b)) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, distance = Math.hypot(dx, dy), total = a.radius + b.radius;
+        if (distance &gt;= total) continue;
+        if (a.level === b.level &amp;&amp; a.level &lt; radii.length - 1) {
+          removed.add(a); removed.add(b);
+          const merged = new Fruit((a.x + b.x) / 2, (a.y + b.y) / 2, a.level + 1);
+          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;
+          added.push(merged);
+          this.score += (merged.level + 1) * 10;
+          break;
+        }
+        const nx = distance &gt; 0 ? dx / distance : 1, ny = distance &gt; 0 ? dy / distance : 0;
+        const overlap = total - distance;
+        a.x -= nx * overlap / 2; a.y -= ny * overlap / 2;
+        b.x += nx * overlap / 2; b.y += ny * overlap / 2;
+        const relative = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+        if (relative &lt; 0) {
+          const impulse = -relative * 0.55;
+          a.vx -= impulse * nx; a.vy -= impulse * ny;
+          b.vx += impulse * nx; b.vy += impulse * ny;
+        }
+      }
+    }
+    if (removed.size) this.fruits = this.fruits.filter(item =&gt; !removed.has(item)).concat(added);
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5fb&quot;; ctx.fillRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.strokeStyle = &quot;#1f3d5b&quot;; ctx.lineWidth = 3; ctx.strokeRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.fillStyle = &quot;#a53737&quot;; ctx.fillRect(leftWall, dangerY, rightWall - leftWall, 2);
+    this.fruits.forEach(fruit =&gt; fruit.draw());
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(&quot;フルーツ合体&quot;, 590, 65); ctx.fillText(&quot;得点：&quot; + this.score, 590, 100);
+    ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);
+    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);
+    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);
+    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) { keys[event.key] = true; event.preventDefault(); }
+  if (event.code === &quot;Space&quot; &amp;&amp; !event.repeat) { event.preventDefault(); game.drop(); }
+  if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;over&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) keys[event.key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { keys.ArrowLeft = false; keys.ArrowRight = false; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  if (x &lt; leftWall || x &gt; rightWall) return;
+  game.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, x)); game.drop();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>aimは次に落とすx座標です。点線の始点と終点で同じaimを使います。</p><p>点線の設定は描き終わったら空配列に戻します。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>左右キーで動かすと点線も横に動きます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>aimが320なら点線はどのx座標ですか。</p><details><summary>練習の答え</summary><p>x=320です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-fruit-merge-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：続けて合体した得点を増やす</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>短い間に続く合体を連鎖として数えます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 5 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  constructor() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0; this.combo = 0; this.comboFrames = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  drop() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.cooldown &gt; 0) this.cooldown--;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.comboFrames &gt; 0) this.comboFrames--; else this.combo = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const fruit of this.fruits) fruit.age++;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (let sub = 0; sub &lt; 4; sub++) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          added.push(merged);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">          this.score += (merged.level + 1) * 10;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.combo = this.comboFrames &gt; 0 ? Math.min(10, this.combo + 1) : 1; this.comboFrames = 90;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">          this.score += (merged.level + 1) * 10 * this.combo;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">          break;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;連鎖：&quot; + this.combo, 590, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const radii = [18, 24, 31, 39, 48, 60];
+const colors = [&quot;#e76c72&quot;, &quot;#f3a447&quot;, &quot;#f7d65e&quot;, &quot;#84b86a&quot;, &quot;#75b8dc&quot;, &quot;#bb86c8&quot;];
+const leftWall = 70, rightWall = 570, floorY = 410, dangerY = 110;
+const maxFruits = 40;
+const keys = {};
+class Fruit {
+  constructor(x, y, level) {
+    this.x = x; this.y = y; this.level = level;
+    this.radius = radii[level]; this.vx = 0; this.vy = 0; this.age = 0;
+  }
+  draw() {
+    ctx.fillStyle = colors[this.level]; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;bold 18px sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+    ctx.fillText(String(this.level + 1), this.x, this.y + 6); ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+class Game {
+  constructor() {
+    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;
+    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;
+  }
+  drop() {
+    if (this.state !== &quot;playing&quot; || this.cooldown &gt; 0 || this.fruits.length &gt;= maxFruits) return;
+    this.fruits.push(new Fruit(this.aim, 75, this.nextLevel));
+    this.nextLevel = Math.floor(Math.random() * 2); this.cooldown = 30;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));
+    if (this.cooldown &gt; 0) this.cooldown--;
+    for (const fruit of this.fruits) fruit.age++;
+    for (let sub = 0; sub &lt; 4; sub++) {
+      for (const fruit of this.fruits) {
+        fruit.vy = Math.min(9, fruit.vy + 0.22 / 4);
+        fruit.x += fruit.vx / 4; fruit.y += fruit.vy / 4;
+        if (fruit.x - fruit.radius &lt; leftWall) { fruit.x = leftWall + fruit.radius; fruit.vx = Math.abs(fruit.vx) * 0.25; }
+        if (fruit.x + fruit.radius &gt; rightWall) { fruit.x = rightWall - fruit.radius; fruit.vx = -Math.abs(fruit.vx) * 0.25; }
+        if (fruit.y + fruit.radius &gt; floorY) { fruit.y = floorY - fruit.radius; fruit.vy = -Math.abs(fruit.vy) * 0.12; fruit.vx *= 0.96; }
+      }
+      for (let pass = 0; pass &lt; 3; pass++) {
+        this.resolvePairs();
+        for (const fruit of this.fruits) {
+          fruit.x = Math.max(leftWall + fruit.radius, Math.min(rightWall - fruit.radius, fruit.x));
+          fruit.y = Math.min(floorY - fruit.radius, fruit.y);
+        }
+      }
+    }
+    const above = this.fruits.some(fruit =&gt; fruit.age &gt; 180 &amp;&amp; fruit.y - fruit.radius &lt; dangerY &amp;&amp; Math.abs(fruit.vy) &lt; 0.8 &amp;&amp; Math.abs(fruit.vx) &lt; 0.8);
+    this.dangerFrames = above ? this.dangerFrames + 1 : 0;
+    if (this.dangerFrames &gt;= 60 || (this.fruits.length &gt;= maxFruits &amp;&amp; this.cooldown === 0)) this.state = &quot;over&quot;;
+  }
+  resolvePairs() {
+    const removed = new Set(), added = [];
+    for (let i = 0; i &lt; this.fruits.length; i++) {
+      const a = this.fruits[i];
+      if (removed.has(a)) continue;
+      for (let j = i + 1; j &lt; this.fruits.length; j++) {
+        const b = this.fruits[j];
+        if (removed.has(b)) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, distance = Math.hypot(dx, dy), total = a.radius + b.radius;
+        if (distance &gt;= total) continue;
+        if (a.level === b.level &amp;&amp; a.level &lt; radii.length - 1) {
+          removed.add(a); removed.add(b);
+          const merged = new Fruit((a.x + b.x) / 2, (a.y + b.y) / 2, a.level + 1);
+          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;
+          added.push(merged);
+          this.score += (merged.level + 1) * 10;
+          break;
+        }
+        const nx = distance &gt; 0 ? dx / distance : 1, ny = distance &gt; 0 ? dy / distance : 0;
+        const overlap = total - distance;
+        a.x -= nx * overlap / 2; a.y -= ny * overlap / 2;
+        b.x += nx * overlap / 2; b.y += ny * overlap / 2;
+        const relative = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+        if (relative &lt; 0) {
+          const impulse = -relative * 0.55;
+          a.vx -= impulse * nx; a.vy -= impulse * ny;
+          b.vx += impulse * nx; b.vy += impulse * ny;
+        }
+      }
+    }
+    if (removed.size) this.fruits = this.fruits.filter(item =&gt; !removed.has(item)).concat(added);
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5fb&quot;; ctx.fillRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.strokeStyle = &quot;#1f3d5b&quot;; ctx.lineWidth = 3; ctx.strokeRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.fillStyle = &quot;#a53737&quot;; ctx.fillRect(leftWall, dangerY, rightWall - leftWall, 2);
+    this.fruits.forEach(fruit =&gt; fruit.draw());
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(&quot;フルーツ合体&quot;, 590, 65); ctx.fillText(&quot;得点：&quot; + this.score, 590, 100);
+    ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);
+    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);
+    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);
+    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) { keys[event.key] = true; event.preventDefault(); }
+  if (event.code === &quot;Space&quot; &amp;&amp; !event.repeat) { event.preventDefault(); game.drop(); }
+  if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;over&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) keys[event.key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { keys.ArrowLeft = false; keys.ArrowRight = false; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  if (x &lt; leftWall || x &gt; rightWall) return;
+  game.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, x)); game.drop();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const radii = [18, 24, 31, 39, 48, 60];
+const colors = [&quot;#e76c72&quot;, &quot;#f3a447&quot;, &quot;#f7d65e&quot;, &quot;#84b86a&quot;, &quot;#75b8dc&quot;, &quot;#bb86c8&quot;];
+const leftWall = 70, rightWall = 570, floorY = 410, dangerY = 110;
+const maxFruits = 40;
+const keys = {};
+class Fruit {
+  constructor(x, y, level) {
+    this.x = x; this.y = y; this.level = level;
+    this.radius = radii[level]; this.vx = 0; this.vy = 0; this.age = 0;
+  }
+  draw() {
+    ctx.fillStyle = colors[this.level]; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;bold 18px sans-serif&quot;; ctx.textAlign = &quot;center&quot;;
+    ctx.fillText(String(this.level + 1), this.x, this.y + 6); ctx.textAlign = &quot;left&quot;;
+  }
+}
+
+class Game {
+  constructor() {
+    this.fruits = []; this.aim = 320; this.nextLevel = 0; this.cooldown = 0;
+    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0; this.combo = 0; this.comboFrames = 0;
+  }
+  drop() {
+    if (this.state !== &quot;playing&quot; || this.cooldown &gt; 0 || this.fruits.length &gt;= maxFruits) return;
+    this.fruits.push(new Fruit(this.aim, 75, this.nextLevel));
+    this.nextLevel = Math.floor(Math.random() * 2); this.cooldown = 30;
+  }
+  update() {
+    if (this.state !== &quot;playing&quot;) return;
+    this.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, this.aim + ((keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0)) * 4));
+    if (this.cooldown &gt; 0) this.cooldown--;
+    if (this.comboFrames &gt; 0) this.comboFrames--; else this.combo = 0;
+    for (const fruit of this.fruits) fruit.age++;
+    for (let sub = 0; sub &lt; 4; sub++) {
+      for (const fruit of this.fruits) {
+        fruit.vy = Math.min(9, fruit.vy + 0.22 / 4);
+        fruit.x += fruit.vx / 4; fruit.y += fruit.vy / 4;
+        if (fruit.x - fruit.radius &lt; leftWall) { fruit.x = leftWall + fruit.radius; fruit.vx = Math.abs(fruit.vx) * 0.25; }
+        if (fruit.x + fruit.radius &gt; rightWall) { fruit.x = rightWall - fruit.radius; fruit.vx = -Math.abs(fruit.vx) * 0.25; }
+        if (fruit.y + fruit.radius &gt; floorY) { fruit.y = floorY - fruit.radius; fruit.vy = -Math.abs(fruit.vy) * 0.12; fruit.vx *= 0.96; }
+      }
+      for (let pass = 0; pass &lt; 3; pass++) {
+        this.resolvePairs();
+        for (const fruit of this.fruits) {
+          fruit.x = Math.max(leftWall + fruit.radius, Math.min(rightWall - fruit.radius, fruit.x));
+          fruit.y = Math.min(floorY - fruit.radius, fruit.y);
+        }
+      }
+    }
+    const above = this.fruits.some(fruit =&gt; fruit.age &gt; 180 &amp;&amp; fruit.y - fruit.radius &lt; dangerY &amp;&amp; Math.abs(fruit.vy) &lt; 0.8 &amp;&amp; Math.abs(fruit.vx) &lt; 0.8);
+    this.dangerFrames = above ? this.dangerFrames + 1 : 0;
+    if (this.dangerFrames &gt;= 60 || (this.fruits.length &gt;= maxFruits &amp;&amp; this.cooldown === 0)) this.state = &quot;over&quot;;
+  }
+  resolvePairs() {
+    const removed = new Set(), added = [];
+    for (let i = 0; i &lt; this.fruits.length; i++) {
+      const a = this.fruits[i];
+      if (removed.has(a)) continue;
+      for (let j = i + 1; j &lt; this.fruits.length; j++) {
+        const b = this.fruits[j];
+        if (removed.has(b)) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, distance = Math.hypot(dx, dy), total = a.radius + b.radius;
+        if (distance &gt;= total) continue;
+        if (a.level === b.level &amp;&amp; a.level &lt; radii.length - 1) {
+          removed.add(a); removed.add(b);
+          const merged = new Fruit((a.x + b.x) / 2, (a.y + b.y) / 2, a.level + 1);
+          merged.vx = (a.vx + b.vx) / 2; merged.vy = (a.vy + b.vy) / 2;
+          added.push(merged);
+          this.combo = this.comboFrames &gt; 0 ? Math.min(10, this.combo + 1) : 1; this.comboFrames = 90;
+          this.score += (merged.level + 1) * 10 * this.combo;
+          break;
+        }
+        const nx = distance &gt; 0 ? dx / distance : 1, ny = distance &gt; 0 ? dy / distance : 0;
+        const overlap = total - distance;
+        a.x -= nx * overlap / 2; a.y -= ny * overlap / 2;
+        b.x += nx * overlap / 2; b.y += ny * overlap / 2;
+        const relative = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+        if (relative &lt; 0) {
+          const impulse = -relative * 0.55;
+          a.vx -= impulse * nx; a.vy -= impulse * ny;
+          b.vx += impulse * nx; b.vy += impulse * ny;
+        }
+      }
+    }
+    if (removed.size) this.fruits = this.fruits.filter(item =&gt; !removed.has(item)).concat(added);
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5fb&quot;; ctx.fillRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.strokeStyle = &quot;#1f3d5b&quot;; ctx.lineWidth = 3; ctx.strokeRect(leftWall, 45, rightWall - leftWall, floorY - 45);
+    ctx.fillStyle = &quot;#a53737&quot;; ctx.fillRect(leftWall, dangerY, rightWall - leftWall, 2);
+    this.fruits.forEach(fruit =&gt; fruit.draw());
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;20px sans-serif&quot;;
+    ctx.fillText(&quot;フルーツ合体&quot;, 590, 65); ctx.fillText(&quot;得点：&quot; + this.score, 590, 100);
+    ctx.font = &quot;16px sans-serif&quot;;
+    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);
+    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);
+    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillText(&quot;連鎖：&quot; + this.combo, 590, 300);
+    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) { keys[event.key] = true; event.preventDefault(); }
+  if (event.code === &quot;Space&quot; &amp;&amp; !event.repeat) { event.preventDefault(); game.drop(); }
+  if (event.key.toLowerCase() === &quot;r&quot; &amp;&amp; !event.repeat &amp;&amp; game.state === &quot;over&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) keys[event.key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { keys.ArrowLeft = false; keys.ArrowRight = false; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect();
+  const x = (event.clientX - rect.left) * canvas.width / rect.width;
+  if (x &lt; leftWall || x &gt; rightWall) return;
+  game.aim = Math.max(leftWall + 24, Math.min(rightWall - 24, x)); game.drop();
+});
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>合体から90フレーム以内の次の合体でcomboを増やし、得点に掛けます。</p><p>連鎖倍率は10を上限とし、時間が過ぎると0に戻ります。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>続けて合体すると右側の連鎖数と得点が増えます。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>基本20点の合体で連鎖が2なら何点ですか。</p><details><summary>練習の答え</summary><p>20 × 2で40点です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-fruit-merge-extensions-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></div></body></html>

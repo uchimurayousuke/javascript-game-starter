@@ -2,12 +2,12 @@
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
 const levelOf = game => (["timing","typing","number-guess"].includes(game) ? "beginner" : ["snake","memory","shop"].includes(game) ? "intermediate" : "advanced");
-test("制作例の一覧とREADMEは難易度ごとに7本・9本・11本紹介する",()=>{
+test("制作例の一覧とREADMEは難易度ごとに7本・11本・13本紹介する",()=>{
  const page=fs.readFileSync(path.join(root,"examples/index.html"),"utf8"),readme=fs.readFileSync(path.join(root,"README.md"),"utf8");
  const groups=["初心者向け","中級者向け","上級者向け"];
  for(let i=0;i<groups.length;i++){
   const start=page.indexOf(`<h2>${groups[i]}</h2>`),end=i+1<groups.length?page.indexOf(`<h2>${groups[i+1]}</h2>`):page.indexOf("</main>");
-  assert.ok(start>=0&&end>start);assert.equal((page.slice(start,end).match(/<article>/g)||[]).length,[7,9,11][i],groups[i]);
+  assert.ok(start>=0&&end>start);assert.equal((page.slice(start,end).match(/<article>/g)||[]).length,[7,11,13][i],groups[i]);
  }
  for(const game of ["timing","typing","number-guess","snake","memory","shop","escape","tower-defense","card-battle","racing"]){
   assert.ok(page.includes(`${levelOf(game)}/${game}/tutorial.html`),game);assert.ok(readme.includes(`examples/${levelOf(game)}/${game}/tutorial.html`),game);

@@ -4,8 +4,8 @@ const root=path.resolve(__dirname,".."),compareDir=path.join(root,"tutorial/comp
 const engine=require("../tutorial/compare/diff.js");
 const chapters=JSON.parse(read("tutorial/compare/chapters.json"));
 const sandbox={};vm.runInNewContext(read("tutorial/compare/references.js"),sandbox);const data=sandbox.CHAPTER_REFERENCES;
-test("全325ステップのリンクと終了時の見本データが、それぞれ正しいファイルを指す",()=>{
- assert.equal(chapters.length,325);assert.equal(data.length,325);assert.equal(new Set(chapters.map(c=>c.id)).size,325);
+test("全357ステップのリンクと終了時の見本データが、それぞれ正しいファイルを指す",()=>{
+ assert.equal(chapters.length,357);assert.equal(data.length,357);assert.equal(new Set(chapters.map(c=>c.id)).size,357);
  const byPage=new Map();
  for(let i=0;i<chapters.length;i++){
   const c=chapters[i],d=data[i];assert.equal(d.id,c.id);assert.equal(d.title,c.title);assert.equal(d.chapter,c.chapter);assert.equal(d.stepLabel,c.stepLabel);assert.equal(JSON.stringify(d.expectations),JSON.stringify(c.expectations));assert.ok(c.expectations.length);
@@ -29,7 +29,7 @@ test("全325ステップのリンクと終了時の見本データが、それ�
   const coin=chosen[0][0].match(/data-step="([^"]+)"/);if(coin)assert.equal(path.posix.basename(folder),coin[1],c.id);
   const p=byPage.get(c.page)||[];p.push(c.id);byPage.set(c.page,p);
  }
- assert.equal(byPage.size,94);
+ assert.equal(byPage.size,102);
  for(const [page,ids] of byPage){const links=[...read(page).matchAll(/class="chapter-compare-link"><a href="[^"]+\?chapter=([^"]+)"/g)].map(m=>m[1]);assert.deepEqual(links,ids,page);}
 });
 test("削除・追加・変更と行番号を区別し、繰り返し行も崩さない",()=>{

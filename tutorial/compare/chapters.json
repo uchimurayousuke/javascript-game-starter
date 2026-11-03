@@ -5859,5 +5859,581 @@
       "保存したファイルを選ぶと値が戻ります。壊れたファイルでは現在の値が残ります。"
     ],
     "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-tutorial-html-step1",
+    "title": "4文字ことば当てを作る",
+    "chapter": "ステップ 1：盤面と候補を表示する",
+    "page": "examples/intermediate/word-guess/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/word-guess/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：盤面と候補を表示する",
+    "expectations": [
+      "6行4列の四角と14個の候補が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-tutorial-html-step2",
+    "title": "4文字ことば当てを作る",
+    "chapter": "ステップ 2：英字を入力する",
+    "page": "examples/intermediate/word-guess/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/word-guess/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：英字を入力する",
+    "expectations": [
+      "BIRDと打ってEnterを押すと1行が埋まり、短い入力は受け付けません。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-tutorial-html-step3",
+    "title": "4文字ことば当てを作る",
+    "chapter": "ステップ 3：文字を残数で判定する",
+    "page": "examples/intermediate/word-guess/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/word-guess/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：文字を残数で判定する",
+    "expectations": [
+      "答えがMOONで入力がNOONなら、先頭は灰色で残りの3文字は緑になります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-tutorial-html-step4",
+    "title": "4文字ことば当てを作る",
+    "chapter": "ステップ 4：6回で結果を決める",
+    "page": "examples/intermediate/word-guess/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/word-guess/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：6回で結果を決める",
+    "expectations": [
+      "正解すると正解表示が出て、6回外すと答えが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-tutorial-html-step5",
+    "title": "4文字ことば当てを作る",
+    "chapter": "ステップ 5：終了後に再挑戦する",
+    "page": "examples/intermediate/word-guess/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/word-guess/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：終了後に再挑戦する",
+    "expectations": [
+      "正解後にSpaceを押すと盤面が空になります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-extensions-tutorial-html-step1",
+    "title": "4文字ことば当ての発展",
+    "chapter": "ステップ 1：画面キーを使う",
+    "page": "examples/intermediate/word-guess/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/word-guess/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：画面キーを使う",
+    "expectations": [
+      "画面の文字をクリックして候補を入力し、決定を押せます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-extensions-tutorial-html-step2",
+    "title": "4文字ことば当ての発展",
+    "chapter": "ステップ 2：5文字の候補を使う",
+    "page": "examples/intermediate/word-guess/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/word-guess/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：5文字の候補を使う",
+    "expectations": [
+      "盤面が5列になり、5文字の候補を入力できます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-word-guess-extensions-tutorial-html-step3",
+    "title": "4文字ことば当ての発展",
+    "chapter": "ステップ 3：成績を保存する",
+    "page": "examples/intermediate/word-guess/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/word-guess/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/word-guess/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：成績を保存する",
+    "expectations": [
+      "1回正解し、再読み込みすると成績が残ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-tutorial-html-step1",
+    "title": "へんか探しを作る",
+    "chapter": "ステップ 1：部屋の基準を描く",
+    "page": "examples/intermediate/anomaly-check/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/anomaly-check/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：部屋の基準を描く",
+    "expectations": [
+      "窓、時計、絵、机、箱が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-tutorial-html-step2",
+    "title": "へんか探しを作る",
+    "chapter": "ステップ 2：表示側に変化を作る",
+    "page": "examples/intermediate/anomaly-check/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/anomaly-check/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：表示側に変化を作る",
+    "expectations": [
+      "再読み込みを繰り返すと、変化する場合としない場合があります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-tutorial-html-step3",
+    "title": "へんか探しを作る",
+    "chapter": "ステップ 3：実際の差で答えを判定する",
+    "page": "examples/intermediate/anomaly-check/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/anomaly-check/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：実際の差で答えを判定する",
+    "expectations": [
+      "Enterで開始し、1または2を押すと結果が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-tutorial-html-step4",
+    "title": "へんか探しを作る",
+    "chapter": "ステップ 4：連続正解を数える",
+    "page": "examples/intermediate/anomaly-check/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/anomaly-check/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：連続正解を数える",
+    "expectations": [
+      "5回続けて正解するとクリアになり、途中で間違えると0に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-tutorial-html-step5",
+    "title": "へんか探しを作る",
+    "chapter": "ステップ 5：もう一度遊ぶ",
+    "page": "examples/intermediate/anomaly-check/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/anomaly-check/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：もう一度遊ぶ",
+    "expectations": [
+      "クリア後にSpaceを押すと基準の部屋に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-extensions-tutorial-html-step1",
+    "title": "へんか探しの発展",
+    "chapter": "ステップ 1：2つの物を変える",
+    "page": "examples/intermediate/anomaly-check/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/anomaly-check/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：2つの物を変える",
+    "expectations": [
+      "変化ありのとき、2つの物の違いが結果に表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-extensions-tutorial-html-step2",
+    "title": "へんか探しの発展",
+    "chapter": "ステップ 2：制限時間をつける",
+    "page": "examples/intermediate/anomaly-check/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/anomaly-check/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：制限時間をつける",
+    "expectations": [
+      "基準画面から開始して8秒待つと時間切れになります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-anomaly-check-extensions-tutorial-html-step3",
+    "title": "へんか探しの発展",
+    "chapter": "ステップ 3：変わった物を選ぶ",
+    "page": "examples/intermediate/anomaly-check/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/anomaly-check/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/anomaly-check/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：変わった物を選ぶ",
+    "expectations": [
+      "変化ありを選んだ後、変わった物をクリックすると結果が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-tutorial-html-step1",
+    "title": "フルーツ合体パズルを作る",
+    "chapter": "ステップ 1：フルーツを描く",
+    "page": "examples/advanced/fruit-merge/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/fruit-merge/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：フルーツを描く",
+    "expectations": [
+      "数字1と2の丸が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-tutorial-html-step2",
+    "title": "フルーツ合体パズルを作る",
+    "chapter": "ステップ 2：落下と壁を作る",
+    "page": "examples/advanced/fruit-merge/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/fruit-merge/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：落下と壁を作る",
+    "expectations": [
+      "Spaceで果物が落ち、床の上に止まります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-tutorial-html-step3",
+    "title": "フルーツ合体パズルを作る",
+    "chapter": "ステップ 3：丸同士を押し戻す",
+    "page": "examples/advanced/fruit-merge/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/fruit-merge/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：丸同士を押し戻す",
+    "expectations": [
+      "違う数字の果物を重ねると押し合います。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-tutorial-html-step4",
+    "title": "フルーツ合体パズルを作る",
+    "chapter": "ステップ 4：同じ数字を合体する",
+    "page": "examples/advanced/fruit-merge/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/fruit-merge/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：同じ数字を合体する",
+    "expectations": [
+      "同じ数字を2個重ねると一つ大きくなり、得点が増えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-tutorial-html-step5",
+    "title": "フルーツ合体パズルを作る",
+    "chapter": "ステップ 5：上限線と再挑戦を作る",
+    "page": "examples/advanced/fruit-merge/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/fruit-merge/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：上限線と再挑戦を作る",
+    "expectations": [
+      "上限まで積み上げると終了し、Rで得点と果物が戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-extensions-tutorial-html-step1",
+    "title": "フルーツ合体パズルの発展",
+    "chapter": "ステップ 1：次のフルーツを表示する",
+    "page": "examples/advanced/fruit-merge/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/fruit-merge/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：次のフルーツを表示する",
+    "expectations": [
+      "右側に次の数字が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-extensions-tutorial-html-step2",
+    "title": "フルーツ合体パズルの発展",
+    "chapter": "ステップ 2：落下位置の線を出す",
+    "page": "examples/advanced/fruit-merge/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/fruit-merge/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：落下位置の線を出す",
+    "expectations": [
+      "左右キーで動かすと点線も横に動きます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-fruit-merge-extensions-tutorial-html-step3",
+    "title": "フルーツ合体パズルの発展",
+    "chapter": "ステップ 3：続けて合体した得点を増やす",
+    "page": "examples/advanced/fruit-merge/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/fruit-merge/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/fruit-merge/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：続けて合体した得点を増やす",
+    "expectations": [
+      "続けて合体すると右側の連鎖数と得点が増えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-tutorial-html-step1",
+    "title": "自動攻撃サバイバルを作る",
+    "chapter": "ステップ 1：プレイヤーを動かす",
+    "page": "examples/advanced/survivor/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/survivor/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：プレイヤーを動かす",
+    "expectations": [
+      "矢印キーまたはWASDで青い丸を動かせます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-tutorial-html-step2",
+    "title": "自動攻撃サバイバルを作る",
+    "chapter": "ステップ 2：敵が追いかける",
+    "page": "examples/advanced/survivor/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/survivor/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：敵が追いかける",
+    "expectations": [
+      "赤い敵が出現して追いかけ、触れると体力が減ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-tutorial-html-step3",
+    "title": "自動攻撃サバイバルを作る",
+    "chapter": "ステップ 3：近い敵へ自動で撃つ",
+    "page": "examples/advanced/survivor/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/survivor/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：近い敵へ自動で撃つ",
+    "expectations": [
+      "敵へ黄色い弾が自動で飛び、2回当たると敵が消えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-tutorial-html-step4",
+    "title": "自動攻撃サバイバルを作る",
+    "chapter": "ステップ 4：経験値と強化を選ぶ",
+    "page": "examples/advanced/survivor/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/survivor/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：経験値と強化を選ぶ",
+    "expectations": [
+      "宝石を3個拾うと選択画面が出て、数字を選ぶと再開します。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-tutorial-html-step5",
+    "title": "自動攻撃サバイバルを作る",
+    "chapter": "ステップ 5：60秒の結果と再挑戦を作る",
+    "page": "examples/advanced/survivor/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/survivor/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：60秒の結果と再挑戦を作る",
+    "expectations": [
+      "60秒生き残るとクリア表示が出て、Spaceでやり直せます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-extensions-tutorial-html-step1",
+    "title": "自動攻撃サバイバルの発展",
+    "chapter": "ステップ 1：3方向へ弾を出す",
+    "page": "examples/advanced/survivor/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/survivor/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：3方向へ弾を出す",
+    "expectations": [
+      "敵がいると3方向へ弾が飛びます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-extensions-tutorial-html-step2",
+    "title": "自動攻撃サバイバルの発展",
+    "chapter": "ステップ 2：速い敵を加える",
+    "page": "examples/advanced/survivor/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/survivor/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：速い敵を加える",
+    "expectations": [
+      "速く動く敵が混ざり、1回の攻撃で倒せます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-survivor-extensions-tutorial-html-step3",
+    "title": "自動攻撃サバイバルの発展",
+    "chapter": "ステップ 3：30秒で大きな敵を出す",
+    "page": "examples/advanced/survivor/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/survivor/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/survivor/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：30秒で大きな敵を出す",
+    "expectations": [
+      "30秒になると大きな敵が1体現れます。"
+    ],
+    "expectationSource": "保存後の確認"
   }
 ]

@@ -1,0 +1,901 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>自動攻撃サバイバルの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：3方向へ弾を出す</a><a href="#lesson-section-3">ステップ 2：速い敵を加える</a><a href="#lesson-section-4">ステップ 3：30秒で大きな敵を出す</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：自動攻撃サバイバルの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：3方向へ弾を出す</a><a href="#lesson-section-3">ステップ 2：速い敵を加える</a><a href="#lesson-section-4">ステップ 3：30秒で大きな敵を出す</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">自動攻撃サバイバルの発展</li></ol></nav><h1>自動攻撃サバイバルの発展</h1><p>移動して敵を避け、自動攻撃と強化を使って60秒生き残ります。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-survivor-extension.zip" download="example-advanced-survivor-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div><p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p><p>クラスはデータと処理の設計図です。constructorはnewで作るときに呼ばれ、thisは作られた一つ一つのインスタンスを指します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：3方向へ弾を出す</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>狙った方向とその左右へ弾を出します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 4 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const directionX = distance &gt; 0 ? dx / distance : 1;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const directionY = distance &gt; 0 ? dy / distance : 0;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.bullets.push(new Bullet(this.player.x, this.player.y, directionX * 300, directionY * 300));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const angle = distance &gt; 0 ? Math.atan2(dy, dx) : 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const offset of [-0.25, 0, 0.25]) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.bullets.length &lt; limitBullets) this.bullets.push(new Bullet(this.player.x, this.player.y, Math.cos(angle + offset) * 300, Math.sin(angle + offset) * 300));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update() {</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const keys = {};
+let focused = true;
+const limitEnemies = 60, limitBullets = 100, limitGems = 80;
+class Enemy {
+  constructor(x, y) {
+    this.x = x; this.y = y; this.radius = 14; this.hp = 2; this.speed = 48;
+  }
+}
+class Bullet {
+  constructor(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 2; }
+}
+class Gem {
+  constructor(x, y) { this.x = x; this.y = y; }
+}
+class Game {
+  constructor() {
+    this.player = {x:400, y:225, radius:15, hp:5, speed:160, invincible:0};
+    this.enemies = []; this.bullets = []; this.gems = [];
+    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();
+    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;;
+  }
+  spawn() {
+    if (this.enemies.length &gt;= limitEnemies) return;
+    const edge = Math.floor(Math.random() * 4);
+    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;
+    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;
+    this.enemies.push(new Enemy(x, y));
+  }
+  shoot() {
+    if (!this.enemies.length || this.bullets.length &gt;= limitBullets) return;
+    let target = this.enemies[0], best = Infinity;
+    for (const enemy of this.enemies) {
+      const distance = Math.hypot(enemy.x - this.player.x, enemy.y - this.player.y);
+      if (distance &lt; best) { best = distance; target = enemy; }
+    }
+    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);
+    const directionX = distance &gt; 0 ? dx / distance : 1;
+    const directionY = distance &gt; 0 ? dy / distance : 0;
+    this.bullets.push(new Bullet(this.player.x, this.player.y, directionX * 300, directionY * 300));
+  }
+  update() {
+    const now = performance.now(), elapsed = Math.max(0, (now - this.last) / 1000);
+    this.last = now;
+    if (this.state !== &quot;playing&quot; || !focused || document.hidden) return;
+    const dt = Math.min(elapsed, 0.05);
+    this.elapsed += dt;
+    if (this.elapsed &gt;= 60) { this.elapsed = 60; this.state = &quot;clear&quot;; return; }
+    const dx = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    const dy = (keys.ArrowDown || keys.s ? 1 : 0) - (keys.ArrowUp || keys.w ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1;
+    this.player.x = Math.max(15, Math.min(785, this.player.x + dx / length * this.player.speed * dt));
+    this.player.y = Math.max(15, Math.min(435, this.player.y + dy / length * this.player.speed * dt));
+    this.player.invincible = Math.max(0, this.player.invincible - dt);
+    this.spawnTimer -= dt;
+    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }
+    for (const enemy of this.enemies) {
+      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);
+      if (distance &gt; 0) { enemy.x += ex / distance * enemy.speed * dt; enemy.y += ey / distance * enemy.speed * dt; }
+      if (distance &lt;= enemy.radius + this.player.radius &amp;&amp; this.player.invincible &lt;= 0) {
+        this.player.hp--; this.player.invincible = 1;
+        if (this.player.hp &lt;= 0) { this.state = &quot;over&quot;; return; }
+      }
+    }
+    this.shotTimer -= dt;
+    if (this.shotTimer &lt;= 0) { this.shoot(); this.shotTimer = this.interval; }
+    const deadEnemies = new Set(), deadBullets = new Set();
+    for (const bullet of this.bullets) {
+      bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+      if (bullet.life &lt;= 0 || bullet.x &lt; 0 || bullet.x &gt; 800 || bullet.y &lt; 0 || bullet.y &gt; 450) { deadBullets.add(bullet); continue; }
+      for (const enemy of this.enemies) {
+        if (deadEnemies.has(enemy) || Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y) &gt; enemy.radius + 4) continue;
+        enemy.hp -= this.damage; deadBullets.add(bullet);
+        if (enemy.hp &lt;= 0) {
+          deadEnemies.add(enemy);
+          if (this.gems.length &lt; limitGems) this.gems.push(new Gem(enemy.x, enemy.y));
+        }
+        break;
+      }
+    }
+    this.bullets = this.bullets.filter(bullet =&gt; !deadBullets.has(bullet));
+    this.enemies = this.enemies.filter(enemy =&gt; !deadEnemies.has(enemy));
+    this.gems = this.gems.filter(gem =&gt; {
+      if (Math.hypot(gem.x - this.player.x, gem.y - this.player.y) &gt; 20) return true;
+      this.xp++; return false;
+    });
+    if (this.xp &gt;= this.level * 3) { this.xp -= this.level * 3; this.level++; this.state = &quot;choice&quot;; }
+  }
+  choose(number) {
+    if (this.state !== &quot;choice&quot;) return;
+    if (number === &quot;1&quot;) this.damage++;
+    else if (number === &quot;2&quot;) this.interval = Math.max(0.2, this.interval - 0.1);
+    else if (number === &quot;3&quot;) this.player.hp = Math.min(5, this.player.hp + 1);
+    else return;
+    this.state = &quot;playing&quot;; this.last = performance.now();
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#e45f6a&quot;; for (const enemy of this.enemies) { ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }
+
+    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = &quot;#56aa74&quot;; for (const gem of this.gems) ctx.fillRect(gem.x - 5, gem.y - 5, 10, 10);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(&quot;体力 &quot; + this.player.hp + &quot;　レベル &quot; + this.level + &quot;　経験 &quot; + this.xp + &quot; / &quot; + (this.level * 3), 18, 28);
+    ctx.fillText(&quot;生存 &quot; + Math.floor(this.elapsed) + &quot; / 60秒&quot;, 18, 54);
+    ctx.fillText(&quot;矢印キー / WASD：移動&quot;, 18, 435);
+    if (this.state === &quot;choice&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(170, 140, 460, 150); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;レベルアップ！ 1：攻撃  2：速さ  3：回復&quot;, 190, 210); }
+    if (this.state === &quot;clear&quot; || this.state === &quot;over&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(200, 155, 400, 125); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(this.state === &quot;clear&quot; ? &quot;60秒生き残った！&quot; : &quot;体力がなくなった&quot;, 240, 205); ctx.fillText(&quot;Spaceで再挑戦&quot;, 240, 245); }
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;].includes(key)) { keys[key] = true; if (key.startsWith(&quot;Arrow&quot;)) event.preventDefault(); }
+  if (!event.repeat &amp;&amp; game.state === &quot;choice&quot;) game.choose(key);
+  if (!event.repeat &amp;&amp; (game.state === &quot;over&quot; || game.state === &quot;clear&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { const key = event.key.length === 1 ? event.key.toLowerCase() : event.key; keys[key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { focused = false; for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+window.addEventListener(&quot;focus&quot;, () =&gt; { focused = true; game.last = performance.now(); });
+document.addEventListener(&quot;visibilitychange&quot;, () =&gt; { for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const keys = {};
+let focused = true;
+const limitEnemies = 60, limitBullets = 100, limitGems = 80;
+class Enemy {
+  constructor(x, y) {
+    this.x = x; this.y = y; this.radius = 14; this.hp = 2; this.speed = 48;
+  }
+}
+class Bullet {
+  constructor(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 2; }
+}
+class Gem {
+  constructor(x, y) { this.x = x; this.y = y; }
+}
+class Game {
+  constructor() {
+    this.player = {x:400, y:225, radius:15, hp:5, speed:160, invincible:0};
+    this.enemies = []; this.bullets = []; this.gems = [];
+    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();
+    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;;
+  }
+  spawn() {
+    if (this.enemies.length &gt;= limitEnemies) return;
+    const edge = Math.floor(Math.random() * 4);
+    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;
+    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;
+    this.enemies.push(new Enemy(x, y));
+  }
+  shoot() {
+    if (!this.enemies.length || this.bullets.length &gt;= limitBullets) return;
+    let target = this.enemies[0], best = Infinity;
+    for (const enemy of this.enemies) {
+      const distance = Math.hypot(enemy.x - this.player.x, enemy.y - this.player.y);
+      if (distance &lt; best) { best = distance; target = enemy; }
+    }
+    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);
+    const angle = distance &gt; 0 ? Math.atan2(dy, dx) : 0;
+    for (const offset of [-0.25, 0, 0.25]) {
+      if (this.bullets.length &lt; limitBullets) this.bullets.push(new Bullet(this.player.x, this.player.y, Math.cos(angle + offset) * 300, Math.sin(angle + offset) * 300));
+    }
+  }
+  update() {
+    const now = performance.now(), elapsed = Math.max(0, (now - this.last) / 1000);
+    this.last = now;
+    if (this.state !== &quot;playing&quot; || !focused || document.hidden) return;
+    const dt = Math.min(elapsed, 0.05);
+    this.elapsed += dt;
+    if (this.elapsed &gt;= 60) { this.elapsed = 60; this.state = &quot;clear&quot;; return; }
+    const dx = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    const dy = (keys.ArrowDown || keys.s ? 1 : 0) - (keys.ArrowUp || keys.w ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1;
+    this.player.x = Math.max(15, Math.min(785, this.player.x + dx / length * this.player.speed * dt));
+    this.player.y = Math.max(15, Math.min(435, this.player.y + dy / length * this.player.speed * dt));
+    this.player.invincible = Math.max(0, this.player.invincible - dt);
+    this.spawnTimer -= dt;
+    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }
+    for (const enemy of this.enemies) {
+      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);
+      if (distance &gt; 0) { enemy.x += ex / distance * enemy.speed * dt; enemy.y += ey / distance * enemy.speed * dt; }
+      if (distance &lt;= enemy.radius + this.player.radius &amp;&amp; this.player.invincible &lt;= 0) {
+        this.player.hp--; this.player.invincible = 1;
+        if (this.player.hp &lt;= 0) { this.state = &quot;over&quot;; return; }
+      }
+    }
+    this.shotTimer -= dt;
+    if (this.shotTimer &lt;= 0) { this.shoot(); this.shotTimer = this.interval; }
+    const deadEnemies = new Set(), deadBullets = new Set();
+    for (const bullet of this.bullets) {
+      bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+      if (bullet.life &lt;= 0 || bullet.x &lt; 0 || bullet.x &gt; 800 || bullet.y &lt; 0 || bullet.y &gt; 450) { deadBullets.add(bullet); continue; }
+      for (const enemy of this.enemies) {
+        if (deadEnemies.has(enemy) || Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y) &gt; enemy.radius + 4) continue;
+        enemy.hp -= this.damage; deadBullets.add(bullet);
+        if (enemy.hp &lt;= 0) {
+          deadEnemies.add(enemy);
+          if (this.gems.length &lt; limitGems) this.gems.push(new Gem(enemy.x, enemy.y));
+        }
+        break;
+      }
+    }
+    this.bullets = this.bullets.filter(bullet =&gt; !deadBullets.has(bullet));
+    this.enemies = this.enemies.filter(enemy =&gt; !deadEnemies.has(enemy));
+    this.gems = this.gems.filter(gem =&gt; {
+      if (Math.hypot(gem.x - this.player.x, gem.y - this.player.y) &gt; 20) return true;
+      this.xp++; return false;
+    });
+    if (this.xp &gt;= this.level * 3) { this.xp -= this.level * 3; this.level++; this.state = &quot;choice&quot;; }
+  }
+  choose(number) {
+    if (this.state !== &quot;choice&quot;) return;
+    if (number === &quot;1&quot;) this.damage++;
+    else if (number === &quot;2&quot;) this.interval = Math.max(0.2, this.interval - 0.1);
+    else if (number === &quot;3&quot;) this.player.hp = Math.min(5, this.player.hp + 1);
+    else return;
+    this.state = &quot;playing&quot;; this.last = performance.now();
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#e45f6a&quot;; for (const enemy of this.enemies) { ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }
+
+    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = &quot;#56aa74&quot;; for (const gem of this.gems) ctx.fillRect(gem.x - 5, gem.y - 5, 10, 10);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(&quot;体力 &quot; + this.player.hp + &quot;　レベル &quot; + this.level + &quot;　経験 &quot; + this.xp + &quot; / &quot; + (this.level * 3), 18, 28);
+    ctx.fillText(&quot;生存 &quot; + Math.floor(this.elapsed) + &quot; / 60秒&quot;, 18, 54);
+    ctx.fillText(&quot;矢印キー / WASD：移動&quot;, 18, 435);
+    if (this.state === &quot;choice&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(170, 140, 460, 150); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;レベルアップ！ 1：攻撃  2：速さ  3：回復&quot;, 190, 210); }
+    if (this.state === &quot;clear&quot; || this.state === &quot;over&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(200, 155, 400, 125); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(this.state === &quot;clear&quot; ? &quot;60秒生き残った！&quot; : &quot;体力がなくなった&quot;, 240, 205); ctx.fillText(&quot;Spaceで再挑戦&quot;, 240, 245); }
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;].includes(key)) { keys[key] = true; if (key.startsWith(&quot;Arrow&quot;)) event.preventDefault(); }
+  if (!event.repeat &amp;&amp; game.state === &quot;choice&quot;) game.choose(key);
+  if (!event.repeat &amp;&amp; (game.state === &quot;over&quot; || game.state === &quot;clear&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { const key = event.key.length === 1 ? event.key.toLowerCase() : event.key; keys[key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { focused = false; for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+window.addEventListener(&quot;focus&quot;, () =&gt; { focused = true; game.last = performance.now(); });
+document.addEventListener(&quot;visibilitychange&quot;, () =&gt; { for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>Math.atan2で敵の方向を角度に変え、−0.25、0、0.25を足して3方向を作ります。角度の単位はラジアンです。</p><p>Math.cosとMath.sinでそれぞれ横と縦の方向を求め、300を掛けます。弾の数は100個までに制限します。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>敵がいると3方向へ弾が飛びます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>真ん中の弾に足す角度はいくつですか。</p><details><summary>練習の答え</summary><p>0です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-survivor-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：速い敵を加える</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>速い敵と通常の敵を混ぜます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 4 行・追加 4 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const limitEnemies = 60, limitBullets = 100, limitGems = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">class Enemy {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  constructor(x, y) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.x = x; this.y = y; this.radius = 14; this.hp = 2; this.speed = 48;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor(x, y, kind = &quot;normal&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x = x; this.y = y; this.kind = kind; this.radius = kind === &quot;boss&quot; ? 28 : 14; this.hp = kind === &quot;boss&quot; ? 12 : kind === &quot;fast&quot; ? 1 : 2; this.speed = kind === &quot;boss&quot; ? 35 : kind === &quot;fast&quot; ? 78 : 48;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.enemies.push(new Enemy(x, y));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.enemies.push(new Enemy(x, y, Math.random() &lt; 0.35 ? &quot;fast&quot; : &quot;normal&quot;));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  shoot() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    ctx.fillStyle = &quot;#e45f6a&quot;; for (const enemy of this.enemies) { ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    for (const enemy of this.enemies) { ctx.fillStyle = enemy.kind === &quot;boss&quot; ? &quot;#8b5ab4&quot; : enemy.kind === &quot;fast&quot; ? &quot;#da8518&quot; : &quot;#e45f6a&quot;; ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const keys = {};
+let focused = true;
+const limitEnemies = 60, limitBullets = 100, limitGems = 80;
+class Enemy {
+  constructor(x, y) {
+    this.x = x; this.y = y; this.radius = 14; this.hp = 2; this.speed = 48;
+  }
+}
+class Bullet {
+  constructor(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 2; }
+}
+class Gem {
+  constructor(x, y) { this.x = x; this.y = y; }
+}
+class Game {
+  constructor() {
+    this.player = {x:400, y:225, radius:15, hp:5, speed:160, invincible:0};
+    this.enemies = []; this.bullets = []; this.gems = [];
+    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();
+    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;;
+  }
+  spawn() {
+    if (this.enemies.length &gt;= limitEnemies) return;
+    const edge = Math.floor(Math.random() * 4);
+    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;
+    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;
+    this.enemies.push(new Enemy(x, y));
+  }
+  shoot() {
+    if (!this.enemies.length || this.bullets.length &gt;= limitBullets) return;
+    let target = this.enemies[0], best = Infinity;
+    for (const enemy of this.enemies) {
+      const distance = Math.hypot(enemy.x - this.player.x, enemy.y - this.player.y);
+      if (distance &lt; best) { best = distance; target = enemy; }
+    }
+    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);
+    const angle = distance &gt; 0 ? Math.atan2(dy, dx) : 0;
+    for (const offset of [-0.25, 0, 0.25]) {
+      if (this.bullets.length &lt; limitBullets) this.bullets.push(new Bullet(this.player.x, this.player.y, Math.cos(angle + offset) * 300, Math.sin(angle + offset) * 300));
+    }
+  }
+  update() {
+    const now = performance.now(), elapsed = Math.max(0, (now - this.last) / 1000);
+    this.last = now;
+    if (this.state !== &quot;playing&quot; || !focused || document.hidden) return;
+    const dt = Math.min(elapsed, 0.05);
+    this.elapsed += dt;
+    if (this.elapsed &gt;= 60) { this.elapsed = 60; this.state = &quot;clear&quot;; return; }
+    const dx = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    const dy = (keys.ArrowDown || keys.s ? 1 : 0) - (keys.ArrowUp || keys.w ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1;
+    this.player.x = Math.max(15, Math.min(785, this.player.x + dx / length * this.player.speed * dt));
+    this.player.y = Math.max(15, Math.min(435, this.player.y + dy / length * this.player.speed * dt));
+    this.player.invincible = Math.max(0, this.player.invincible - dt);
+    this.spawnTimer -= dt;
+    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }
+    for (const enemy of this.enemies) {
+      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);
+      if (distance &gt; 0) { enemy.x += ex / distance * enemy.speed * dt; enemy.y += ey / distance * enemy.speed * dt; }
+      if (distance &lt;= enemy.radius + this.player.radius &amp;&amp; this.player.invincible &lt;= 0) {
+        this.player.hp--; this.player.invincible = 1;
+        if (this.player.hp &lt;= 0) { this.state = &quot;over&quot;; return; }
+      }
+    }
+    this.shotTimer -= dt;
+    if (this.shotTimer &lt;= 0) { this.shoot(); this.shotTimer = this.interval; }
+    const deadEnemies = new Set(), deadBullets = new Set();
+    for (const bullet of this.bullets) {
+      bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+      if (bullet.life &lt;= 0 || bullet.x &lt; 0 || bullet.x &gt; 800 || bullet.y &lt; 0 || bullet.y &gt; 450) { deadBullets.add(bullet); continue; }
+      for (const enemy of this.enemies) {
+        if (deadEnemies.has(enemy) || Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y) &gt; enemy.radius + 4) continue;
+        enemy.hp -= this.damage; deadBullets.add(bullet);
+        if (enemy.hp &lt;= 0) {
+          deadEnemies.add(enemy);
+          if (this.gems.length &lt; limitGems) this.gems.push(new Gem(enemy.x, enemy.y));
+        }
+        break;
+      }
+    }
+    this.bullets = this.bullets.filter(bullet =&gt; !deadBullets.has(bullet));
+    this.enemies = this.enemies.filter(enemy =&gt; !deadEnemies.has(enemy));
+    this.gems = this.gems.filter(gem =&gt; {
+      if (Math.hypot(gem.x - this.player.x, gem.y - this.player.y) &gt; 20) return true;
+      this.xp++; return false;
+    });
+    if (this.xp &gt;= this.level * 3) { this.xp -= this.level * 3; this.level++; this.state = &quot;choice&quot;; }
+  }
+  choose(number) {
+    if (this.state !== &quot;choice&quot;) return;
+    if (number === &quot;1&quot;) this.damage++;
+    else if (number === &quot;2&quot;) this.interval = Math.max(0.2, this.interval - 0.1);
+    else if (number === &quot;3&quot;) this.player.hp = Math.min(5, this.player.hp + 1);
+    else return;
+    this.state = &quot;playing&quot;; this.last = performance.now();
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = &quot;#e45f6a&quot;; for (const enemy of this.enemies) { ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }
+
+    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = &quot;#56aa74&quot;; for (const gem of this.gems) ctx.fillRect(gem.x - 5, gem.y - 5, 10, 10);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(&quot;体力 &quot; + this.player.hp + &quot;　レベル &quot; + this.level + &quot;　経験 &quot; + this.xp + &quot; / &quot; + (this.level * 3), 18, 28);
+    ctx.fillText(&quot;生存 &quot; + Math.floor(this.elapsed) + &quot; / 60秒&quot;, 18, 54);
+    ctx.fillText(&quot;矢印キー / WASD：移動&quot;, 18, 435);
+    if (this.state === &quot;choice&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(170, 140, 460, 150); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;レベルアップ！ 1：攻撃  2：速さ  3：回復&quot;, 190, 210); }
+    if (this.state === &quot;clear&quot; || this.state === &quot;over&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(200, 155, 400, 125); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(this.state === &quot;clear&quot; ? &quot;60秒生き残った！&quot; : &quot;体力がなくなった&quot;, 240, 205); ctx.fillText(&quot;Spaceで再挑戦&quot;, 240, 245); }
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;].includes(key)) { keys[key] = true; if (key.startsWith(&quot;Arrow&quot;)) event.preventDefault(); }
+  if (!event.repeat &amp;&amp; game.state === &quot;choice&quot;) game.choose(key);
+  if (!event.repeat &amp;&amp; (game.state === &quot;over&quot; || game.state === &quot;clear&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { const key = event.key.length === 1 ? event.key.toLowerCase() : event.key; keys[key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { focused = false; for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+window.addEventListener(&quot;focus&quot;, () =&gt; { focused = true; game.last = performance.now(); });
+document.addEventListener(&quot;visibilitychange&quot;, () =&gt; { for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const keys = {};
+let focused = true;
+const limitEnemies = 60, limitBullets = 100, limitGems = 80;
+class Enemy {
+  constructor(x, y, kind = &quot;normal&quot;) {
+    this.x = x; this.y = y; this.kind = kind; this.radius = kind === &quot;boss&quot; ? 28 : 14; this.hp = kind === &quot;boss&quot; ? 12 : kind === &quot;fast&quot; ? 1 : 2; this.speed = kind === &quot;boss&quot; ? 35 : kind === &quot;fast&quot; ? 78 : 48;
+  }
+}
+class Bullet {
+  constructor(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 2; }
+}
+class Gem {
+  constructor(x, y) { this.x = x; this.y = y; }
+}
+class Game {
+  constructor() {
+    this.player = {x:400, y:225, radius:15, hp:5, speed:160, invincible:0};
+    this.enemies = []; this.bullets = []; this.gems = [];
+    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();
+    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;;
+  }
+  spawn() {
+    if (this.enemies.length &gt;= limitEnemies) return;
+    const edge = Math.floor(Math.random() * 4);
+    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;
+    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;
+    this.enemies.push(new Enemy(x, y, Math.random() &lt; 0.35 ? &quot;fast&quot; : &quot;normal&quot;));
+  }
+  shoot() {
+    if (!this.enemies.length || this.bullets.length &gt;= limitBullets) return;
+    let target = this.enemies[0], best = Infinity;
+    for (const enemy of this.enemies) {
+      const distance = Math.hypot(enemy.x - this.player.x, enemy.y - this.player.y);
+      if (distance &lt; best) { best = distance; target = enemy; }
+    }
+    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);
+    const angle = distance &gt; 0 ? Math.atan2(dy, dx) : 0;
+    for (const offset of [-0.25, 0, 0.25]) {
+      if (this.bullets.length &lt; limitBullets) this.bullets.push(new Bullet(this.player.x, this.player.y, Math.cos(angle + offset) * 300, Math.sin(angle + offset) * 300));
+    }
+  }
+  update() {
+    const now = performance.now(), elapsed = Math.max(0, (now - this.last) / 1000);
+    this.last = now;
+    if (this.state !== &quot;playing&quot; || !focused || document.hidden) return;
+    const dt = Math.min(elapsed, 0.05);
+    this.elapsed += dt;
+    if (this.elapsed &gt;= 60) { this.elapsed = 60; this.state = &quot;clear&quot;; return; }
+    const dx = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    const dy = (keys.ArrowDown || keys.s ? 1 : 0) - (keys.ArrowUp || keys.w ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1;
+    this.player.x = Math.max(15, Math.min(785, this.player.x + dx / length * this.player.speed * dt));
+    this.player.y = Math.max(15, Math.min(435, this.player.y + dy / length * this.player.speed * dt));
+    this.player.invincible = Math.max(0, this.player.invincible - dt);
+    this.spawnTimer -= dt;
+    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }
+    for (const enemy of this.enemies) {
+      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);
+      if (distance &gt; 0) { enemy.x += ex / distance * enemy.speed * dt; enemy.y += ey / distance * enemy.speed * dt; }
+      if (distance &lt;= enemy.radius + this.player.radius &amp;&amp; this.player.invincible &lt;= 0) {
+        this.player.hp--; this.player.invincible = 1;
+        if (this.player.hp &lt;= 0) { this.state = &quot;over&quot;; return; }
+      }
+    }
+    this.shotTimer -= dt;
+    if (this.shotTimer &lt;= 0) { this.shoot(); this.shotTimer = this.interval; }
+    const deadEnemies = new Set(), deadBullets = new Set();
+    for (const bullet of this.bullets) {
+      bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+      if (bullet.life &lt;= 0 || bullet.x &lt; 0 || bullet.x &gt; 800 || bullet.y &lt; 0 || bullet.y &gt; 450) { deadBullets.add(bullet); continue; }
+      for (const enemy of this.enemies) {
+        if (deadEnemies.has(enemy) || Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y) &gt; enemy.radius + 4) continue;
+        enemy.hp -= this.damage; deadBullets.add(bullet);
+        if (enemy.hp &lt;= 0) {
+          deadEnemies.add(enemy);
+          if (this.gems.length &lt; limitGems) this.gems.push(new Gem(enemy.x, enemy.y));
+        }
+        break;
+      }
+    }
+    this.bullets = this.bullets.filter(bullet =&gt; !deadBullets.has(bullet));
+    this.enemies = this.enemies.filter(enemy =&gt; !deadEnemies.has(enemy));
+    this.gems = this.gems.filter(gem =&gt; {
+      if (Math.hypot(gem.x - this.player.x, gem.y - this.player.y) &gt; 20) return true;
+      this.xp++; return false;
+    });
+    if (this.xp &gt;= this.level * 3) { this.xp -= this.level * 3; this.level++; this.state = &quot;choice&quot;; }
+  }
+  choose(number) {
+    if (this.state !== &quot;choice&quot;) return;
+    if (number === &quot;1&quot;) this.damage++;
+    else if (number === &quot;2&quot;) this.interval = Math.max(0.2, this.interval - 0.1);
+    else if (number === &quot;3&quot;) this.player.hp = Math.min(5, this.player.hp + 1);
+    else return;
+    this.state = &quot;playing&quot;; this.last = performance.now();
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();
+    for (const enemy of this.enemies) { ctx.fillStyle = enemy.kind === &quot;boss&quot; ? &quot;#8b5ab4&quot; : enemy.kind === &quot;fast&quot; ? &quot;#da8518&quot; : &quot;#e45f6a&quot;; ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }
+
+    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = &quot;#56aa74&quot;; for (const gem of this.gems) ctx.fillRect(gem.x - 5, gem.y - 5, 10, 10);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(&quot;体力 &quot; + this.player.hp + &quot;　レベル &quot; + this.level + &quot;　経験 &quot; + this.xp + &quot; / &quot; + (this.level * 3), 18, 28);
+    ctx.fillText(&quot;生存 &quot; + Math.floor(this.elapsed) + &quot; / 60秒&quot;, 18, 54);
+    ctx.fillText(&quot;矢印キー / WASD：移動&quot;, 18, 435);
+    if (this.state === &quot;choice&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(170, 140, 460, 150); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;レベルアップ！ 1：攻撃  2：速さ  3：回復&quot;, 190, 210); }
+    if (this.state === &quot;clear&quot; || this.state === &quot;over&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(200, 155, 400, 125); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(this.state === &quot;clear&quot; ? &quot;60秒生き残った！&quot; : &quot;体力がなくなった&quot;, 240, 205); ctx.fillText(&quot;Spaceで再挑戦&quot;, 240, 245); }
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;].includes(key)) { keys[key] = true; if (key.startsWith(&quot;Arrow&quot;)) event.preventDefault(); }
+  if (!event.repeat &amp;&amp; game.state === &quot;choice&quot;) game.choose(key);
+  if (!event.repeat &amp;&amp; (game.state === &quot;over&quot; || game.state === &quot;clear&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { const key = event.key.length === 1 ? event.key.toLowerCase() : event.key; keys[key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { focused = false; for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+window.addEventListener(&quot;focus&quot;, () =&gt; { focused = true; game.last = performance.now(); });
+document.addEventListener(&quot;visibilitychange&quot;, () =&gt; { for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>kindで敵の種類を分け、fastなら毎秒78、通常なら48ピクセル進みます。</p><p>fastは体力1、通常は体力2です。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>速く動く敵が混ざり、1回の攻撃で倒せます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>速い敵の速さは通常より毎秒何ピクセル大きいですか。</p><details><summary>練習の答え</summary><p>78 − 48で30ピクセルです。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-survivor-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：30秒で大きな敵を出す</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>生存30秒で大きな敵を1体出します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.enemies = []; this.bullets = []; this.gems = [];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;; this.bossSpawned = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  spawn() {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.spawnTimer -= dt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.elapsed &gt;= 30 &amp;&amp; !this.bossSpawned &amp;&amp; this.enemies.length &lt; limitEnemies) { this.enemies.push(new Enemy(20, 225, &quot;boss&quot;)); this.bossSpawned = true; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const enemy of this.enemies) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const keys = {};
+let focused = true;
+const limitEnemies = 60, limitBullets = 100, limitGems = 80;
+class Enemy {
+  constructor(x, y, kind = &quot;normal&quot;) {
+    this.x = x; this.y = y; this.kind = kind; this.radius = kind === &quot;boss&quot; ? 28 : 14; this.hp = kind === &quot;boss&quot; ? 12 : kind === &quot;fast&quot; ? 1 : 2; this.speed = kind === &quot;boss&quot; ? 35 : kind === &quot;fast&quot; ? 78 : 48;
+  }
+}
+class Bullet {
+  constructor(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 2; }
+}
+class Gem {
+  constructor(x, y) { this.x = x; this.y = y; }
+}
+class Game {
+  constructor() {
+    this.player = {x:400, y:225, radius:15, hp:5, speed:160, invincible:0};
+    this.enemies = []; this.bullets = []; this.gems = [];
+    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();
+    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;;
+  }
+  spawn() {
+    if (this.enemies.length &gt;= limitEnemies) return;
+    const edge = Math.floor(Math.random() * 4);
+    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;
+    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;
+    this.enemies.push(new Enemy(x, y, Math.random() &lt; 0.35 ? &quot;fast&quot; : &quot;normal&quot;));
+  }
+  shoot() {
+    if (!this.enemies.length || this.bullets.length &gt;= limitBullets) return;
+    let target = this.enemies[0], best = Infinity;
+    for (const enemy of this.enemies) {
+      const distance = Math.hypot(enemy.x - this.player.x, enemy.y - this.player.y);
+      if (distance &lt; best) { best = distance; target = enemy; }
+    }
+    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);
+    const angle = distance &gt; 0 ? Math.atan2(dy, dx) : 0;
+    for (const offset of [-0.25, 0, 0.25]) {
+      if (this.bullets.length &lt; limitBullets) this.bullets.push(new Bullet(this.player.x, this.player.y, Math.cos(angle + offset) * 300, Math.sin(angle + offset) * 300));
+    }
+  }
+  update() {
+    const now = performance.now(), elapsed = Math.max(0, (now - this.last) / 1000);
+    this.last = now;
+    if (this.state !== &quot;playing&quot; || !focused || document.hidden) return;
+    const dt = Math.min(elapsed, 0.05);
+    this.elapsed += dt;
+    if (this.elapsed &gt;= 60) { this.elapsed = 60; this.state = &quot;clear&quot;; return; }
+    const dx = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    const dy = (keys.ArrowDown || keys.s ? 1 : 0) - (keys.ArrowUp || keys.w ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1;
+    this.player.x = Math.max(15, Math.min(785, this.player.x + dx / length * this.player.speed * dt));
+    this.player.y = Math.max(15, Math.min(435, this.player.y + dy / length * this.player.speed * dt));
+    this.player.invincible = Math.max(0, this.player.invincible - dt);
+    this.spawnTimer -= dt;
+    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }
+    for (const enemy of this.enemies) {
+      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);
+      if (distance &gt; 0) { enemy.x += ex / distance * enemy.speed * dt; enemy.y += ey / distance * enemy.speed * dt; }
+      if (distance &lt;= enemy.radius + this.player.radius &amp;&amp; this.player.invincible &lt;= 0) {
+        this.player.hp--; this.player.invincible = 1;
+        if (this.player.hp &lt;= 0) { this.state = &quot;over&quot;; return; }
+      }
+    }
+    this.shotTimer -= dt;
+    if (this.shotTimer &lt;= 0) { this.shoot(); this.shotTimer = this.interval; }
+    const deadEnemies = new Set(), deadBullets = new Set();
+    for (const bullet of this.bullets) {
+      bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+      if (bullet.life &lt;= 0 || bullet.x &lt; 0 || bullet.x &gt; 800 || bullet.y &lt; 0 || bullet.y &gt; 450) { deadBullets.add(bullet); continue; }
+      for (const enemy of this.enemies) {
+        if (deadEnemies.has(enemy) || Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y) &gt; enemy.radius + 4) continue;
+        enemy.hp -= this.damage; deadBullets.add(bullet);
+        if (enemy.hp &lt;= 0) {
+          deadEnemies.add(enemy);
+          if (this.gems.length &lt; limitGems) this.gems.push(new Gem(enemy.x, enemy.y));
+        }
+        break;
+      }
+    }
+    this.bullets = this.bullets.filter(bullet =&gt; !deadBullets.has(bullet));
+    this.enemies = this.enemies.filter(enemy =&gt; !deadEnemies.has(enemy));
+    this.gems = this.gems.filter(gem =&gt; {
+      if (Math.hypot(gem.x - this.player.x, gem.y - this.player.y) &gt; 20) return true;
+      this.xp++; return false;
+    });
+    if (this.xp &gt;= this.level * 3) { this.xp -= this.level * 3; this.level++; this.state = &quot;choice&quot;; }
+  }
+  choose(number) {
+    if (this.state !== &quot;choice&quot;) return;
+    if (number === &quot;1&quot;) this.damage++;
+    else if (number === &quot;2&quot;) this.interval = Math.max(0.2, this.interval - 0.1);
+    else if (number === &quot;3&quot;) this.player.hp = Math.min(5, this.player.hp + 1);
+    else return;
+    this.state = &quot;playing&quot;; this.last = performance.now();
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();
+    for (const enemy of this.enemies) { ctx.fillStyle = enemy.kind === &quot;boss&quot; ? &quot;#8b5ab4&quot; : enemy.kind === &quot;fast&quot; ? &quot;#da8518&quot; : &quot;#e45f6a&quot;; ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }
+
+    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = &quot;#56aa74&quot;; for (const gem of this.gems) ctx.fillRect(gem.x - 5, gem.y - 5, 10, 10);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(&quot;体力 &quot; + this.player.hp + &quot;　レベル &quot; + this.level + &quot;　経験 &quot; + this.xp + &quot; / &quot; + (this.level * 3), 18, 28);
+    ctx.fillText(&quot;生存 &quot; + Math.floor(this.elapsed) + &quot; / 60秒&quot;, 18, 54);
+    ctx.fillText(&quot;矢印キー / WASD：移動&quot;, 18, 435);
+    if (this.state === &quot;choice&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(170, 140, 460, 150); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;レベルアップ！ 1：攻撃  2：速さ  3：回復&quot;, 190, 210); }
+    if (this.state === &quot;clear&quot; || this.state === &quot;over&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(200, 155, 400, 125); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(this.state === &quot;clear&quot; ? &quot;60秒生き残った！&quot; : &quot;体力がなくなった&quot;, 240, 205); ctx.fillText(&quot;Spaceで再挑戦&quot;, 240, 245); }
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;].includes(key)) { keys[key] = true; if (key.startsWith(&quot;Arrow&quot;)) event.preventDefault(); }
+  if (!event.repeat &amp;&amp; game.state === &quot;choice&quot;) game.choose(key);
+  if (!event.repeat &amp;&amp; (game.state === &quot;over&quot; || game.state === &quot;clear&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { const key = event.key.length === 1 ? event.key.toLowerCase() : event.key; keys[key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { focused = false; for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+window.addEventListener(&quot;focus&quot;, () =&gt; { focused = true; game.last = performance.now(); });
+document.addEventListener(&quot;visibilitychange&quot;, () =&gt; { for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const keys = {};
+let focused = true;
+const limitEnemies = 60, limitBullets = 100, limitGems = 80;
+class Enemy {
+  constructor(x, y, kind = &quot;normal&quot;) {
+    this.x = x; this.y = y; this.kind = kind; this.radius = kind === &quot;boss&quot; ? 28 : 14; this.hp = kind === &quot;boss&quot; ? 12 : kind === &quot;fast&quot; ? 1 : 2; this.speed = kind === &quot;boss&quot; ? 35 : kind === &quot;fast&quot; ? 78 : 48;
+  }
+}
+class Bullet {
+  constructor(x, y, vx, vy) { this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 2; }
+}
+class Gem {
+  constructor(x, y) { this.x = x; this.y = y; }
+}
+class Game {
+  constructor() {
+    this.player = {x:400, y:225, radius:15, hp:5, speed:160, invincible:0};
+    this.enemies = []; this.bullets = []; this.gems = [];
+    this.spawnTimer = 0; this.shotTimer = 0; this.elapsed = 0; this.last = performance.now();
+    this.level = 1; this.xp = 0; this.damage = 1; this.interval = 0.6; this.state = &quot;playing&quot;; this.bossSpawned = false;
+  }
+  spawn() {
+    if (this.enemies.length &gt;= limitEnemies) return;
+    const edge = Math.floor(Math.random() * 4);
+    const x = edge === 0 ? 10 : edge === 1 ? 790 : 20 + Math.random() * 760;
+    const y = edge === 2 ? 10 : edge === 3 ? 440 : 20 + Math.random() * 410;
+    this.enemies.push(new Enemy(x, y, Math.random() &lt; 0.35 ? &quot;fast&quot; : &quot;normal&quot;));
+  }
+  shoot() {
+    if (!this.enemies.length || this.bullets.length &gt;= limitBullets) return;
+    let target = this.enemies[0], best = Infinity;
+    for (const enemy of this.enemies) {
+      const distance = Math.hypot(enemy.x - this.player.x, enemy.y - this.player.y);
+      if (distance &lt; best) { best = distance; target = enemy; }
+    }
+    const dx = target.x - this.player.x, dy = target.y - this.player.y, distance = Math.hypot(dx, dy);
+    const angle = distance &gt; 0 ? Math.atan2(dy, dx) : 0;
+    for (const offset of [-0.25, 0, 0.25]) {
+      if (this.bullets.length &lt; limitBullets) this.bullets.push(new Bullet(this.player.x, this.player.y, Math.cos(angle + offset) * 300, Math.sin(angle + offset) * 300));
+    }
+  }
+  update() {
+    const now = performance.now(), elapsed = Math.max(0, (now - this.last) / 1000);
+    this.last = now;
+    if (this.state !== &quot;playing&quot; || !focused || document.hidden) return;
+    const dt = Math.min(elapsed, 0.05);
+    this.elapsed += dt;
+    if (this.elapsed &gt;= 60) { this.elapsed = 60; this.state = &quot;clear&quot;; return; }
+    const dx = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    const dy = (keys.ArrowDown || keys.s ? 1 : 0) - (keys.ArrowUp || keys.w ? 1 : 0);
+    const length = Math.hypot(dx, dy) || 1;
+    this.player.x = Math.max(15, Math.min(785, this.player.x + dx / length * this.player.speed * dt));
+    this.player.y = Math.max(15, Math.min(435, this.player.y + dy / length * this.player.speed * dt));
+    this.player.invincible = Math.max(0, this.player.invincible - dt);
+    this.spawnTimer -= dt;
+    if (this.spawnTimer &lt;= 0) { this.spawn(); this.spawnTimer = 1; }
+    if (this.elapsed &gt;= 30 &amp;&amp; !this.bossSpawned &amp;&amp; this.enemies.length &lt; limitEnemies) { this.enemies.push(new Enemy(20, 225, &quot;boss&quot;)); this.bossSpawned = true; }
+    for (const enemy of this.enemies) {
+      const ex = this.player.x - enemy.x, ey = this.player.y - enemy.y, distance = Math.hypot(ex, ey);
+      if (distance &gt; 0) { enemy.x += ex / distance * enemy.speed * dt; enemy.y += ey / distance * enemy.speed * dt; }
+      if (distance &lt;= enemy.radius + this.player.radius &amp;&amp; this.player.invincible &lt;= 0) {
+        this.player.hp--; this.player.invincible = 1;
+        if (this.player.hp &lt;= 0) { this.state = &quot;over&quot;; return; }
+      }
+    }
+    this.shotTimer -= dt;
+    if (this.shotTimer &lt;= 0) { this.shoot(); this.shotTimer = this.interval; }
+    const deadEnemies = new Set(), deadBullets = new Set();
+    for (const bullet of this.bullets) {
+      bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+      if (bullet.life &lt;= 0 || bullet.x &lt; 0 || bullet.x &gt; 800 || bullet.y &lt; 0 || bullet.y &gt; 450) { deadBullets.add(bullet); continue; }
+      for (const enemy of this.enemies) {
+        if (deadEnemies.has(enemy) || Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y) &gt; enemy.radius + 4) continue;
+        enemy.hp -= this.damage; deadBullets.add(bullet);
+        if (enemy.hp &lt;= 0) {
+          deadEnemies.add(enemy);
+          if (this.gems.length &lt; limitGems) this.gems.push(new Gem(enemy.x, enemy.y));
+        }
+        break;
+      }
+    }
+    this.bullets = this.bullets.filter(bullet =&gt; !deadBullets.has(bullet));
+    this.enemies = this.enemies.filter(enemy =&gt; !deadEnemies.has(enemy));
+    this.gems = this.gems.filter(gem =&gt; {
+      if (Math.hypot(gem.x - this.player.x, gem.y - this.player.y) &gt; 20) return true;
+      this.xp++; return false;
+    });
+    if (this.xp &gt;= this.level * 3) { this.xp -= this.level * 3; this.level++; this.state = &quot;choice&quot;; }
+  }
+  choose(number) {
+    if (this.state !== &quot;choice&quot;) return;
+    if (number === &quot;1&quot;) this.damage++;
+    else if (number === &quot;2&quot;) this.interval = Math.max(0.2, this.interval - 0.1);
+    else if (number === &quot;3&quot;) this.player.hp = Math.min(5, this.player.hp + 1);
+    else return;
+    this.state = &quot;playing&quot;; this.last = performance.now();
+  }
+  draw() {
+    ctx.fillStyle = &quot;#eaf5e6&quot;; ctx.fillRect(0, 0, 800, 450);
+    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.player.x, this.player.y, this.player.radius, 0, Math.PI * 2); ctx.fill();
+    for (const enemy of this.enemies) { ctx.fillStyle = enemy.kind === &quot;boss&quot; ? &quot;#8b5ab4&quot; : enemy.kind === &quot;fast&quot; ? &quot;#da8518&quot; : &quot;#e45f6a&quot;; ctx.beginPath(); ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2); ctx.fill(); }
+
+    ctx.fillStyle = &quot;#f2a900&quot;; for (const bullet of this.bullets) { ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = &quot;#56aa74&quot;; for (const gem of this.gems) ctx.fillRect(gem.x - 5, gem.y - 5, 10, 10);
+    ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.font = &quot;18px sans-serif&quot;;
+    ctx.fillText(&quot;体力 &quot; + this.player.hp + &quot;　レベル &quot; + this.level + &quot;　経験 &quot; + this.xp + &quot; / &quot; + (this.level * 3), 18, 28);
+    ctx.fillText(&quot;生存 &quot; + Math.floor(this.elapsed) + &quot; / 60秒&quot;, 18, 54);
+    ctx.fillText(&quot;矢印キー / WASD：移動&quot;, 18, 435);
+    if (this.state === &quot;choice&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(170, 140, 460, 150); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(&quot;レベルアップ！ 1：攻撃  2：速さ  3：回復&quot;, 190, 210); }
+    if (this.state === &quot;clear&quot; || this.state === &quot;over&quot;) { ctx.fillStyle = &quot;#fff8e8&quot;; ctx.fillRect(200, 155, 400, 125); ctx.fillStyle = &quot;#1f3d5b&quot;; ctx.fillText(this.state === &quot;clear&quot; ? &quot;60秒生き残った！&quot; : &quot;体力がなくなった&quot;, 240, 205); ctx.fillText(&quot;Spaceで再挑戦&quot;, 240, 245); }
+  }
+}
+let game;
+
+function start() {
+  for (const key of Object.keys(keys)) keys[key] = false;
+  game = new Game();
+}
+
+function update() {
+  game.update();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  game.draw();
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  if ([&quot;ArrowLeft&quot;, &quot;ArrowRight&quot;, &quot;ArrowUp&quot;, &quot;ArrowDown&quot;, &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;].includes(key)) { keys[key] = true; if (key.startsWith(&quot;Arrow&quot;)) event.preventDefault(); }
+  if (!event.repeat &amp;&amp; game.state === &quot;choice&quot;) game.choose(key);
+  if (!event.repeat &amp;&amp; (game.state === &quot;over&quot; || game.state === &quot;clear&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; { const key = event.key.length === 1 ? event.key.toLowerCase() : event.key; keys[key] = false; });
+window.addEventListener(&quot;blur&quot;, () =&gt; { focused = false; for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+window.addEventListener(&quot;focus&quot;, () =&gt; { focused = true; game.last = performance.now(); });
+document.addEventListener(&quot;visibilitychange&quot;, () =&gt; { for (const key of Object.keys(keys)) keys[key] = false; game.last = performance.now(); });
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>bossSpawnedで一度出したことを記録します。</p><p>大きな敵は半径28、体力12、毎秒35ピクセルです。敵の総数は60個までです。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>30秒になると大きな敵が1体現れます。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>大きな敵を一度出した後、毎フレーム追加しますか。</p><details><summary>練習の答え</summary><p>bossSpawnedがtrueになるため追加しません。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-survivor-extensions-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></div></body></html>
