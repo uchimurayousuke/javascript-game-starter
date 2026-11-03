@@ -4,6 +4,8 @@
 
 初めての方は [ゲームづくりの学びの入口](learning/index.html) から、準備・コインキャッチ・次の作例へ進めます。
 
+文法を学ぶ： [HTMLの基本文法](learning/basics/html.html)・[CSSの基本文法](learning/basics/css.html)・[JavaScriptの基本文法](learning/basics/javascript.html)
+
 HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始めるための最小限のひな型です。`template/index.html` をブラウザで開くと、空のゲーム画面が表示されます。インストールやビルドは必要ありません。
 
 ## 用意しているもの
