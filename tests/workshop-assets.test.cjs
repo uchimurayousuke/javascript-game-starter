@@ -18,9 +18,9 @@ function pngCheck(file){
  assert.ok(width>=200&&height>=100,`small PNG: ${file}`);assert.ok(finished&&offset===bytes.length,`incomplete PNG: ${file}`);
  assert.ok(zlib.inflateSync(Buffer.concat(data)).length>0,`empty PNG: ${file}`);
 }
-test("作例と共通機能の完成版ごとに対応する68枚の画像がある",()=>{
+test("作例と共通機能の完成版ごとに対応する71枚の画像がある",()=>{
  const seen=new Set();
- for(const [category,count] of [["examples",31],["features",36]]){
+ for(const [category,count] of [["examples",34],["features",36]]){
   const page=`${category}/index.html`,html=read(page),cards=[...html.matchAll(/<article>([\s\S]*?)<\/article>/g)];
   assert.equal(cards.length,count,page);
   for(const [,card] of cards){
@@ -36,7 +36,7 @@ test("作例と共通機能の完成版ごとに対応する68枚の画像があ
  const image=feature[1].match(/<img\b[^>]*>/);assert.ok(image);const file=absolute(page,attribute(image[0],"src"));
  assert.equal(path.basename(file),"examples-beginner-coin-catch.png");assert.ok(fs.existsSync(absolute(page,"../tutorial/05-game/index.html")));assert.ok(!seen.has(file));seen.add(file);pngCheck(file);
  const directory=path.join(root,"tutorial/catalog-thumbnails"),files=fs.readdirSync(directory).filter(f=>f.endsWith(".png")).map(f=>path.join(directory,f));
- assert.equal(seen.size,68);assert.deepEqual([...seen].sort(),files.sort());
+ assert.equal(seen.size,71);assert.deepEqual([...seen].sort(),files.sort());
 });
 test("両方の入口の3ルートと工房の絵が同じ行き先に対応する",()=>{
  const routes=new Map([["route-grammar.svg","learning/basics.html"],["route-games.svg","examples/index.html"],["route-features.svg","features/index.html"]]);

@@ -1,0 +1,710 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>道具をつめるバッグの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：使えないマスを置く</a><a href="#lesson-section-3">ステップ 2：相性のよい組を作る</a><a href="#lesson-section-4">ステップ 3：複数の課題に挑戦する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：道具をつめるバッグの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：使えないマスを置く</a><a href="#lesson-section-3">ステップ 2：相性のよい組を作る</a><a href="#lesson-section-4">ステップ 3：複数の課題に挑戦する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">道具をつめるバッグの発展</li></ol></nav><h1>道具をつめるバッグの発展</h1><p>道具を回転して置き、辺で接する組を考えます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-bag-layout-extension.zip" download="example-advanced-bag-layout-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div><p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p><p>クラスはデータと処理の設計図です。constructorはnewで作るときに呼ばれ、thisは作られた一つ一つのインスタンスを指します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：使えないマスを置く</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>右下のマスを使えなくします。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  blocked(x, y) { return false; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  occupied(x, y, ignore = null) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+const columns = 6, rows = 4, cellSize = 64, boardX = 40, boardY = 95;
+class Item {
+  constructor(name, cells, color) { this.name = name; this.cells = cells; this.color = color; this.x = null; this.y = null; }
+  rotate() {
+    const turned = this.cells.map(([x, y]) =&gt; [-y, x]);
+    const minX = Math.min(...turned.map(cell =&gt; cell[0])), minY = Math.min(...turned.map(cell =&gt; cell[1]));
+    this.cells = turned.map(([x, y]) =&gt; [x - minX, y - minY]);
+  }
+  at(x = this.x, y = this.y) { return this.cells.map(([dx, dy]) =&gt; [x + dx, y + dy]); }
+}
+class Bag {
+  constructor() {
+    this.items = [new Item(&quot;L字&quot;, [[0,0],[0,1],[1,1]], &quot;#ed8e65&quot;), new Item(&quot;棒&quot;, [[0,0],[1,0],[2,0]], &quot;#75a8d8&quot;), new Item(&quot;四角&quot;, [[0,0],[1,0],[0,1],[1,1]], &quot;#e8c257&quot;)];
+    this.selected = null; this.hover = null; this.state = &quot;playing&quot;; this.message = &quot;道具を選び、盤面をクリックしよう&quot;;
+    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;
+  }
+  blocked(x, y) { return false; }
+  occupied(x, y, ignore = null) {
+    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));
+  }
+  select(index) {
+    if (this.state !== &quot;playing&quot;) return;
+    const item = this.items[index];
+    if (!item || item.x !== null) { this.message = &quot;配置済みの道具は盤面から回収できます&quot;; return; }
+    this.selected = this.selected === item ? null : item;
+  }
+  rotate() { if (this.state === &quot;playing&quot; &amp;&amp; this.selected) this.selected.rotate(); }
+  canPlace(item, x, y) {
+    return item.at(x, y).every(([cx, cy]) =&gt; cx &gt;= 0 &amp;&amp; cx &lt; columns &amp;&amp; cy &gt;= 0 &amp;&amp; cy &lt; rows &amp;&amp; !this.blocked(cx, cy) &amp;&amp; !this.occupied(cx, cy, item));
+  }
+  clickCell(x, y) {
+    if (this.state !== &quot;playing&quot; || x &lt; 0 || x &gt;= columns || y &lt; 0 || y &gt;= rows) return;
+    if (this.selected) {
+      if (!this.canPlace(this.selected, x, y)) { this.message = &quot;はみ出し・重なり・使えないマスは置けません&quot;; return; }
+      this.selected.x = x; this.selected.y = y; this.selected = null; this.message = &quot;配置しました。道具を選んで次へ&quot;;
+    } else {
+      const item = this.occupied(x, y);
+      if (item) { item.x = null; item.y = null; this.selected = item; this.message = &quot;回収しました。Rで回転して置き直せます&quot;; }
+    }
+  }
+  adjacent(a, b) {
+    return a.at().some(([ax, ay]) =&gt; b.at().some(([bx, by]) =&gt; Math.abs(ax - bx) + Math.abs(ay - by) === 1));
+  }
+  calculate() {
+    const placed = this.items.filter(item =&gt; item.x !== null), pairs = [];
+    for (let i = 0; i &lt; placed.length; i++) for (let j = i + 1; j &lt; placed.length; j++) {
+      const a = placed[i], b = placed[j];
+      if (this.adjacent(a, b)) {
+        const extra = 0;
+        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});
+      }
+    }
+    return {score: placed.length * (2 + this.itemBonus) + pairs.reduce((sum, pair) =&gt; sum + pair.points, 0), pairs};
+  }
+  check() {
+    if (this.state !== &quot;playing&quot;) return;
+    const target = 15;
+    if (this.calculate().score &gt;= target) {
+      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;
+    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;
+  }
+}
+let bag;
+function start() { bag = new Bag(); }
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#eef4f8&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;道具をつめるバッグ&quot;, 40, 40);
+  ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(&quot;道具を選ぶ → Rで回転 → 盤面に置く&quot;, 40, 70);
+  for (let y = 0; y &lt; rows; y++) for (let x = 0; x &lt; columns; x++) {
+    ctx.fillStyle = bag.blocked(x,y) ? &quot;#9ba7b1&quot; : &quot;#ffffff&quot;; ctx.fillRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+    ctx.strokeStyle = &quot;#8fa4b5&quot;; ctx.strokeRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+  }
+  for (const item of bag.items) if (item.x !== null) for (const [x,y] of item.at()) {
+    ctx.fillStyle = item.color; ctx.fillRect(boardX+x*cellSize+3, boardY+y*cellSize+3, cellSize-6, cellSize-6);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;14px sans-serif&quot;; ctx.fillText(item.name, boardX+x*cellSize+8, boardY+y*cellSize+35);
+  }
+  if (bag.selected &amp;&amp; bag.hover) {
+    ctx.globalAlpha = 0.5; ctx.fillStyle = bag.canPlace(bag.selected, bag.hover.x, bag.hover.y) ? &quot;#228b5d&quot; : &quot;#c64040&quot;;
+    for (const [x,y] of bag.selected.at(bag.hover.x, bag.hover.y)) if (x &gt;= 0 &amp;&amp; x &lt; columns &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; rows) ctx.fillRect(boardX+x*cellSize+5, boardY+y*cellSize+5, cellSize-10, cellSize-10);
+    ctx.globalAlpha = 1;
+  }
+  ctx.font = &quot;16px sans-serif&quot;;
+  bag.items.forEach((item, index) =&gt; {
+    const x = 460, y = 86 + index*49; ctx.fillStyle = bag.selected === item ? &quot;#f4d782&quot; : &quot;#ffffff&quot;; ctx.fillRect(x,y,285,40);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText((index+1) + &quot;：&quot; + item.name + (item.x === null ? &quot;（選ぶ）&quot; : &quot;（配置中）&quot;), x+12,y+26);
+    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }
+  });
+  const result = bag.calculate(), target = 15;
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);
+  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));
+  ctx.fillStyle = &quot;#246c4a&quot;; ctx.fillRect(460, 365, 150, 40); ctx.fillStyle = &quot;white&quot;; ctx.fillText(&quot;判定する&quot;, 493, 391);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  const messageRows = bag.message.match(/.{1,24}/gu) || [];
+  messageRows.slice(0, 2).forEach((line, index) =&gt; ctx.fillText(line, 40, 380 + index * 20));
+  ctx.fillText(&quot;何も選ばず配置済みの道具を押すと回収&quot;, 40, 420);
+
+}
+function position(event) { const rect = canvas.getBoundingClientRect(); return {x: (event.clientX-rect.left)*800/rect.width, y: (event.clientY-rect.top)*450/rect.height}; }
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);
+  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();
+  if (event.key === &quot;Enter&quot;) bag.check();
+  if (bag.state === &quot;clear&quot; &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { const p = position(event); bag.hover = {x: Math.floor((p.x-boardX)/cellSize), y: Math.floor((p.y-boardY)/cellSize)}; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const p = position(event);
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 745 &amp;&amp; p.y &gt;= 86 &amp;&amp; p.y &lt; 224) { const i = Math.floor((p.y-86)/49); if (p.y &lt; 86+i*49+40) bag.select(i); return; }
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 610 &amp;&amp; p.y &gt;= 365 &amp;&amp; p.y &lt;= 405) { bag.check(); return; }
+  bag.clickCell(Math.floor((p.x-boardX)/cellSize), Math.floor((p.y-boardY)/cellSize));
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+const columns = 6, rows = 4, cellSize = 64, boardX = 40, boardY = 95;
+class Item {
+  constructor(name, cells, color) { this.name = name; this.cells = cells; this.color = color; this.x = null; this.y = null; }
+  rotate() {
+    const turned = this.cells.map(([x, y]) =&gt; [-y, x]);
+    const minX = Math.min(...turned.map(cell =&gt; cell[0])), minY = Math.min(...turned.map(cell =&gt; cell[1]));
+    this.cells = turned.map(([x, y]) =&gt; [x - minX, y - minY]);
+  }
+  at(x = this.x, y = this.y) { return this.cells.map(([dx, dy]) =&gt; [x + dx, y + dy]); }
+}
+class Bag {
+  constructor() {
+    this.items = [new Item(&quot;L字&quot;, [[0,0],[0,1],[1,1]], &quot;#ed8e65&quot;), new Item(&quot;棒&quot;, [[0,0],[1,0],[2,0]], &quot;#75a8d8&quot;), new Item(&quot;四角&quot;, [[0,0],[1,0],[0,1],[1,1]], &quot;#e8c257&quot;)];
+    this.selected = null; this.hover = null; this.state = &quot;playing&quot;; this.message = &quot;道具を選び、盤面をクリックしよう&quot;;
+    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;
+  }
+  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }
+  occupied(x, y, ignore = null) {
+    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));
+  }
+  select(index) {
+    if (this.state !== &quot;playing&quot;) return;
+    const item = this.items[index];
+    if (!item || item.x !== null) { this.message = &quot;配置済みの道具は盤面から回収できます&quot;; return; }
+    this.selected = this.selected === item ? null : item;
+  }
+  rotate() { if (this.state === &quot;playing&quot; &amp;&amp; this.selected) this.selected.rotate(); }
+  canPlace(item, x, y) {
+    return item.at(x, y).every(([cx, cy]) =&gt; cx &gt;= 0 &amp;&amp; cx &lt; columns &amp;&amp; cy &gt;= 0 &amp;&amp; cy &lt; rows &amp;&amp; !this.blocked(cx, cy) &amp;&amp; !this.occupied(cx, cy, item));
+  }
+  clickCell(x, y) {
+    if (this.state !== &quot;playing&quot; || x &lt; 0 || x &gt;= columns || y &lt; 0 || y &gt;= rows) return;
+    if (this.selected) {
+      if (!this.canPlace(this.selected, x, y)) { this.message = &quot;はみ出し・重なり・使えないマスは置けません&quot;; return; }
+      this.selected.x = x; this.selected.y = y; this.selected = null; this.message = &quot;配置しました。道具を選んで次へ&quot;;
+    } else {
+      const item = this.occupied(x, y);
+      if (item) { item.x = null; item.y = null; this.selected = item; this.message = &quot;回収しました。Rで回転して置き直せます&quot;; }
+    }
+  }
+  adjacent(a, b) {
+    return a.at().some(([ax, ay]) =&gt; b.at().some(([bx, by]) =&gt; Math.abs(ax - bx) + Math.abs(ay - by) === 1));
+  }
+  calculate() {
+    const placed = this.items.filter(item =&gt; item.x !== null), pairs = [];
+    for (let i = 0; i &lt; placed.length; i++) for (let j = i + 1; j &lt; placed.length; j++) {
+      const a = placed[i], b = placed[j];
+      if (this.adjacent(a, b)) {
+        const extra = 0;
+        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});
+      }
+    }
+    return {score: placed.length * (2 + this.itemBonus) + pairs.reduce((sum, pair) =&gt; sum + pair.points, 0), pairs};
+  }
+  check() {
+    if (this.state !== &quot;playing&quot;) return;
+    const target = 15;
+    if (this.calculate().score &gt;= target) {
+      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;
+    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;
+  }
+}
+let bag;
+function start() { bag = new Bag(); }
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#eef4f8&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;道具をつめるバッグ&quot;, 40, 40);
+  ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(&quot;道具を選ぶ → Rで回転 → 盤面に置く&quot;, 40, 70);
+  for (let y = 0; y &lt; rows; y++) for (let x = 0; x &lt; columns; x++) {
+    ctx.fillStyle = bag.blocked(x,y) ? &quot;#9ba7b1&quot; : &quot;#ffffff&quot;; ctx.fillRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+    ctx.strokeStyle = &quot;#8fa4b5&quot;; ctx.strokeRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+  }
+  for (const item of bag.items) if (item.x !== null) for (const [x,y] of item.at()) {
+    ctx.fillStyle = item.color; ctx.fillRect(boardX+x*cellSize+3, boardY+y*cellSize+3, cellSize-6, cellSize-6);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;14px sans-serif&quot;; ctx.fillText(item.name, boardX+x*cellSize+8, boardY+y*cellSize+35);
+  }
+  if (bag.selected &amp;&amp; bag.hover) {
+    ctx.globalAlpha = 0.5; ctx.fillStyle = bag.canPlace(bag.selected, bag.hover.x, bag.hover.y) ? &quot;#228b5d&quot; : &quot;#c64040&quot;;
+    for (const [x,y] of bag.selected.at(bag.hover.x, bag.hover.y)) if (x &gt;= 0 &amp;&amp; x &lt; columns &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; rows) ctx.fillRect(boardX+x*cellSize+5, boardY+y*cellSize+5, cellSize-10, cellSize-10);
+    ctx.globalAlpha = 1;
+  }
+  ctx.font = &quot;16px sans-serif&quot;;
+  bag.items.forEach((item, index) =&gt; {
+    const x = 460, y = 86 + index*49; ctx.fillStyle = bag.selected === item ? &quot;#f4d782&quot; : &quot;#ffffff&quot;; ctx.fillRect(x,y,285,40);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText((index+1) + &quot;：&quot; + item.name + (item.x === null ? &quot;（選ぶ）&quot; : &quot;（配置中）&quot;), x+12,y+26);
+    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }
+  });
+  const result = bag.calculate(), target = 15;
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);
+  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));
+  ctx.fillStyle = &quot;#246c4a&quot;; ctx.fillRect(460, 365, 150, 40); ctx.fillStyle = &quot;white&quot;; ctx.fillText(&quot;判定する&quot;, 493, 391);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  const messageRows = bag.message.match(/.{1,24}/gu) || [];
+  messageRows.slice(0, 2).forEach((line, index) =&gt; ctx.fillText(line, 40, 380 + index * 20));
+  ctx.fillText(&quot;何も選ばず配置済みの道具を押すと回収&quot;, 40, 420);
+
+}
+function position(event) { const rect = canvas.getBoundingClientRect(); return {x: (event.clientX-rect.left)*800/rect.width, y: (event.clientY-rect.top)*450/rect.height}; }
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);
+  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();
+  if (event.key === &quot;Enter&quot;) bag.check();
+  if (bag.state === &quot;clear&quot; &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { const p = position(event); bag.hover = {x: Math.floor((p.x-boardX)/cellSize), y: Math.floor((p.y-boardY)/cellSize)}; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const p = position(event);
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 745 &amp;&amp; p.y &gt;= 86 &amp;&amp; p.y &lt; 224) { const i = Math.floor((p.y-86)/49); if (p.y &lt; 86+i*49+40) bag.select(i); return; }
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 610 &amp;&amp; p.y &gt;= 365 &amp;&amp; p.y &lt;= 405) { bag.check(); return; }
+  bag.clickCell(Math.floor((p.x-boardX)/cellSize), Math.floor((p.y-boardY)/cellSize));
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre><h3>コードの意味</h3><p>blockedは(5,3)だけtrueを返します。</p><p>canPlaceで使えないマスを含む配置を断ります。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>右下が灰色になり、そこに道具を置けません。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>(5,3)を含む配置はできますか。</p><details><summary>練習の答え</summary><p>できません。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-bag-layout-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：相性のよい組を作る</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>L字と四角が接すると追加点を付けます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      const a = placed[i], b = placed[j];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      if (this.adjacent(a, b)) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">        const extra = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">        const extra = (a.name === &quot;L字&quot; &amp;&amp; b.name === &quot;四角&quot;) || (a.name === &quot;四角&quot; &amp;&amp; b.name === &quot;L字&quot;) ? 2 : 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      }</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  check() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const target = 15;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const target = 17;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.calculate().score &gt;= target) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  });</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  const result = bag.calculate(), target = 15;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const result = bag.calculate(), target = 17;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+const columns = 6, rows = 4, cellSize = 64, boardX = 40, boardY = 95;
+class Item {
+  constructor(name, cells, color) { this.name = name; this.cells = cells; this.color = color; this.x = null; this.y = null; }
+  rotate() {
+    const turned = this.cells.map(([x, y]) =&gt; [-y, x]);
+    const minX = Math.min(...turned.map(cell =&gt; cell[0])), minY = Math.min(...turned.map(cell =&gt; cell[1]));
+    this.cells = turned.map(([x, y]) =&gt; [x - minX, y - minY]);
+  }
+  at(x = this.x, y = this.y) { return this.cells.map(([dx, dy]) =&gt; [x + dx, y + dy]); }
+}
+class Bag {
+  constructor() {
+    this.items = [new Item(&quot;L字&quot;, [[0,0],[0,1],[1,1]], &quot;#ed8e65&quot;), new Item(&quot;棒&quot;, [[0,0],[1,0],[2,0]], &quot;#75a8d8&quot;), new Item(&quot;四角&quot;, [[0,0],[1,0],[0,1],[1,1]], &quot;#e8c257&quot;)];
+    this.selected = null; this.hover = null; this.state = &quot;playing&quot;; this.message = &quot;道具を選び、盤面をクリックしよう&quot;;
+    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;
+  }
+  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }
+  occupied(x, y, ignore = null) {
+    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));
+  }
+  select(index) {
+    if (this.state !== &quot;playing&quot;) return;
+    const item = this.items[index];
+    if (!item || item.x !== null) { this.message = &quot;配置済みの道具は盤面から回収できます&quot;; return; }
+    this.selected = this.selected === item ? null : item;
+  }
+  rotate() { if (this.state === &quot;playing&quot; &amp;&amp; this.selected) this.selected.rotate(); }
+  canPlace(item, x, y) {
+    return item.at(x, y).every(([cx, cy]) =&gt; cx &gt;= 0 &amp;&amp; cx &lt; columns &amp;&amp; cy &gt;= 0 &amp;&amp; cy &lt; rows &amp;&amp; !this.blocked(cx, cy) &amp;&amp; !this.occupied(cx, cy, item));
+  }
+  clickCell(x, y) {
+    if (this.state !== &quot;playing&quot; || x &lt; 0 || x &gt;= columns || y &lt; 0 || y &gt;= rows) return;
+    if (this.selected) {
+      if (!this.canPlace(this.selected, x, y)) { this.message = &quot;はみ出し・重なり・使えないマスは置けません&quot;; return; }
+      this.selected.x = x; this.selected.y = y; this.selected = null; this.message = &quot;配置しました。道具を選んで次へ&quot;;
+    } else {
+      const item = this.occupied(x, y);
+      if (item) { item.x = null; item.y = null; this.selected = item; this.message = &quot;回収しました。Rで回転して置き直せます&quot;; }
+    }
+  }
+  adjacent(a, b) {
+    return a.at().some(([ax, ay]) =&gt; b.at().some(([bx, by]) =&gt; Math.abs(ax - bx) + Math.abs(ay - by) === 1));
+  }
+  calculate() {
+    const placed = this.items.filter(item =&gt; item.x !== null), pairs = [];
+    for (let i = 0; i &lt; placed.length; i++) for (let j = i + 1; j &lt; placed.length; j++) {
+      const a = placed[i], b = placed[j];
+      if (this.adjacent(a, b)) {
+        const extra = 0;
+        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});
+      }
+    }
+    return {score: placed.length * (2 + this.itemBonus) + pairs.reduce((sum, pair) =&gt; sum + pair.points, 0), pairs};
+  }
+  check() {
+    if (this.state !== &quot;playing&quot;) return;
+    const target = 15;
+    if (this.calculate().score &gt;= target) {
+      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;
+    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;
+  }
+}
+let bag;
+function start() { bag = new Bag(); }
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#eef4f8&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;道具をつめるバッグ&quot;, 40, 40);
+  ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(&quot;道具を選ぶ → Rで回転 → 盤面に置く&quot;, 40, 70);
+  for (let y = 0; y &lt; rows; y++) for (let x = 0; x &lt; columns; x++) {
+    ctx.fillStyle = bag.blocked(x,y) ? &quot;#9ba7b1&quot; : &quot;#ffffff&quot;; ctx.fillRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+    ctx.strokeStyle = &quot;#8fa4b5&quot;; ctx.strokeRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+  }
+  for (const item of bag.items) if (item.x !== null) for (const [x,y] of item.at()) {
+    ctx.fillStyle = item.color; ctx.fillRect(boardX+x*cellSize+3, boardY+y*cellSize+3, cellSize-6, cellSize-6);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;14px sans-serif&quot;; ctx.fillText(item.name, boardX+x*cellSize+8, boardY+y*cellSize+35);
+  }
+  if (bag.selected &amp;&amp; bag.hover) {
+    ctx.globalAlpha = 0.5; ctx.fillStyle = bag.canPlace(bag.selected, bag.hover.x, bag.hover.y) ? &quot;#228b5d&quot; : &quot;#c64040&quot;;
+    for (const [x,y] of bag.selected.at(bag.hover.x, bag.hover.y)) if (x &gt;= 0 &amp;&amp; x &lt; columns &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; rows) ctx.fillRect(boardX+x*cellSize+5, boardY+y*cellSize+5, cellSize-10, cellSize-10);
+    ctx.globalAlpha = 1;
+  }
+  ctx.font = &quot;16px sans-serif&quot;;
+  bag.items.forEach((item, index) =&gt; {
+    const x = 460, y = 86 + index*49; ctx.fillStyle = bag.selected === item ? &quot;#f4d782&quot; : &quot;#ffffff&quot;; ctx.fillRect(x,y,285,40);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText((index+1) + &quot;：&quot; + item.name + (item.x === null ? &quot;（選ぶ）&quot; : &quot;（配置中）&quot;), x+12,y+26);
+    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }
+  });
+  const result = bag.calculate(), target = 15;
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);
+  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));
+  ctx.fillStyle = &quot;#246c4a&quot;; ctx.fillRect(460, 365, 150, 40); ctx.fillStyle = &quot;white&quot;; ctx.fillText(&quot;判定する&quot;, 493, 391);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  const messageRows = bag.message.match(/.{1,24}/gu) || [];
+  messageRows.slice(0, 2).forEach((line, index) =&gt; ctx.fillText(line, 40, 380 + index * 20));
+  ctx.fillText(&quot;何も選ばず配置済みの道具を押すと回収&quot;, 40, 420);
+
+}
+function position(event) { const rect = canvas.getBoundingClientRect(); return {x: (event.clientX-rect.left)*800/rect.width, y: (event.clientY-rect.top)*450/rect.height}; }
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);
+  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();
+  if (event.key === &quot;Enter&quot;) bag.check();
+  if (bag.state === &quot;clear&quot; &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { const p = position(event); bag.hover = {x: Math.floor((p.x-boardX)/cellSize), y: Math.floor((p.y-boardY)/cellSize)}; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const p = position(event);
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 745 &amp;&amp; p.y &gt;= 86 &amp;&amp; p.y &lt; 224) { const i = Math.floor((p.y-86)/49); if (p.y &lt; 86+i*49+40) bag.select(i); return; }
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 610 &amp;&amp; p.y &gt;= 365 &amp;&amp; p.y &lt;= 405) { bag.check(); return; }
+  bag.clickCell(Math.floor((p.x-boardX)/cellSize), Math.floor((p.y-boardY)/cellSize));
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+const columns = 6, rows = 4, cellSize = 64, boardX = 40, boardY = 95;
+class Item {
+  constructor(name, cells, color) { this.name = name; this.cells = cells; this.color = color; this.x = null; this.y = null; }
+  rotate() {
+    const turned = this.cells.map(([x, y]) =&gt; [-y, x]);
+    const minX = Math.min(...turned.map(cell =&gt; cell[0])), minY = Math.min(...turned.map(cell =&gt; cell[1]));
+    this.cells = turned.map(([x, y]) =&gt; [x - minX, y - minY]);
+  }
+  at(x = this.x, y = this.y) { return this.cells.map(([dx, dy]) =&gt; [x + dx, y + dy]); }
+}
+class Bag {
+  constructor() {
+    this.items = [new Item(&quot;L字&quot;, [[0,0],[0,1],[1,1]], &quot;#ed8e65&quot;), new Item(&quot;棒&quot;, [[0,0],[1,0],[2,0]], &quot;#75a8d8&quot;), new Item(&quot;四角&quot;, [[0,0],[1,0],[0,1],[1,1]], &quot;#e8c257&quot;)];
+    this.selected = null; this.hover = null; this.state = &quot;playing&quot;; this.message = &quot;道具を選び、盤面をクリックしよう&quot;;
+    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;
+  }
+  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }
+  occupied(x, y, ignore = null) {
+    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));
+  }
+  select(index) {
+    if (this.state !== &quot;playing&quot;) return;
+    const item = this.items[index];
+    if (!item || item.x !== null) { this.message = &quot;配置済みの道具は盤面から回収できます&quot;; return; }
+    this.selected = this.selected === item ? null : item;
+  }
+  rotate() { if (this.state === &quot;playing&quot; &amp;&amp; this.selected) this.selected.rotate(); }
+  canPlace(item, x, y) {
+    return item.at(x, y).every(([cx, cy]) =&gt; cx &gt;= 0 &amp;&amp; cx &lt; columns &amp;&amp; cy &gt;= 0 &amp;&amp; cy &lt; rows &amp;&amp; !this.blocked(cx, cy) &amp;&amp; !this.occupied(cx, cy, item));
+  }
+  clickCell(x, y) {
+    if (this.state !== &quot;playing&quot; || x &lt; 0 || x &gt;= columns || y &lt; 0 || y &gt;= rows) return;
+    if (this.selected) {
+      if (!this.canPlace(this.selected, x, y)) { this.message = &quot;はみ出し・重なり・使えないマスは置けません&quot;; return; }
+      this.selected.x = x; this.selected.y = y; this.selected = null; this.message = &quot;配置しました。道具を選んで次へ&quot;;
+    } else {
+      const item = this.occupied(x, y);
+      if (item) { item.x = null; item.y = null; this.selected = item; this.message = &quot;回収しました。Rで回転して置き直せます&quot;; }
+    }
+  }
+  adjacent(a, b) {
+    return a.at().some(([ax, ay]) =&gt; b.at().some(([bx, by]) =&gt; Math.abs(ax - bx) + Math.abs(ay - by) === 1));
+  }
+  calculate() {
+    const placed = this.items.filter(item =&gt; item.x !== null), pairs = [];
+    for (let i = 0; i &lt; placed.length; i++) for (let j = i + 1; j &lt; placed.length; j++) {
+      const a = placed[i], b = placed[j];
+      if (this.adjacent(a, b)) {
+        const extra = (a.name === &quot;L字&quot; &amp;&amp; b.name === &quot;四角&quot;) || (a.name === &quot;四角&quot; &amp;&amp; b.name === &quot;L字&quot;) ? 2 : 0;
+        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});
+      }
+    }
+    return {score: placed.length * (2 + this.itemBonus) + pairs.reduce((sum, pair) =&gt; sum + pair.points, 0), pairs};
+  }
+  check() {
+    if (this.state !== &quot;playing&quot;) return;
+    const target = 17;
+    if (this.calculate().score &gt;= target) {
+      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;
+    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;
+  }
+}
+let bag;
+function start() { bag = new Bag(); }
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#eef4f8&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;道具をつめるバッグ&quot;, 40, 40);
+  ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(&quot;道具を選ぶ → Rで回転 → 盤面に置く&quot;, 40, 70);
+  for (let y = 0; y &lt; rows; y++) for (let x = 0; x &lt; columns; x++) {
+    ctx.fillStyle = bag.blocked(x,y) ? &quot;#9ba7b1&quot; : &quot;#ffffff&quot;; ctx.fillRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+    ctx.strokeStyle = &quot;#8fa4b5&quot;; ctx.strokeRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+  }
+  for (const item of bag.items) if (item.x !== null) for (const [x,y] of item.at()) {
+    ctx.fillStyle = item.color; ctx.fillRect(boardX+x*cellSize+3, boardY+y*cellSize+3, cellSize-6, cellSize-6);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;14px sans-serif&quot;; ctx.fillText(item.name, boardX+x*cellSize+8, boardY+y*cellSize+35);
+  }
+  if (bag.selected &amp;&amp; bag.hover) {
+    ctx.globalAlpha = 0.5; ctx.fillStyle = bag.canPlace(bag.selected, bag.hover.x, bag.hover.y) ? &quot;#228b5d&quot; : &quot;#c64040&quot;;
+    for (const [x,y] of bag.selected.at(bag.hover.x, bag.hover.y)) if (x &gt;= 0 &amp;&amp; x &lt; columns &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; rows) ctx.fillRect(boardX+x*cellSize+5, boardY+y*cellSize+5, cellSize-10, cellSize-10);
+    ctx.globalAlpha = 1;
+  }
+  ctx.font = &quot;16px sans-serif&quot;;
+  bag.items.forEach((item, index) =&gt; {
+    const x = 460, y = 86 + index*49; ctx.fillStyle = bag.selected === item ? &quot;#f4d782&quot; : &quot;#ffffff&quot;; ctx.fillRect(x,y,285,40);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText((index+1) + &quot;：&quot; + item.name + (item.x === null ? &quot;（選ぶ）&quot; : &quot;（配置中）&quot;), x+12,y+26);
+    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }
+  });
+  const result = bag.calculate(), target = 17;
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);
+  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));
+  ctx.fillStyle = &quot;#246c4a&quot;; ctx.fillRect(460, 365, 150, 40); ctx.fillStyle = &quot;white&quot;; ctx.fillText(&quot;判定する&quot;, 493, 391);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  const messageRows = bag.message.match(/.{1,24}/gu) || [];
+  messageRows.slice(0, 2).forEach((line, index) =&gt; ctx.fillText(line, 40, 380 + index * 20));
+  ctx.fillText(&quot;何も選ばず配置済みの道具を押すと回収&quot;, 40, 420);
+
+}
+function position(event) { const rect = canvas.getBoundingClientRect(); return {x: (event.clientX-rect.left)*800/rect.width, y: (event.clientY-rect.top)*450/rect.height}; }
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);
+  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();
+  if (event.key === &quot;Enter&quot;) bag.check();
+  if (bag.state === &quot;clear&quot; &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { const p = position(event); bag.hover = {x: Math.floor((p.x-boardX)/cellSize), y: Math.floor((p.y-boardY)/cellSize)}; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const p = position(event);
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 745 &amp;&amp; p.y &gt;= 86 &amp;&amp; p.y &lt; 224) { const i = Math.floor((p.y-86)/49); if (p.y &lt; 86+i*49+40) bag.select(i); return; }
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 610 &amp;&amp; p.y &gt;= 365 &amp;&amp; p.y &lt;= 405) { bag.check(); return; }
+  bag.clickCell(Math.floor((p.x-boardX)/cellSize), Math.floor((p.y-boardY)/cellSize));
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre><h3>コードの意味</h3><p>L字と四角の組だけ、隣接の3点に2点を足します。</p><p>ほかの組は3点のままで、複数辺で接しても1組です。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>L字と四角が接すると組の点数が5と表示されます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>L字と四角が接する1組は何点ですか。</p><details><summary>練習の答え</summary><p>3+2で5点です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-bag-layout-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：複数の課題に挑戦する</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>目標を達成しながら強化を選びます。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 10 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  check() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state !== &quot;playing&quot;) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    const target = 17;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    const target = ([15, 17, 19][this.round - 1]);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.calculate().score &gt;= target) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (this.round &lt; 3) { this.state = &quot;choice&quot;; this.message = &quot;達成！ 1: 道具点+1 / 2: 隣接点+1&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      else { this.state = &quot;clear&quot;; this.message = &quot;全課題クリア！&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  choose(key) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.state !== &quot;choice&quot; || (key !== &quot;1&quot; &amp;&amp; key !== &quot;2&quot;)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (key === &quot;1&quot;) this.itemBonus++; else this.adjBonus++;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.round++; this.state = &quot;playing&quot;; this.message = &quot;次の目標に向けて配置を調整しよう&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  });</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  const result = bag.calculate(), target = 17;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const result = bag.calculate(), target = ([15, 17, 19][bag.round - 1]);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (bag.state === &quot;choice&quot;) { bag.choose(event.key); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+const columns = 6, rows = 4, cellSize = 64, boardX = 40, boardY = 95;
+class Item {
+  constructor(name, cells, color) { this.name = name; this.cells = cells; this.color = color; this.x = null; this.y = null; }
+  rotate() {
+    const turned = this.cells.map(([x, y]) =&gt; [-y, x]);
+    const minX = Math.min(...turned.map(cell =&gt; cell[0])), minY = Math.min(...turned.map(cell =&gt; cell[1]));
+    this.cells = turned.map(([x, y]) =&gt; [x - minX, y - minY]);
+  }
+  at(x = this.x, y = this.y) { return this.cells.map(([dx, dy]) =&gt; [x + dx, y + dy]); }
+}
+class Bag {
+  constructor() {
+    this.items = [new Item(&quot;L字&quot;, [[0,0],[0,1],[1,1]], &quot;#ed8e65&quot;), new Item(&quot;棒&quot;, [[0,0],[1,0],[2,0]], &quot;#75a8d8&quot;), new Item(&quot;四角&quot;, [[0,0],[1,0],[0,1],[1,1]], &quot;#e8c257&quot;)];
+    this.selected = null; this.hover = null; this.state = &quot;playing&quot;; this.message = &quot;道具を選び、盤面をクリックしよう&quot;;
+    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;
+  }
+  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }
+  occupied(x, y, ignore = null) {
+    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));
+  }
+  select(index) {
+    if (this.state !== &quot;playing&quot;) return;
+    const item = this.items[index];
+    if (!item || item.x !== null) { this.message = &quot;配置済みの道具は盤面から回収できます&quot;; return; }
+    this.selected = this.selected === item ? null : item;
+  }
+  rotate() { if (this.state === &quot;playing&quot; &amp;&amp; this.selected) this.selected.rotate(); }
+  canPlace(item, x, y) {
+    return item.at(x, y).every(([cx, cy]) =&gt; cx &gt;= 0 &amp;&amp; cx &lt; columns &amp;&amp; cy &gt;= 0 &amp;&amp; cy &lt; rows &amp;&amp; !this.blocked(cx, cy) &amp;&amp; !this.occupied(cx, cy, item));
+  }
+  clickCell(x, y) {
+    if (this.state !== &quot;playing&quot; || x &lt; 0 || x &gt;= columns || y &lt; 0 || y &gt;= rows) return;
+    if (this.selected) {
+      if (!this.canPlace(this.selected, x, y)) { this.message = &quot;はみ出し・重なり・使えないマスは置けません&quot;; return; }
+      this.selected.x = x; this.selected.y = y; this.selected = null; this.message = &quot;配置しました。道具を選んで次へ&quot;;
+    } else {
+      const item = this.occupied(x, y);
+      if (item) { item.x = null; item.y = null; this.selected = item; this.message = &quot;回収しました。Rで回転して置き直せます&quot;; }
+    }
+  }
+  adjacent(a, b) {
+    return a.at().some(([ax, ay]) =&gt; b.at().some(([bx, by]) =&gt; Math.abs(ax - bx) + Math.abs(ay - by) === 1));
+  }
+  calculate() {
+    const placed = this.items.filter(item =&gt; item.x !== null), pairs = [];
+    for (let i = 0; i &lt; placed.length; i++) for (let j = i + 1; j &lt; placed.length; j++) {
+      const a = placed[i], b = placed[j];
+      if (this.adjacent(a, b)) {
+        const extra = (a.name === &quot;L字&quot; &amp;&amp; b.name === &quot;四角&quot;) || (a.name === &quot;四角&quot; &amp;&amp; b.name === &quot;L字&quot;) ? 2 : 0;
+        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});
+      }
+    }
+    return {score: placed.length * (2 + this.itemBonus) + pairs.reduce((sum, pair) =&gt; sum + pair.points, 0), pairs};
+  }
+  check() {
+    if (this.state !== &quot;playing&quot;) return;
+    const target = 17;
+    if (this.calculate().score &gt;= target) {
+      this.state = &quot;clear&quot;; this.message = &quot;クリア！&quot;;
+    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;
+  }
+}
+let bag;
+function start() { bag = new Bag(); }
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#eef4f8&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;道具をつめるバッグ&quot;, 40, 40);
+  ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(&quot;道具を選ぶ → Rで回転 → 盤面に置く&quot;, 40, 70);
+  for (let y = 0; y &lt; rows; y++) for (let x = 0; x &lt; columns; x++) {
+    ctx.fillStyle = bag.blocked(x,y) ? &quot;#9ba7b1&quot; : &quot;#ffffff&quot;; ctx.fillRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+    ctx.strokeStyle = &quot;#8fa4b5&quot;; ctx.strokeRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+  }
+  for (const item of bag.items) if (item.x !== null) for (const [x,y] of item.at()) {
+    ctx.fillStyle = item.color; ctx.fillRect(boardX+x*cellSize+3, boardY+y*cellSize+3, cellSize-6, cellSize-6);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;14px sans-serif&quot;; ctx.fillText(item.name, boardX+x*cellSize+8, boardY+y*cellSize+35);
+  }
+  if (bag.selected &amp;&amp; bag.hover) {
+    ctx.globalAlpha = 0.5; ctx.fillStyle = bag.canPlace(bag.selected, bag.hover.x, bag.hover.y) ? &quot;#228b5d&quot; : &quot;#c64040&quot;;
+    for (const [x,y] of bag.selected.at(bag.hover.x, bag.hover.y)) if (x &gt;= 0 &amp;&amp; x &lt; columns &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; rows) ctx.fillRect(boardX+x*cellSize+5, boardY+y*cellSize+5, cellSize-10, cellSize-10);
+    ctx.globalAlpha = 1;
+  }
+  ctx.font = &quot;16px sans-serif&quot;;
+  bag.items.forEach((item, index) =&gt; {
+    const x = 460, y = 86 + index*49; ctx.fillStyle = bag.selected === item ? &quot;#f4d782&quot; : &quot;#ffffff&quot;; ctx.fillRect(x,y,285,40);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText((index+1) + &quot;：&quot; + item.name + (item.x === null ? &quot;（選ぶ）&quot; : &quot;（配置中）&quot;), x+12,y+26);
+    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }
+  });
+  const result = bag.calculate(), target = 17;
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);
+  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));
+  ctx.fillStyle = &quot;#246c4a&quot;; ctx.fillRect(460, 365, 150, 40); ctx.fillStyle = &quot;white&quot;; ctx.fillText(&quot;判定する&quot;, 493, 391);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  const messageRows = bag.message.match(/.{1,24}/gu) || [];
+  messageRows.slice(0, 2).forEach((line, index) =&gt; ctx.fillText(line, 40, 380 + index * 20));
+  ctx.fillText(&quot;何も選ばず配置済みの道具を押すと回収&quot;, 40, 420);
+
+}
+function position(event) { const rect = canvas.getBoundingClientRect(); return {x: (event.clientX-rect.left)*800/rect.width, y: (event.clientY-rect.top)*450/rect.height}; }
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);
+  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();
+  if (event.key === &quot;Enter&quot;) bag.check();
+  if (bag.state === &quot;clear&quot; &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { const p = position(event); bag.hover = {x: Math.floor((p.x-boardX)/cellSize), y: Math.floor((p.y-boardY)/cellSize)}; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const p = position(event);
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 745 &amp;&amp; p.y &gt;= 86 &amp;&amp; p.y &lt; 224) { const i = Math.floor((p.y-86)/49); if (p.y &lt; 86+i*49+40) bag.select(i); return; }
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 610 &amp;&amp; p.y &gt;= 365 &amp;&amp; p.y &lt;= 405) { bag.check(); return; }
+  bag.clickCell(Math.floor((p.x-boardX)/cellSize), Math.floor((p.y-boardY)/cellSize));
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+const columns = 6, rows = 4, cellSize = 64, boardX = 40, boardY = 95;
+class Item {
+  constructor(name, cells, color) { this.name = name; this.cells = cells; this.color = color; this.x = null; this.y = null; }
+  rotate() {
+    const turned = this.cells.map(([x, y]) =&gt; [-y, x]);
+    const minX = Math.min(...turned.map(cell =&gt; cell[0])), minY = Math.min(...turned.map(cell =&gt; cell[1]));
+    this.cells = turned.map(([x, y]) =&gt; [x - minX, y - minY]);
+  }
+  at(x = this.x, y = this.y) { return this.cells.map(([dx, dy]) =&gt; [x + dx, y + dy]); }
+}
+class Bag {
+  constructor() {
+    this.items = [new Item(&quot;L字&quot;, [[0,0],[0,1],[1,1]], &quot;#ed8e65&quot;), new Item(&quot;棒&quot;, [[0,0],[1,0],[2,0]], &quot;#75a8d8&quot;), new Item(&quot;四角&quot;, [[0,0],[1,0],[0,1],[1,1]], &quot;#e8c257&quot;)];
+    this.selected = null; this.hover = null; this.state = &quot;playing&quot;; this.message = &quot;道具を選び、盤面をクリックしよう&quot;;
+    this.round = 1; this.itemBonus = 0; this.adjBonus = 0;
+  }
+  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }
+  occupied(x, y, ignore = null) {
+    return this.items.find(item =&gt; item !== ignore &amp;&amp; item.x !== null &amp;&amp; item.at().some(([cx, cy]) =&gt; cx === x &amp;&amp; cy === y));
+  }
+  select(index) {
+    if (this.state !== &quot;playing&quot;) return;
+    const item = this.items[index];
+    if (!item || item.x !== null) { this.message = &quot;配置済みの道具は盤面から回収できます&quot;; return; }
+    this.selected = this.selected === item ? null : item;
+  }
+  rotate() { if (this.state === &quot;playing&quot; &amp;&amp; this.selected) this.selected.rotate(); }
+  canPlace(item, x, y) {
+    return item.at(x, y).every(([cx, cy]) =&gt; cx &gt;= 0 &amp;&amp; cx &lt; columns &amp;&amp; cy &gt;= 0 &amp;&amp; cy &lt; rows &amp;&amp; !this.blocked(cx, cy) &amp;&amp; !this.occupied(cx, cy, item));
+  }
+  clickCell(x, y) {
+    if (this.state !== &quot;playing&quot; || x &lt; 0 || x &gt;= columns || y &lt; 0 || y &gt;= rows) return;
+    if (this.selected) {
+      if (!this.canPlace(this.selected, x, y)) { this.message = &quot;はみ出し・重なり・使えないマスは置けません&quot;; return; }
+      this.selected.x = x; this.selected.y = y; this.selected = null; this.message = &quot;配置しました。道具を選んで次へ&quot;;
+    } else {
+      const item = this.occupied(x, y);
+      if (item) { item.x = null; item.y = null; this.selected = item; this.message = &quot;回収しました。Rで回転して置き直せます&quot;; }
+    }
+  }
+  adjacent(a, b) {
+    return a.at().some(([ax, ay]) =&gt; b.at().some(([bx, by]) =&gt; Math.abs(ax - bx) + Math.abs(ay - by) === 1));
+  }
+  calculate() {
+    const placed = this.items.filter(item =&gt; item.x !== null), pairs = [];
+    for (let i = 0; i &lt; placed.length; i++) for (let j = i + 1; j &lt; placed.length; j++) {
+      const a = placed[i], b = placed[j];
+      if (this.adjacent(a, b)) {
+        const extra = (a.name === &quot;L字&quot; &amp;&amp; b.name === &quot;四角&quot;) || (a.name === &quot;四角&quot; &amp;&amp; b.name === &quot;L字&quot;) ? 2 : 0;
+        pairs.push({a: a.name, b: b.name, points: 3 + extra + this.adjBonus});
+      }
+    }
+    return {score: placed.length * (2 + this.itemBonus) + pairs.reduce((sum, pair) =&gt; sum + pair.points, 0), pairs};
+  }
+  check() {
+    if (this.state !== &quot;playing&quot;) return;
+    const target = ([15, 17, 19][this.round - 1]);
+    if (this.calculate().score &gt;= target) {
+      if (this.round &lt; 3) { this.state = &quot;choice&quot;; this.message = &quot;達成！ 1: 道具点+1 / 2: 隣接点+1&quot;; }
+      else { this.state = &quot;clear&quot;; this.message = &quot;全課題クリア！&quot;; }
+    } else this.message = &quot;まだ目標に届きません。配置を変えてみよう&quot;;
+  }
+  choose(key) {
+    if (this.state !== &quot;choice&quot; || (key !== &quot;1&quot; &amp;&amp; key !== &quot;2&quot;)) return;
+    if (key === &quot;1&quot;) this.itemBonus++; else this.adjBonus++;
+    this.round++; this.state = &quot;playing&quot;; this.message = &quot;次の目標に向けて配置を調整しよう&quot;;
+  }
+}
+let bag;
+function start() { bag = new Bag(); }
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#eef4f8&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;道具をつめるバッグ&quot;, 40, 40);
+  ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(&quot;道具を選ぶ → Rで回転 → 盤面に置く&quot;, 40, 70);
+  for (let y = 0; y &lt; rows; y++) for (let x = 0; x &lt; columns; x++) {
+    ctx.fillStyle = bag.blocked(x,y) ? &quot;#9ba7b1&quot; : &quot;#ffffff&quot;; ctx.fillRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+    ctx.strokeStyle = &quot;#8fa4b5&quot;; ctx.strokeRect(boardX+x*cellSize, boardY+y*cellSize, cellSize, cellSize);
+  }
+  for (const item of bag.items) if (item.x !== null) for (const [x,y] of item.at()) {
+    ctx.fillStyle = item.color; ctx.fillRect(boardX+x*cellSize+3, boardY+y*cellSize+3, cellSize-6, cellSize-6);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;14px sans-serif&quot;; ctx.fillText(item.name, boardX+x*cellSize+8, boardY+y*cellSize+35);
+  }
+  if (bag.selected &amp;&amp; bag.hover) {
+    ctx.globalAlpha = 0.5; ctx.fillStyle = bag.canPlace(bag.selected, bag.hover.x, bag.hover.y) ? &quot;#228b5d&quot; : &quot;#c64040&quot;;
+    for (const [x,y] of bag.selected.at(bag.hover.x, bag.hover.y)) if (x &gt;= 0 &amp;&amp; x &lt; columns &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; rows) ctx.fillRect(boardX+x*cellSize+5, boardY+y*cellSize+5, cellSize-10, cellSize-10);
+    ctx.globalAlpha = 1;
+  }
+  ctx.font = &quot;16px sans-serif&quot;;
+  bag.items.forEach((item, index) =&gt; {
+    const x = 460, y = 86 + index*49; ctx.fillStyle = bag.selected === item ? &quot;#f4d782&quot; : &quot;#ffffff&quot;; ctx.fillRect(x,y,285,40);
+    ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText((index+1) + &quot;：&quot; + item.name + (item.x === null ? &quot;（選ぶ）&quot; : &quot;（配置中）&quot;), x+12,y+26);
+    for (const [dx,dy] of item.cells) { ctx.fillStyle = item.color; ctx.fillRect(x+225+dx*11,y+5+dy*11,10,10); }
+  });
+  const result = bag.calculate(), target = ([15, 17, 19][bag.round - 1]);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.fillText(&quot;得点 &quot; + result.score + &quot; / &quot; + target, 460, 255);
+  result.pairs.forEach((pair, i) =&gt; ctx.fillText(pair.a + &quot; と &quot; + pair.b + &quot;：+&quot; + pair.points, 460, 281 + i*22));
+  ctx.fillStyle = &quot;#246c4a&quot;; ctx.fillRect(460, 365, 150, 40); ctx.fillStyle = &quot;white&quot;; ctx.fillText(&quot;判定する&quot;, 493, 391);
+  ctx.fillStyle = &quot;#20364a&quot;; ctx.font = &quot;16px sans-serif&quot;;
+  const messageRows = bag.message.match(/.{1,24}/gu) || [];
+  messageRows.slice(0, 2).forEach((line, index) =&gt; ctx.fillText(line, 40, 380 + index * 20));
+  ctx.fillText(&quot;何も選ばず配置済みの道具を押すと回収&quot;, 40, 420);
+
+}
+function position(event) { const rect = canvas.getBoundingClientRect(); return {x: (event.clientX-rect.left)*800/rect.width, y: (event.clientY-rect.top)*450/rect.height}; }
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (bag.state === &quot;choice&quot;) { bag.choose(event.key); return; }
+  if (/^[1-3]$/.test(event.key)) bag.select(Number(event.key)-1);
+  if (event.key.toLowerCase() === &quot;r&quot;) bag.rotate();
+  if (event.key === &quot;Enter&quot;) bag.check();
+  if (bag.state === &quot;clear&quot; &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;mousemove&quot;, event =&gt; { const p = position(event); bag.hover = {x: Math.floor((p.x-boardX)/cellSize), y: Math.floor((p.y-boardY)/cellSize)}; });
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const p = position(event);
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 745 &amp;&amp; p.y &gt;= 86 &amp;&amp; p.y &lt; 224) { const i = Math.floor((p.y-86)/49); if (p.y &lt; 86+i*49+40) bag.select(i); return; }
+  if (p.x &gt;= 460 &amp;&amp; p.x &lt;= 610 &amp;&amp; p.y &gt;= 365 &amp;&amp; p.y &lt;= 405) { bag.check(); return; }
+  bag.clickCell(Math.floor((p.x-boardX)/cellSize), Math.floor((p.y-boardY)/cellSize));
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre><h3>コードの意味</h3><p>目標は15、17、19点です。達成後に1で道具点、2で隣接点をそれぞれ1増やします。</p><p>道具はそのまま残るので、次の課題では必要に応じて置き直せます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>最初の目標を達成すると強化の選択が表示されます。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>道具点を1増やすと1個あたり何点ですか。</p><details><summary>練習の答え</summary><p>基本の2点と合わせて3点です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-bag-layout-extensions-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></div></body></html>

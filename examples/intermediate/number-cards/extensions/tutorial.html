@@ -1,0 +1,489 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>数字カードで得点づくりの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：倍率を1増やす</a><a href="#lesson-section-3">ステップ 2：道具の順序を入れ替える</a><a href="#lesson-section-4">ステップ 3：次の目標と強化を選ぶ</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：数字カードで得点づくりの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：倍率を1増やす</a><a href="#lesson-section-3">ステップ 2：道具の順序を入れ替える</a><a href="#lesson-section-4">ステップ 3：次の目標と強化を選ぶ</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">数字カードで得点づくりの発展</li></ol></nav><h1>数字カードで得点づくりの発展</h1><p>数字カードを3枚選び、組合せと倍率で得点を作ります。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-intermediate-number-cards-extension.zip" download="example-intermediate-number-cards-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div><p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：倍率を1増やす</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>組合せの倍率に1を足す道具を作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  multiplier += bonus;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  return {sum, multiplier, name, points: sum * multiplier};</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;道具：倍率 +&quot; + bonus + &quot;&quot;, 28, 136);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hand.forEach((value, index) =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+let deck, hand, selected, score, plays, state, message, round, bonus, startBonus, reverse;
+function shuffle(values) {
+  for (let i = values.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function deal() {
+  while (hand.length &lt; 7 &amp;&amp; deck.length) hand.push(deck.pop());
+}
+function newRound() {
+  deck = shuffle(Array.from({length: 24}, (_, i) =&gt; Math.floor(i / 4) + 1));
+  hand = []; selected = []; score = startBonus; plays = 0; state = &quot;playing&quot;; message = &quot;3枚選んで決定しよう&quot;; deal();
+}
+function start() { round = 1; bonus = 1; startBonus = 0; reverse = false; newRound(); }
+function selectCard(index) {
+  if (state !== &quot;playing&quot; || index &lt; 0 || index &gt;= hand.length) return;
+  if (selected.includes(index)) selected = selected.filter(i =&gt; i !== index);
+  else if (selected.length &lt; 3) selected.push(index);
+  else message = &quot;選べるのは3枚までです&quot;;
+}
+function evaluateCards(values) {
+  const sorted = [...values].sort((a, b) =&gt; a - b);
+  const sum = values.reduce((total, value) =&gt; total + value, 0);
+  let multiplier = 1, name = &quot;そのほか&quot;;
+  if (sorted[0] === sorted[2]) { multiplier = 4; name = &quot;3つ同じ&quot;; }
+  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }
+  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }
+  return {sum, multiplier, name, points: sum * multiplier};
+}
+function submit() {
+  if (state !== &quot;playing&quot;) return;
+  if (selected.length !== 3) { message = &quot;3枚選んでください&quot;; return; }
+  const result = evaluateCards(selected.map(index =&gt; hand[index]));
+  score += result.points; plays++;
+  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();
+  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;
+  const target = 70;
+  if (score &gt;= target) {
+    state = &quot;clear&quot;; message = &quot;クリア！ Spaceで最初から&quot;;
+  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }
+}
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#ecf4e9&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);
+  ctx.font = &quot;17px sans-serif&quot;;
+  const target = 70;
+  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);
+  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);
+  hand.forEach((value, index) =&gt; {
+    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;
+    ctx.fillStyle = selected.includes(index) ? &quot;#f6cf68&quot; : &quot;#ffffff&quot;; ctx.fillRect(x, y, 90, 112);
+    ctx.strokeStyle = &quot;#365c4d&quot;; ctx.lineWidth = 2; ctx.strokeRect(x, y, 90, 112);
+    ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 38px sans-serif&quot;; ctx.fillText(String(value), x + 34, y + 65);
+    ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(String(index + 1), x + 10, y + 24);
+  });
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;1〜7 またはクリックで選択 / Enterで決定&quot;, 28, 323);
+  ctx.fillText(message, 28, 358);
+  ctx.fillText(&quot;カードの合計 × 組合せの倍率 = 得点&quot;, 28, 395);
+}
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);
+  if (event.key === &quot;Enter&quot;) submit();
+  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect(), x = (event.clientX - rect.left) * 800 / rect.width, y = (event.clientY - rect.top) * 450 / rect.height;
+  const index = Math.floor((x - 28) / 105);
+  if (index &gt;= 0 &amp;&amp; index &lt; hand.length &amp;&amp; x &gt;= 28 + index * 105 &amp;&amp; x &lt;= 118 + index * 105 &amp;&amp; y &gt;= 164 &amp;&amp; y &lt;= 286) selectCard(index);
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+let deck, hand, selected, score, plays, state, message, round, bonus, startBonus, reverse;
+function shuffle(values) {
+  for (let i = values.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function deal() {
+  while (hand.length &lt; 7 &amp;&amp; deck.length) hand.push(deck.pop());
+}
+function newRound() {
+  deck = shuffle(Array.from({length: 24}, (_, i) =&gt; Math.floor(i / 4) + 1));
+  hand = []; selected = []; score = startBonus; plays = 0; state = &quot;playing&quot;; message = &quot;3枚選んで決定しよう&quot;; deal();
+}
+function start() { round = 1; bonus = 1; startBonus = 0; reverse = false; newRound(); }
+function selectCard(index) {
+  if (state !== &quot;playing&quot; || index &lt; 0 || index &gt;= hand.length) return;
+  if (selected.includes(index)) selected = selected.filter(i =&gt; i !== index);
+  else if (selected.length &lt; 3) selected.push(index);
+  else message = &quot;選べるのは3枚までです&quot;;
+}
+function evaluateCards(values) {
+  const sorted = [...values].sort((a, b) =&gt; a - b);
+  const sum = values.reduce((total, value) =&gt; total + value, 0);
+  let multiplier = 1, name = &quot;そのほか&quot;;
+  if (sorted[0] === sorted[2]) { multiplier = 4; name = &quot;3つ同じ&quot;; }
+  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }
+  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }
+  multiplier += bonus;
+  return {sum, multiplier, name, points: sum * multiplier};
+}
+function submit() {
+  if (state !== &quot;playing&quot;) return;
+  if (selected.length !== 3) { message = &quot;3枚選んでください&quot;; return; }
+  const result = evaluateCards(selected.map(index =&gt; hand[index]));
+  score += result.points; plays++;
+  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();
+  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;
+  const target = 70;
+  if (score &gt;= target) {
+    state = &quot;clear&quot;; message = &quot;クリア！ Spaceで最初から&quot;;
+  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }
+}
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#ecf4e9&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);
+  ctx.font = &quot;17px sans-serif&quot;;
+  const target = 70;
+  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);
+  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);
+  ctx.fillText(&quot;道具：倍率 +&quot; + bonus + &quot;&quot;, 28, 136);
+  hand.forEach((value, index) =&gt; {
+    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;
+    ctx.fillStyle = selected.includes(index) ? &quot;#f6cf68&quot; : &quot;#ffffff&quot;; ctx.fillRect(x, y, 90, 112);
+    ctx.strokeStyle = &quot;#365c4d&quot;; ctx.lineWidth = 2; ctx.strokeRect(x, y, 90, 112);
+    ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 38px sans-serif&quot;; ctx.fillText(String(value), x + 34, y + 65);
+    ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(String(index + 1), x + 10, y + 24);
+  });
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;1〜7 またはクリックで選択 / Enterで決定&quot;, 28, 323);
+  ctx.fillText(message, 28, 358);
+  ctx.fillText(&quot;カードの合計 × 組合せの倍率 = 得点&quot;, 28, 395);
+}
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);
+  if (event.key === &quot;Enter&quot;) submit();
+  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect(), x = (event.clientX - rect.left) * 800 / rect.width, y = (event.clientY - rect.top) * 450 / rect.height;
+  const index = Math.floor((x - 28) / 105);
+  if (index &gt;= 0 &amp;&amp; index &lt; hand.length &amp;&amp; x &gt;= 28 + index * 105 &amp;&amp; x &lt;= 118 + index * 105 &amp;&amp; y &gt;= 164 &amp;&amp; y &lt;= 286) selectCard(index);
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre><h3>コードの意味</h3><p>bonusを倍率に足してから、カードの合計を掛けます。</p><p>2、2、5は倍率2に1を足し、9×3で27点です。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>組合せに応じた倍率へ1が足されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>倍率4に1を足すといくつですか。</p><details><summary>練習の答え</summary><p>5です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-intermediate-number-cards-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：道具の順序を入れ替える</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>倍率を2倍にする道具と順序の切り替えを作ります。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  multiplier += bonus;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  multiplier = reverse ? multiplier * 2 + bonus : (multiplier + bonus) * 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  return {sum, multiplier, name, points: sum * multiplier};</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;道具：倍率 +&quot; + bonus + &quot;&quot;, 28, 136);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;道具：&quot; + (reverse ? &quot;×2 → +&quot; + bonus : &quot;+&quot; + bonus + &quot; → ×2&quot;) + &quot;　Qで順序交換&quot;, 28, 136);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hand.forEach((value, index) =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;Enter&quot;) submit();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;playing&quot; &amp;&amp; event.key.toLowerCase() === &quot;q&quot;) reverse = !reverse;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+let deck, hand, selected, score, plays, state, message, round, bonus, startBonus, reverse;
+function shuffle(values) {
+  for (let i = values.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function deal() {
+  while (hand.length &lt; 7 &amp;&amp; deck.length) hand.push(deck.pop());
+}
+function newRound() {
+  deck = shuffle(Array.from({length: 24}, (_, i) =&gt; Math.floor(i / 4) + 1));
+  hand = []; selected = []; score = startBonus; plays = 0; state = &quot;playing&quot;; message = &quot;3枚選んで決定しよう&quot;; deal();
+}
+function start() { round = 1; bonus = 1; startBonus = 0; reverse = false; newRound(); }
+function selectCard(index) {
+  if (state !== &quot;playing&quot; || index &lt; 0 || index &gt;= hand.length) return;
+  if (selected.includes(index)) selected = selected.filter(i =&gt; i !== index);
+  else if (selected.length &lt; 3) selected.push(index);
+  else message = &quot;選べるのは3枚までです&quot;;
+}
+function evaluateCards(values) {
+  const sorted = [...values].sort((a, b) =&gt; a - b);
+  const sum = values.reduce((total, value) =&gt; total + value, 0);
+  let multiplier = 1, name = &quot;そのほか&quot;;
+  if (sorted[0] === sorted[2]) { multiplier = 4; name = &quot;3つ同じ&quot;; }
+  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }
+  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }
+  multiplier += bonus;
+  return {sum, multiplier, name, points: sum * multiplier};
+}
+function submit() {
+  if (state !== &quot;playing&quot;) return;
+  if (selected.length !== 3) { message = &quot;3枚選んでください&quot;; return; }
+  const result = evaluateCards(selected.map(index =&gt; hand[index]));
+  score += result.points; plays++;
+  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();
+  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;
+  const target = 70;
+  if (score &gt;= target) {
+    state = &quot;clear&quot;; message = &quot;クリア！ Spaceで最初から&quot;;
+  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }
+}
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#ecf4e9&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);
+  ctx.font = &quot;17px sans-serif&quot;;
+  const target = 70;
+  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);
+  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);
+  ctx.fillText(&quot;道具：倍率 +&quot; + bonus + &quot;&quot;, 28, 136);
+  hand.forEach((value, index) =&gt; {
+    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;
+    ctx.fillStyle = selected.includes(index) ? &quot;#f6cf68&quot; : &quot;#ffffff&quot;; ctx.fillRect(x, y, 90, 112);
+    ctx.strokeStyle = &quot;#365c4d&quot;; ctx.lineWidth = 2; ctx.strokeRect(x, y, 90, 112);
+    ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 38px sans-serif&quot;; ctx.fillText(String(value), x + 34, y + 65);
+    ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(String(index + 1), x + 10, y + 24);
+  });
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;1〜7 またはクリックで選択 / Enterで決定&quot;, 28, 323);
+  ctx.fillText(message, 28, 358);
+  ctx.fillText(&quot;カードの合計 × 組合せの倍率 = 得点&quot;, 28, 395);
+}
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);
+  if (event.key === &quot;Enter&quot;) submit();
+  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect(), x = (event.clientX - rect.left) * 800 / rect.width, y = (event.clientY - rect.top) * 450 / rect.height;
+  const index = Math.floor((x - 28) / 105);
+  if (index &gt;= 0 &amp;&amp; index &lt; hand.length &amp;&amp; x &gt;= 28 + index * 105 &amp;&amp; x &lt;= 118 + index * 105 &amp;&amp; y &gt;= 164 &amp;&amp; y &lt;= 286) selectCard(index);
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+let deck, hand, selected, score, plays, state, message, round, bonus, startBonus, reverse;
+function shuffle(values) {
+  for (let i = values.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function deal() {
+  while (hand.length &lt; 7 &amp;&amp; deck.length) hand.push(deck.pop());
+}
+function newRound() {
+  deck = shuffle(Array.from({length: 24}, (_, i) =&gt; Math.floor(i / 4) + 1));
+  hand = []; selected = []; score = startBonus; plays = 0; state = &quot;playing&quot;; message = &quot;3枚選んで決定しよう&quot;; deal();
+}
+function start() { round = 1; bonus = 1; startBonus = 0; reverse = false; newRound(); }
+function selectCard(index) {
+  if (state !== &quot;playing&quot; || index &lt; 0 || index &gt;= hand.length) return;
+  if (selected.includes(index)) selected = selected.filter(i =&gt; i !== index);
+  else if (selected.length &lt; 3) selected.push(index);
+  else message = &quot;選べるのは3枚までです&quot;;
+}
+function evaluateCards(values) {
+  const sorted = [...values].sort((a, b) =&gt; a - b);
+  const sum = values.reduce((total, value) =&gt; total + value, 0);
+  let multiplier = 1, name = &quot;そのほか&quot;;
+  if (sorted[0] === sorted[2]) { multiplier = 4; name = &quot;3つ同じ&quot;; }
+  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }
+  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }
+  multiplier = reverse ? multiplier * 2 + bonus : (multiplier + bonus) * 2;
+  return {sum, multiplier, name, points: sum * multiplier};
+}
+function submit() {
+  if (state !== &quot;playing&quot;) return;
+  if (selected.length !== 3) { message = &quot;3枚選んでください&quot;; return; }
+  const result = evaluateCards(selected.map(index =&gt; hand[index]));
+  score += result.points; plays++;
+  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();
+  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;
+  const target = 70;
+  if (score &gt;= target) {
+    state = &quot;clear&quot;; message = &quot;クリア！ Spaceで最初から&quot;;
+  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }
+}
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#ecf4e9&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);
+  ctx.font = &quot;17px sans-serif&quot;;
+  const target = 70;
+  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);
+  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);
+  ctx.fillText(&quot;道具：&quot; + (reverse ? &quot;×2 → +&quot; + bonus : &quot;+&quot; + bonus + &quot; → ×2&quot;) + &quot;　Qで順序交換&quot;, 28, 136);
+  hand.forEach((value, index) =&gt; {
+    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;
+    ctx.fillStyle = selected.includes(index) ? &quot;#f6cf68&quot; : &quot;#ffffff&quot;; ctx.fillRect(x, y, 90, 112);
+    ctx.strokeStyle = &quot;#365c4d&quot;; ctx.lineWidth = 2; ctx.strokeRect(x, y, 90, 112);
+    ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 38px sans-serif&quot;; ctx.fillText(String(value), x + 34, y + 65);
+    ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(String(index + 1), x + 10, y + 24);
+  });
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;1〜7 またはクリックで選択 / Enterで決定&quot;, 28, 323);
+  ctx.fillText(message, 28, 358);
+  ctx.fillText(&quot;カードの合計 × 組合せの倍率 = 得点&quot;, 28, 395);
+}
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);
+  if (event.key === &quot;Enter&quot;) submit();
+  if (state === &quot;playing&quot; &amp;&amp; event.key.toLowerCase() === &quot;q&quot;) reverse = !reverse;
+  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect(), x = (event.clientX - rect.left) * 800 / rect.width, y = (event.clientY - rect.top) * 450 / rect.height;
+  const index = Math.floor((x - 28) / 105);
+  if (index &gt;= 0 &amp;&amp; index &lt; hand.length &amp;&amp; x &gt;= 28 + index * 105 &amp;&amp; x &lt;= 118 + index * 105 &amp;&amp; y &gt;= 164 &amp;&amp; y &lt;= 286) selectCard(index);
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre><h3>コードの意味</h3><p>Qでreverseを切り替えます。足す道具と2倍の道具は順番に計算します。</p><p>2、2、5なら+1→×2は倍率6で54点、×2→+1は倍率5で45点です。</p><figure class="learning-diagram" id="diagram-number-cards-score" aria-labelledby="diagram-number-cards-score-title"><figcaption id="diagram-number-cards-score-title">図：カードの合計は同じ。道具の順番で倍率が変わる</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="カードの合計は同じ。道具の順番で倍率が変わる"><img src="../../../../tutorial/illustrations/astra/number-cards-score.svg" width="1200" height="1260" alt="3枚の2,2,5は合計9。2つ同じ数字なので基本倍率2、得点18。発展の道具で倍率に1を足してから2倍すると倍率6で54点。2倍してから1を足すと倍率5で45点。どちらも数字の合計9は変わらない。"></div><p>倍率2に1を足してから2倍にすると6、逆の順なら5です。合計9を掛けると、それぞれ54点と45点になります。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/number-cards-score.svg" target="_blank" rel="noopener" aria-label="図：カードの合計は同じ。道具の順番で倍率が変わるを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Qを押すと画面の道具の順序が切り替わります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>倍率2で×2の後に1を足すといくつですか。</p><details><summary>練習の答え</summary><p>5です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-intermediate-number-cards-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：次の目標と強化を選ぶ</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>3つのラウンドに挑戦します。</p><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 3 行・追加 10 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  const target = 70;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const target = ([70, 90, 110][round - 1]);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (score &gt;= target) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    state = &quot;clear&quot;; message = &quot;クリア！ Spaceで最初から&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (round &lt; 3) { state = &quot;choice&quot;; message = &quot;目標達成！ 1: 倍率+1を強化 / 2: 次の開始点+10&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else { state = &quot;clear&quot;; message = &quot;全ラウンドクリア！ Spaceで最初から&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function choose(key) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state !== &quot;choice&quot; || (key !== &quot;1&quot; &amp;&amp; key !== &quot;2&quot;)) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (key === &quot;1&quot;) bonus++; else startBonus += 10;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  round++; newRound();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {}</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;17px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  const target = 70;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const target = ([70, 90, 110][round - 1]);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;choice&quot;) { choose(event.key); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;Enter&quot;) submit();</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+let deck, hand, selected, score, plays, state, message, round, bonus, startBonus, reverse;
+function shuffle(values) {
+  for (let i = values.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function deal() {
+  while (hand.length &lt; 7 &amp;&amp; deck.length) hand.push(deck.pop());
+}
+function newRound() {
+  deck = shuffle(Array.from({length: 24}, (_, i) =&gt; Math.floor(i / 4) + 1));
+  hand = []; selected = []; score = startBonus; plays = 0; state = &quot;playing&quot;; message = &quot;3枚選んで決定しよう&quot;; deal();
+}
+function start() { round = 1; bonus = 1; startBonus = 0; reverse = false; newRound(); }
+function selectCard(index) {
+  if (state !== &quot;playing&quot; || index &lt; 0 || index &gt;= hand.length) return;
+  if (selected.includes(index)) selected = selected.filter(i =&gt; i !== index);
+  else if (selected.length &lt; 3) selected.push(index);
+  else message = &quot;選べるのは3枚までです&quot;;
+}
+function evaluateCards(values) {
+  const sorted = [...values].sort((a, b) =&gt; a - b);
+  const sum = values.reduce((total, value) =&gt; total + value, 0);
+  let multiplier = 1, name = &quot;そのほか&quot;;
+  if (sorted[0] === sorted[2]) { multiplier = 4; name = &quot;3つ同じ&quot;; }
+  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }
+  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }
+  multiplier = reverse ? multiplier * 2 + bonus : (multiplier + bonus) * 2;
+  return {sum, multiplier, name, points: sum * multiplier};
+}
+function submit() {
+  if (state !== &quot;playing&quot;) return;
+  if (selected.length !== 3) { message = &quot;3枚選んでください&quot;; return; }
+  const result = evaluateCards(selected.map(index =&gt; hand[index]));
+  score += result.points; plays++;
+  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();
+  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;
+  const target = 70;
+  if (score &gt;= target) {
+    state = &quot;clear&quot;; message = &quot;クリア！ Spaceで最初から&quot;;
+  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }
+}
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#ecf4e9&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);
+  ctx.font = &quot;17px sans-serif&quot;;
+  const target = 70;
+  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);
+  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);
+  ctx.fillText(&quot;道具：&quot; + (reverse ? &quot;×2 → +&quot; + bonus : &quot;+&quot; + bonus + &quot; → ×2&quot;) + &quot;　Qで順序交換&quot;, 28, 136);
+  hand.forEach((value, index) =&gt; {
+    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;
+    ctx.fillStyle = selected.includes(index) ? &quot;#f6cf68&quot; : &quot;#ffffff&quot;; ctx.fillRect(x, y, 90, 112);
+    ctx.strokeStyle = &quot;#365c4d&quot;; ctx.lineWidth = 2; ctx.strokeRect(x, y, 90, 112);
+    ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 38px sans-serif&quot;; ctx.fillText(String(value), x + 34, y + 65);
+    ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(String(index + 1), x + 10, y + 24);
+  });
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;1〜7 またはクリックで選択 / Enterで決定&quot;, 28, 323);
+  ctx.fillText(message, 28, 358);
+  ctx.fillText(&quot;カードの合計 × 組合せの倍率 = 得点&quot;, 28, 395);
+}
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);
+  if (event.key === &quot;Enter&quot;) submit();
+  if (state === &quot;playing&quot; &amp;&amp; event.key.toLowerCase() === &quot;q&quot;) reverse = !reverse;
+  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect(), x = (event.clientX - rect.left) * 800 / rect.width, y = (event.clientY - rect.top) * 450 / rect.height;
+  const index = Math.floor((x - 28) / 105);
+  if (index &gt;= 0 &amp;&amp; index &lt; hand.length &amp;&amp; x &gt;= 28 + index * 105 &amp;&amp; x &lt;= 118 + index * 105 &amp;&amp; y &gt;= 164 &amp;&amp; y &lt;= 286) selectCard(index);
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+const canvas = document.querySelector(&quot;#game-canvas&quot;), ctx = canvas.getContext(&quot;2d&quot;);
+let deck, hand, selected, score, plays, state, message, round, bonus, startBonus, reverse;
+function shuffle(values) {
+  for (let i = values.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function deal() {
+  while (hand.length &lt; 7 &amp;&amp; deck.length) hand.push(deck.pop());
+}
+function newRound() {
+  deck = shuffle(Array.from({length: 24}, (_, i) =&gt; Math.floor(i / 4) + 1));
+  hand = []; selected = []; score = startBonus; plays = 0; state = &quot;playing&quot;; message = &quot;3枚選んで決定しよう&quot;; deal();
+}
+function start() { round = 1; bonus = 1; startBonus = 0; reverse = false; newRound(); }
+function selectCard(index) {
+  if (state !== &quot;playing&quot; || index &lt; 0 || index &gt;= hand.length) return;
+  if (selected.includes(index)) selected = selected.filter(i =&gt; i !== index);
+  else if (selected.length &lt; 3) selected.push(index);
+  else message = &quot;選べるのは3枚までです&quot;;
+}
+function evaluateCards(values) {
+  const sorted = [...values].sort((a, b) =&gt; a - b);
+  const sum = values.reduce((total, value) =&gt; total + value, 0);
+  let multiplier = 1, name = &quot;そのほか&quot;;
+  if (sorted[0] === sorted[2]) { multiplier = 4; name = &quot;3つ同じ&quot;; }
+  else if (sorted[0] + 1 === sorted[1] &amp;&amp; sorted[1] + 1 === sorted[2]) { multiplier = 3; name = &quot;連番&quot;; }
+  else if (sorted[0] === sorted[1] || sorted[1] === sorted[2]) { multiplier = 2; name = &quot;2つ同じ&quot;; }
+  multiplier = reverse ? multiplier * 2 + bonus : (multiplier + bonus) * 2;
+  return {sum, multiplier, name, points: sum * multiplier};
+}
+function submit() {
+  if (state !== &quot;playing&quot;) return;
+  if (selected.length !== 3) { message = &quot;3枚選んでください&quot;; return; }
+  const result = evaluateCards(selected.map(index =&gt; hand[index]));
+  score += result.points; plays++;
+  hand = hand.filter((_, index) =&gt; !selected.includes(index)); selected = []; deal();
+  message = result.name + &quot;：&quot; + result.sum + &quot; × &quot; + result.multiplier + &quot; = &quot; + result.points + &quot;点&quot;;
+  const target = ([70, 90, 110][round - 1]);
+  if (score &gt;= target) {
+    if (round &lt; 3) { state = &quot;choice&quot;; message = &quot;目標達成！ 1: 倍率+1を強化 / 2: 次の開始点+10&quot;; }
+    else { state = &quot;clear&quot;; message = &quot;全ラウンドクリア！ Spaceで最初から&quot;; }
+  } else if (plays &gt;= 3) { state = &quot;over&quot;; message = &quot;あと一歩！ Spaceで最初から&quot;; }
+}
+function choose(key) {
+  if (state !== &quot;choice&quot; || (key !== &quot;1&quot; &amp;&amp; key !== &quot;2&quot;)) return;
+  if (key === &quot;1&quot;) bonus++; else startBonus += 10;
+  round++; newRound();
+}
+function update() {}
+function draw() {
+  ctx.clearRect(0, 0, 800, 450); ctx.fillStyle = &quot;#ecf4e9&quot;; ctx.fillRect(0, 0, 800, 450);
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 25px sans-serif&quot;; ctx.fillText(&quot;数字カードで得点づくり&quot;, 28, 42);
+  ctx.font = &quot;17px sans-serif&quot;;
+  const target = ([70, 90, 110][round - 1]);
+  ctx.fillText(&quot;得点 &quot; + score + &quot; / &quot; + target + &quot;　提出 &quot; + plays + &quot; / 3　山札 &quot; + deck.length, 28, 76);
+  ctx.fillText(&quot;3つ同じ ×4 / 連番 ×3 / 2つ同じ ×2 / そのほか ×1&quot;, 28, 106);
+  ctx.fillText(&quot;道具：&quot; + (reverse ? &quot;×2 → +&quot; + bonus : &quot;+&quot; + bonus + &quot; → ×2&quot;) + &quot;　Qで順序交換&quot;, 28, 136);
+  hand.forEach((value, index) =&gt; {
+    const x = 28 + index * 105, y = selected.includes(index) ? 164 : 174;
+    ctx.fillStyle = selected.includes(index) ? &quot;#f6cf68&quot; : &quot;#ffffff&quot;; ctx.fillRect(x, y, 90, 112);
+    ctx.strokeStyle = &quot;#365c4d&quot;; ctx.lineWidth = 2; ctx.strokeRect(x, y, 90, 112);
+    ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;bold 38px sans-serif&quot;; ctx.fillText(String(value), x + 34, y + 65);
+    ctx.font = &quot;16px sans-serif&quot;; ctx.fillText(String(index + 1), x + 10, y + 24);
+  });
+  ctx.fillStyle = &quot;#203c32&quot;; ctx.font = &quot;18px sans-serif&quot;;
+  ctx.fillText(&quot;1〜7 またはクリックで選択 / Enterで決定&quot;, 28, 323);
+  ctx.fillText(message, 28, 358);
+  ctx.fillText(&quot;カードの合計 × 組合せの倍率 = 得点&quot;, 28, 395);
+}
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+  if (state === &quot;choice&quot;) { choose(event.key); return; }
+  if (/^[1-7]$/.test(event.key)) selectCard(Number(event.key) - 1);
+  if (event.key === &quot;Enter&quot;) submit();
+  if (state === &quot;playing&quot; &amp;&amp; event.key.toLowerCase() === &quot;q&quot;) reverse = !reverse;
+  if ((state === &quot;clear&quot; || state === &quot;over&quot;) &amp;&amp; event.code === &quot;Space&quot;) { event.preventDefault(); start(); }
+});
+canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const rect = canvas.getBoundingClientRect(), x = (event.clientX - rect.left) * 800 / rect.width, y = (event.clientY - rect.top) * 450 / rect.height;
+  const index = Math.floor((x - 28) / 105);
+  if (index &gt;= 0 &amp;&amp; index &lt; hand.length &amp;&amp; x &gt;= 28 + index * 105 &amp;&amp; x &lt;= 118 + index * 105 &amp;&amp; y &gt;= 164 &amp;&amp; y &lt;= 286) selectCard(index);
+});
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+start(); gameLoop();
+</code></pre><h3>コードの意味</h3><p>目標は70、90、110です。達成後に1で足す道具を強化、2で次の開始点を10増やします。</p><p>次のラウンドでは山札と提出回数を作り直し、選んだ強化を引き継ぎます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>最初の目標に届くと強化の選択画面になります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>開始点を10増やした後は次の得点は何点からですか。</p><details><summary>練習の答え</summary><p>10点からです。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-intermediate-number-cards-extensions-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../tutorial.html">基本の教材へ戻る</a></p></main></div></body></html>

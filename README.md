@@ -34,8 +34,8 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 | [examples/index.html](examples/index.html) | 制作例の一覧。教材と完成版を開く |
 | [features/index.html](features/index.html) | メニューや保存など、共通機能の教材と見本 |
 | `examples/beginner/` | 初心者向けの7ゲーム |
-| `examples/intermediate/` | 中級者向けの11ゲーム |
-| `examples/advanced/` | 上級者向けの13ゲームと発展課題 |
+| `examples/intermediate/` | 中級者向けの12ゲーム |
+| `examples/advanced/` | 上級者向けの15ゲームと発展課題 |
 
 `template/` の3ファイルは [index.html](template/index.html)、[style.css](template/style.css)、[script.js](template/script.js) です。ゲームを作るときはひな型ZIPを展開し、できたフォルダーを作業用にします。まず作業用フォルダーの `script.js` の `draw()` に図形を描き、次に `update()` で位置を変えると、動きを確認できます。変更したら作業用フォルダーの `index.html` を再読み込みしてください。
 
@@ -69,7 +69,7 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [3択クイズ](examples/beginner/quiz/tutorial.html)：配列の問題を表示し、選択肢と正解を比べます。
 - [選択肢の冒険](examples/beginner/story/tutorial.html)：選択した番号で物語の場面と結末を変えます。
 
-中級者向けは、次の11本です。
+中級者向けは、次の12本です。
 
 - [ブロックくずし](examples/intermediate/breakout/tutorial.html)：ボールを当ててブロックを消します。
 - [シンプルなシューティング](examples/intermediate/shooting/tutorial.html)：弾を飛ばして敵を倒します。
@@ -86,7 +86,9 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 - [4文字ことば当て](examples/intermediate/word-guess/tutorial.html)：候補を見て4文字のことばを当てます。
 - [へんか探し](examples/intermediate/anomaly-check/tutorial.html)：基準の部屋と比べて違いを探します。
 
-上級者向けは、次の13本です。
+- [数字カードで得点づくり](examples/intermediate/number-cards/tutorial.html)：組合せと倍率で得点を作ります。
+
+上級者向けは、次の15本です。
 
 - [横スクロールのジャンプアクション](examples/advanced/platformer/tutorial.html)：地形を進み、ゴールを目指します。
 - [クリックで脱出ゲーム](examples/advanced/escape/tutorial.html)：番号の謎と持ち物を使って部屋から脱出します。
@@ -104,6 +106,9 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 
 - [フルーツ合体パズル](examples/advanced/fruit-merge/tutorial.html)：同じ数字のフルーツを合体させます。
 - [自動攻撃サバイバル](examples/advanced/survivor/tutorial.html)：移動しながら敵を避けて生き残ります。
+
+- [道具をつめるバッグ](examples/advanced/bag-layout/tutorial.html)：道具を回転して置き、辺の隣接を考えます。
+- [ベルトでつなぐ小さな工場](examples/advanced/conveyor-factory/tutorial.html)：材料を運んで加工し、出口へ届けます。
 
 [横スクロールゲームの発展課題](examples/advanced/platformer/extensions/tutorial.html)では、基本の6段階を終えた後に、「敵を踏んで倒す」「ダッシュする」「中間ポイントから再挑戦する」の3つを追加します。各課題に、目標、ヒント、具体的なコードの変更手順、動作の確かめ方と独立した見本があります。
 

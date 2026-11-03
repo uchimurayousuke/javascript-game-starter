@@ -27,15 +27,15 @@ test("5つのページからひな型ZIPをダウンロードでき、入口か�
 function directories(dir){return fs.readdirSync(dir,{withFileTypes:true}).filter(x=>x.isDirectory()).map(x=>path.join(dir,x.name)).sort();}
 function assetFiles(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(x=>x.isDirectory()?assetFiles(path.join(dir,x.name)):[path.join(dir,x.name)]).sort();}
 function normalized(file){return Buffer.from(fs.readFileSync(file,"utf8").replace(/\r\n?/g,"\n"),"utf8");}
-test("98教材は準備欄から各教材に合う開始コードと画像を取得できる",()=>{
+test("104教材は準備欄から各教材に合う開始コードと画像を取得できる",()=>{
  const pages=[];
  for(const category of ["examples","features"])for(const level of directories(path.join(root,category)))for(const item of directories(level)){
   const tutorial=path.join(item,"tutorial.html");if(!fs.existsSync(tutorial))continue;
   pages.push({category,level:path.basename(level),name:path.basename(item),item,page:tutorial,extension:false});
   if(category==="examples")pages.push({category,level:path.basename(level),name:path.basename(item),item,page:path.join(item,"extensions/tutorial.html"),extension:true});
  }
- assert.equal(pages.filter(p=>p.category==="examples"&&!p.extension).length,31);
- assert.equal(pages.filter(p=>p.extension).length,31);
+ assert.equal(pages.filter(p=>p.category==="examples"&&!p.extension).length,34);
+ assert.equal(pages.filter(p=>p.extension).length,34);
  assert.equal(pages.filter(p=>p.category==="features").length,36);
  const zipNames=new Set();let imageFeatures=0;
  for(const entry of pages){
@@ -57,7 +57,7 @@ test("98教材は準備欄から各教材に合う開始コードと画像を取
   assert.deepEqual([...files.keys()].sort(),[...expected.keys()].sort(),page);
   for(const [file,data] of expected)assert.deepEqual(files.get(file),data,`${page}: ${file}`);
  }
- assert.equal(imageFeatures,6);assert.equal(zipNames.size,38);
+ assert.equal(imageFeatures,6);assert.equal(zipNames.size,41);
 });
 test("コインキャッチ・文法・デバッグのZIPは見本の開始ファイルと一致する",()=>{
  const cases=[

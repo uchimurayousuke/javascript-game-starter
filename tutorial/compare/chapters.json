@@ -6435,5 +6435,437 @@
       "30秒になると大きな敵が1体現れます。"
     ],
     "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-tutorial-html-step1",
+    "title": "数字カードで得点づくりを作る",
+    "chapter": "ステップ 1：山札と手札を作る",
+    "page": "examples/intermediate/number-cards/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/number-cards/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：山札と手札を作る",
+    "expectations": [
+      "7枚の数字と山札の残り17枚が見えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-tutorial-html-step2",
+    "title": "数字カードで得点づくりを作る",
+    "chapter": "ステップ 2：3枚を選ぶ",
+    "page": "examples/intermediate/number-cards/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/number-cards/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：3枚を選ぶ",
+    "expectations": [
+      "1から7のキーかカードのクリックで色が変わります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-tutorial-html-step3",
+    "title": "数字カードで得点づくりを作る",
+    "chapter": "ステップ 3：組合せを判定する",
+    "page": "examples/intermediate/number-cards/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/number-cards/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：組合せを判定する",
+    "expectations": [
+      "画面に組合せごとの倍率が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-tutorial-html-step4",
+    "title": "数字カードで得点づくりを作る",
+    "chapter": "ステップ 4：選んだ3枚で得点する",
+    "page": "examples/intermediate/number-cards/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/intermediate/number-cards/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：選んだ3枚で得点する",
+    "expectations": [
+      "3枚選んでEnterを押すと点数と提出回数が増えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-tutorial-html-step5",
+    "title": "数字カードで得点づくりを作る",
+    "chapter": "ステップ 5：目標と再挑戦を作る",
+    "page": "examples/intermediate/number-cards/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/intermediate/number-cards/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：目標と再挑戦を作る",
+    "expectations": [
+      "70点以上ならクリア、3回使って未達なら終了します。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-extensions-tutorial-html-step1",
+    "title": "数字カードで得点づくりの発展",
+    "chapter": "ステップ 1：倍率を1増やす",
+    "page": "examples/intermediate/number-cards/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/intermediate/number-cards/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：倍率を1増やす",
+    "expectations": [
+      "組合せに応じた倍率へ1が足されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-extensions-tutorial-html-step2",
+    "title": "数字カードで得点づくりの発展",
+    "chapter": "ステップ 2：道具の順序を入れ替える",
+    "page": "examples/intermediate/number-cards/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/intermediate/number-cards/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：道具の順序を入れ替える",
+    "expectations": [
+      "Qを押すと画面の道具の順序が切り替わります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-intermediate-number-cards-extensions-tutorial-html-step3",
+    "title": "数字カードで得点づくりの発展",
+    "chapter": "ステップ 3：次の目標と強化を選ぶ",
+    "page": "examples/intermediate/number-cards/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/intermediate/number-cards/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/intermediate/number-cards/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：次の目標と強化を選ぶ",
+    "expectations": [
+      "最初の目標に届くと強化の選択画面になります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-tutorial-html-step1",
+    "title": "道具をつめるバッグを作る",
+    "chapter": "ステップ 1：道具と盤面を作る",
+    "page": "examples/advanced/bag-layout/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/bag-layout/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：道具と盤面を作る",
+    "expectations": [
+      "6列4行の盤面とL字、棒、四角の一覧が見えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-tutorial-html-step2",
+    "title": "道具をつめるバッグを作る",
+    "chapter": "ステップ 2：道具を選び回転する",
+    "page": "examples/advanced/bag-layout/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/bag-layout/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：道具を選び回転する",
+    "expectations": [
+      "道具をクリックまたは1〜3で選ぶと盤面に見本が出て、Rを押すと形が回ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-tutorial-html-step3",
+    "title": "道具をつめるバッグを作る",
+    "chapter": "ステップ 3：盤面に置いて回収する",
+    "page": "examples/advanced/bag-layout/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/bag-layout/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：盤面に置いて回収する",
+    "expectations": [
+      "道具を選んで盤面に置き、選択を外してから配置済みの道具を押すと回収できます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-tutorial-html-step4",
+    "title": "道具をつめるバッグを作る",
+    "chapter": "ステップ 4：辺で接する組を数える",
+    "page": "examples/advanced/bag-layout/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/bag-layout/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：辺で接する組を数える",
+    "expectations": [
+      "置いた道具の得点と、接する組ごとの点数が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-tutorial-html-step5",
+    "title": "道具をつめるバッグを作る",
+    "chapter": "ステップ 5：目標点を判定する",
+    "page": "examples/advanced/bag-layout/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/bag-layout/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：目標点を判定する",
+    "expectations": [
+      "判定ボタンかEnterで得点を確かめられます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-extensions-tutorial-html-step1",
+    "title": "道具をつめるバッグの発展",
+    "chapter": "ステップ 1：使えないマスを置く",
+    "page": "examples/advanced/bag-layout/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/bag-layout/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：使えないマスを置く",
+    "expectations": [
+      "右下が灰色になり、そこに道具を置けません。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-extensions-tutorial-html-step2",
+    "title": "道具をつめるバッグの発展",
+    "chapter": "ステップ 2：相性のよい組を作る",
+    "page": "examples/advanced/bag-layout/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/bag-layout/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：相性のよい組を作る",
+    "expectations": [
+      "L字と四角が接すると組の点数が5と表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-bag-layout-extensions-tutorial-html-step3",
+    "title": "道具をつめるバッグの発展",
+    "chapter": "ステップ 3：複数の課題に挑戦する",
+    "page": "examples/advanced/bag-layout/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/bag-layout/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/bag-layout/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：複数の課題に挑戦する",
+    "expectations": [
+      "最初の目標を達成すると強化の選択が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-tutorial-html-step1",
+    "title": "ベルトでつなぐ小さな工場を作る",
+    "chapter": "ステップ 1：工場の盤面を表示する",
+    "page": "examples/advanced/conveyor-factory/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/conveyor-factory/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：工場の盤面を表示する",
+    "expectations": [
+      "8列4行の盤面に入口、出口、丸い材料が見えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-tutorial-html-step2",
+    "title": "ベルトでつなぐ小さな工場を作る",
+    "chapter": "ステップ 2：設備を配置する",
+    "page": "examples/advanced/conveyor-factory/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/conveyor-factory/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：設備を配置する",
+    "expectations": [
+      "入口と出口の間をクリックして設備を置けます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-tutorial-html-step3",
+    "title": "ベルトでつなぐ小さな工場を作る",
+    "chapter": "ステップ 3：材料を1マスずつ運ぶ",
+    "page": "examples/advanced/conveyor-factory/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/conveyor-factory/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：材料を1マスずつ運ぶ",
+    "expectations": [
+      "ベルトを並べてNを押すと材料が1マスだけ進みます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-tutorial-html-step4",
+    "title": "ベルトでつなぐ小さな工場を作る",
+    "chapter": "ステップ 4：材料を加工する",
+    "page": "examples/advanced/conveyor-factory/tutorial.html",
+    "anchor": "lesson-section-5",
+    "game": "examples/advanced/conveyor-factory/step4/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/step4/script.js"
+    },
+    "stepLabel": "ステップ 4：材料を加工する",
+    "expectations": [
+      "ベルトの途中に加工機を置くと丸が四角になり、出口で納品されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-tutorial-html-step5",
+    "title": "ベルトでつなぐ小さな工場を作る",
+    "chapter": "ステップ 5：納品の目標を作る",
+    "page": "examples/advanced/conveyor-factory/tutorial.html",
+    "anchor": "lesson-section-6",
+    "game": "examples/advanced/conveyor-factory/step5/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/step5/script.js"
+    },
+    "stepLabel": "ステップ 5：納品の目標を作る",
+    "expectations": [
+      "入口と出口を結び、加工機を通した四角を3個納品します。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-extensions-tutorial-html-step1",
+    "title": "ベルトでつなぐ小さな工場の発展",
+    "chapter": "ステップ 1：ベルトの向きを変える",
+    "page": "examples/advanced/conveyor-factory/extensions/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "examples/advanced/conveyor-factory/extensions/step1/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/extensions/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：ベルトの向きを変える",
+    "expectations": [
+      "Rを押してから置くと矢印が変わります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-extensions-tutorial-html-step2",
+    "title": "ベルトでつなぐ小さな工場の発展",
+    "chapter": "ステップ 2：2種類の材料を加工する",
+    "page": "examples/advanced/conveyor-factory/extensions/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "examples/advanced/conveyor-factory/extensions/step2/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/extensions/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：2種類の材料を加工する",
+    "expectations": [
+      "加工機を通すと四角とひし形が順番に運ばれます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "examples-advanced-conveyor-factory-extensions-tutorial-html-step3",
+    "title": "ベルトでつなぐ小さな工場の発展",
+    "chapter": "ステップ 3：複数の納品目標を作る",
+    "page": "examples/advanced/conveyor-factory/extensions/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "examples/advanced/conveyor-factory/extensions/step3/index.html",
+    "sources": {
+      "index.html": "template/index.html",
+      "style.css": "template/style.css",
+      "script.js": "examples/advanced/conveyor-factory/extensions/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：複数の納品目標を作る",
+    "expectations": [
+      "3個納品すると次の課題へ進む案内が出ます。"
+    ],
+    "expectationSource": "保存後の確認"
   }
 ]

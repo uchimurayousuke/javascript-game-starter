@@ -38,7 +38,7 @@ test("中級3教材は各段階と完成版、手順・確認・練習を備え�
   }
  }
  const page=read("examples/index.html"), middle=page.split("<h2>中級者向け</h2>")[1].split("<h2>上級者向け</h2>")[0];
- assert.equal((middle.match(/<article>/g)||[]).length,11);
+ assert.equal((middle.match(/<article>/g)||[]).length,12);
  for(const game of ["snake","memory","shop"]){assert.ok(middle.includes(`href="intermediate/${game}/tutorial.html"`));assert.ok(read("README.md").includes(`examples/intermediate/${game}/tutorial.html`));}
 });
 
