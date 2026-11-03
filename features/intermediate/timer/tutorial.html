@@ -1,0 +1,199 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>制限時間と時間切れの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：開始から実時間10秒を数える</a><a href="#lesson-section-3">ステップ 2：残り0秒で時間切れにする</a><a href="#lesson-section-4">ステップ 3：Rで10秒からやり直す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：制限時間と時間切れ</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：開始から実時間10秒を数える</a><a href="#lesson-section-3">ステップ 2：残り0秒で時間切れにする</a><a href="#lesson-section-4">ステップ 3：Rで10秒からやり直す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">制限時間と時間切れ</li></ol></nav><h1>制限時間と時間切れを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><p><a href="../../../learning/setup.html">準備と操作</a>を参考に、ひな型の3ファイルを練習用フォルダーに用意します。この教材ではコピー先の <code>script.js</code> を編集し、保存後に同じフォルダーの <code>index.html</code> を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：開始から実時間10秒を数える</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>開始から実時間10秒を数える。</p><h3>予想してみる</h3><p>2.5秒後の残りは？</p><details><summary>答えを確認する</summary><p>10 - 2.5で7.5秒です。画面は切り上げて8秒と表示します。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 10 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let startedAt, remaining;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  startedAt = performance.now(); remaining = 10;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+function start() {
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let startedAt, remaining;
+
+function start() {
+  startedAt = performance.now(); remaining = 10;
+}
+
+function update() {
+  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);
+
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>開始時刻と現在時刻の差を秒に直し、10から引きます。0より小さくしません。</p><p><code>startedAt</code> は開始時刻、<code>remaining</code> は残り秒です。現在時刻との差を1000で割るとミリ秒から秒になります。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>残り10秒から減ります。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>表示に使う Math.ceil を Math.floor に変え、開始から2.5秒後には残り7秒と表示されることを確かめます。Math.ceilに戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-timer-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：残り0秒で時間切れにする</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>残り0秒で時間切れにする。</p><h3>予想してみる</h3><p>10秒ちょうどの残りは？</p><details><summary>答えを確認する</summary><p>0秒です。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 4 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let startedAt, remaining;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let startedAt, remaining; let state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  startedAt = performance.now(); remaining = 10;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  startedAt = performance.now(); remaining = 10; state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (remaining === 0) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;時間切れ&quot;, 230, 220);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let startedAt, remaining;
+
+function start() {
+  startedAt = performance.now(); remaining = 10;
+}
+
+function update() {
+  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);
+
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let startedAt, remaining; let state;
+
+function start() {
+  startedAt = performance.now(); remaining = 10; state = &quot;playing&quot;;
+}
+
+function update() {
+  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);
+  if (remaining === 0) state = &quot;over&quot;;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);
+  if (state === &quot;over&quot;) ctx.fillText(&quot;時間切れ&quot;, 230, 220);
+
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>残りが0のとき終了状態にします。別タブに移っても経過を含め、戻った次の更新で計算します。</p><p><code>remaining === 0</code> で <code>state</code> を <code>over</code> にします。<code>Math.ceil</code> は表示だけを切り上げます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>10秒で時間切れになり、表示は0秒です。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>終了判定の remaining === 0 を remaining &lt;= 3 に変え、残り3秒で時間切れになることを確かめます。remaining === 0に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-timer-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：Rで10秒からやり直す</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>Rで10秒からやり直す。</p><h3>予想してみる</h3><p>再開時の開始時刻は？</p><details><summary>答えを確認する</summary><p>Rを押したときの現在時刻です。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let startedAt, remaining; let state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  startedAt = performance.now(); remaining = 10; state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (remaining === 0) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;時間切れ&quot;, 230, 220);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;R: 最初から&quot;, 230, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let startedAt, remaining; let state;
+
+function start() {
+  startedAt = performance.now(); remaining = 10; state = &quot;playing&quot;;
+}
+
+function update() {
+  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);
+  if (remaining === 0) state = &quot;over&quot;;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);
+  if (state === &quot;over&quot;) ctx.fillText(&quot;時間切れ&quot;, 230, 220);
+
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let startedAt, remaining; let state;
+
+function start() {
+  startedAt = performance.now(); remaining = 10; state = &quot;playing&quot;;
+}
+
+function update() {
+  remaining = Math.max(0, 10 - (performance.now() - startedAt) / 1000);
+  if (remaining === 0) state = &quot;over&quot;;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + Math.ceil(remaining) + &quot;秒&quot;, 230, 160);
+  if (state === &quot;over&quot;) ctx.fillText(&quot;時間切れ&quot;, 230, 220);
+  ctx.fillText(&quot;R: 最初から&quot;, 230, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>Rで開始時刻を現在時刻にし、残りと状態を初期化します。OSのスリープ中に時間が進むかは環境によって異なります。</p><p>Rは <code>start()</code> を呼び、開始時刻を新しく記録します。毎回の <code>update()</code> は記録を変えず差を計算します。</p><span id="diagram-feature-timer"></span><figure class="learning-diagram" id="feature-timer" aria-labelledby="feature-timer-title"><figcaption id="feature-timer-title">図：10秒から経過時間を引いて残り時間を求める</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="10秒から経過時間を引いて残り時間を求める"><img src="../../../tutorial/illustrations/astra/feature-timer.svg" width="1200" height="850" alt="開始から2.5秒では残り7.5秒、画面には切り上げて8。経過10秒ちょうどで残り0、時間切れ。10秒を超えても残りは0。"></div><p>開始から2.5秒では残り7.5秒、画面には切り上げて8。経過10秒ちょうどで残り0、時間切れ。10秒を超えても残りは0。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-timer.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：10秒から経過時間を引いて残り時間を求める（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Rを押すと10秒から数え直します。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>Rを調べる event.key.toLowerCase() === &quot;r&quot; のrをnに変え、Nを押すと残り10秒に戻ることを確かめます。rに戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-timer-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>startedAt</code> を開始と再挑戦のときだけ記録し、<code>update()</code> では現在時刻との差から <code>remaining</code> を求めます。毎回開始時刻を記録し直すと減らないため、初期化と更新を分けます。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：R:最初から。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>

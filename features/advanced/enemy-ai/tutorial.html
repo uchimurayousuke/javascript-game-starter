@@ -1,0 +1,287 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>敵の巡回と追跡の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：Enemyクラスの敵がx160〜320を巡回</a><a href="#lesson-section-3">ステップ 2：左右キーでプレイヤーを動かす</a><a href="#lesson-section-4">ステップ 3：距離100以下なら追跡、離れたら巡回</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：敵の巡回と追跡</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：Enemyクラスの敵がx160〜320を巡回</a><a href="#lesson-section-3">ステップ 2：左右キーでプレイヤーを動かす</a><a href="#lesson-section-4">ステップ 3：距離100以下なら追跡、離れたら巡回</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">敵の巡回と追跡</li></ol></nav><h1>敵の巡回と追跡を作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><p><a href="../../../learning/setup.html">準備と操作</a>を参考に、ひな型の3ファイルを練習用フォルダーに用意します。この教材ではコピー先の <code>script.js</code> を編集し、保存後に同じフォルダーの <code>index.html</code> を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：Enemyクラスの敵がx160〜320を巡回</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>Enemyクラスの敵がx160〜320を巡回。</p><h3>予想してみる</h3><p>右端はどこ？</p><details><summary>答えを確認する</summary><p>横320です。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 20 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">class Enemy {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  update(playerX) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.x += this.direction * 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let enemy, playerX, left, right;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemy = new Enemy(); playerX = 480; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  enemy.update(playerX);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;敵が巡回&quot;, 150, 320);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+function start() {
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Enemy {
+  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }
+  update(playerX) {
+    this.x += this.direction * 2;
+    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }
+    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }
+  }
+}
+let enemy, playerX, left, right;
+
+function start() {
+  enemy = new Enemy(); playerX = 480; left = false; right = false;
+}
+
+function update() {
+  enemy.update(playerX);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);
+  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;敵が巡回&quot;, 150, 320);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>Enemyクラスは位置と向きを持ちます。160と320の端で向きを反転します。</p><p><code>Enemy</code> は敵の位置 <code>x</code> と向き <code>direction</code> を持ちます。<code>update()</code> が位置を進め、端で向きを変えます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>赤い敵が左右に巡回します。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>巡回の this.direction * 2 の2を1に変え、敵の巡回が遅くなることを確かめます。2に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-enemy-ai-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：左右キーでプレイヤーを動かす</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>左右キーでプレイヤーを動かす。</p><h3>予想してみる</h3><p>右キーを放すと？</p><details><summary>答えを確認する</summary><p>右への移動が止まります。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 15 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">class Enemy {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update(playerX) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.x += this.direction * 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let enemy, playerX, left, right;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  enemy = new Enemy(); playerX = 480; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = Math.max(20, Math.min(780, playerX + (Number(right) - Number(left)) * 3));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  enemy.update(playerX);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;敵が巡回&quot;, 150, 320);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;左右: 移動　R: 最初から&quot;, 150, 320);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) { left = true; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) { right = true; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) left = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) right = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Enemy {
+  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }
+  update(playerX) {
+    this.x += this.direction * 2;
+    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }
+    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }
+  }
+}
+let enemy, playerX, left, right;
+
+function start() {
+  enemy = new Enemy(); playerX = 480; left = false; right = false;
+}
+
+function update() {
+  enemy.update(playerX);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);
+  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;敵が巡回&quot;, 150, 320);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Enemy {
+  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }
+  update(playerX) {
+    this.x += this.direction * 2;
+    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }
+    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }
+  }
+}
+let enemy, playerX, left, right;
+
+function start() {
+  enemy = new Enemy(); playerX = 480; left = false; right = false;
+}
+
+function update() {
+  playerX = Math.max(20, Math.min(780, playerX + (Number(right) - Number(left)) * 3));
+  enemy.update(playerX);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);
+  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;左右: 移動　R: 最初から&quot;, 150, 320);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.repeat) return;
+  if (event.key === &quot;ArrowLeft&quot;) { left = true; }
+  if (event.key === &quot;ArrowRight&quot;) { right = true; }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>キーが押されているかを更新で読み、1回につき3進めます。画面を離れたら入力を消します。</p><p><code>playerX</code> はプレイヤーの横位置です。<code>left</code> と <code>right</code> の状態で毎回の移動を決めます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>左右キーで青いプレイヤーを動かせます。Rで戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>updateのプレイヤーの移動量 * 3 の3を6に変え、右キーで速く動くことを確かめます。3に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-enemy-ai-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：距離100以下なら追跡、離れたら巡回</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>距離100以下なら追跡、離れたら巡回。</p><h3>予想してみる</h3><p>距離が100ちょうどなら？</p><details><summary>答えを確認する</summary><p>100以下なので追跡します。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">class Enemy {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update(playerX) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (Math.abs(playerX - this.x) &lt;= 100) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.state = &quot;追跡&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      const difference = playerX - this.x;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      this.x += Math.sign(difference) * Math.min(2, Math.abs(difference));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    this.state = &quot;巡回&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.x &gt; 320) { this.x = Math.max(320, this.x - 2); this.direction = -1; return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (this.x &lt; 160) { this.x = Math.min(160, this.x + 2); this.direction = 1; return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    this.x += this.direction * 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let enemy, playerX, left, right;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  enemy = new Enemy(); playerX = 480; left = false; right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = Math.max(20, Math.min(780, playerX + (Number(right) - Number(left)) * 3));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  enemy.update(playerX);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;左右: 移動　R: 最初から&quot;, 150, 320);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) { left = true; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) { right = true; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keyup&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) left = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) right = false;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Enemy {
+  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }
+  update(playerX) {
+    this.x += this.direction * 2;
+    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }
+    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }
+  }
+}
+let enemy, playerX, left, right;
+
+function start() {
+  enemy = new Enemy(); playerX = 480; left = false; right = false;
+}
+
+function update() {
+  playerX = Math.max(20, Math.min(780, playerX + (Number(right) - Number(left)) * 3));
+  enemy.update(playerX);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);
+  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;左右: 移動　R: 最初から&quot;, 150, 320);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.repeat) return;
+  if (event.key === &quot;ArrowLeft&quot;) { left = true; }
+  if (event.key === &quot;ArrowRight&quot;) { right = true; }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+class Enemy {
+  constructor() { this.x = 160; this.direction = 1; this.state = &quot;巡回&quot;; }
+  update(playerX) {
+    if (Math.abs(playerX - this.x) &lt;= 100) {
+      this.state = &quot;追跡&quot;;
+      const difference = playerX - this.x;
+      this.x += Math.sign(difference) * Math.min(2, Math.abs(difference));
+      return;
+    }
+    this.state = &quot;巡回&quot;;
+    if (this.x &gt; 320) { this.x = Math.max(320, this.x - 2); this.direction = -1; return; }
+    if (this.x &lt; 160) { this.x = Math.min(160, this.x + 2); this.direction = 1; return; }
+    this.x += this.direction * 2;
+    if (this.x &gt;= 320) { this.x = 320; this.direction = -1; }
+    if (this.x &lt;= 160) { this.x = 160; this.direction = 1; }
+  }
+}
+let enemy, playerX, left, right;
+
+function start() {
+  enemy = new Enemy(); playerX = 480; left = false; right = false;
+}
+
+function update() {
+  playerX = Math.max(20, Math.min(780, playerX + (Number(right) - Number(left)) * 3));
+  enemy.update(playerX);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;敵: &quot; + enemy.state, 180, 100);
+  ctx.fillStyle = &quot;#d85e59&quot;; ctx.fillRect(enemy.x - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(playerX - 15, 200, 30, 30);
+  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;左右: 移動　R: 最初から&quot;, 150, 320);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;) event.preventDefault();
+  if (event.repeat) return;
+  if (event.key === &quot;ArrowLeft&quot;) { left = true; }
+  if (event.key === &quot;ArrowRight&quot;) { right = true; }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+window.addEventListener(&quot;keyup&quot;, event =&gt; {
+  if (event.key === &quot;ArrowLeft&quot;) left = false;
+  if (event.key === &quot;ArrowRight&quot;) right = false;
+});
+window.addEventListener(&quot;blur&quot;, () =&gt; { left = false; right = false; });
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>横の差の絶対値を比べ、100以下ならプレイヤー方向へ最大2動きます。残りが1なら1だけ動くので、相手を通り越しません。それ以外は巡回に戻ります。追跡で巡回範囲の外へ出た場合は、近い端まで1回に2ずつ戻ってから巡回します。</p><p><code>Math.abs(playerX - this.x)</code> が横の距離です。例えば <code>100 - 200</code> は-100ですが、<code>Math.abs(-100)</code> は100です。追跡中は <code>Math.min(2, Math.abs(difference))</code> で残り距離を超えない移動量を選びます。</p><span id="diagram-feature-enemy-ai"></span><figure class="learning-diagram" id="feature-enemy-ai" aria-labelledby="feature-enemy-ai-title"><figcaption id="feature-enemy-ai-title">図：横の距離100なら追跡。101なら巡回する</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="横の距離100なら追跡。101なら巡回する"><img src="../../../tutorial/illustrations/astra/feature-enemy-ai.svg" width="1200" height="900" alt="敵x200を説明例として、プレイヤーx300なら距離100で追跡、x301なら距離101で巡回。巡回範囲は160から320、速度は更新ごと2。"></div><p>敵x200を説明例として、プレイヤーx300なら距離100で追跡、x301なら距離101で巡回。巡回範囲は160から320、速度は更新ごと2。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-enemy-ai.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：横の距離100なら追跡。101なら巡回する（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>敵との横の距離が100以下になると追跡し、離れると巡回に戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>Math.abs(playerX - this.x) &lt;= 100 の100を50に変え、より近づいたときに追跡へ切り替わることを確かめます。100に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-enemy-ai-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>new Enemy()</code> で敵を作り、更新時に <code>enemy.update(player.x)</code> のようにプレイヤー位置を渡します。敵とプレイヤーは同じ世界座標で距離を比べます。範囲外からは巡回端まで少しずつ戻します。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：左右:移動、R:最初から。</p><p>敵の追跡を自作へ移すときは、巡回範囲の外からも急に移さず、端に少しずつ戻す処理を合わせて使います。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>

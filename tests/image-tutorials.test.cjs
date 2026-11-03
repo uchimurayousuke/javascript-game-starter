@@ -60,8 +60,8 @@ test("PNGの寸法と各見本にある独立コピーを確かめる",()=>{
  for(const [slug,names] of Object.entries(uses))for(const stage of ['step1','step2','step3','complete'])for(const name of names){const src=fs.readFileSync(path.join(root,'features/assets/images',name)),copy=fs.readFileSync(path.join(root,'features',slug,stage,'assets',name));assert.deepEqual(copy,src,`${slug}/${stage}/${name}`);}
 });
 
-test("共通機能一覧は初心者7・中級10・上級7を紹介する",()=>{
- const page=read('features/index.html'),groups=['初心者向け','中級者向け','上級者向け'];for(let i=0;i<groups.length;i++){const start=page.indexOf(`<h2>${groups[i]}</h2>`),end=i<2?page.indexOf(`<h2>${groups[i+1]}</h2>`):page.indexOf('</main>');assert.ok(start>=0&&end>start);assert.equal((page.slice(start,end).match(/<article>/g)||[]).length,[7,10,7][i]);}for(const [level,name] of examples){assert.ok(page.includes(`${level}/${name}/tutorial.html`));assert.ok(page.includes(`${level}/${name}/complete/index.html`));}assert.ok(read('README.md').includes('24作例'));
+test("共通機能一覧は初心者11・中級14・上級11を紹介する",()=>{
+ const page=read('features/index.html'),groups=['初心者向け','中級者向け','上級者向け'];for(let i=0;i<groups.length;i++){const start=page.indexOf(`<h2>${groups[i]}</h2>`),end=i<2?page.indexOf(`<h2>${groups[i+1]}</h2>`):page.indexOf('</main>');assert.ok(start>=0&&end>start);assert.equal((page.slice(start,end).match(/<article>/g)||[]).length,[11,14,11][i]);}for(const [level,name] of examples){assert.ok(page.includes(`${level}/${name}/tutorial.html`));assert.ok(page.includes(`${level}/${name}/complete/index.html`));}assert.ok(read('README.md').includes('36作例'));
 });
 
 test("各教材の図は最終段階にあり、代替テキストと正しい寸法を持つ",()=>{

@@ -1,0 +1,219 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>会話と文字送りの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：最初の文章を表示</a><a href="#lesson-section-3">ステップ 2：Spaceで3つの文章を切り替える</a><a href="#lesson-section-4">ステップ 3：100msごとに1文字、Spaceで全文表示または次へ</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：会話と文字送り</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：最初の文章を表示</a><a href="#lesson-section-3">ステップ 2：Spaceで3つの文章を切り替える</a><a href="#lesson-section-4">ステップ 3：100msごとに1文字、Spaceで全文表示または次へ</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">会話と文字送り</li></ol></nav><h1>会話と文字送りを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><p><a href="../../../learning/setup.html">準備と操作</a>を参考に、ひな型の3ファイルを練習用フォルダーに用意します。この教材ではコピー先の <code>script.js</code> を編集し、保存後に同じフォルダーの <code>index.html</code> を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：最初の文章を表示</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>最初の文章を表示。</p><h3>予想してみる</h3><p>最初の番号は？</p><details><summary>答えを確認する</summary><p>配列は0から始まるので0です。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let index;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  index = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(messages[index], 180, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;会話を表示&quot;, 180, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+function start() {
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];
+let index;
+
+function start() {
+  index = 0;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(messages[index], 180, 180);
+  ctx.fillText(&quot;会話を表示&quot;, 180, 300);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>messagesに文章を並べ、番号0から取り出します。</p><p><code>messages</code> は文章の配列、<code>index</code> は今の文章の番号です。<code>messages[index]</code> で一つを表示します。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>「こんにちは」が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>messagesの最初の「こんにちは」を「おはよう」に変え、表示を確かめます。「こんにちは」に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-dialog-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：Spaceで3つの文章を切り替える</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>Spaceで3つの文章を切り替える。</p><h3>予想してみる</h3><p>最後でSpaceを押すと？</p><details><summary>答えを確認する</summary><p>最後の文章のままです。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 7 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let index;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  index = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(messages[index], 180, 180);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;会話を表示&quot;, 180, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;Space: 次へ&quot;, 180, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) { index = Math.min(index + 1, messages.length - 1); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];
+let index;
+
+function start() {
+  index = 0;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(messages[index], 180, 180);
+  ctx.fillText(&quot;会話を表示&quot;, 180, 300);
+}
+
+
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];
+let index;
+
+function start() {
+  index = 0;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(messages[index], 180, 180);
+  ctx.fillText(&quot;Space: 次へ&quot;, 180, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.code === &quot;Space&quot;) event.preventDefault();
+  if (event.repeat) return;
+  if (event.code === &quot;Space&quot;) { index = Math.min(index + 1, messages.length - 1); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>番号を1ずつ進め、最後の番号を超えないようにします。</p><p><code>index + 1</code> で次の番号を作ります。<code>Math.min</code> は最後を超えない番号を選びます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Spaceで「気をつけて」「またね」の順に進みます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>messagesの2番目の「気をつけて」を「ありがとう」に変え、Spaceで次へ進むと「ありがとう」が出ることを確かめます。「気をつけて」に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-dialog-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：100msごとに1文字、Spaceで全文表示または次へ</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>100msごとに1文字、Spaceで全文表示または次へ。</p><h3>予想してみる</h3><p>途中でSpaceを押した直後は？</p><details><summary>答えを確認する</summary><p>今の文章を最後まで表示します。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 6 行・追加 16 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let index;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let index; let shown, lastAt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  index = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  index = 0; shown = 0; lastAt = performance.now();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const now = performance.now();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  const count = Math.floor((now - lastAt) / 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (count &gt; 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    shown = Math.min(messages[index].length, shown + count);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    lastAt += count * 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(messages[index], 180, 180);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;Space: 次へ&quot;, 180, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(messages[index].slice(0, shown), 180, 180);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;Space: 文字送り　R: 最初から&quot;, 180, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;Space&quot;) event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.code === &quot;Space&quot;) { index = Math.min(index + 1, messages.length - 1); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (shown &lt; messages[index].length) shown = messages[index].length;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    else if (index &lt; messages.length - 1) { index += 1; shown = 0; lastAt = performance.now(); }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];
+let index;
+
+function start() {
+  index = 0;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(messages[index], 180, 180);
+  ctx.fillText(&quot;Space: 次へ&quot;, 180, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.code === &quot;Space&quot;) event.preventDefault();
+  if (event.repeat) return;
+  if (event.code === &quot;Space&quot;) { index = Math.min(index + 1, messages.length - 1); }
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const messages = [&quot;こんにちは&quot;, &quot;気をつけて&quot;, &quot;またね&quot;];
+let index; let shown, lastAt;
+
+function start() {
+  index = 0; shown = 0; lastAt = performance.now();
+}
+
+function update() {
+  const now = performance.now();
+  const count = Math.floor((now - lastAt) / 100);
+  if (count &gt; 0) {
+    shown = Math.min(messages[index].length, shown + count);
+    lastAt += count * 100;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(messages[index].slice(0, shown), 180, 180);
+  ctx.fillText(&quot;Space: 文字送り　R: 最初から&quot;, 180, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.code === &quot;Space&quot;) event.preventDefault();
+  if (event.repeat) return;
+  if (event.code === &quot;Space&quot;) {
+    if (shown &lt; messages[index].length) shown = messages[index].length;
+    else if (index &lt; messages.length - 1) { index += 1; shown = 0; lastAt = performance.now(); }
+
+  }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>経過100ミリ秒につき1文字増やします。表示途中と全文表示後でSpaceの働きを分けます。</p><p><code>shown</code> は表示中の文字数、<code>lastAt</code> は最後に文字数を進めた時刻です。<code>slice(0, shown)</code> で先頭からその数だけを表示します。</p><span id="diagram-feature-dialog"></span><figure class="learning-diagram" id="feature-dialog" aria-labelledby="feature-dialog-title"><figcaption id="feature-dialog-title">図：文字の途中で押す？ 全部出てから押す？</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="文字の途中で押す？ 全部出てから押す？"><img src="../../../tutorial/illustrations/astra/feature-dialog.svg" width="1200" height="870" alt="最初の文章こんにちはは5文字。100msごとに1文字で200ms後はこん。途中のSpaceでこんにちはを全部出し、もう一度Spaceを押すと次の文章気をつけての文字送りを始める。"></div><p>最初の文章こんにちはは5文字。100msごとに1文字で200ms後はこん。途中のSpaceでこんにちはを全部出し、もう一度Spaceを押すと次の文章気をつけての文字送りを始める。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-dialog.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：文字の途中で押す？ 全部出てから押す？（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>少し待つと文字が増えます。途中でSpaceを押すと全文、その次で次の文章です。Rで最初に戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>次の文章へ進む処理の shown = 0 を shown = 1 に変えます。全文を表示してから次へ進むと、次の文章の最初の1文字が見えることを確かめ、0に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-dialog-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>messages</code>、<code>index</code>、<code>shown</code>、<code>lastAt</code> を会話の状態として持ちます。<code>update()</code> に文字数の更新、<code>draw()</code> に表示を入れ、会話中の進む操作で全文表示と次の文章を切り替えます。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：Space:文字送り、R:最初から。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>

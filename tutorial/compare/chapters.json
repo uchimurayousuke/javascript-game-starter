@@ -5211,5 +5211,653 @@
       "今度は3回落とし「ゲームオーバー」を確認します。こちらも Space キーで再挑戦でき、何度繰り返しても動きが速くならないことを確認します。"
     ],
     "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-score-combo-tutorial-html-step1",
+    "title": "得点とコンボ",
+    "chapter": "ステップ 1：スペースを押すたび得点10",
+    "page": "features/beginner/score-combo/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/score-combo/step1/index.html",
+    "sources": {
+      "index.html": "features/beginner/score-combo/step1/index.html",
+      "style.css": "features/beginner/score-combo/step1/style.css",
+      "script.js": "features/beginner/score-combo/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：スペースを押すたび得点10",
+    "expectations": [
+      "Spaceを2回押すと得点20です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-score-combo-tutorial-html-step2",
+    "title": "得点とコンボ",
+    "chapter": "ステップ 2：連続で成功するとコンボ倍率を増やす",
+    "page": "features/beginner/score-combo/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/score-combo/step2/index.html",
+    "sources": {
+      "index.html": "features/beginner/score-combo/step2/index.html",
+      "style.css": "features/beginner/score-combo/step2/style.css",
+      "script.js": "features/beginner/score-combo/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：連続で成功するとコンボ倍率を増やす",
+    "expectations": [
+      "Spaceを2回押すとコンボ2、得点30です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-score-combo-tutorial-html-step3",
+    "title": "得点とコンボ",
+    "chapter": "ステップ 3：Fでコンボを切り、Rでやり直す",
+    "page": "features/beginner/score-combo/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/score-combo/step3/index.html",
+    "sources": {
+      "index.html": "features/beginner/score-combo/step3/index.html",
+      "style.css": "features/beginner/score-combo/step3/style.css",
+      "script.js": "features/beginner/score-combo/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：Fでコンボを切り、Rでやり直す",
+    "expectations": [
+      "Spaceを2回、F、Spaceの順に押すと得点40、コンボ1です。Rで0に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-lives-tutorial-html-step1",
+    "title": "残り回数とゲームオーバー",
+    "chapter": "ステップ 1：残り3回から失敗で1減らす",
+    "page": "features/beginner/lives/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/lives/step1/index.html",
+    "sources": {
+      "index.html": "features/beginner/lives/step1/index.html",
+      "style.css": "features/beginner/lives/step1/style.css",
+      "script.js": "features/beginner/lives/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：残り3回から失敗で1減らす",
+    "expectations": [
+      "Xを1回押すと残り2です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-lives-tutorial-html-step2",
+    "title": "残り回数とゲームオーバー",
+    "chapter": "ステップ 2：0になったら終了し、Rでやり直す",
+    "page": "features/beginner/lives/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/lives/step2/index.html",
+    "sources": {
+      "index.html": "features/beginner/lives/step2/index.html",
+      "style.css": "features/beginner/lives/step2/style.css",
+      "script.js": "features/beginner/lives/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：0になったら終了し、Rでやり直す",
+    "expectations": [
+      "Xを3回押すとゲームオーバーです。Rで残り3に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-lives-tutorial-html-step3",
+    "title": "残り回数とゲームオーバー",
+    "chapter": "ステップ 3：Hで残り回数を1回復、最大3",
+    "page": "features/beginner/lives/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/lives/step3/index.html",
+    "sources": {
+      "index.html": "features/beginner/lives/step3/index.html",
+      "style.css": "features/beginner/lives/step3/style.css",
+      "script.js": "features/beginner/lives/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：Hで残り回数を1回復、最大3",
+    "expectations": [
+      "Xの後にHで3に戻ります。3のときHを押しても増えません。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-dialog-tutorial-html-step1",
+    "title": "会話と文字送り",
+    "chapter": "ステップ 1：最初の文章を表示",
+    "page": "features/beginner/dialog/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/dialog/step1/index.html",
+    "sources": {
+      "index.html": "features/beginner/dialog/step1/index.html",
+      "style.css": "features/beginner/dialog/step1/style.css",
+      "script.js": "features/beginner/dialog/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：最初の文章を表示",
+    "expectations": [
+      "「こんにちは」が表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-dialog-tutorial-html-step2",
+    "title": "会話と文字送り",
+    "chapter": "ステップ 2：Spaceで3つの文章を切り替える",
+    "page": "features/beginner/dialog/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/dialog/step2/index.html",
+    "sources": {
+      "index.html": "features/beginner/dialog/step2/index.html",
+      "style.css": "features/beginner/dialog/step2/style.css",
+      "script.js": "features/beginner/dialog/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：Spaceで3つの文章を切り替える",
+    "expectations": [
+      "Spaceで「気をつけて」「またね」の順に進みます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-dialog-tutorial-html-step3",
+    "title": "会話と文字送り",
+    "chapter": "ステップ 3：100msごとに1文字、Spaceで全文表示または次へ",
+    "page": "features/beginner/dialog/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/dialog/step3/index.html",
+    "sources": {
+      "index.html": "features/beginner/dialog/step3/index.html",
+      "style.css": "features/beginner/dialog/step3/style.css",
+      "script.js": "features/beginner/dialog/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：100msごとに1文字、Spaceで全文表示または次へ",
+    "expectations": [
+      "少し待つと文字が増えます。途中でSpaceを押すと全文、その次で次の文章です。Rで最初に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-input-edges-tutorial-html-step1",
+    "title": "1回押しと長押し",
+    "chapter": "ステップ 1：Spaceを押し始めたときだけ1回数える",
+    "page": "features/beginner/input-edges/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/beginner/input-edges/step1/index.html",
+    "sources": {
+      "index.html": "features/beginner/input-edges/step1/index.html",
+      "style.css": "features/beginner/input-edges/step1/style.css",
+      "script.js": "features/beginner/input-edges/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：Spaceを押し始めたときだけ1回数える",
+    "expectations": [
+      "Spaceを押し続けても数は1です。放してもう一度押すと2です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-input-edges-tutorial-html-step2",
+    "title": "1回押しと長押し",
+    "chapter": "ステップ 2：左右キーを押している間だけ毎更新3動く",
+    "page": "features/beginner/input-edges/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/beginner/input-edges/step2/index.html",
+    "sources": {
+      "index.html": "features/beginner/input-edges/step2/index.html",
+      "style.css": "features/beginner/input-edges/step2/style.css",
+      "script.js": "features/beginner/input-edges/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：左右キーを押している間だけ毎更新3動く",
+    "expectations": [
+      "右キーを押している間は動き、放すと止まります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-beginner-input-edges-tutorial-html-step3",
+    "title": "1回押しと長押し",
+    "chapter": "ステップ 3：キーを離す・画面から離れる・Rで入力を解除",
+    "page": "features/beginner/input-edges/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/beginner/input-edges/step3/index.html",
+    "sources": {
+      "index.html": "features/beginner/input-edges/step3/index.html",
+      "style.css": "features/beginner/input-edges/step3/style.css",
+      "script.js": "features/beginner/input-edges/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：キーを離す・画面から離れる・Rで入力を解除",
+    "expectations": [
+      "右を押したまま別のウィンドウへ移り戻ると止まります。Rで中央と0に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-timer-tutorial-html-step1",
+    "title": "制限時間と時間切れ",
+    "chapter": "ステップ 1：開始から実時間10秒を数える",
+    "page": "features/intermediate/timer/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/timer/step1/index.html",
+    "sources": {
+      "index.html": "features/intermediate/timer/step1/index.html",
+      "style.css": "features/intermediate/timer/step1/style.css",
+      "script.js": "features/intermediate/timer/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：開始から実時間10秒を数える",
+    "expectations": [
+      "残り10秒から減ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-timer-tutorial-html-step2",
+    "title": "制限時間と時間切れ",
+    "chapter": "ステップ 2：残り0秒で時間切れにする",
+    "page": "features/intermediate/timer/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/timer/step2/index.html",
+    "sources": {
+      "index.html": "features/intermediate/timer/step2/index.html",
+      "style.css": "features/intermediate/timer/step2/style.css",
+      "script.js": "features/intermediate/timer/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：残り0秒で時間切れにする",
+    "expectations": [
+      "10秒で時間切れになり、表示は0秒です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-timer-tutorial-html-step3",
+    "title": "制限時間と時間切れ",
+    "chapter": "ステップ 3：Rで10秒からやり直す",
+    "page": "features/intermediate/timer/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/timer/step3/index.html",
+    "sources": {
+      "index.html": "features/intermediate/timer/step3/index.html",
+      "style.css": "features/intermediate/timer/step3/style.css",
+      "script.js": "features/intermediate/timer/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：Rで10秒からやり直す",
+    "expectations": [
+      "Rを押すと10秒から数え直します。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-inventory-tutorial-html-step1",
+    "title": "持ち物とアイテム使用",
+    "chapter": "ステップ 1：体力5と回復薬2個を表示",
+    "page": "features/intermediate/inventory/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/inventory/step1/index.html",
+    "sources": {
+      "index.html": "features/intermediate/inventory/step1/index.html",
+      "style.css": "features/intermediate/inventory/step1/style.css",
+      "script.js": "features/intermediate/inventory/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：体力5と回復薬2個を表示",
+    "expectations": [
+      "体力5、回復薬2と表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-inventory-tutorial-html-step2",
+    "title": "持ち物とアイテム使用",
+    "chapter": "ステップ 2：1で1個使い体力を3回復",
+    "page": "features/intermediate/inventory/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/inventory/step2/index.html",
+    "sources": {
+      "index.html": "features/intermediate/inventory/step2/index.html",
+      "style.css": "features/intermediate/inventory/step2/style.css",
+      "script.js": "features/intermediate/inventory/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：1で1個使い体力を3回復",
+    "expectations": [
+      "1を2回押すと体力10、回復薬0です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-inventory-tutorial-html-step3",
+    "title": "持ち物とアイテム使用",
+    "chapter": "ステップ 3：Gで拾い最大5個、Rで元に戻す",
+    "page": "features/intermediate/inventory/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/inventory/step3/index.html",
+    "sources": {
+      "index.html": "features/intermediate/inventory/step3/index.html",
+      "style.css": "features/intermediate/inventory/step3/style.css",
+      "script.js": "features/intermediate/inventory/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：Gで拾い最大5個、Rで元に戻す",
+    "expectations": [
+      "Gで拾うと最大5個まで増えます。Rで体力5、回復薬2に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-spawner-tutorial-html-step1",
+    "title": "敵やアイテムの出現",
+    "chapter": "ステップ 1：Spaceで1個出し上限10個",
+    "page": "features/intermediate/spawner/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/spawner/step1/index.html",
+    "sources": {
+      "index.html": "features/intermediate/spawner/step1/index.html",
+      "style.css": "features/intermediate/spawner/step1/style.css",
+      "script.js": "features/intermediate/spawner/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：Spaceで1個出し上限10個",
+    "expectations": [
+      "Spaceを押すたび1個増え、10個を超えません。Rで消えます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-spawner-tutorial-html-step2",
+    "title": "敵やアイテムの出現",
+    "chapter": "ステップ 2：1秒ごとに自動で出現",
+    "page": "features/intermediate/spawner/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/spawner/step2/index.html",
+    "sources": {
+      "index.html": "features/intermediate/spawner/step2/index.html",
+      "style.css": "features/intermediate/spawner/step2/style.css",
+      "script.js": "features/intermediate/spawner/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：1秒ごとに自動で出現",
+    "expectations": [
+      "何もしなくても1秒ごとに1個増え、最大10個です。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-spawner-tutorial-html-step3",
+    "title": "敵やアイテムの出現",
+    "chapter": "ステップ 3：出現から3秒で消しRで初期化",
+    "page": "features/intermediate/spawner/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/spawner/step3/index.html",
+    "sources": {
+      "index.html": "features/intermediate/spawner/step3/index.html",
+      "style.css": "features/intermediate/spawner/step3/style.css",
+      "script.js": "features/intermediate/spawner/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：出現から3秒で消しRで初期化",
+    "expectations": [
+      "出現した個々の箱が3秒で消え、Rで空になります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-invincibility-tutorial-html-step1",
+    "title": "ダメージ後の無敵時間",
+    "chapter": "ステップ 1：Xで体力3を1減らす",
+    "page": "features/intermediate/invincibility/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/intermediate/invincibility/step1/index.html",
+    "sources": {
+      "index.html": "features/intermediate/invincibility/step1/index.html",
+      "style.css": "features/intermediate/invincibility/step1/style.css",
+      "script.js": "features/intermediate/invincibility/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：Xで体力3を1減らす",
+    "expectations": [
+      "Xを押すたび体力が3から減り、0未満にはなりません。Rで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-invincibility-tutorial-html-step2",
+    "title": "ダメージ後の無敵時間",
+    "chapter": "ステップ 2：被弾から1000msは追加ダメージを受けない",
+    "page": "features/intermediate/invincibility/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/intermediate/invincibility/step2/index.html",
+    "sources": {
+      "index.html": "features/intermediate/invincibility/step2/index.html",
+      "style.css": "features/intermediate/invincibility/step2/style.css",
+      "script.js": "features/intermediate/invincibility/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：被弾から1000msは追加ダメージを受けない",
+    "expectations": [
+      "Xを続けて押しても1秒間は1回しか減りません。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-intermediate-invincibility-tutorial-html-step3",
+    "title": "ダメージ後の無敵時間",
+    "chapter": "ステップ 3：無敵中は点滅、Rで元に戻す",
+    "page": "features/intermediate/invincibility/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/intermediate/invincibility/step3/index.html",
+    "sources": {
+      "index.html": "features/intermediate/invincibility/step3/index.html",
+      "style.css": "features/intermediate/invincibility/step3/style.css",
+      "script.js": "features/intermediate/invincibility/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：無敵中は点滅、Rで元に戻す",
+    "expectations": [
+      "被弾後に点滅し、1秒後に再び被弾できます。Rで体力3に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-tilemap-tutorial-html-step1",
+    "title": "マス目のマップと壁",
+    "chapter": "ステップ 1：5行5列、1マス60pxの地図を描く",
+    "page": "features/advanced/tilemap/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/tilemap/step1/index.html",
+    "sources": {
+      "index.html": "features/advanced/tilemap/step1/index.html",
+      "style.css": "features/advanced/tilemap/step1/style.css",
+      "script.js": "features/advanced/tilemap/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：5行5列、1マス60pxの地図を描く",
+    "expectations": [
+      "5行5列の地図と青いプレイヤーが表示されます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-tilemap-tutorial-html-step2",
+    "title": "マス目のマップと壁",
+    "chapter": "ステップ 2：矢印キーで壁を避けて1マス移動",
+    "page": "features/advanced/tilemap/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/tilemap/step2/index.html",
+    "sources": {
+      "index.html": "features/advanced/tilemap/step2/index.html",
+      "style.css": "features/advanced/tilemap/step2/style.css",
+      "script.js": "features/advanced/tilemap/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：矢印キーで壁を避けて1マス移動",
+    "expectations": [
+      "矢印キーで1マスずつ動き、壁には入れません。Rで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-tilemap-tutorial-html-step3",
+    "title": "マス目のマップと壁",
+    "chapter": "ステップ 3：アイテムのマスを取ってRで元に戻す",
+    "page": "features/advanced/tilemap/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/tilemap/step3/index.html",
+    "sources": {
+      "index.html": "features/advanced/tilemap/step3/index.html",
+      "style.css": "features/advanced/tilemap/step3/style.css",
+      "script.js": "features/advanced/tilemap/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：アイテムのマスを取ってRで元に戻す",
+    "expectations": [
+      "右に2回進むとアイテムを取り、得点1になります。Rで元に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-enemy-ai-tutorial-html-step1",
+    "title": "敵の巡回と追跡",
+    "chapter": "ステップ 1：Enemyクラスの敵がx160〜320を巡回",
+    "page": "features/advanced/enemy-ai/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/enemy-ai/step1/index.html",
+    "sources": {
+      "index.html": "features/advanced/enemy-ai/step1/index.html",
+      "style.css": "features/advanced/enemy-ai/step1/style.css",
+      "script.js": "features/advanced/enemy-ai/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：Enemyクラスの敵がx160〜320を巡回",
+    "expectations": [
+      "赤い敵が左右に巡回します。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-enemy-ai-tutorial-html-step2",
+    "title": "敵の巡回と追跡",
+    "chapter": "ステップ 2：左右キーでプレイヤーを動かす",
+    "page": "features/advanced/enemy-ai/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/enemy-ai/step2/index.html",
+    "sources": {
+      "index.html": "features/advanced/enemy-ai/step2/index.html",
+      "style.css": "features/advanced/enemy-ai/step2/style.css",
+      "script.js": "features/advanced/enemy-ai/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：左右キーでプレイヤーを動かす",
+    "expectations": [
+      "左右キーで青いプレイヤーを動かせます。Rで戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-enemy-ai-tutorial-html-step3",
+    "title": "敵の巡回と追跡",
+    "chapter": "ステップ 3：距離100以下なら追跡、離れたら巡回",
+    "page": "features/advanced/enemy-ai/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/enemy-ai/step3/index.html",
+    "sources": {
+      "index.html": "features/advanced/enemy-ai/step3/index.html",
+      "style.css": "features/advanced/enemy-ai/step3/style.css",
+      "script.js": "features/advanced/enemy-ai/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：距離100以下なら追跡、離れたら巡回",
+    "expectations": [
+      "敵との横の距離が100以下になると追跡し、離れると巡回に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-hit-effects-tutorial-html-step1",
+    "title": "ヒット時の演出",
+    "chapter": "ステップ 1：Spaceで600msの点滅",
+    "page": "features/advanced/hit-effects/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/hit-effects/step1/index.html",
+    "sources": {
+      "index.html": "features/advanced/hit-effects/step1/index.html",
+      "style.css": "features/advanced/hit-effects/step1/style.css",
+      "script.js": "features/advanced/hit-effects/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：Spaceで600msの点滅",
+    "expectations": [
+      "Spaceを押すと箱が点滅し、少しすると元に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-hit-effects-tutorial-html-step2",
+    "title": "ヒット時の演出",
+    "chapter": "ステップ 2：600msの画面揺れを追加",
+    "page": "features/advanced/hit-effects/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/hit-effects/step2/index.html",
+    "sources": {
+      "index.html": "features/advanced/hit-effects/step2/index.html",
+      "style.css": "features/advanced/hit-effects/step2/style.css",
+      "script.js": "features/advanced/hit-effects/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：600msの画面揺れを追加",
+    "expectations": [
+      "Spaceを押すと点滅しながら横に揺れます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-hit-effects-tutorial-html-step3",
+    "title": "ヒット時の演出",
+    "chapter": "ステップ 3：600msで上へ移動する数字を追加",
+    "page": "features/advanced/hit-effects/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/hit-effects/step3/index.html",
+    "sources": {
+      "index.html": "features/advanced/hit-effects/step3/index.html",
+      "style.css": "features/advanced/hit-effects/step3/style.css",
+      "script.js": "features/advanced/hit-effects/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：600msで上へ移動する数字を追加",
+    "expectations": [
+      "Spaceを押すと数字10が上に動き、600ミリ秒で消えます。Rで消せます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-save-file-tutorial-html-step1",
+    "title": "セーブファイルの書き出しと読み込み",
+    "chapter": "ステップ 1：Spaceで得点を10増やし、Lでレベルを1増やす",
+    "page": "features/advanced/save-file/tutorial.html",
+    "anchor": "lesson-section-2",
+    "game": "features/advanced/save-file/step1/index.html",
+    "sources": {
+      "index.html": "features/advanced/save-file/step1/index.html",
+      "style.css": "features/advanced/save-file/step1/style.css",
+      "script.js": "features/advanced/save-file/step1/script.js"
+    },
+    "stepLabel": "ステップ 1：Spaceで得点を10増やし、Lでレベルを1増やす",
+    "expectations": [
+      "Spaceで得点が10増え、Lでレベルが1増えます。Rで元に戻ります。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-save-file-tutorial-html-step2",
+    "title": "セーブファイルの書き出しと読み込み",
+    "chapter": "ステップ 2：JSONファイルを書き出す",
+    "page": "features/advanced/save-file/tutorial.html",
+    "anchor": "lesson-section-3",
+    "game": "features/advanced/save-file/step2/index.html",
+    "sources": {
+      "index.html": "features/advanced/save-file/step2/index.html",
+      "style.css": "features/advanced/save-file/step2/style.css",
+      "script.js": "features/advanced/save-file/step2/script.js"
+    },
+    "stepLabel": "ステップ 2：JSONファイルを書き出す",
+    "expectations": [
+      "「保存する」を押すと、今の得点とレベルをファイルに保存できます。"
+    ],
+    "expectationSource": "保存後の確認"
+  },
+  {
+    "id": "features-advanced-save-file-tutorial-html-step3",
+    "title": "セーブファイルの書き出しと読み込み",
+    "chapter": "ステップ 3：JSONファイルを選び、検証して読み込む",
+    "page": "features/advanced/save-file/tutorial.html",
+    "anchor": "lesson-section-4",
+    "game": "features/advanced/save-file/step3/index.html",
+    "sources": {
+      "index.html": "features/advanced/save-file/step3/index.html",
+      "style.css": "features/advanced/save-file/step3/style.css",
+      "script.js": "features/advanced/save-file/step3/script.js"
+    },
+    "stepLabel": "ステップ 3：JSONファイルを選び、検証して読み込む",
+    "expectations": [
+      "保存したファイルを選ぶと値が戻ります。壊れたファイルでは現在の値が残ります。"
+    ],
+    "expectationSource": "保存後の確認"
   }
 ]

@@ -4,7 +4,7 @@ const root=path.resolve(__dirname,"..");
 function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]);}
 const pages=["tutorial/index.html","tutorial/extensions/tutorial.html","examples/index.html","features/index.html",...files(path.join(root,"examples")).filter(p=>p.endsWith("tutorial.html")),...files(path.join(root,"features")).filter(p=>p.endsWith("tutorial.html")),"learning/index.html","learning/setup.html","learning/basics.html","learning/basics/html.html","learning/basics/css.html","learning/basics/javascript.html","learning/debug/index.html","learning/combine/tutorial.html","learning/practice.html","learning/project.html"].map(p=>path.resolve(root,p));
 test("すべての教材に本文への移動と、同じページ内の目次がある",()=>{
- assert.equal(new Set(pages).size,92);
+ assert.equal(new Set(pages).size,104);
  for(const p of pages){const page=fs.readFileSync(p,"utf8"),id=path.relative(root,p);assert.match(page,/class="lesson-page/);assert.match(page,/learning-layout\.css/);assert.match(page,/class="(?:lesson-skip|skip-link)" href="#[^"]+"/);assert.match(page,/<main id="lesson-main" tabindex="-1">/);assert.match(page,/class="lesson-breadcrumb" aria-label="今いる場所"/);
   const nav=page.match(/<nav (?:id="contents"|aria-label="このページの目次")[\s\S]*?<\/nav>/);assert.ok(nav,id);const ids=new Set([...page.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));const links=[...nav[0].matchAll(/href="#([^"]+)"/g)];assert.ok(links.length>=2,id);for(const [,target] of links)assert.ok(ids.has(target),`${id}: ${target}`);
  }

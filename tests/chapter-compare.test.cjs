@@ -4,14 +4,15 @@ const root=path.resolve(__dirname,".."),compareDir=path.join(root,"tutorial/comp
 const engine=require("../tutorial/compare/diff.js");
 const chapters=JSON.parse(read("tutorial/compare/chapters.json"));
 const sandbox={};vm.runInNewContext(read("tutorial/compare/references.js"),sandbox);const data=sandbox.CHAPTER_REFERENCES;
-test("全289ステップのリンクと終了時の見本データが、それぞれ正しいファイルを指す",()=>{
- assert.equal(chapters.length,289);assert.equal(data.length,289);assert.equal(new Set(chapters.map(c=>c.id)).size,289);
+test("全325ステップのリンクと終了時の見本データが、それぞれ正しいファイルを指す",()=>{
+ assert.equal(chapters.length,325);assert.equal(data.length,325);assert.equal(new Set(chapters.map(c=>c.id)).size,325);
  const byPage=new Map();
  for(let i=0;i<chapters.length;i++){
   const c=chapters[i],d=data[i];assert.equal(d.id,c.id);assert.equal(d.title,c.title);assert.equal(d.chapter,c.chapter);assert.equal(d.stepLabel,c.stepLabel);assert.equal(JSON.stringify(d.expectations),JSON.stringify(c.expectations));assert.ok(c.expectations.length);
   for(const f of ["index.html","style.css","script.js"])assert.equal(d.files[f],read(c.sources[f]),`${c.id} ${f}`);
   const folder=path.posix.dirname(c.sources["script.js"]);assert.equal(c.game,`${folder}/index.html`);assert.ok(fs.existsSync(path.join(root,c.game)));
-  const base=c.page.startsWith("tutorial/")||c.page==="learning/combine/tutorial.html"?"tutorial/05-game":c.page==="learning/debug/index.html"?folder:"template";
+  const addedFeatures=new Set(["beginner/score-combo","beginner/lives","beginner/dialog","beginner/input-edges","intermediate/timer","intermediate/inventory","intermediate/spawner","intermediate/invincibility","advanced/tilemap","advanced/enemy-ai","advanced/hit-effects","advanced/save-file"].map(name=>`features/${name}/tutorial.html`));
+  const base=addedFeatures.has(c.page)?folder:c.page.startsWith("tutorial/")||c.page==="learning/combine/tutorial.html"?"tutorial/05-game":c.page==="learning/debug/index.html"?folder:"template";
   assert.equal(c.sources["index.html"],`${base}/index.html`);assert.equal(c.sources["style.css"],`${base}/style.css`);
   const page=read(c.page);assert.ok(page.includes(`id="${c.anchor}"`),c.id);const parts=[...page.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)];const chosen=parts.filter(m=>m[0].includes(`?chapter=${c.id}"`));assert.equal(chosen.length,1,c.id);
   const open=chosen[0][0].match(/^<section\b[^>]*>/)[0],sectionId=open.match(/\bid="([^"]+)"/),previous=page.slice(0,chosen[0].index).match(/<span class="toc-anchor" id="([^"]+)"><\/span>\s*$/);assert.equal(sectionId?sectionId[1]:previous&&previous[1],c.anchor,c.id);
@@ -28,7 +29,7 @@ test("全289ステップのリンクと終了時の見本データが、それ�
   const coin=chosen[0][0].match(/data-step="([^"]+)"/);if(coin)assert.equal(path.posix.basename(folder),coin[1],c.id);
   const p=byPage.get(c.page)||[];p.push(c.id);byPage.set(c.page,p);
  }
- assert.equal(byPage.size,82);
+ assert.equal(byPage.size,94);
  for(const [page,ids] of byPage){const links=[...read(page).matchAll(/class="chapter-compare-link"><a href="[^"]+\?chapter=([^"]+)"/g)].map(m=>m[1]);assert.deepEqual(links,ids,page);}
 });
 test("削除・追加・変更と行番号を区別し、繰り返し行も崩さない",()=>{

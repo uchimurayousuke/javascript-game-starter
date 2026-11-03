@@ -1,0 +1,225 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>残り回数とゲームオーバーの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"></head><body class="lesson-page"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：残り3回から失敗で1減らす</a><a href="#lesson-section-3">ステップ 2：0になったら終了し、Rでやり直す</a><a href="#lesson-section-4">ステップ 3：Hで残り回数を1回復、最大3</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：残り回数とゲームオーバー</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：残り3回から失敗で1減らす</a><a href="#lesson-section-3">ステップ 2：0になったら終了し、Rでやり直す</a><a href="#lesson-section-4">ステップ 3：Hで残り回数を1回復、最大3</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">残り回数とゲームオーバー</li></ol></nav><h1>残り回数とゲームオーバーを作る</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><p><a href="../../../learning/setup.html">準備と操作</a>を参考に、ひな型の3ファイルを練習用フォルダーに用意します。この教材ではコピー先の <code>script.js</code> を編集し、保存後に同じフォルダーの <code>index.html</code> を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：残り3回から失敗で1減らす</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>残り3回から失敗で1減らす。</p><h3>予想してみる</h3><p>3回失敗した後の残りは？</p><details><summary>答えを確認する</summary><p>0です。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 14 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let lives;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  lives = 3;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;X: 失敗&quot;, 170, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;x&quot;) lives = Math.max(0, lives - 1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+function start() {
+}
+
+function update() {
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let lives;
+
+function start() {
+  lives = 3;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);
+  ctx.fillText(&quot;X: 失敗&quot;, 170, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;x&quot;) lives = Math.max(0, lives - 1);
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>残り3から1を引き、Math.maxで0未満にならないようにします。</p><p><code>lives</code> が残り回数です。<code>Math.max(0, lives - 1)</code> は引いた結果と0の大きい方を戻します。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Xを1回押すと残り2です。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>startの lives = 3 の3を2に変え、最初の残り2を確かめます。3に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-lives-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：0になったら終了し、Rでやり直す</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>0になったら終了し、Rでやり直す。</p><h3>予想してみる</h3><p>終了後にXで残りは減る？</p><details><summary>答えを確認する</summary><p>終了中は変わりません。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 4 行・追加 9 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let lives;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let lives, state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  lives = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  lives = 3; state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;X: 失敗&quot;, 170, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー&quot;, 250, 220);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;X: 失敗　R: 最初から&quot;, 170, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (event.key.toLowerCase() === &quot;x&quot;) lives = Math.max(0, lives - 1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;x&quot; &amp;&amp; state === &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    lives = Math.max(0, lives - 1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (lives === 0) state = &quot;over&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let lives;
+
+function start() {
+  lives = 3;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);
+  ctx.fillText(&quot;X: 失敗&quot;, 170, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;x&quot;) lives = Math.max(0, lives - 1);
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let lives, state;
+
+function start() {
+  lives = 3; state = &quot;playing&quot;;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);
+  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー&quot;, 250, 220);
+  ctx.fillText(&quot;X: 失敗　R: 最初から&quot;, 170, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;x&quot; &amp;&amp; state === &quot;playing&quot;) {
+    lives = Math.max(0, lives - 1);
+    if (lives === 0) state = &quot;over&quot;;
+  }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>残りが0になったら終了状態にします。終了中のXは受け付けず、Rで再開します。</p><p><code>state</code> がプレイ中か終了かを覚えます。残り0になったとき <code>over</code> に変え、終了中の失敗処理を止めます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Xを3回押すとゲームオーバーです。Rで残り3に戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>終了判定の lives === 0 の0を1に変え、Xを2回押すと残り1で終了することを確かめます。0に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-lives-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：Hで残り回数を1回復、最大3</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>Hで残り回数を1回復、最大3。</p><h3>予想してみる</h3><p>残り3で回復すると？</p><details><summary>答えを確認する</summary><p>上限が3なので3のままです。</p></details><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let lives, state;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  lives = 3; state = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー&quot;, 250, 220);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;X: 失敗　R: 最初から&quot;, 170, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;X: 失敗　H: 回復　R: 最初から&quot;, 170, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;x&quot; &amp;&amp; state === &quot;playing&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    lives = Math.max(0, lives - 1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (lives === 0) state = &quot;over&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;h&quot; &amp;&amp; state === &quot;playing&quot;) lives = Math.min(3, lives + 1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let lives, state;
+
+function start() {
+  lives = 3; state = &quot;playing&quot;;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);
+  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー&quot;, 250, 220);
+  ctx.fillText(&quot;X: 失敗　R: 最初から&quot;, 170, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;x&quot; &amp;&amp; state === &quot;playing&quot;) {
+    lives = Math.max(0, lives - 1);
+    if (lives === 0) state = &quot;over&quot;;
+  }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
+
+const canvas = document.querySelector(&quot;#game-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+let lives, state;
+
+function start() {
+  lives = 3; state = &quot;playing&quot;;
+}
+
+function update() {
+
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = &quot;#26334a&quot;;
+  ctx.font = &quot;28px sans-serif&quot;;
+  ctx.fillText(&quot;残り: &quot; + lives, 250, 150);
+  if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー&quot;, 250, 220);
+  ctx.fillText(&quot;X: 失敗　H: 回復　R: 最初から&quot;, 170, 300);
+}
+
+window.addEventListener(&quot;keydown&quot;, event =&gt; {
+  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+  if (event.repeat) return;
+  if (event.key.toLowerCase() === &quot;x&quot; &amp;&amp; state === &quot;playing&quot;) {
+    lives = Math.max(0, lives - 1);
+    if (lives === 0) state = &quot;over&quot;;
+  }
+  if (event.key.toLowerCase() === &quot;r&quot;) start();
+  if (event.key.toLowerCase() === &quot;h&quot; &amp;&amp; state === &quot;playing&quot;) lives = Math.min(3, lives + 1);
+});
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+start();
+gameLoop();
+</code></pre><h3>コードの意味</h3><p>回復するときもMath.minで上限3を守ります。終了後はRで最初から始めます。</p><p><code>Math.min(3, lives + 1)</code> は増やした数と3の小さい方を戻します。終了中は回復処理も実行されません。</p><span id="diagram-feature-lives"></span><figure class="learning-diagram" id="feature-lives" aria-labelledby="feature-lives-title"><figcaption id="feature-lives-title">図：残り0で終了。回復できるのはプレイ中だけ</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="残り0で終了。回復できるのはプレイ中だけ"><img src="../../../tutorial/illustrations/astra/feature-lives.svg" width="1200" height="800" alt="残り3からXを3回押すと2、1、0。0で終了しHやXは無視。プレイ中のHは1回復し最大3。終了後はRで3に戻る。"></div><p>残り3からXを3回押すと2、1、0。0で終了しHやXは無視。プレイ中のHは1回復し最大3。終了後はRで3に戻る。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-lives.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：残り0で終了。回復できるのはプレイ中だけ（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Xの後にHで3に戻ります。3のときHを押しても増えません。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>Hの処理にある Math.min(3, lives + 1) の3を4に変え、Hを押して残り4になることを確かめます。3に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-lives-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>lives</code> と終了状態を自分のゲームに用意し、1回の失敗判定で1だけ減らします。キャラクターの位置だけを戻す処理と、全体の <code>start()</code> で残りを初期化する処理を分けます。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：X:失敗、H:回復、R:最初から。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>
