@@ -4955,7 +4955,7 @@
   {
     "id": "learning-debug-index-html-syntax",
     "title": "こわれた見本を調べて直す",
-    "chapter": "閉じ括弧が足りない",
+    "chapter": "青い四角が表示されない",
     "page": "learning/debug/index.html",
     "anchor": "syntax",
     "game": "learning/debug/syntax/fixed/index.html",
@@ -4964,7 +4964,7 @@
       "style.css": "learning/debug/syntax/fixed/style.css",
       "script.js": "learning/debug/syntax/fixed/script.js"
     },
-    "stepLabel": "修正版：閉じ括弧が足りない",
+    "stepLabel": "修正版：青い四角が表示されない",
     "expectations": [
       "青い四角が出るはずです。"
     ],
@@ -4973,7 +4973,7 @@
   {
     "id": "learning-debug-index-html-name",
     "title": "こわれた見本を調べて直す",
-    "chapter": "変数名が違う",
+    "chapter": "得点が表示されない",
     "page": "learning/debug/index.html",
     "anchor": "name",
     "game": "learning/debug/name/fixed/index.html",
@@ -4982,7 +4982,7 @@
       "style.css": "learning/debug/name/fixed/style.css",
       "script.js": "learning/debug/name/fixed/script.js"
     },
-    "stepLabel": "修正版：変数名が違う",
+    "stepLabel": "修正版：得点が表示されない",
     "expectations": [
       "得点0が表示されるはずです。"
     ],
@@ -5045,7 +5045,7 @@
   {
     "id": "learning-debug-index-html-image",
     "title": "こわれた見本を調べて直す",
-    "chapter": "画像の場所が違う",
+    "chapter": "青い画像が表示されない",
     "page": "learning/debug/index.html",
     "anchor": "image",
     "game": "learning/debug/image/fixed/index.html",
@@ -5054,7 +5054,7 @@
       "style.css": "learning/debug/image/fixed/style.css",
       "script.js": "learning/debug/image/fixed/script.js"
     },
-    "stepLabel": "修正版：画像の場所が違う",
+    "stepLabel": "修正版：青い画像が表示されない",
     "expectations": [
       "青い画像が出るはずです。"
     ],

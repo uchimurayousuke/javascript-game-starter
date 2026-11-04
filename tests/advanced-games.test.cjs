@@ -17,11 +17,19 @@ test("制作例の一覧とREADMEは難易度ごとに7本・12本・15本紹介
   const html=fs.readFileSync(path.join(root,"examples","advanced",game,"tutorial.html"),"utf8"),sections=[...html.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
   assert.equal(sections.length,5,game);
   for(const [i,section] of sections.entries()){
-   const headings=["目標","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
-   assert.ok(headings.every((at,j)=>at>=0&&(j===0||at>headings[j-1])),game);assert.ok(section[0].includes(`href="step${i+1}/index.html"`));
-   const meaning=section[0].indexOf("<h3>コードの意味</h3>");
-   if(meaning>=0) assert.ok(meaning>headings[1]&&meaning<headings[2],`${game}: コードの意味の位置`);
-   else assert.ok(hasInlineExplanation(section[0].slice(headings[0],headings[2])),`${game}: ステップ内にコードと説明`);
+   const main=section[0].split('<details class="task-reference">')[0];
+   if(main.includes('<div class="lesson-task">')){
+    const goal=main.indexOf('<h3>目標</h3>'), edit=main.indexOf('<div class="lesson-task">'), check=main.indexOf('class="task-check"'), practice=section[0].indexOf('<h3>小さな練習</h3>');
+    assert.ok(goal>=0&&edit>goal&&check>edit&&practice>check,`${game}: 目標・作業・確認・練習の順番`);
+    assert.ok(hasInlineExplanation(main),`${game}: 実コードの直後に説明`);
+   }else{
+    const headings=["目標","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
+    assert.ok(headings.every((at,j)=>at>=0&&(j===0||at>headings[j-1])),game);
+    const meaning=section[0].indexOf("<h3>コードの意味</h3>");
+    if(meaning>=0) assert.ok(meaning>headings[1]&&meaning<headings[2],`${game}: コードの意味の位置`);
+    else assert.ok(hasInlineExplanation(section[0].slice(headings[0],headings[2])),`${game}: ステップ内にコードと説明`);
+   }
+   assert.ok(section[0].includes(`href="step${i+1}/index.html"`));
   }
  }
 });

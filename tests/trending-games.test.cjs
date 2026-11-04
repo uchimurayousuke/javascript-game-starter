@@ -81,7 +81,7 @@ test("4教材の手順と比較表示は32段階のコードを再現する",()=
  const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27);/g,x=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#x27;":"'"})[x]);
  for(const [level,name] of games)for(const extension of [false,true]){
   const base=path.join(root,"examples",level,name),folder=path.join(base,extension?"extensions":""),page=fs.readFileSync(path.join(folder,"tutorial.html"),"utf8");
-  const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,extension?3:5,name);assert.doesNotMatch(page,/<(?:canvas|iframe|script)\b/i);
+  const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,extension?3:5,name);require('./reading-page-policy.cjs').assertReadingPage(page);
   let previous=fs.readFileSync(extension?path.join(base,"complete/script.js"):path.join(root,"template/script.js"),"utf8").replace(/\r\n/g,"\n");
   for(const [index,match] of sections.entries()){
    const section=match[0],pair=section.match(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/);assert.ok(pair,`${name} ${index+1}`);

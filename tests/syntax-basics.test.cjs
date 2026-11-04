@@ -2,7 +2,7 @@
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,".."),read=p=>fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27|#39);/g,v=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#x27;":"'","&#39;":"'"})[v]);
-const blocks=(page,kind)=>[...read(page).matchAll(new RegExp(`<pre data-kind="${kind}"(?: data-expected="([^"]+)")?><code>([\\s\\S]*?)</code></pre>`,"g"))].map(m=>({expected:m[1]?JSON.parse(decode(m[1])):null,code:decode(m[2])}));
+const blocks=(page,kind)=>[...read(page).matchAll(new RegExp(`<pre data-kind="${kind}"(?: data-expected="([^"]+)")?(?: class="task-code")?><code(?: data-code-example)?>([\\s\\S]*?)</code></pre>`,"g"))].map(m=>({expected:m[1]?JSON.parse(decode(m[1])):null,code:decode(m[2])}));
 test("JavaScriptのConsole例はすべて独立してひな型のstartで実行できる",()=>{
  const samples=blocks("learning/basics/javascript.html","js-start");assert.ok(samples.length>=15);
  for(const [i,sample] of samples.entries()){

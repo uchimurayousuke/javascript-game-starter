@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const { hasInlineExplanation } = require("./lesson-explanation.cjs");
+const { assertReadingPage } = require("./reading-page-policy.cjs");
 const root=path.resolve(__dirname,"..");
 const read=p=>fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 
@@ -25,7 +26,7 @@ const type=(g,text)=>{for(const key of text)g.fire(key);};
 test("初心者3教材の各段階には目標・説明・確認・練習と独立した見本がある",()=>{
   for(const game of ["timing","typing","number-guess"]){
     const page=read(`examples/beginner/${game}/tutorial.html`), sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
-    assert.equal(sections.length,3,game);assert.doesNotMatch(page,/<(?:canvas|iframe|script)\b/i);
+    assert.equal(sections.length,3,game);assertReadingPage(page);
     for(const [i,section] of sections.entries()){
       const headings=["目標","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"].map(part=>section[0].indexOf(`<h3>${part}</h3>`));
       assert.ok(headings.every((at,index)=>at>=0 && (index===0 || at>headings[index-1])),`${game}: 説明の順番`);

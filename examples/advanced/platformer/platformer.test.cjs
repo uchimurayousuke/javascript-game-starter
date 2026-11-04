@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { assertReadingPage } = require("../../../tests/reading-page-policy.cjs");
 const here = __dirname;
 const read = (...p) => fs.readFileSync(path.join(here, ...p), "utf8").replace(/\r\n/g, "\n");
 const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#x27);/g, (x) => ({"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"', "&#x27;":"'"}[x]));
@@ -26,7 +27,7 @@ test("各段階の置換手順を適用すると見本と一致する", () => {
     new vm.Script(script);
   }
   for (const file of ["index.html", "style.css", "script.js"]) assert.equal(read("complete", file), read("step6", file));
-  assert.doesNotMatch(read("tutorial.html"), /<(canvas|iframe|script)\b/i);
+  assertReadingPage(read("tutorial.html"));
 });
 
 function setup() {

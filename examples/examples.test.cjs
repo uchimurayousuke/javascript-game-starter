@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { assertReadingPage } = require("../tests/reading-page-policy.cjs");
 const root = __dirname;
 const games = ["target", "bounce", "breakout", "shooting", "timing", "typing", "number-guess", "snake", "memory", "shop", "escape", "tower-defense", "card-battle", "racing"];
 const levelOf = game => (["target", "bounce", "timing", "typing", "number-guess"].includes(game) ? "beginner" : ["breakout", "shooting", "snake", "memory", "shop"].includes(game) ? "intermediate" : "advanced");
@@ -31,7 +32,7 @@ test("手順の置換を順に適用すると各段階の3ファイルと一致�
       new vm.Script(script);
     }
     for (const file of ["index.html", "style.css", "script.js"]) assert.equal(read(game, "complete", file), read(game, "step" + sections.length, file));
-    assert.doesNotMatch(tutorial, /<(canvas|iframe|script)\b/i);
+    assertReadingPage(tutorial);
   }
 });
 

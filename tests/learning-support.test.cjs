@@ -76,7 +76,7 @@ test("6つのこわれた見本と修正版はそれぞれ1か所だけ異なる
 });
 
 test("基礎の各例は独立したひな型のstartに入れてConsoleで確かめられる",()=>{
- const examples=[...read("learning/basics.html").matchAll(/<pre><code>([\s\S]*?)<\/code><\/pre>/g)].map(m=>decode(m[1]));
+ const examples=[...read("learning/basics.html").matchAll(/<pre(?: class="task-code")?><code(?: data-code-example)?>([\s\S]*?)<\/code><\/pre>/g)].map(m=>decode(m[1]));
  assert.equal(examples.length,4);
  const expected=[[100],[5,"青",300],[0,1,2],[110,200]];
  examples.forEach((example,i)=>{

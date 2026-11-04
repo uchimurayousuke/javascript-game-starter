@@ -5,6 +5,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { assertReadingPage } = require("../../../../tests/reading-page-policy.cjs");
 
 const here = __dirname;
 const stages = ["stomp", "dash", "checkpoint"];
@@ -34,7 +35,7 @@ test("発展課題の変更手順から、3段階の見本を再現できる", (
   for (const file of ["index.html", "style.css", "script.js"]) {
     assert.equal(read("complete", file), read("checkpoint", file));
   }
-  assert.doesNotMatch(html, /<(canvas|iframe|script)\b/i);
+  assertReadingPage(html);
 });
 
 test("教材と各見本のリンク先、CSS と JavaScript が存在する", () => {

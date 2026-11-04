@@ -5,6 +5,7 @@ const fs=require("node:fs");
 const path=require("node:path");
 const vm=require("node:vm");
 const {hasInlineExplanation}=require("./lesson-explanation.cjs");
+const {assertReadingPage}=require("./reading-page-policy.cjs");
 const root=path.resolve(__dirname,"..");
 const read=p=>fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 
@@ -30,7 +31,7 @@ test("スネークの頭は各段階で体と区別され、移動後も先頭�
 test("中級3教材は各段階と完成版、手順・確認・練習を備える",()=>{
  for(const game of ["snake","memory","shop"]){
   const page=read(`examples/intermediate/${game}/tutorial.html`),sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
-  assert.equal(sections.length,game==="snake"?3:4,game);assert.doesNotMatch(page,/<(?:canvas|iframe|script)\b/i);
+  assert.equal(sections.length,game==="snake"?3:4,game);assertReadingPage(page);
   for(const [i,section] of sections.entries()){
    const heads=["目標","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
    assert.ok(heads.every((at,j)=>at>=0&&(j===0||at>heads[j-1])),`${game}: 説明の順番`);
