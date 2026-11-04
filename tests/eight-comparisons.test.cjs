@@ -47,7 +47,7 @@ function checkComparison(oldCode, newCode, view, location) {
 
 test("新しい16教材の赤緑比較は各変更と各段階に一致する",()=>{
  const games=[["beginner","quiz"],["beginner","story"],["intermediate","sokoban"],["intermediate","minesweeper"],["advanced","falling-blocks"],["advanced","quest-rpg"],["advanced","tactics"],["advanced","soccer"]];
- const pair=new RegExp(viewSource+'<details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details><p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>','g');
+ const pair=new RegExp(viewSource+'<details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details>(?:</details>)?<p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>','g');
  for(const [level,name] of games){let previous=read("template/script.js");for(const sub of ["","extensions/"]){const dir=`examples/${level}/${name}/${sub}`,page=read(dir+"tutorial.html"),sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
   assert.equal(sections.length,sub?3:5,dir);
   for(const section of sections){const step=section[1],view=section[0].match(new RegExp(viewSource)),next=read(`${dir}step${step}/script.js`);assert.ok(view,`${dir}${step}`);checkComparison(previous,next,view[1],`${dir}${step} 全体`);previous=next;

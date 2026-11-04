@@ -40,7 +40,7 @@ test("4段階の変更を出発点から再現し、完成版と一致する",()
  for(const [i,section] of sections.entries()){
   const target=read(`learning/combine/step${i+1}/script.js`);
   const overview=section[0].match(/<details class="change-fold">[\s\S]*?<div class="change-view"[\s\S]*?<\/div><\/details>/);assert.ok(overview);checkComparison(code,target,overview[0]);
-  const pairs=[...section[0].matchAll(/<details class="old-code"><summary>変更前を確認<\/summary><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length);
+  const pairs=[...section[0].matchAll(/<details class="old-code"><summary>変更前を確認<\/summary><pre><code>([\s\S]*?)<\/code><\/pre><\/details>(?:<\/details>)?<p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length);
   for(const pair of pairs){const old=decode(pair[1]),next=decode(pair[2]);assert.equal(code.split(old).length,2);code=code.replace(old,next);}
   assert.equal(code,target);
  }

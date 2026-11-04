@@ -46,7 +46,7 @@ function checkComparison(oldCode, newCode, view, location) {
 }
 
 test("全17ページに読み方と安全なコピー欄があり、比較の各行がコードと一致する", () => {
-  const pair = new RegExp(viewSource + '(?:</details>)?<details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details><p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>', 'g');
+  const pair = new RegExp(viewSource + '(?:</details>)?<details class="old-code"><summary>変更前のコード全体を確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details>(?:</details>)?<p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>', 'g');
   for (const page of pages) {
     const html = read(page);
     assert.match(html, /コードの比較の読み方/);

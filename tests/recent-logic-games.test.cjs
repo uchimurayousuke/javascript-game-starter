@@ -82,7 +82,8 @@ test("3教材の24段階は変更前後の全文と実際のコードが一致�
    const section=match[0],pair=section.match(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/);
    assert.ok(pair,`${name} ${index+1}`);assert.equal(decode(pair[1]),previous);
    const next=decode(pair[2]);assert.equal(next,fs.readFileSync(path.join(folder,`step${index+1}/script.js`),"utf8"));
-   for(const label of ["目標","コードの意味","保存後の確認","小さな練習"])assert.ok(section.includes(`<h3>${label}</h3>`));
+   for(const label of ["目標","保存後の確認","小さな練習"])assert.ok(section.includes(`<h3>${label}</h3>`));
+   if(!section.includes('<h3>コードの意味</h3>')) assert.ok(require('./lesson-explanation.cjs').hasInlineExplanation(section),`${name}: ステップ内にコードと説明`);
    assert.match(section,/<summary>練習の答え<\/summary>/);
    const rows=[...section.matchAll(/<div class="change-row change-(same|removed|added)"><span class="change-label">[^<]*<\/span><span class="change-code">([\s\S]*?)<\/span><\/div>/g)];assert.ok(rows.length);
    const before=previous.split("\n"),after=next.split("\n");let a=0,b=0;

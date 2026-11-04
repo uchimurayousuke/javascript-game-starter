@@ -189,7 +189,13 @@ body.lesson-page {
 
 .lesson-page pre, .lesson-page .change-view { max-width: 100%; overflow-x: auto; }
 .lesson-page pre { padding: 16px; border-left: 5px solid var(--lesson-code-accent); background: var(--lesson-code-background); color: var(--lesson-paper); font-size: 16px; line-height: 1.6; tab-size: 2; }
+.lesson-page .reading-walkthrough { margin: 1.25rem 0; padding: 1rem 1.25rem; border: 1px solid var(--lesson-line); border-radius: 14px; background: var(--lesson-goal-wash); }
+.lesson-page .reading-walkthrough h5 { margin: 1.4rem 0 .4rem; font-size: 1.05em; }
+.lesson-page .reading-label { font-weight: 700; }
+.lesson-page pre.reading-code { margin: .75rem 0; border: 1px solid var(--lesson-line); border-left: 5px solid var(--lesson-code-accent); background: var(--lesson-paper); color: var(--lesson-ink); }
+.lesson-page .instruction-code > summary { padding: .4em .7em; border: 1px solid var(--lesson-line-fold); border-radius: 10px; background: var(--lesson-fold-wash); color: var(--lesson-link); }
 .lesson-page pre code, .lesson-page .change-code { font-family: var(--lesson-font-code); font-size: 16px; white-space: pre; overflow-wrap: normal; }
+.lesson-page pre.reading-code, .lesson-page pre.reading-code code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .lesson-page .old-code pre, .lesson-page details:not(.old-code) > pre { border-left-color: var(--lesson-line-old-code); }
 .lesson-page .change-row { font-size: 16px; }
 .lesson-page .change-label { flex-basis: 8em; }

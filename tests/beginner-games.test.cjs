@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { hasInlineExplanation } = require("./lesson-explanation.cjs");
 const root=path.resolve(__dirname,"..");
 const read=p=>fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 
@@ -26,9 +27,11 @@ test("初心者3教材の各段階には目標・説明・確認・練習と独�
     const page=read(`examples/beginner/${game}/tutorial.html`), sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
     assert.equal(sections.length,3,game);assert.doesNotMatch(page,/<(?:canvas|iframe|script)\b/i);
     for(const [i,section] of sections.entries()){
-      for(const part of ["目標","コードの意味","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"])assert.ok(section[0].includes(part),`${game}: ${part}`);
-      const headings=["目標","書く場所と置き換えるコード","コードの意味","保存後の確かめ方","小さな練習"].map(part=>section[0].indexOf(`<h3>${part}</h3>`));
+      const headings=["目標","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"].map(part=>section[0].indexOf(`<h3>${part}</h3>`));
       assert.ok(headings.every((at,index)=>at>=0 && (index===0 || at>headings[index-1])),`${game}: 説明の順番`);
+      const meaning=section[0].indexOf("<h3>コードの意味</h3>");
+      if(meaning>=0) assert.ok(meaning>headings[1]&&meaning<headings[2],`${game}: コードの意味の位置`);
+      else assert.ok(hasInlineExplanation(section[0].slice(headings[0],headings[2])),`${game}: ステップ内にコードと説明`);
       assert.match(section[0],new RegExp(`href="step${i+1}/index.html"`));
       for(const file of ["index.html","style.css","script.js"]) assert.ok(fs.existsSync(path.join(root,`examples/beginner/${game}/step${i+1}/${file}`)));
     }

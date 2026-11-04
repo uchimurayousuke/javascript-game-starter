@@ -1,6 +1,7 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
+const {hasInlineExplanation}=require("./lesson-explanation.cjs");
 const levelOf = game => (["timing","typing","number-guess"].includes(game) ? "beginner" : ["snake","memory","shop"].includes(game) ? "intermediate" : "advanced");
 test("制作例の一覧とREADMEは難易度ごとに7本・12本・15本紹介する",()=>{
  const page=fs.readFileSync(path.join(root,"examples/index.html"),"utf8"),readme=fs.readFileSync(path.join(root,"README.md"),"utf8");
@@ -16,8 +17,11 @@ test("制作例の一覧とREADMEは難易度ごとに7本・12本・15本紹介
   const html=fs.readFileSync(path.join(root,"examples","advanced",game,"tutorial.html"),"utf8"),sections=[...html.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
   assert.equal(sections.length,5,game);
   for(const [i,section] of sections.entries()){
-   const headings=["目標","書く場所と置き換えるコード","コードの意味","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
+   const headings=["目標","書く場所と置き換えるコード","保存後の確かめ方","小さな練習"].map(x=>section[0].indexOf(`<h3>${x}</h3>`));
    assert.ok(headings.every((at,j)=>at>=0&&(j===0||at>headings[j-1])),game);assert.ok(section[0].includes(`href="step${i+1}/index.html"`));
+   const meaning=section[0].indexOf("<h3>コードの意味</h3>");
+   if(meaning>=0) assert.ok(meaning>headings[1]&&meaning<headings[2],`${game}: コードの意味の位置`);
+   else assert.ok(hasInlineExplanation(section[0].slice(headings[0],headings[2])),`${game}: ステップ内にコードと説明`);
   }
  }
 });

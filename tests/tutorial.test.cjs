@@ -72,6 +72,25 @@ function applyInstruction(source, block) {
 
 const lessons = Array.from(tutorial.matchAll(/<section\b[^>]*data-step="([^"]+)"[^>]*>([\s\S]*?)<\/section>/g));
 
+test("説明用の抜粋は直後のコピー用コードに含まれ、全文を折りたたんで確認できる", () => {
+  for (const lesson of lessons) {
+    const sections = [...lesson[2].matchAll(/<h4>[^<]*<\/h4>([\s\S]*?)(?=<h4>|<h3>4\. 保存)/g)];
+    for (const section of sections) {
+      const excerpts = [...section[1].matchAll(/<pre class="reading-code"><code>([\s\S]*?)<\/code><\/pre>/g)];
+      if (!excerpts.length) continue;
+      assert.match(section[1], /説明用の抜粋/);
+      assert.match(section[1], /<details class="instruction-code"><summary>比較とコピー用コードを開く<\/summary>/);
+      const block = codeBlocks(section[1]);
+      assert.equal(block.length, 1);
+      for (const excerpt of excerpts) {
+        for (const line of decode(excerpt[1]).split("\n").map((s) => s.trim()).filter(Boolean)) {
+          assert.ok(block[0].code.split("\n").some((source) => source.trim().includes(line)), `${lesson[1]}: ${line}`);
+        }
+      }
+    }
+  }
+});
+
 test("the published instructions reproduce all three files at every step", async (t) => {
   assert.deepEqual(lessons.map((lesson) => lesson[1]), steps);
   const files = Object.fromEntries(["index.html", "style.css", "script.js"].map((file) => [file, normalize(read("template/" + file))]));
@@ -103,7 +122,7 @@ test("the published instructions reproduce all three files at every step", async
 
 test("reading pages and game pages stay separate", () => {
   assert.doesNotMatch(tutorial, /<(?:canvas|iframe|object|embed|script)\b/i);
-  const requiredHeadings = ["目標", "編集するファイルと場所", "追加または置換するコード", "コードの意味", "保存・再読み込み後の確認", "小さな練習"];
+  const requiredHeadings = ["目標", "編集するファイルと場所", "追加または置換するコード", "保存・再読み込み後の確認", "小さな練習"];
   for (const lesson of lessons) {
     const headings = Array.from(lesson[2].matchAll(/<h3>\d\. ([^<]+)<\/h3>/g), (match) => match[1]);
     assert.deepEqual(headings, requiredHeadings);

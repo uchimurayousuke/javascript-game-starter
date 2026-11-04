@@ -83,7 +83,7 @@ test("8教材の変更手順から基本5段階と発展3段階の見本を再�
  const read=p=>fs.readFileSync(p,"utf8").replace(/\r\n/g,"\n");const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27);/g,m=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":"\"","&#x27;":"'"})[m]);
  for(const [level,name] of games){const folder=path.join(root,"examples",level,name);let code=read(path.join(root,"template/script.js"));
   for(const [dir,count] of [["",5],["extensions",3]]){const page=read(path.join(folder,dir,"tutorial.html"));const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,count,name);
-   for(let i=0;i<count;i++){const section=sections[i][0],pairs=[...section.matchAll(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length,name);
+   for(let i=0;i<count;i++){const section=sections[i][0],pairs=[...section.matchAll(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details>(?:<\/details>)?<p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length,name);
     for(const p of pairs){const old=decode(p[1]),after=decode(p[2]);assert.equal(code.split(old).length,2,`${name} ${dir} ${i+1}`);code=code.replace(old,after);}
     assert.equal(code,read(path.join(folder,dir,`step${i+1}/script.js`)),`${name} ${dir} ${i+1}`);for(const f of ["index.html","style.css","script.js"])assert.ok(fs.existsSync(path.join(folder,dir,`step${i+1}`,f)));
    }assert.equal(code,read(path.join(folder,dir,"complete/script.js")));}

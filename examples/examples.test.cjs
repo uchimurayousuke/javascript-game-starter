@@ -17,7 +17,7 @@ test("手順の置換を順に適用すると各段階の3ファイルと一致�
     assert.equal(sections.length, ["escape", "tower-defense", "card-battle", "racing"].includes(game) ? 5 : game === "memory" || game === "shop" ? 4 : 3);
     let script = fs.readFileSync(path.join(root, "..", "template", "script.js"), "utf8").replace(/\r\n/g, "\n");
     for (const [index, section] of sections.entries()) {
-      const replacements = [...section[0].matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
+      const replacements = [...section[0].matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details>(?:<\/details>)?<p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
       assert.ok(replacements.length);
       for (const replacement of replacements) {
         const before = decode(replacement[1]);

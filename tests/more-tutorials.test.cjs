@@ -48,7 +48,7 @@ function checkComparison(oldCode, newCode, view, location) {
 test("新しい20教材の手順と赤緑比較は各段階の見本と一致する",()=>{
  const games=[["intermediate","rhythm"],["intermediate","nonogram"],["advanced","match3"],["advanced","bomb-maze"]];
  const features=[["beginner","menu"],["beginner","help"],["beginner","countdown"],["beginner","results"],["intermediate","stage-select"],["intermediate","pause"],["intermediate","difficulty"],["intermediate","sound"],["intermediate","save"],["advanced","fade"],["advanced","particles"],["advanced","touch-controls"]];
- const pair=new RegExp(viewSource+'<details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details><p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>','g');
+ const pair=new RegExp(viewSource+'<details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>([\\s\\S]*?)</code></pre></details>(?:</details>)?<p>変更後（コピー用）：</p><pre><code>([\\s\\S]*?)</code></pre>','g');
  function verify(dir,count,initial){let code=initial;const page=read(dir+"tutorial.html"),sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];assert.equal(sections.length,count,dir);
   for(const [i,s] of sections.entries()){
    const next=read(`${dir}step${i+1}/script.js`),view=s[0].match(new RegExp(viewSource));assert.ok(view);checkComparison(code,next,view[1],`${dir}step${i+1}`);
