@@ -72,7 +72,7 @@ function applyInstruction(source, block) {
 
 const lessons = Array.from(tutorial.matchAll(/<section\b[^>]*data-step="([^"]+)"[^>]*>([\s\S]*?)<\/section>/g));
 
-test("説明用の抜粋は直後のコピー用コードに含まれ、全文を折りたたんで確認できる", () => {
+test("補助欄の旧説明とコピー用コードは一致する", () => {
   for (const lesson of lessons) {
     const sections = [...lesson[2].matchAll(/<h4>[^<]*<\/h4>([\s\S]*?)(?=<h4>|<h3>4\. 保存)/g)];
     for (const section of sections) {
@@ -121,8 +121,9 @@ test("the published instructions reproduce all three files at every step", async
 });
 
 test("reading pages and game pages stay separate", () => {
-  assert.doesNotMatch(tutorial, /<(?:canvas|iframe|object|embed|script)\b/i);
-  const requiredHeadings = ["目標", "編集するファイルと場所", "追加または置換するコード", "保存・再読み込み後の確認", "小さな練習"];
+  assert.doesNotMatch(tutorial, /<(?:canvas|iframe|object|embed)\b/i);
+  assert.deepEqual([...tutorial.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(x => x[0]), ['<script src="coin-small-tasks.js" defer></script>']);
+  const requiredHeadings = ["目標", "小さな作業", "編集するファイルと場所", "追加または置換するコード", "保存・再読み込み後の確認", "小さな練習"];
   for (const lesson of lessons) {
     const headings = Array.from(lesson[2].matchAll(/<h3>\d\. ([^<]+)<\/h3>/g), (match) => match[1]);
     assert.deepEqual(headings, requiredHeadings);

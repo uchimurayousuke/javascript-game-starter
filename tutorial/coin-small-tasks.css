@@ -1,0 +1,22 @@
+.coin-task {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  border-left: 4px solid var(--lesson-code-accent);
+  background: var(--lesson-guide-wash);
+  min-width: 0;
+}
+.coin-task h4 { margin: 0 0 .65rem; font-size: 1.1rem; }
+.coin-task p { margin: .75rem 0; }
+.coin-task .coin-marker-label, .coin-task .coin-code-label { font-weight: 700; }
+.coin-task pre { max-width: 100%; overflow-x: auto; font-size: 16px; line-height: 1.6; }
+.coin-task .coin-marker, .coin-task .coin-copy,
+.coin-task .coin-marker code, .coin-task .coin-copy code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.coin-task pre code { font-size: inherit; }
+.coin-task .coin-marker { border: 2px solid var(--lesson-line-guide); }
+.coin-task .coin-copy { border: 2px solid var(--lesson-code-accent); }
+.coin-copy-button { font: inherit; font-size: 1rem; padding: .4rem .8rem; color: var(--lesson-on-action); background: var(--lesson-action); border: 0; border-radius: .3rem; cursor: pointer; }
+.coin-copy-button:focus-visible { outline: 3px solid var(--lesson-focus); outline-offset: 3px; }
+.coin-copy-status { display: inline; margin-left: .5rem; }
+.coin-reference { margin: 2rem 0; }
+.coin-check { padding: 1rem; background: var(--lesson-check-wash); }
+@media (max-width: 480px) { .coin-task { padding: .75rem; } .coin-copy-status { display: block; margin: .5rem 0 0; } }
