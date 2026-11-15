@@ -102,7 +102,7 @@ test("コピーはコード本文だけを使い、失敗時は選択を案内�
   for (const mode of ["clipboard", "manual", "no-selection"]) {
     let copied = null, selected = null, handler = null;
     const code = { textContent: "  score += 1;\n" }, status = { textContent: "" };
-    const button = { hidden: true, addEventListener: (_, fn) => { handler = fn; } };
+    const button = { hidden: true, dataset: { copyState: "copied" }, addEventListener: (_, fn) => { handler = fn; } };
     const task = { querySelector: (selector) => ({".task-copy-button":button, ".task-code code":code, ".task-copy-status":status}[selector] || null) };
     const selection = { removeAllRanges() {}, addRange(range) { selected = range.node; } };
     const document = { querySelectorAll: () => [task, { querySelector: () => null }], createRange: () => ({ selectNodeContents(node) { this.node = node; } }) };
@@ -110,7 +110,15 @@ test("コピーはコード本文だけを使い、失敗時は選択を案内�
     const window = mode === "no-selection" ? {} : { getSelection: () => selection };
     vm.runInNewContext(script, { document, navigator, window });
     assert.equal(button.hidden, false); await handler();
-    if (mode === "clipboard") { assert.equal(copied, code.textContent); assert.equal(status.textContent, "コピーしました。"); }
-    else { assert.equal(selected, mode === "manual" ? code : null); assert.match(status.textContent, /Ctrl\+C/); assert.match(status.textContent, /自動でコピーできませんでした/); }
+    if (mode === "clipboard") {
+      assert.equal(copied, code.textContent);
+      assert.equal(button.dataset.copyState, "copied");
+      assert.equal(status.textContent, "コピーしました。");
+    } else {
+      assert.equal(button.dataset.copyState, undefined);
+      assert.equal(selected, mode === "manual" ? code : null);
+      assert.match(status.textContent, /Ctrl\+C/);
+      assert.match(status.textContent, /自動でコピーできませんでした/);
+    }
   }
 });
