@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>4文字ことば当ての発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>4文字ことば当ての発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：画面キーを使う</a><a href="#lesson-section-3">ステップ 2：5文字の候補を使う</a><a href="#lesson-section-4">ステップ 3：成績を保存する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：4文字ことば当ての発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：画面キーを使う</a><a href="#lesson-section-3">ステップ 2：5文字の候補を使う</a><a href="#lesson-section-4">ステップ 3：成績を保存する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">4文字ことば当ての発展</li></ol></nav><h1>4文字ことば当ての発展</h1><p>候補と意味を見ながら、4文字の英単語を6回以内に当てます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-intermediate-word-guess-extension.zip" download="example-intermediate-word-guess-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div>
@@ -14,6 +14,54 @@
 <p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：画面キーを使う</h2>
 <details class="step-preview" id="preview-examples-intermediate-word-guess-extensions-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>画面キーも同じhandleKeyへ渡す（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">Mをクリック</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">Oをクリック</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">消すをクリック</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>M</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>2</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>4</span><strong>空</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>handleKey({key:&quot;M&quot;, ...}) → draft += &quot;M&quot;</code></p>
+          <p data-diagram-result>キーボードでMを押すのと同じ入力処理</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>1</span><strong>M</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>O</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>4</span><strong>空</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>draft = &quot;M&quot; + &quot;O&quot; = &quot;MO&quot;</code></p>
+          <p data-diagram-result>次の空いたマスにOが入る</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>1</span><strong>M</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>4</span><strong>空</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>draft = &quot;MO&quot;.slice(0, -1) = &quot;M&quot;</code></p>
+          <p data-diagram-result>Backspaceと同じように最後の1文字を消す</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="画面の真ん中をクリックした例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-intermediate-word-guess-extensions-tutorial.webp" alt="" width="1920" height="270">
@@ -34,6 +82,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>画面の文字をクリックして入力します。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>画面用のキー一覧を用意する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>window.addEventListener(&quot;keydown&quot;, handleKey);
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="window.addEventListener(&quot;keydown&quot;, handleKey);&#10;" data-small-separator="">const keyboard = [&quot;QWERTYUIOP&quot;, &quot;ASDFGHJKL&quot;, &quot;ZXCVBNM&quot;];
@@ -275,6 +324,39 @@ gameLoop();
 <p>画面の文字をクリックして候補を入力し、決定を押せます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：5文字の候補を使う</h2>
 <details class="step-preview" id="preview-examples-intermediate-word-guess-extensions-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>5文字ぴったりで候補を確かめる</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">APPLで決定</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">APPLEで決定</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>入力</span><strong>APPL</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>文字数</span><strong>4</strong></div>
+          <div class="step-diagram-node" data-diagram-role="blocked"><span>判定</span><strong>入力を続ける</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>draft.length !== 5</code></p>
+          <p data-diagram-result>4文字なので提出できない</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>入力</span><strong>APPLE</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>文字数</span><strong>5</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>判定</span><strong>提出できる</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>draft.length === 5 &amp;&amp; words5にAPPLEがある</code></p>
+          <p data-diagram-result>5列の1行として答えと照合する</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-intermediate-word-guess-extensions-tutorial.webp" alt="" width="1920" height="270">
@@ -295,6 +377,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>5文字の単語でも同じ判定を使います。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>5文字の候補を用意する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const words = words4;</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="const words = words4;" data-small-separator="">const words5 = [];
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>新しい配列 <code>words5</code> に5文字の単語と意味を入れます。</p></div><div class="lesson-task"><h4>最初の候補を入れる</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const words5 = [</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const words5 = [" data-small-separator="">{word:&quot;APPLE&quot;, meaning:&quot;りんご&quot;}, {word:&quot;GRAPE&quot;, meaning:&quot;ぶどう&quot;}, {word:&quot;PEACH&quot;, meaning:&quot;もも&quot;}, {word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>各要素に英単語と意味を入れます。</p></div><div class="lesson-task"><h4>残りの候補を入れる</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>{word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="{word:&quot;SHEEP&quot;, meaning:&quot;ひつじ&quot;}" data-small-separator="">, {word:&quot;PLANT&quot;, meaning:&quot;植物&quot;}, {word:&quot;STONE&quot;, meaning:&quot;石&quot;}, {word:&quot;BREAD&quot;, meaning:&quot;パン&quot;}, {word:&quot;HEART&quot;, meaning:&quot;心&quot;}</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>続けて残りの5文字の候補を追加します。</p></div><div class="lesson-task"><h4>5文字の問題を使う</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>const words = words4;
@@ -509,6 +592,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>盤面が5列になり、5文字の候補を入力できます。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：成績を保存する</h2>
 <details class="step-preview" id="preview-examples-intermediate-word-guess-extensions-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>終了時に記録を保存して読み戻す（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">まだ0回</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">1回正解</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">再読み込み</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0回</span><span>2回</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>プレイ数</span> <strong>0回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="neutral" data-diagram-position="0" style="--diagram-fill:0"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>勝ち数</span> <strong>0回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="neutral" data-diagram-position="0" style="--diagram-fill:0"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>stats = {played:0, won:0}</code></p>
+          <p data-diagram-result>保存記録がないときは0から</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0回</span><span>2回</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>プレイ数</span> <strong>1回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="50" style="--diagram-fill:0.5"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>勝ち数</span> <strong>1回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="50" style="--diagram-fill:0.5"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>stats.played++; stats.won++; localStorage.setItem(...)</code></p>
+          <p data-diagram-result>1勝 / 1回を保存</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0回</span><span>2回</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>プレイ数</span> <strong>1回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="50" style="--diagram-fill:0.5"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>勝ち数</span> <strong>1回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="50" style="--diagram-fill:0.5"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>JSON.parse(localStorage.getItem(&quot;word-guess-stats&quot;))</code></p>
+          <p data-diagram-result>保存に成功していれば1勝 / 1回が残る</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:3;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-intermediate-word-guess-extensions-tutorial.webp" alt="" width="1920" height="270">
@@ -529,6 +657,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>挑戦回数と正解回数を保存します。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>成績を覚える</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let answer, rows, draft, state, message;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let answer, rows, draft, state, message;&#10;" data-small-separator="">let answer, rows, draft, state, message, stats;

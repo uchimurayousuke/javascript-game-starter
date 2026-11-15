@@ -51,8 +51,116 @@ function setupLessonFigure(figure) {
   controls.hidden = false;
 }
 
+function setupStepDiagram(figure) {
+  const controls = figure.querySelector(".step-diagram-controls");
+  const frames = [...figure.querySelectorAll("[data-diagram-frame]")];
+  const choices = [...controls.querySelectorAll("[data-diagram-choice]")];
+  const play = controls.querySelector("[data-diagram-play]");
+  const announcement = figure.querySelector("[data-diagram-announcement]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mode = figure.dataset.stepDiagram;
+  let current = 0, timer = null, revision = 0, playing = false;
+  let animations = [];
+
+  function show(index) {
+    frames[current].hidden = true;
+    choices[current].setAttribute("aria-pressed", "false");
+    current = index;
+    const frame = frames[current];
+    frame.hidden = false;
+    choices[current].setAttribute("aria-pressed", "true");
+    const rule = frame.querySelector("[data-diagram-equation]").textContent;
+    const result = frame.querySelector("[data-diagram-result]").textContent;
+    announcement.textContent = `${rule}。${result}`;
+  }
+
+  function clearAnimation() {
+    for (const animation of animations) animation.cancel();
+    animations = [];
+  }
+
+  function stop() {
+    revision += 1;
+    clearTimeout(timer);
+    timer = null;
+    playing = false;
+    clearAnimation();
+    play.textContent = "図を再生";
+  }
+
+  function change(index, complete = () => {}) {
+    if (index === current || reduceMotion.matches || typeof figure.animate !== "function") {
+      if (index !== current) show(index);
+      complete();
+      return;
+    }
+
+    const turn = revision;
+    const previous = frames[current];
+    const next = frames[index];
+    const before = [...previous.querySelectorAll("[data-diagram-position]")];
+    const after = [...next.querySelectorAll("[data-diagram-position]")];
+    const property = mode === "track" ? "left" : "transform";
+    const position = value => mode === "track" ? `${value}%` : `scaleX(${value / 100})`;
+    animations = before.flatMap((marker, i) => {
+      const from = marker.dataset.diagramPosition;
+      const to = after[i].dataset.diagramPosition;
+      if (from === to) return [];
+      return [marker.animate([
+        { [property]: position(from) }, { [property]: position(to) }
+      ], { duration: 270, easing: "ease-in-out", fill: "forwards" })];
+    });
+
+    const moving = animations.length > 0;
+    if (!moving) {
+      show(index);
+      const focus = [...next.querySelectorAll('[data-diagram-role]:not([data-diagram-role="neutral"])')];
+      const highlighted = focus.length ? focus : [next.querySelector(".step-diagram-scene")];
+      animations = highlighted.map(node => node.animate([
+        { translate: "0 .25rem", opacity: .55 },
+        { translate: "0 0", opacity: 1 }
+      ], { duration: 210, easing: "ease-out" }));
+    }
+
+    function finish() {
+      if (revision !== turn) return;
+      if (moving) show(index);
+      clearAnimation();
+      complete();
+    }
+
+    Promise.all(animations.map(animation => animation.finished)).then(finish, finish);
+  }
+
+  for (const [index, button] of choices.entries()) {
+    button.addEventListener("click", () => { stop(); change(index); });
+  }
+
+  play.addEventListener("click", () => {
+    if (playing) { stop(); return; }
+    stop();
+    if (reduceMotion.matches) { change((current + 1) % frames.length); return; }
+    show(0);
+    playing = true;
+    play.textContent = "止める";
+
+    function schedule(index) {
+      if (index >= frames.length) { stop(); return; }
+      timer = setTimeout(() => change(index, () => schedule(index + 1)), 780);
+    }
+
+    schedule(1);
+  });
+
+  figure.closest("details")?.addEventListener("toggle", event => {
+    if (!event.currentTarget.open) stop();
+  });
+  controls.hidden = false;
+}
+
 function setupStepPreview(preview) {
   const screen = preview.querySelector(".step-preview-screen");
+  const gameDetails = screen.closest("details");
   const image = screen.querySelector("img");
   const result = preview.querySelector("[data-preview-result]");
   const controls = preview.querySelector(".step-preview-controls");
@@ -126,9 +234,9 @@ function setupStepPreview(preview) {
     image.src = image.dataset.src;
   }
   if (window.location.hash === `#${preview.id}`) preview.open = true;
-  if (preview.open) loadImage();
-  preview.addEventListener("toggle", () => {
-    if (preview.open) {
+  if (gameDetails.open) loadImage();
+  gameDetails.addEventListener("toggle", () => {
+    if (gameDetails.open) {
       if (!image.getAttribute("src")) loadImage();
     } else if (timer !== null) {
       stop();
@@ -138,6 +246,7 @@ function setupStepPreview(preview) {
 }
 
 for (const figure of document.querySelectorAll(".lesson-figure[data-lesson-figure]")) setupLessonFigure(figure);
+for (const figure of document.querySelectorAll(".step-diagram[data-step-diagram]")) setupStepDiagram(figure);
 for (const preview of document.querySelectorAll(".step-preview")) setupStepPreview(preview);
 for (const details of document.querySelectorAll(".lesson-operation-video")) {
   const video = details.querySelector("video");

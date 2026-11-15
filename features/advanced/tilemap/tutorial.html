@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>マス目のマップと壁の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>マス目のマップと壁の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：5行5列、1マス60pxの地図を描く</a><a href="#lesson-section-3">ステップ 2：矢印キーで壁を避けて1マス移動</a><a href="#lesson-section-4">ステップ 3：アイテムのマスを取ってRで元に戻す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：マス目のマップと壁</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：5行5列、1マス60pxの地図を描く</a><a href="#lesson-section-3">ステップ 2：矢印キーで壁を避けて1マス移動</a><a href="#lesson-section-4">ステップ 3：アイテムのマスを取ってRで元に戻す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">マス目のマップと壁</li></ol></nav><h1>マス目のマップと壁を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -14,6 +14,39 @@
 <p><a href="../../../learning/setup.html">準備と操作</a>を参考に、作業用フォルダーを用意します。この教材ではそのフォルダーの <code>script.js</code> を編集し、保存後に同じフォルダーの <code>index.html</code> を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：5行5列、1マス60pxの地図を描く</h2>
 <details class="step-preview" id="preview-features-advanced-tilemap-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>地図の一部：行1・列1〜3を描く</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">地形を描く</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">人を重ねる</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列1</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列2</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列3</span><strong>道2</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>map[1][1]=0、map[1][2]=0、map[1][3]=2</code></p>
+          <p data-diagram-result>値1だけ壁色。その他は床色で描く。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>列1</span><strong>人</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列2</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列3</span><strong>道2</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>人のx=260+1×60=320、y=70+1×60=130</code></p>
+          <p data-diagram-result>地図を描いた後、行1列1に人を重ねる。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-advanced-tilemap-tutorial.webp" alt="" width="1920" height="270">
@@ -34,6 +67,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>5行5列、1マス60pxの地図を描く。</p><h3>予想してみる</h3><p>列1・行1のマスの左上は？</p><details><summary>答えを確認する</summary><p>横250 + 1×60 = 310、縦60 + 1×60 = 120です。</p></details><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>地図と現在のマスを覚える</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">let map, row, col;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>let</code> は後で値を変えられる変数を作ります。<code>map</code> は地図、<code>row</code> は行、<code>col</code> は列です。</p></div><div class="lesson-task"><h4>5行5列の地図を作る</h4><p><code>start()</code> の中で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function start() {" data-small-separator="&#10;">  map = [[1,1,1,1,1],[1,0,0,2,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]];</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>=</code> は右の値を左に入れる代入です。配列の中に行ごとの配列を並べます。1 は壁、0 は通路、2 は後で拾うアイテムです。行と列は 0 から数えます。</p></div><div class="lesson-task"><h4>人の開始マスを決める</h4><p>地図を作る行から <code>update()</code> の閉じ波括弧までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  map = [[1,1,1,1,1],[1,0,0,2,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]];
 }
@@ -137,6 +171,39 @@ gameLoop();
 <p>5行5列の地図と青いプレイヤーが表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>startの row = 1 の1を3に変え、表示が行3になることを確かめます。1に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-tilemap-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：矢印キーで壁を避けて1マス移動</h2>
 <details class="step-preview" id="preview-features-advanced-tilemap-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>最初の場所から右か上へ</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">右：行1列2</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">上：行0列1</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="blocked"><span>上：行0列1</span><strong>壁1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>元：行1列1</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>右：行1列2</span><strong>人</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>map[1][2]=0 ≠ 1 → col=2</code></p>
+          <p data-diagram-result>右の床には移動できる。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="blocked"><span>上：行0列1</span><strong>壁1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>元：行1列1</span><strong>人</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>右：行1列2</span><strong>床0</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>map[0][1]=1 → 移動しない</code></p>
+          <p data-diagram-result>上は壁なので行1列1のまま。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-advanced-tilemap-tutorial.webp" alt="" width="1920" height="270">
@@ -157,6 +224,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>矢印キーで壁を避けて1マス移動。</p><h3>予想してみる</h3><p>左側の壁へ進もうとすると？</p><details><summary>答えを確認する</summary><p>壁なので元のマスに残ります。</p></details><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>移動操作を案内する</h4><p><code>draw()</code> の地図の案内で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  ctx.fillText(&quot;地図を表示&quot;, 60, 400);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillText(&quot;地図を表示&quot;, 60, 400);" data-small-separator="&#10;">  ctx.fillText(&quot;矢印: 移動　R: 最初から&quot;, 60, 400);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>矢印キーで移動、R で再開する案内を表示します。</p></div><div class="lesson-task"><h4>キー入力を受け取る</h4><p><code>draw()</code> の閉じ波括弧から <code>gameLoop()</code> の先頭行までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>}
 
@@ -285,6 +353,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span></details><h3>保存後の確認</h3><p>矢印キーで1マスずつ動き、壁には入れません。Rで戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>startの col = 1 の1を2に変え、表示が列2になることを確かめます。1に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-tilemap-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：アイテムのマスを取ってRで元に戻す</h2>
 <details class="step-preview" id="preview-features-advanced-tilemap-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>行1を右へ進んでアイテムを取る</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">右へ1回</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">右へ2回</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">R</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列1</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>列2</span><strong>人</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>列3</span><strong>品2</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>map[1][2]=0 → 得点0</code></p>
+          <p data-diagram-result>2列目には何もない。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列1</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列2</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>列3</span><strong>人</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>map[1][3]=2 → 得点0+1、マスを0に</code></p>
+          <p data-diagram-result>品を消して得点1。もう一度通っても増えない。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>列1</span><strong>人</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>列2</span><strong>床0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>列3</span><strong>品2</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>row=1、col=1、score=0、地図を再作成</code></p>
+          <p data-diagram-result>人・得点・アイテムを全部戻す。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="2" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-advanced-tilemap-tutorial.webp" alt="" width="1920" height="270">
@@ -305,6 +418,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>アイテムのマスを取ってRで元に戻す。</p><h3>予想してみる</h3><p>取ったマスの値は？</p><details><summary>答えを確認する</summary><p>床を表す0になります。</p></details><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>得点を覚える</h4><p>変数の宣言で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let map, row, col;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let map, row, col;" data-small-separator="&#10;">let map, row, col; let score;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>score</code> に拾ったアイテムの数を覚えます。</p></div><div class="lesson-task"><h4>得点を0から始める</h4><p><code>start()</code> の開始位置で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  row = 1; col = 1;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  row = 1; col = 1;" data-small-separator="&#10;">  row = 1; col = 1; score = 0;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>位置に加え得点を 0 に戻します。</p></div><div class="lesson-task"><h4>アイテムを描く</h4><p><code>draw()</code> の地図のマスを描く行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    ctx.fillRect(250 + x * 60, 60 + y * 60, 58, 58);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    ctx.fillRect(250 + x * 60, 60 + y * 60, 58, 58);" data-small-separator="&#10;">    if (map[y][x] === 2) { ctx.fillStyle = &quot;#e5a63c&quot;; ctx.fillRect(270 + x * 60, 80 + y * 60, 18, 18); }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>値が 2 のマスには幅・高さ 18 のアイテムを描きます。</p></div><div class="lesson-task"><h4>得点を表示する</h4><p>行と列の表示の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;列: &quot; + col + &quot; 行: &quot; + row, 60, 80);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;列: &quot; + col + &quot; 行: &quot; + row, 60, 80);" data-small-separator="&#10;">  ctx.fillText(&quot;得点: &quot; + score, 60, 130);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>拾った数を画面に表示します。</p></div><div class="lesson-task"><h4>アイテムを拾ったら得点を増やす</h4><p>移動先へ位置を変える行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>      row = nextRow; col = nextCol;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="      row = nextRow; col = nextCol;" data-small-separator="&#10;">      if (map[row][col] === 2) { score += 1; map[row][col] = 0; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>移動先の値が 2 なら、<code>+= 1</code> で得点を増やし、そのマスを通路の 0 にします。同じアイテムを繰り返し拾えません。</p></div><figure class="learning-diagram" id="feature-tilemap" aria-labelledby="feature-tilemap-title"><figcaption id="feature-tilemap-title">図：行と列でマスを調べる。壁なら進まない</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="行と列でマスを調べる。壁なら進まない"><img src="../../../tutorial/illustrations/astra/feature-tilemap.svg" width="1200" height="920" alt="実装の5行5列の初期地図。1は壁、0は床、2はアイテム。人は行1列1。map[1][1]の左上は310,120。右へ2回で行1列3のアイテムを取り2が0、得点0が1になる。"></div><p>実装の5行5列の初期地図。1は壁、0は床、2はアイテム。人は行1列1。map[1][1]の左上は310,120。右へ2回で行1列3のアイテムを取り2が0、得点0が1になる。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-tilemap.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：行と列でマスを調べる。壁なら進まない（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p class="task-check">保存して再読み込みし、アイテムのマスに移動すると得点が 1 増えてアイテムが消え、戻っても再び増えないことを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集にはこの後の「比較とコピー用コード」を開いて使います。</p><h5>アイテムを表示する</h5><p>値2のマスに印を描きます。</p><pre class="reading-code"><code>if (map[y][x] === 2) { ctx.fillStyle = "#e5a63c"; ctx.fillRect(270 + x * 60, 80 + y * 60, 18, 18); }</code></pre><p>地図の行 <code>y</code>、列 <code>x</code> の値が2なら、そのマスの中に18px四方のアイテムを描きます。左上は地図の基準より横・縦とも20px内側です。</p><h5>取ったマスを床に戻す</h5><p>移動先の値が2なら得点を増やします。</p><pre class="reading-code"><code>if (map[row][col] === 2) { score += 1; map[row][col] = 0; }</code></pre><p>移動後のマスが2なら <code>score</code> を1増やし、値を床の0に変えます。同じ場所に戻ってももう得点は増えません。Rで <code>start()</code> を呼ぶと、地図と得点が初期状態に戻ります。</p><span id="diagram-feature-tilemap"></span></div><details><summary>比較とコピー用コードを開く</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 5 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">let map, row, col;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let map, row, col; let score;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  map = [[1,1,1,1,1],[1,0,0,2,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]];</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  row = 1; col = 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  row = 1; col = 1; score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  for (let y = 0; y &lt; map.length; y++) for (let x = 0; x &lt; map[y].length; x++) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = map[y][x] === 1 ? &quot;#65717e&quot; : &quot;#e6edf2&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillRect(250 + x * 60, 60 + y * 60, 58, 58);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (map[y][x] === 2) { ctx.fillStyle = &quot;#e5a63c&quot;; ctx.fillRect(270 + x * 60, 80 + y * 60, 18, 18); }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#3984c6&quot;; ctx.fillRect(260 + col * 60, 70 + row * 60, 38, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;列: &quot; + col + &quot; 行: &quot; + row, 60, 80);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;得点: &quot; + score, 60, 130);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;矢印: 移動　R: 最初から&quot;, 60, 400);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowUp&quot; || event.key === &quot;ArrowDown&quot;) event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  let dx = 0, dy = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowLeft&quot;) dx = -1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowRight&quot;) dx = 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowUp&quot;) dy = -1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;ArrowDown&quot;) dy = 1;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (dx || dy) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    const nextRow = row + dy, nextCol = col + dx;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (map[nextRow] &amp;&amp; map[nextRow][nextCol] !== undefined &amp;&amp; map[nextRow][nextCol] !== 1) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      row = nextRow; col = nextCol;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      if (map[row][col] === 2) { score += 1; map[row][col] = 0; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
 

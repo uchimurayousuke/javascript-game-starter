@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>効果音と音量の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>効果音と音量の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：音を試す入力を受け取る</a><a href="#lesson-section-3">ステップ 2：音量とミュートを選ぶ</a><a href="#lesson-section-4">ステップ 3：利用できるときに音を鳴らす</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：効果音と音量を作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：音を試す入力を受け取る</a><a href="#lesson-section-3">ステップ 2：音量とミュートを選ぶ</a><a href="#lesson-section-4">ステップ 3：利用できるときに音を鳴らす</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">効果音と音量を作る</li></ol></nav><h1>効果音と音量を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -141,6 +141,51 @@ gameLoop();
 <p>Spaceを押すと案内が変わります。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>案内の文章を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-sound-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：音量とミュートを選ぶ</h2>
 <details class="step-preview" id="preview-features-intermediate-sound-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>Vで音量、Mでミュートを変える</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">V 1回</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">V 2回</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">初期状態からM</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>音量0.25 / 音あり</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>0.25 → 0.5</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>音量0.5 / 音あり</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>volume === 0.25 → 0.5</code></p>
+          <p data-diagram-result>音量は0→0.25→0.5→0の順。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>音量0.5 / 音あり</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>0.5 → 0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>音量0 / 音あり</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>0でも0.25でもない → 0</code></p>
+          <p data-diagram-result>音量の値が0になる。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>音量0.25 / 音あり</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>muted = !false</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>音量0.25 / ミュート</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>false → true</code></p>
+          <p data-diagram-result>音量を保ったままミュートにする。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-intermediate-sound-tutorial.webp" alt="" width="1920" height="270">
@@ -161,6 +206,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>音量とミュートを選ぶ。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>音量とミュートを表示する</h4><p><code>draw()</code> の操作案内の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;Space: 音を試す / R: 最初から&quot;, 160, 360);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;Space: 音を試す / R: 最初から&quot;, 160, 360);" data-small-separator="&#10;">  ctx.fillText(&quot;音量 &quot; + volume + &quot; / &quot; + (muted ? &quot;ミュート&quot; : &quot;音あり&quot;), 160, 210);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>+</code> で文字と値をつなぎます。<code>条件 ? A : B</code> は条件に応じて A または B を選び、ミュート中かを表示します。</p></div><div class="lesson-task"><h4>音の設定操作を案内する</h4><p>音量表示の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;音量 &quot; + volume + &quot; / &quot; + (muted ? &quot;ミュート&quot; : &quot;音あり&quot;), 160, 210);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;音量 &quot; + volume + &quot; / &quot; + (muted ? &quot;ミュート&quot; : &quot;音あり&quot;), 160, 210);" data-small-separator="&#10;">  ctx.fillText(&quot;V: 音量　M: ミュート&quot;, 160, 270);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>V で音量、M でミュートを切り替える案内を表示します。</p></div><div class="lesson-task"><h4>Vで音量を切り替える</h4><p>キー入力処理の Space の判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key === &quot; &quot;) { event.preventDefault(); message = &quot;音を鳴らす操作を受け付けた&quot;; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key === &quot; &quot;) { event.preventDefault(); message = &quot;音を鳴らす操作を受け付けた&quot;; }" data-small-separator="&#10;">  else if (key === &quot;v&quot;) volume = volume === 0 ? 0.25 : volume === 0.25 ? 0.5 : 0;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>音量を 0 → 0.25 → 0.5 → 0 の順に切り替えます。</p></div><div class="lesson-task"><h4>Mでミュートを切り替える</h4><p>V の判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  else if (key === &quot;v&quot;) volume = volume === 0 ? 0.25 : volume === 0.25 ? 0.5 : 0;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  else if (key === &quot;v&quot;) volume = volume === 0 ? 0.25 : volume === 0.25 ? 0.5 : 0;" data-small-separator="&#10;">  else if (key === &quot;m&quot;) muted = !muted;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>!</code> は真偽を反転します。M を押すたびミュートの有無が切り替わります。</p></div><p class="task-check">保存して再読み込みし、V で音量が 0.25、0.5、0 と切り替わり、M でミュートの表示が切り替わることを確かめます。音は次に作ります。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 4 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(message, 160, 140);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Space: 音を試す / R: 最初から&quot;, 160, 360);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;音量 &quot; + volume + &quot; / &quot; + (muted ? &quot;ミュート&quot; : &quot;音あり&quot;), 160, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;V: 音量　M: ミュート&quot;, 160, 270);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (key === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot; &quot;) { event.preventDefault(); message = &quot;音を鳴らす操作を受け付けた&quot;; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (key === &quot;v&quot;) volume = volume === 0 ? 0.25 : volume === 0.25 ? 0.5 : 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (key === &quot;m&quot;) muted = !muted;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><div class="reading-walkthrough"><p class="reading-label">読むための抜粋です。編集には下のコピー用コードを使います。</p><h5>Vで音量を切り替える</h5><pre class="reading-code"><code>else if (key === "v") volume = volume === 0 ? 0.25 : volume === 0.25 ? 0.5 : 0;</code></pre><p>Vを押すたび、音量を0なら0.25、0.25なら0.5、それ以外なら0に変えます。<code>?</code> と <code>:</code> で条件に合う値を選びます。</p><h5>Mでミュートを切り替える</h5><pre class="reading-code"><code>else if (key === "m") muted = !muted;</code></pre><p><code>!</code> は <code>muted</code> の真と偽を入れ替えます。Mを押すたびミュートと音ありを切り替えます。</p></div><details class="instruction-code"><summary>比較とコピー用コードを開く</summary><h4>変更 1</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;Space: 音を試す / R: 最初から&quot;, 160, 360);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;音量 &quot; + volume + &quot; / &quot; + (muted ? &quot;ミュート&quot; : &quot;音あり&quot;), 160, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;V: 音量　M: ミュート&quot;, 160, 270);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;Space: 音を試す / R: 最初から&quot;, 160, 360);
 }
@@ -218,6 +264,51 @@ gameLoop();
 </code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>VとMを押して値と状態を確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>音量の候補を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-sound-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：利用できるときに音を鳴らす</h2>
 <details class="step-preview" id="preview-features-intermediate-sound-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>Spaceのあと音を出せるか調べる</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">音あり・対応環境</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">ミュート</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">未対応環境</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>音量0.25</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>Audio状態running</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>440Hzを0.08秒</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>muted=false、volume&gt;0 → 再生</code></p>
+          <p data-diagram-result>短い音を鳴らす。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>muted = true</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>最初の条件で戻る</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>ミュート中</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>muted || volume===0 → return</code></p>
+          <p data-diagram-result>音を作る前に止める。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>AudioContextなし</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>対応を確認</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>この環境では音を使えません</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>!Audio → 案内してreturn</code></p>
+          <p data-diagram-result>案内を出してゲームは続ける。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Space キーを押した例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-intermediate-sound-tutorial.webp" alt="" width="1920" height="270">
@@ -238,6 +329,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>利用できるときに音を鳴らす。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>音を扱う準備を覚える</h4><p>変数の宣言の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let volume, muted, message;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let volume, muted, message;" data-small-separator="&#10;">let audioContext = null;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>audioContext</code> は音を扱うための機能を後で覚えます。<code>null</code> はまだ値がないことです。</p></div><div class="lesson-task"><h4>音を鳴らす関数の枠を作る</h4><p><code>audioContext</code> の宣言の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let audioContext = null;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let audioContext = null;" data-small-separator="&#10;">async function playSound() {
   if (muted || volume === 0) { message = &quot;ミュート中&quot;; return; }

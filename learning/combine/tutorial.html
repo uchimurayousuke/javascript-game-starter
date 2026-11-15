@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>コインキャッチを組み合わせる</title><link rel="stylesheet" href="../../examples/guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"><link rel="stylesheet" href="../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../downloads/starter.css"><link rel="stylesheet" href="../../tutorial/small-tasks.css"><script src="../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>コインキャッチを組み合わせる</title><link rel="stylesheet" href="../../examples/guide.css"><link rel="stylesheet" href="../../tutorial/code-changes.css"><link rel="stylesheet" href="../../tutorial/diagrams.css"><link rel="stylesheet" href="../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../downloads/starter.css"><link rel="stylesheet" href="../../tutorial/small-tasks.css"><script src="../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">ステップ 1：メニューから始める</a><a href="#lesson-section-2">ステップ 2：結果画面から選ぶ</a><a href="#lesson-section-3">ステップ 3：ベストを保存する</a><a href="#lesson-section-4">ステップ 4：コインを画像に替える</a><a href="#lesson-section-5">組み合わせるときの確認</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：コインキャッチに機能を組み合わせる</p><a href="#lesson-section-1">ステップ 1：メニューから始める</a><a href="#lesson-section-2">ステップ 2：結果画面から選ぶ</a><a href="#lesson-section-3">ステップ 3：ベストを保存する</a><a href="#lesson-section-4">ステップ 4：コインを画像に替える</a><a href="#lesson-section-5">組み合わせるときの確認</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../index.html">学びの入口</a></li><li aria-current="page">コインキャッチに機能を組み合わせる</li></ol></nav><h1>コインキャッチに機能を組み合わせる</h1><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div><div class="starter-download"><p><a class="download-link" href="../../downloads/starters/coin-catch-complete.zip" download="coin-catch-complete.zip">コインキャッチ基本完成版の開始用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。</p></div>
@@ -290,6 +290,39 @@ gameLoop();
 </code></pre></details></details></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 2：結果画面から選ぶ</h2>
 <details class="step-preview" id="preview-learning-combine-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>結果から再挑戦かメニューへ</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">Space</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">M</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>例：クリア5枚</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>start()</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>プレイ0枚 / 残り3</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>score=0、lives=3、playing</code></p>
+          <p data-diagram-result>得点と残り回数を両方戻す。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>例：クリア5枚</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>clearKeys()</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>メニュー</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>gameState=menu、入力を解除</code></p>
+          <p data-diagram-result>動きを止めたままメニューに戻る。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Space キーを押した例" data-previous="1" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
       <img data-src="../../tutorial/step-previews/learning-combine-tutorial.webp" alt="" width="1920" height="540">
@@ -310,6 +343,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <p>次の小作業を順に進めます。</p><div class="lesson-task"><h4>結果からメニューに戻す</h4><p><code>handleKeyDown()</code> のSpaceの条件のすぐ上に追加します。</p><p class="task-marker-label">この行の前に追加</p><pre class="task-marker"><code>  if (event.code === &quot;Space&quot;) {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="  if (event.code === &quot;Space&quot;) {" data-small-separator="&#10;">  if ((gameState === &quot;clear&quot; || gameState === &quot;gameover&quot;) &amp;&amp; event.code === &quot;KeyM&quot;) {
     clearKeys();
@@ -513,6 +547,41 @@ gameLoop();
 </code></pre></details></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 3：ベストを保存する</h2>
 <details class="step-preview" id="preview-learning-combine-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>ベストは大きい方を残す（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">前3枚・今回5枚</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">前5枚・今回2枚</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0枚</span><span>5枚</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>前のベスト</span> <strong>3枚</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="neutral" data-diagram-position="60" style="--diagram-fill:0.6"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>今回</span> <strong>5枚</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="neutral" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>新ベスト</span> <strong>5枚</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>max(3,5)=5 → &quot;5&quot;を保存</code></p>
+          <p data-diagram-result>新記録5枚を次のメニューでも表示。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0枚</span><span>5枚</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>前のベスト</span> <strong>5枚</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="neutral" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>今回</span> <strong>2枚</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="neutral" data-diagram-position="40" style="--diagram-fill:0.4"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>新ベスト</span> <strong>5枚</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>max(5,2)=5 → &quot;5&quot;を保存</code></p>
+          <p data-diagram-result>今回少なくてもベストは下がらない。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="7" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:1">
       <img data-src="../../tutorial/step-previews/learning-combine-tutorial.webp" alt="" width="1920" height="540">
@@ -533,6 +602,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <p>次の小作業を順に進めます。</p><div class="lesson-task"><h4>保存したベストを読み取る</h4><p><code>start()</code> の行のすぐ上に追加します。</p><p class="task-marker-label">この行の前に追加</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start() {" data-small-separator="&#10;&#10;">function readBest() {
   try {
@@ -807,6 +877,39 @@ gameLoop();
 </code></pre></details></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 4：コインを画像に替える</h2>
 <details class="step-preview" id="preview-learning-combine-tutorial-html-step4">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>読めたときは画像、読めなければ円</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">画像成功</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">画像失敗</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>coinImageReady=true</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>drawImage</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>28×28のコイン</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>14×2=28、左上=(coinX-14,coinY-14)</code></p>
+          <p data-diagram-result>中心と大きさを円に合わせる。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>coinImageReady=false</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>arc → fill</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>半径14の円</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>else → 円を描く</code></p>
+          <p data-diagram-result>見た目が円でも同じルールで遊べる。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="7" data-frames="7" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:1">
       <img data-src="../../tutorial/step-previews/learning-combine-tutorial.webp" alt="" width="1920" height="540">
@@ -827,6 +930,7 @@ gameLoop();
       <p><a href="step4/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <p>次の小作業を順に進めます。</p><p>作業用フォルダーにassetsフォルダーを作り、<a href="step4/assets/coin.png" download="coin.png">コインの画像をダウンロード</a>して、その中に保存します。assets/coin.pngを同じ名前の正方形PNGに替えると自分の絵を表示できます。別の名前にした場合はsrcも変えます。見本の64×64画像には透明な余白があるため、28×28の画像枠の内側に金色の絵が見えます。当たり判定は画像の透明部分に関係なく半径14のままです。</p><div class="lesson-task"><h4>コイン画像の読み込みを始める</h4><p>先頭のベストの変数の下に追加します。</p><p class="task-marker-label">この行の後に追加</p><pre class="task-marker"><code>let bestScore = readBest();</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let bestScore = readBest();" data-small-separator="&#10;">const coinImage = new Image();
 let coinImageReady = false;

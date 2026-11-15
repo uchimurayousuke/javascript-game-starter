@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../../guide.css">
 <link rel="stylesheet" href="../../../../tutorial/code-changes.css">
   <link rel="stylesheet" href="../../../../tutorial/diagrams.css">
-<link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head>
@@ -44,6 +44,39 @@
 <h2>発展課題 1：敵を上から踏んで倒す</h2>
 <details class="step-preview" id="preview-examples-advanced-platformer-extensions-tutorial-html-stomp">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>敵と重なった瞬間（敵上端360）（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">上から着地</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">横から接触</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>前の足元</span><strong>358</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>落下速度</span><strong>4</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>結果</span><strong>はねる</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>vy&gt;0 &amp;&amp; 358&lt;=360 → true</code></p>
+          <p data-diagram-result>敵を倒し y=320、vy=-8</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>前の足元</span><strong>390</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>落下速度</span><strong>0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>結果</span><strong>over</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>vy&gt;0 &amp;&amp; 390&lt;=360 → false</code></p>
+          <p data-diagram-result>失敗する</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:1;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" width="1920" height="810">
@@ -64,6 +97,7 @@
       <p><a href="stomp/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <details class="lesson-operation-video" id="lesson-save-video">
   <summary>保存してゲーム画面を更新する（動画）</summary>
@@ -310,6 +344,39 @@ let dashLeft = false, dashRight = false;</code></pre>
 <h2>発展課題 3：中間ポイントから再挑戦する</h2>
 <details class="step-preview" id="preview-examples-advanced-platformer-extensions-tutorial-html-checkpoint">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>失敗してRを押す（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">中間を通る前</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">中間を通った後</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0px</span><span>1400px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>再開x</span> <strong>80px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="5.7143" style="--diagram-position:5.7143%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>中間x</span> <strong>1200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="85.7143" style="--diagram-position:85.7143%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>checkpoint.active=false → start()</code></p>
+          <p data-diagram-result>最初から。コインも初期化</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0px</span><span>1400px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>再開x</span> <strong>1200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="85.7143" style="--diagram-position:85.7143%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>中間x</span> <strong>1200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="85.7143" style="--diagram-position:85.7143%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>state===&quot;over&quot; &amp;&amp; active → retry()</code></p>
+          <p data-diagram-result>中間から。コインと倒した敵は残る</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="2" data-frames="8" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:0;--tile-y:2">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" width="1920" height="810">
@@ -330,6 +397,7 @@ let dashLeft = false, dashRight = false;</code></pre>
       <p><a href="checkpoint/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 
 <p>課題2のコードに追加します。ステージの途中に目印を置き、通過した後に失敗したら、その場所から遊び直せるようにします。</p>

@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>1対1サッカーの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>1対1サッカーの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ピッチと選手を描く</a><a href="#lesson-section-3">ステップ 2：選手を動かす</a><a href="#lesson-section-4">ステップ 3：ボールを蹴る</a><a href="#lesson-section-5">ステップ 4：相手を動かす</a><a href="#lesson-section-6">ステップ 5：ゴールと勝敗</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：1対1サッカーを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ピッチと選手を描く</a><a href="#lesson-section-3">ステップ 2：選手を動かす</a><a href="#lesson-section-4">ステップ 3：ボールを蹴る</a><a href="#lesson-section-5">ステップ 4：相手を動かす</a><a href="#lesson-section-6">ステップ 5：ゴールと勝敗</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">1対1サッカーを作る</li></ol></nav><h1>1対1サッカーを作る</h1><details class="task-reference"><summary>コードの比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -14,6 +14,39 @@
 <p>各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：ピッチと選手を描く</h2>
 <details class="step-preview" id="preview-examples-advanced-soccer-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>中央の高さy=225に描く（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">1：選手</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">2：ボール</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>青x</span><strong>200</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>赤x</span><strong>600</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>半径</span><strong>16</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>new Player(200); new Player(600)</code></p>
+          <p data-diagram-result>左右に選手を描く</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>ボールx</span><strong>400</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>高さy</span><strong>225</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>半径</span><strong>8</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>new Ball() → x=400,y=225</code></p>
+          <p data-diagram-result>選手の中間にボールを描く</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-soccer-tutorial.webp" alt="" width="1920" height="810">
@@ -34,6 +67,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>サッカーの動きを順番に作ります。</p><p>作業用フォルダーの <code>script.js</code> を開き、下の小作業を順に進めます。確認欄で保存して見本と比べます。</p><div class="lesson-task"><h4>選手のクラスを用意する</h4><p>先頭の <code>ctx</code> の宣言の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">class Player {
 }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>class</code> は同じ性質を持つものを作るための型です。まず選手の <code>Player</code> を作り、次に中身を加えます。</p></div><div class="lesson-task"><h4>選手の位置と色を決める</h4><p><code>Player</code> の空のクラスを置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>class Player {
@@ -216,6 +250,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>ピッチ、両ゴール、青と赤の選手、ボールが表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：選手を動かす</h2>
 <details class="step-preview" id="preview-examples-advanced-soccer-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>青い選手を1フレーム動かす（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">右キー</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">キーを離す</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">左キー</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>190px</span><span>210px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>移動前x</span> <strong>200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>移動後x</span> <strong>202.5px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="62.5" style="--diagram-position:62.5%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>200 + 1 × 2.5 = 202.5</code></p>
+          <p data-diagram-result>右へ2.5px</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>190px</span><span>210px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>移動前x</span> <strong>200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>移動後x</span> <strong>200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>200 + 0 × 2.5 = 200</code></p>
+          <p data-diagram-result>その場で止まる</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>190px</span><span>210px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>移動前x</span> <strong>200px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>移動後x</span> <strong>197.5px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="37.5" style="--diagram-position:37.5%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>200 - 1 × 2.5 = 197.5</code></p>
+          <p data-diagram-result>左へ2.5px</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-soccer-tutorial.webp" alt="" width="1920" height="810">
@@ -236,6 +315,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>サッカーの動きを順番に作ります。</p><p>作業用フォルダーの <code>script.js</code> を開き、下の小作業を順に進めます。確認欄で保存して見本と比べます。</p><div class="lesson-task"><h4>更新するメソッドを作る</h4><p><code>Game</code> の <code>resetPositions()</code> 全体の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  resetPositions() {
     this.player.x = 200; this.player.y = 225; this.rival.x = 600; this.rival.y = 225; this.ball = new Ball(); this.cooldown = 0;
@@ -386,6 +466,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>矢印キーで青い選手が動き、キーを離すと止まります。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：ボールを蹴る</h2>
 <details class="step-preview" id="preview-examples-advanced-soccer-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>同じ高さのボールを蹴る（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">距離33</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">距離32</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">1フレーム後</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>360px</span><span>415px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>選手x</span> <strong>367px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="12.7273" style="--diagram-position:12.7273%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>ボールx</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="72.7273" style="--diagram-position:72.7273%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>400 - 367 = 33 &gt; 32</code></p>
+          <p data-diagram-result>届かない。静止したまま</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>360px</span><span>415px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>選手x</span> <strong>368px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="14.5455" style="--diagram-position:14.5455%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>ボールx</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="72.7273" style="--diagram-position:72.7273%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>400 - 368 = 32 &lt;= 32</code></p>
+          <p data-diagram-result>右へ速度6で蹴る</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>360px</span><span>415px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>選手x</span> <strong>368px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="14.5455" style="--diagram-position:14.5455%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>ボールx</span> <strong>406px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="83.6364" style="--diagram-position:83.6364%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>x=400+6; vx=6×0.99=5.94</code></p>
+          <p data-diagram-result>6px進み、速度は5.94へ減る</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Space キーを押した例" data-previous="2" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-soccer-tutorial.webp" alt="" width="1920" height="810">
@@ -406,6 +531,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>サッカーの動きを順番に作ります。</p><p>作業用フォルダーの <code>script.js</code> を開き、下の小作業を順に進めます。確認欄で保存して見本と比べます。</p><div class="lesson-task"><h4>シュートのメソッドを作る</h4><p><code>Game</code> の <code>update()</code> の行のすぐ上に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  update() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="  update() {" data-small-separator="&#10;">  kick(player, power) {
     return false;

@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>画像の反転と回転の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>画像の反転と回転の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：画像を中心に置く</a><a href="#lesson-section-3">ステップ 2：左右を反転する</a><a href="#lesson-section-4">ステップ 3：中心まわりに回転する</a><a href="#lesson-section-5">画像を自分の絵に替えるには</a><a href="#lesson-section-6">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：画像の反転と回転を作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：画像を中心に置く</a><a href="#lesson-section-3">ステップ 2：左右を反転する</a><a href="#lesson-section-4">ステップ 3：中心まわりに回転する</a><a href="#lesson-section-5">画像を自分の絵に替えるには</a><a href="#lesson-section-6">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">画像の反転と回転を作る</li></ol></nav><h1>画像の反転と回転を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/starters/feature-advanced-image-transform.zip" download="feature-advanced-image-transform.zip">画像付きひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルと画像が入っています。</p></div>
@@ -14,6 +14,41 @@
 <p>変更前を探し、変更後のコードに置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：画像を中心に置く</h2>
 <details class="step-preview" id="preview-features-advanced-image-transform-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>64pxの画像を中心へ</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">横の中心</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">縦の中心</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>150px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>左端</span> <strong>368px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="neutral" data-diagram-position="72.6667" style="--diagram-position:72.6667%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>中心</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="83.3333" style="--diagram-position:83.3333%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>右端</span> <strong>432px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="neutral" data-diagram-position="94" style="--diagram-position:94%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>368 + 64 ÷ 2 = 400</code></p>
+          <p data-diagram-result>横の中心は赤い点のx=400。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>150px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>上端</span> <strong>193px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="neutral" data-diagram-position="14.3333" style="--diagram-position:14.3333%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>中心</span> <strong>225px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="25" style="--diagram-position:25%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>下端</span> <strong>257px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="neutral" data-diagram-position="35.6667" style="--diagram-position:35.6667%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>193 + 64 ÷ 2 = 225</code></p>
+          <p data-diagram-result>縦の中心は赤い点のy=225。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-advanced-image-transform-tutorial.webp" alt="" width="1920" height="270">
@@ -34,6 +69,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>画像を中心に置く。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>画像と変形の状態を覚える</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">let asset, flip, angle;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>let</code> は後で値を変えられる変数を作ります。<code>asset</code> は画像と読込状態、<code>flip</code> は反転するか、<code>angle</code> は回転角です。</p></div><div class="lesson-task"><h4>画像を読み込む関数を用意する</h4><p>変数の行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let asset, flip, angle;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let asset, flip, angle;" data-small-separator="&#10;">function loadImage(src) {
   const image = new Image();
@@ -168,6 +204,39 @@ gameLoop();
 <p>画像の中心に赤い点が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>中心位置を変更します。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-image-transform-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：左右を反転する</h2>
 <details class="step-preview" id="preview-features-advanced-image-transform-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>Fで中心の左右を入れ替える</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">反転なし</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">Fで反転</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>350px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>中心</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="neutral" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>例：右32の点</span> <strong>432px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="82" style="--diagram-position:82%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>400 + 32 × 1 = 432</code></p>
+          <p data-diagram-result>中心から右32pxにある点。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>350px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>中心</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="neutral" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>例：右32の点</span> <strong>368px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="18" style="--diagram-position:18%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>400 + 32 × (-1) = 368</code></p>
+          <p data-diagram-result>同じ点が中心の左32pxへ移る。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-advanced-image-transform-tutorial.webp" alt="" width="1920" height="270">
@@ -188,6 +257,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>左右を反転する。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>画像を中心基準で描く</h4><p>画像を描く行で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>    ctx.drawImage(asset.image, 368, 193, 64, 64);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="    ctx.drawImage(asset.image, 368, 193, 64, 64);" data-small-separator="&#10;">    ctx.save(); ctx.translate(400, 225);
     ctx.drawImage(asset.image, -32, -32, 64, 64);
@@ -264,6 +334,39 @@ gameLoop();
 </code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Fで同じ中心のまま左右反転します。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>中心位置を変えて比べます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-advanced-image-transform-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：中心まわりに回転する</h2>
 <details class="step-preview" id="preview-features-advanced-image-transform-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>Aで45度ずつ向きを変える</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">A 1回</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">A 2回</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>角度0°</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>0 + 45 = 45°</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>中心(400,225)</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>angle += π / 4</code></p>
+          <p data-diagram-result>画像が45度回る。中心は動かない。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>角度45°</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>45 + 45 = 90°</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>中心(400,225)</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>π/4 + π/4 = π/2</code></p>
+          <p data-diagram-result>画像が90度回る。赤い点は同じ場所。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-advanced-image-transform-tutorial.webp" alt="" width="1920" height="270">
@@ -284,6 +387,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>中心まわりに回転する。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>画像を中心で回転する</h4><p><code>translate</code> の行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    ctx.save(); ctx.translate(400, 225);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    ctx.save(); ctx.translate(400, 225);" data-small-separator="&#10;">    ctx.rotate(angle);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>移動した原点を中心に <code>angle</code> の角度だけ回します。回転の後に反転して画像を描きます。</p></div><div class="lesson-task"><h4>回転を案内する</h4><p><code>draw()</code> の操作案内で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;中心 (400,225) / R: 再開 / F: 反転&quot;, 80, 360);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;中心 (400,225) / R: 再開 / F: 反転&quot;, 80, 360);" data-small-separator="&#10;">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;中心 (400,225) / R: 再開 / F: 反転 / A: 回転&quot;, 80, 360);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>A で回転する案内を加えます。</p></div><div class="lesson-task"><h4>Aで45度回す</h4><p>F の判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key.toLowerCase() === &quot;f&quot;) flip = !flip;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key.toLowerCase() === &quot;f&quot;) flip = !flip;" data-small-separator="&#10;">  else if (event.key.toLowerCase() === &quot;a&quot;) angle += Math.PI / 4;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>Math.PI</code> は半周に当たる角度で、4 で割ると 45 度です。<code>+=</code> で押すたびに角度を足します。</p></div><figure class="learning-diagram" id="feature-image-transform" aria-labelledby="feature-image-transform-title"><figcaption id="feature-image-transform-title">図：画像の変形：中心を固定して反転・回転</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="画像の変形：中心を固定して反転・回転"><img src="../../../tutorial/illustrations/astra/feature-image-transform.svg" width="1000" height="870" alt="中心へ基準を移してから、画像を反転・回転します。画像の左上を中心から−32ずつずらすと、中心が動きません。描き終えたらrestoreで元の状態へ戻します。"></div><p>中心へ基準を移してから、画像を反転・回転します。画像の左上を中心から−32ずつずらすと、中心が動きません。描き終えたらrestoreで元の状態へ戻します。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-image-transform.svg" target="_blank" rel="noopener" aria-label="図：画像の変形：中心を固定して反転・回転を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p class="task-check">保存して再読み込みし、A で 45 度ずつ回り、F でも反転し、赤い印と操作案内は回らないことを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (asset.status === &quot;ready&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.save(); ctx.translate(400, 225);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.rotate(angle);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.scale(flip ? -1 : 1, 1);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.drawImage(asset.image, -32, -32, 64, 64);</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else ctx.fillText(asset.status === &quot;error&quot; ? &quot;画像を読み込めません&quot; : &quot;読み込み中&quot;, 180, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#bd422f&quot;; ctx.fillRect(397, 222, 6, 6);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;中心 (400,225) / R: 再開 / F: 反転&quot;, 80, 360);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.fillText(&quot;中心 (400,225) / R: 再開 / F: 反転 / A: 回転&quot;, 80, 360);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;f&quot;) flip = !flip;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key.toLowerCase() === &quot;a&quot;) angle += Math.PI / 4;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><div class="reading-walkthrough"><p class="reading-label">読むための抜粋です。編集には下のコピー用コードを使います。</p><h5>中心まわりに角度を適用する</h5><pre class="reading-code"><code>ctx.save(); ctx.translate(400, 225);
     ctx.rotate(angle);

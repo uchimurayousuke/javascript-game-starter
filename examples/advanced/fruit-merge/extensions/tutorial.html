@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>フルーツ合体パズルの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>フルーツ合体パズルの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：次のフルーツを表示する</a><a href="#lesson-section-3">ステップ 2：落下位置の線を出す</a><a href="#lesson-section-4">ステップ 3：続けて合体した得点を増やす</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：フルーツ合体パズルの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：次のフルーツを表示する</a><a href="#lesson-section-3">ステップ 2：落下位置の線を出す</a><a href="#lesson-section-4">ステップ 3：続けて合体した得点を増やす</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">フルーツ合体パズルの発展</li></ol></nav><h1>フルーツ合体パズルの発展</h1><p>丸いフルーツを落とし、同じ数字を合体させます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-fruit-merge-extension.zip" download="example-advanced-fruit-merge-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div>
@@ -14,6 +14,39 @@
 <p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p><p>クラスはデータと処理の設計図です。constructorはnewで作るときに呼ばれ、thisは作られた一つ一つのインスタンスを指します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：次のフルーツを表示する</h2>
 <details class="step-preview" id="preview-examples-advanced-fruit-merge-extensions-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>次の数字を作る乱数（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">乱数0.2</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">乱数0.7</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>乱数</span><strong>0.2</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>次のlevel</span><strong>0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>表示</span><strong>1</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>floor(0.2×2)=0; 0+1=1</code></p>
+          <p data-diagram-result>次は数字1</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>乱数</span><strong>0.7</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>次のlevel</span><strong>1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>表示</span><strong>2</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>floor(0.7×2)=1; 1+1=2</code></p>
+          <p data-diagram-result>次は数字2</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:1;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-fruit-merge-extensions-tutorial.webp" alt="" width="1920" height="810">
@@ -34,6 +67,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>次に落ちる数字を表示します。</p><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>次の果物を表示する</h4><p><code>Game.draw()</code> の合体の説明を描く行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);" data-small-separator="&#10;">    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>nextLevel</code> は次に作る果物の配列番号です。番号0を画面の数字1として見せるため1を足します。落とした後に0か1を選ぶので、次は数字1か2です。</p><p class="task-check">保存して再読み込みし、「次」の数字が表示されることを確かめます。</p></div><details class="task-reference"><summary>この段階の説明用の抜粋を見る</summary><div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h4>次の果物を表示する</h4><p>次に落とすレベルを画面に描きます。</p><pre class="reading-code"><code>ctx.fillText("次：" + (this.nextLevel + 1), 590, 270);</code></pre><p><code>nextLevel</code> は次に作る果物の配列番号です。番号0を画面の数字1として見せるため、1を足します。落とした後に0か1を選ぶので、次は数字1か2です。</p></div></details><details class="instruction-code task-reference"><summary>比較とコピー用コードを開く</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;← →：位置&quot;, 590, 150); ctx.fillText(&quot;Space：落とす&quot;, 590, 178);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillText(&quot;同じ数字を合体&quot;, 590, 206); ctx.fillText(&quot;上限：40個&quot;, 590, 234);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;次：&quot; + (this.nextLevel + 1), 590, 270);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    ctx.fillStyle = &quot;#146bb5&quot;; ctx.beginPath(); ctx.arc(this.aim, 50, 5, 0, Math.PI * 2); ctx.fill();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    if (this.state === &quot;over&quot;) ctx.fillText(&quot;終了　Rで再挑戦&quot;, 590, 340);</span></div></div></details><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
 
@@ -633,6 +667,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>左右キーで動かすと点線も横に動きます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>aimが320なら点線はどのx座標ですか。</p><details><summary>練習の答え</summary><p>x=320です。</p></details><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-fruit-merge-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：続けて合体した得点を増やす</h2>
 <details class="step-preview" id="preview-examples-advanced-fruit-merge-extensions-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>数字2を作ったときの連鎖点（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">1回目</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">猶予中の2回目</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">猶予が切れた後</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0</span><span>40</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>追加点</span> <strong>20</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="50" style="--diagram-fill:0.5"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>連鎖</span> <strong>1</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="2.5" style="--diagram-fill:0.025"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>2 × 10 × 1 = 20</code></p>
+          <p data-diagram-result>連鎖の猶予を90フレームにする</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0</span><span>40</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>追加点</span> <strong>40</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>連鎖</span> <strong>2</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="5" style="--diagram-fill:0.05"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>2 × 10 × 2 = 40</code></p>
+          <p data-diagram-result>連鎖が2になる</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0</span><span>40</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>追加点</span> <strong>20</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="50" style="--diagram-fill:0.5"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>連鎖</span> <strong>1</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="2.5" style="--diagram-fill:0.025"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>comboFrames=0 → combo=1</code></p>
+          <p data-diagram-result>連鎖を1からやり直す</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="8" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:0;--tile-y:2">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-fruit-merge-extensions-tutorial.webp" alt="" width="1920" height="810">
@@ -653,6 +732,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>短い間に続く合体を連鎖として数えます。</p><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>連鎖の値を用意する</h4><p><code>Game</code> の <code>constructor()</code> の次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0;" data-small-separator="&#10;">    this.score = 0; this.state = &quot;playing&quot;; this.dangerFrames = 0; this.combo = 0; this.comboFrames = 0;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>combo</code> は連鎖の倍率、<code>comboFrames</code> は連鎖を続けられる残りの更新回数です。新しいゲームでは両方0です。</p></div><div class="lesson-task"><h4>連鎖の残りを減らす</h4><p><code>Game.update()</code> で待ち時間を減らす次の行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    if (this.cooldown &gt; 0) this.cooldown--;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    if (this.cooldown &gt; 0) this.cooldown--;" data-small-separator="&#10;">    if (this.comboFrames &gt; 0) this.comboFrames--; else this.combo = 0;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>残りがあれば1減らし、残りがない更新では連鎖を0に戻します。</p></div><div class="lesson-task"><h4>続けて合体すると倍率を上げる</h4><p><code>Game.resolvePairs()</code> で得点を加える次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>          this.score += (merged.level + 1) * 10;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="          this.score += (merged.level + 1) * 10;" data-small-separator="&#10;">          this.combo = this.comboFrames &gt; 0 ? Math.min(10, this.combo + 1) : 1; this.comboFrames = 90;
           this.score += (merged.level + 1) * 10 * this.combo;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>残りがあれば <code>combo</code> を1増やし、なければ1から始めます。<code>Math.min(10, ...)</code> で倍率は10までです。残りを90更新に戻し、通常の合体点に倍率を掛けます。</p></div><div class="lesson-task"><h4>連鎖を表示する</h4><p><code>Game.draw()</code> の点線を描く次の行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    ctx.strokeStyle = &quot;#146bb5&quot;; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(this.aim, 50); ctx.lineTo(this.aim, floorY); ctx.stroke(); ctx.setLineDash([]);" data-small-separator="&#10;">    ctx.fillText(&quot;連鎖：&quot; + this.combo, 590, 300);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>combo</code> を文字につなぎ、現在の連鎖を表示します。</p><p class="task-check">保存して再読み込みし、短い間に続けて合体すると連鎖と得点が増え、時間が過ぎると連鎖が戻ることを確かめます。</p></div><details class="task-reference"><summary>この段階の説明用の抜粋を見る</summary><div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h4>連鎖の値を用意する</h4><p>続けて合体した回数と残り時間を覚えます。</p><pre class="reading-code"><code>this.score = 0; this.state = "playing"; this.dangerFrames = 0; this.combo = 0; this.comboFrames = 0;</code></pre><p><code>combo</code> は連鎖の倍率、<code>comboFrames</code> は連鎖を続けられる残りの更新回数です。新しいゲームでは両方0です。</p><h4>連鎖の残りを減らす</h4><p>更新のたびに時間を進めます。</p><pre class="reading-code"><code>if (this.comboFrames &gt; 0) this.comboFrames--; else this.combo = 0;</code></pre><p>残りがあれば1減らし、残りがない更新では連鎖を0に戻します。</p><h4>続けて合体すると倍率を上げる</h4><p>合体した時点の残り時間で倍率を決めます。</p><pre class="reading-code"><code>this.combo = this.comboFrames &gt; 0 ? Math.min(10, this.combo + 1) : 1; this.comboFrames = 90;

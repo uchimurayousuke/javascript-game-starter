@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>へんか探しを作る</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>へんか探しを作る</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の基準を描く</a><a href="#lesson-section-3">ステップ 2：表示側に変化を作る</a><a href="#lesson-section-4">ステップ 3：実際の差で答えを判定する</a><a href="#lesson-section-5">ステップ 4：連続正解を数える</a><a href="#lesson-section-6">ステップ 5：もう一度遊ぶ</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：へんか探しを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の基準を描く</a><a href="#lesson-section-3">ステップ 2：表示側に変化を作る</a><a href="#lesson-section-4">ステップ 3：実際の差で答えを判定する</a><a href="#lesson-section-5">ステップ 4：連続正解を数える</a><a href="#lesson-section-6">ステップ 5：もう一度遊ぶ</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">へんか探しを作る</li></ol></nav><h1>へんか探しを作る</h1><p>基準の部屋を覚え、図形の変化があるかを見分けます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -14,6 +14,41 @@
 <p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：部屋の基準を描く</h2>
 <details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>部屋の四角をデータから描く</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">窓のデータ</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">窓を描く</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>物</span><strong>窓</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>位置</span><strong>140,110</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>大きさ</span><strong>90×75</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>描画</span><strong>未描画</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>baseline[0] → x=140, y=110, w=90, h=75</code></p>
+          <p data-diagram-result>位置と大きさを1つの物にまとめる</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>物</span><strong>窓</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>位置</span><strong>140,110</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>大きさ</span><strong>90×75</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>描画</span><strong>水色の窓</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>ctx.fillRect(140, 110, 90, 75)</code></p>
+          <p data-diagram-result>同じ処理で時計・絵・机・箱も描く</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
@@ -34,6 +69,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>窓や時計などの基準の部屋を描きます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>部屋の基準を記録する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start()</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start()" data-small-separator="">const baseline = [
   {id:&quot;窓&quot;, x:140, y:110, w:90, h:75, color:&quot;#7cbde4&quot;, visible:true},
@@ -174,6 +210,39 @@ gameLoop();
 <p>窓、時計、絵、机、箱が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：表示側に変化を作る</h2>
 <details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>表示用コピーだけ位置を変える（窓の例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">変化なし</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">位置の変化を抽選</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>100px</span><span>200px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>基準の窓x</span> <strong>140px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="40" style="--diagram-position:40%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>表示の窓x</span> <strong>140px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="40" style="--diagram-position:40%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>scene = baseline.map(item =&gt; ({...item}))</code></p>
+          <p data-diagram-result>元と同じ位置</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>100px</span><span>200px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>基準の窓x</span> <strong>140px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="40" style="--diagram-position:40%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>表示の窓x</span> <strong>170px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="70" style="--diagram-position:70%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>item.x += 30 → 140 + 30 = 170</code></p>
+          <p data-diagram-result>基準は140のまま。表示用の窓だけ右へ30px</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
@@ -194,6 +263,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>色・位置・表示のいずれかを変えます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>変化させるかを決める</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  scene = baseline.map(item =&gt; ({...item}));
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  scene = baseline.map(item =&gt; ({...item}));&#10;" data-small-separator="">  if (Math.random() &lt; 0.5) {
@@ -573,6 +643,39 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Enterで開始し、1または2を押すと結果が表示されます。 <a href="step3/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：連続正解を数える</h2>
 <details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step4">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>連続4回から正解か不正解か（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">正解する</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">間違える</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0回</span><span>5回</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>連続正解</span> <strong>5回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>5回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>streak = 4 + 1、5 &gt;= 5 → clear</code></p>
+          <p data-diagram-result>5連続でクリア</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0回</span><span>5回</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>連続正解</span> <strong>0回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="blocked" data-diagram-position="0" style="--diagram-fill:0"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>5回</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>streak = 0、0 &gt;= 5 は false</code></p>
+          <p data-diagram-result>連続記録は0に戻る</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
@@ -593,6 +696,7 @@ gameLoop();
       <p><a href="step4/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>5回続けて正解するとクリアします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>5回続いたらクリアする</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  state = &quot;feedback&quot;;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  state = &quot;feedback&quot;;&#10;" data-small-separator="">  state = streak &gt;= 5 ? &quot;clear&quot; : &quot;feedback&quot;;
@@ -794,6 +898,39 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>5回続けて正解するとクリアになり、途中で間違えると0に戻ります。 <a href="step4/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：もう一度遊ぶ</h2>
 <details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step5">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>Spaceで基準の部屋と連続0へ</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">クリア中</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">Spaceを押す</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="target"><span>state</span><strong>clear</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>streak</span><strong>5</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>表示</span><strong>判定した部屋</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>state === &quot;clear&quot;</code></p>
+          <p data-diagram-result>Spaceで再挑戦できる</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>state</span><strong>reference</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>streak</span><strong>0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>表示</span><strong>基準の部屋</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>start() → streak = 0; state = &quot;reference&quot;</code></p>
+          <p data-diagram-result>基準を覚えてEnterで再開</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Space キーを押した例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
@@ -814,6 +951,7 @@ gameLoop();
       <p><a href="step5/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>クリア後に最初の基準画面からやり直します。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>クリア後の案内を描く</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (state === &quot;feedback&quot;) ctx.fillText(&quot;Enterで次へ&quot;, 480, 384);
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (state === &quot;feedback&quot;) ctx.fillText(&quot;Enterで次へ&quot;, 480, 384);&#10;" data-small-separator="">  if (state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Spaceで再挑戦&quot;, 470, 384);

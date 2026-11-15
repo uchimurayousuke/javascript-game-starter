@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Canvasのボタンの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Canvasのボタンの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボタンの四角を描く</a><a href="#lesson-section-3">ステップ 2：座標と押下を調べる</a><a href="#lesson-section-4">ステップ 3：押したときの処理と無効状態</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：Canvasのボタンを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボタンの四角を描く</a><a href="#lesson-section-3">ステップ 2：座標と押下を調べる</a><a href="#lesson-section-4">ステップ 3：押したときの処理と無効状態</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">Canvasのボタンを作る</li></ol></nav><h1>Canvasのボタンを作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -14,6 +14,39 @@
 <p>変更前を探し、変更後のコードに置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：ボタンの四角を描く</h2>
 <details class="step-preview" id="preview-features-intermediate-buttons-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>四角の上にボタン名を描く</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">1 四角</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">2 文字</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>左上(280,160)</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>幅240 × 高さ70</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>ボタンの土台</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>右端=520、下端=230</code></p>
+          <p data-diagram-result>まず押す場所の形を描く。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>enabled = true</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>(370,205)へ文字</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>押す</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>enabled ? &quot;押す&quot; : &quot;無効&quot;</code></p>
+          <p data-diagram-result>四角の上に名前を重ねる。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" width="1920" height="270">
@@ -34,6 +67,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>ボタンの四角を描く。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>タッチ操作の状態を用意する</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">canvas.style.touchAction = &quot;none&quot;;
 let enabled, hover, pressed, count;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>touchAction = "none"</code> は Canvas 上のタッチによるブラウザーの操作を抑えます。<code>let</code> で、使用可能か、重なっているか、押した入力の ID、押した回数を覚えます。</p></div><div class="lesson-task"><h4>ボタンを初期化する</h4><p><code>start()</code> から <code>update()</code> の閉じ波括弧までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>function start() {
@@ -145,6 +179,51 @@ gameLoop();
 <p>「押す」と書いたボタンが表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ボタンの色を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-buttons-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：座標と押下を調べる</h2>
 <details class="step-preview" id="preview-features-intermediate-buttons-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>境界と押下で色が変わる</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">x=519,y=200（例）</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">x=520,y=200（例）</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">中で押す（例）</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>ポインター移動</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>inside = true</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>明るい色</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>280≤519&lt;520、160≤200&lt;230</code></p>
+          <p data-diagram-result>右端の手前はボタンの中。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>ポインター移動</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>inside = false</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>通常の色</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>520 &lt; 520 は偽</code></p>
+          <p data-diagram-result>右端ちょうどは外。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>pointerdown</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>pressed = 指のID</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>押下の色</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>enabled かつ inside → pressedを記録</code></p>
+          <p data-diagram-result>このステップでは回数はまだ増えない。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" width="1920" height="270">
@@ -165,6 +244,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>座標と押下を調べる。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>入力位置をCanvasの座標へ変える</h4><p>変数の宣言の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let enabled, hover, pressed, count;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let enabled, hover, pressed, count;" data-small-separator="&#10;">function point(event) {
   const rect = canvas.getBoundingClientRect();

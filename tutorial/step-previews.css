@@ -40,4 +40,199 @@
 .step-preview-code code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .step-preview-code mark { background: var(--lesson-compare-mark); color: var(--lesson-ink-deep); font-weight: 700; }
 .step-preview-task { color: var(--lesson-ink); }
-@media print { .step-preview-controls { display: none; } }
+.step-preview-game {
+  margin: .8rem;
+  border: 1px solid var(--lesson-line);
+  border-radius: 10px;
+  background: var(--lesson-paper);
+}
+
+.step-preview .step-diagram {
+  margin: .8rem;
+  padding: clamp(.65rem, 1.8vw, 1rem);
+  border: 1px solid var(--lesson-line-diagram);
+  border-radius: 10px;
+  background: var(--lesson-paper);
+}
+.step-diagram figcaption { font-size: 1.1rem; font-weight: 800; line-height: 1.55; }
+.step-diagram-controls { margin: .7rem 0; }
+.step-diagram-controls [data-diagram-play] { background: var(--lesson-blue-wash); }
+.step-diagram-scene {
+  min-width: 0;
+  border: 1px solid var(--lesson-line);
+  border-radius: 8px;
+  padding: clamp(.6rem, 2vw, 1rem);
+  background: var(--lesson-guide-wash);
+}
+.step-diagram-axis { display: flex; justify-content: space-between; gap: .6rem; font-size: .86rem; }
+.step-diagram-row + .step-diagram-row { margin-top: .55rem; }
+.step-diagram-row-label { display: flex; flex-wrap: wrap; gap: .2rem .5rem; align-items: baseline; }
+.step-diagram-row-label strong, .step-diagram-node strong {
+  color: var(--lesson-ink-deep);
+  font-size: clamp(1.05rem, 2.7vw, 1.42rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.step-diagram-row-label strong {
+  padding: .12rem .4rem;
+  border: 1px solid var(--lesson-line);
+  border-radius: 6px;
+  background: var(--lesson-paper);
+}
+.step-diagram-lane { position: relative; margin: .3rem .4rem .15rem; height: .5rem; border-radius: 4px; background: var(--lesson-line); }
+.step-diagram-marker {
+  position: absolute;
+  top: 50%;
+  left: var(--diagram-position);
+  width: .88rem;
+  height: .88rem;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--lesson-action);
+  border-radius: 50%;
+  background: var(--lesson-action);
+}
+.step-diagram-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--lesson-action);
+  transform: scaleX(var(--diagram-fill));
+  transform-origin: left;
+}
+.step-diagram-marker[data-diagram-role="target"] { border-radius: 2px; background: var(--lesson-paper); }
+.step-diagram-bar[data-diagram-role="target"] { background: var(--lesson-check); }
+.step-diagram-marker[data-diagram-role="blocked"], .step-diagram-bar[data-diagram-role="blocked"] { background: var(--lesson-diff-removed-line); }
+.step-diagram-grid { display: grid; grid-template-columns: repeat(var(--diagram-columns), minmax(0, 1fr)); gap: .45rem; }
+.step-diagram-flow { display: grid; grid-template-columns: repeat(var(--diagram-columns), minmax(0, 1fr)); gap: 1.3rem; }
+.step-diagram-node {
+  display: grid;
+  align-content: center;
+  gap: .2rem;
+  min-height: 3.5rem;
+  min-width: 0;
+  padding: .4rem .45rem;
+  border: 2px solid var(--lesson-line);
+  border-radius: 8px;
+  color: var(--lesson-ink);
+  background: var(--lesson-paper);
+  text-align: center;
+  line-height: 1.4;
+}
+.step-diagram-flow .step-diagram-node { position: relative; }
+.step-diagram-flow .step-diagram-node:not(:last-child)::after {
+  content: "→" / "";
+  position: absolute;
+  inset-inline-start: calc(100% + .15rem);
+  top: 50%;
+  color: var(--lesson-action);
+  font-weight: 800;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+.step-diagram-node span { font-size: .9rem; overflow-wrap: anywhere; }
+.step-diagram-node[data-diagram-role="focus"] { border-color: var(--lesson-action); background: var(--lesson-blue-wash); }
+.step-diagram-node[data-diagram-role="target"] { border-color: var(--lesson-check); background: var(--lesson-check-wash); }
+.step-diagram-node[data-diagram-role="blocked"] { border-style: dashed; border-color: var(--lesson-diff-removed-line); background: var(--lesson-diff-removed-wash); }
+.step-diagram-readout { margin-top: .55rem; padding: .2rem .7rem .55rem; border-left: 4px solid var(--lesson-action); background: var(--lesson-blue-wash); }
+.step-diagram-readout code { white-space: normal; overflow-wrap: anywhere; }
+.step-diagram-readout [data-diagram-result] { font-weight: 800; }
+.step-diagram-announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 450px) {
+  .step-diagram-flow { grid-template-columns: 1fr; gap: 1.35rem; }
+  .step-diagram-flow .step-diagram-node:not(:last-child)::after {
+    content: "↓" / "";
+    inset-inline-start: 50%;
+    top: calc(100% + .05rem);
+    transform: translateX(-50%);
+  }
+}
+
+@media print { .step-preview-controls, .step-diagram-controls { display: none; } }
+
+.collision-spatial {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  margin-inline: auto;
+  aspect-ratio: 280/250;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #cbd8e6;
+  border-radius: 12px;
+  background: #f5f9fd;
+  font: 600 clamp(14px,2.2vw,20px)/1.25 sans-serif;
+}
+.collision-spatial__box {
+  position: absolute;
+  left: 28.571429%;
+  top: 20%;
+  width: 57.142857%;
+  height: 60%;
+  box-sizing: border-box;
+  border: 2px solid #647b91;
+  background: #dce8ef;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12px;
+  color: #26334a;
+}
+.collision-spatial__circle {
+  position: absolute;
+  left: var(--diagram-position);
+  top: 50%;
+  width: 21.428571%;
+  height: 24%;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  border: 3px solid #2165a0;
+  border-radius: 50%;
+  background: #65ade6b3;
+  z-index: 2;
+}
+.collision-spatial__center {
+  position: absolute;
+  left: var(--diagram-position);
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: #124b7b;
+  z-index: 3;
+}
+.collision-spatial__nearest {
+  position: absolute;
+  left: var(--diagram-position);
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: #c1422c;
+  box-shadow: 0 0 0 2px white;
+  z-index: 4;
+}
+.collision-spatial__label {
+  position: absolute;
+  left: var(--diagram-position);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 5;
+  color: #174b78;
+  top: 67%;
+}
+.collision-spatial__near-label {
+  top: 85%;
+  color: #a43120;
+}
+.collision-spatial__note {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: #26334a;
+}
+@media (max-width: 375px) {
+  .collision-spatial__label:not(.collision-spatial__near-label) { transform: translateX(-30%); }
+}

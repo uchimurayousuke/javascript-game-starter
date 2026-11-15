@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>タイトルとメニューの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>タイトルとメニューの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：メニューを表示する</a><a href="#lesson-section-3">ステップ 2：キーで項目を選ぶ</a><a href="#lesson-section-4">ステップ 3：クリックと戻る操作を加える</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：タイトルとメニューを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：メニューを表示する</a><a href="#lesson-section-3">ステップ 2：キーで項目を選ぶ</a><a href="#lesson-section-4">ステップ 3：クリックと戻る操作を加える</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">タイトルとメニューを作る</li></ol></nav><h1>タイトルとメニューを作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -14,6 +14,37 @@
 <p>変更前を探し、変更後に置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：メニューを表示する</h2>
 <details class="step-preview" id="preview-features-beginner-menu-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>2つのメニューを順に描く</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">i=0を描く</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">i=1まで描く</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:1">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>上の項目</span><strong>はじめる</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>下の項目</span><strong>空</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>y = 150 + 0×80 = 150</code></p>
+          <p data-diagram-result>selected=0なので上の項目が黄色。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:1">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>上の項目</span><strong>はじめる</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>下の項目</span><strong>遊び方</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>y = 150 + 1×80 = 230</code></p>
+          <p data-diagram-result>80px下に2番目を描く。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/features-beginner-menu-tutorial.webp" alt="" width="1920" height="540">
@@ -34,6 +65,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>メニューを表示する。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>画面と選択番号を覚える</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">let state, selected;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>let</code> は後で値を変えられる変数を作ります。<code>state</code> は今の画面、<code>selected</code> は選択中の番号を覚えます。</p></div><div class="lesson-task"><h4>メニューから始める</h4><p><code>start()</code> から <code>update()</code> の閉じ波括弧までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>function start() {
 }
@@ -321,6 +353,51 @@ gameLoop();
 </code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>上下キーで選択し、Enterで画面が変わります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>選択肢の名前を変えてみます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-menu-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：クリックと戻る操作を加える</h2>
 <details class="step-preview" id="preview-features-beginner-menu-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>クリックした高さで行き先を決める</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">(300,180)（例）</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">(300,260)（例）</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">Esc</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>メニュー</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>floor((180-150)/80)=0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>ゲーム中</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>250≤300&lt;550、150≤180&lt;210</code></p>
+          <p data-diagram-result>上の項目からゲームを始める。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>メニュー</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>floor((260-150)/80)=1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>遊び方</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>250≤300&lt;550、230≤260&lt;290</code></p>
+          <p data-diagram-result>下の項目から説明を開く。</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>入力</span><strong>ゲーム・遊び方</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>処理</span><strong>state = menu</strong></div>
+          <div class="step-diagram-node" data-diagram-role="target"><span>表示・結果</span><strong>メニュー</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>Escape → menu、keys = {}</code></p>
+          <p data-diagram-result>戻ると移動キーの記録も消す。</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Esc キーを押した例" data-previous="2" data-frames="4" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:0;--tile-y:1">
       <img data-src="../../../tutorial/step-previews/features-beginner-menu-tutorial.webp" alt="" width="1920" height="540">
@@ -341,6 +418,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>クリックと戻る操作を加える。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>ゲーム画面に戻り方を示す</h4><p><code>drawGame()</code> の文字で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  ctx.fillText(&quot;ゲーム中　←→: 移動&quot;, 160, 150);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillText(&quot;ゲーム中　←→: 移動&quot;, 160, 150);" data-small-separator="&#10;">  ctx.fillText(&quot;ゲーム中　←→: 移動 / Esc: 戻る&quot;, 160, 150);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>Esc キーで戻る操作を案内します。</p></div><div class="lesson-task"><h4>クリック操作の案内を追加する</h4><p><code>draw()</code> のメニュー内で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>    ctx.font = &quot;22px sans-serif&quot;; ctx.fillText(&quot;↑↓で選択 / Enterで決定&quot;, 180, 410);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="    ctx.font = &quot;22px sans-serif&quot;; ctx.fillText(&quot;↑↓で選択 / Enterで決定&quot;, 180, 410);" data-small-separator="&#10;">    ctx.font = &quot;22px sans-serif&quot;; ctx.fillText(&quot;↑↓で選択 / Enter・クリックで決定&quot;, 180, 410);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>クリックでも項目を決められることを示します。</p></div><div class="lesson-task"><h4>遊び方に戻り方を示す</h4><p><code>draw()</code> の最後の分岐で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  else ctx.fillText(&quot;遊び方&quot;, 160, 200);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  else ctx.fillText(&quot;遊び方&quot;, 160, 200);" data-small-separator="&#10;">  else ctx.fillText(&quot;遊び方　Esc: メニューへ&quot;, 160, 200);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>遊び方の画面にも Esc の案内を示します。</p></div><div class="lesson-task"><h4>Esc でメニューに戻る</h4><p><code>keydown</code> のメニュー判定の終わりで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  }
   else if (state === &quot;game&quot; &amp;&amp; (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;))</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  }&#10;  else if (state === &quot;game&quot; &amp;&amp; (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowRight&quot;))" data-small-separator="&#10;">  } else if (event.key === &quot;Escape&quot;) { state = &quot;menu&quot;; keys = {}; }

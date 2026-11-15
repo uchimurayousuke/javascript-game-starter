@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>クリックで脱出ゲームの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>クリックで脱出ゲームの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の物をクラスで表す</a><a href="#lesson-section-3">ステップ 2：引き出しの番号を合わせる</a><a href="#lesson-section-4">ステップ 3：持ち物をクラスで管理する</a><a href="#lesson-section-5">ステップ 4：道具を使って脱出する</a><a href="#lesson-section-6">ステップ 5：ゲーム全体をクラスにまとめる</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：クリックで脱出ゲーム</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の物をクラスで表す</a><a href="#lesson-section-3">ステップ 2：引き出しの番号を合わせる</a><a href="#lesson-section-4">ステップ 3：持ち物をクラスで管理する</a><a href="#lesson-section-5">ステップ 4：道具を使って脱出する</a><a href="#lesson-section-6">ステップ 5：ゲーム全体をクラスにまとめる</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">クリックで脱出ゲーム</li></ol></nav><h1>クリックで脱出ゲーム</h1><p class="tag">上級者向け</p><p>部屋を調べ、番号の謎と持ち物を使って脱出します。クリックで調べ、Rで最初からやり直せます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -1378,6 +1378,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>241でドライバーが出て、部屋に戻り持ち物欄をクリックすると選択の枠が付きます。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>持ち物欄の幅を変え、描画とクリック判定を一緒に変更します。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-escape-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：道具を使って脱出する</h2>
 <details class="step-preview" id="preview-examples-advanced-escape-tutorial-html-step4">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>道具と使う場所（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">道具なし</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">ドライバー</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">鍵</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>選択</span><strong>なし</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>調べる</span><strong>換気口</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>結果</span><strong>開かない</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>selected !== &quot;ドライバー&quot;</code></p>
+          <p data-diagram-result>ドライバーが必要</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>選択</span><strong>ドライバー</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>調べる</span><strong>換気口</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>結果</span><strong>鍵を入手</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>selected === &quot;ドライバー&quot;</code></p>
+          <p data-diagram-result>鍵を持ち物に加える</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>選択</span><strong>鍵</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>調べる</span><strong>扉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>結果</span><strong>clear</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>selected === &quot;鍵&quot;</code></p>
+          <p data-diagram-result>扉を開けて脱出</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-escape-tutorial.webp" alt="" width="1920" height="540">
@@ -1398,6 +1443,7 @@ gameLoop();
       <p><a href="step4/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>ドライバーで換気口を開け、鍵で扉を開けます。</p><div class="lesson-task"><h4>換気口とクリアの状態を記録する</h4><p><code>script.js</code> の次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let objects, message, view, digits, unlocked, inventory;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let objects, message, view, digits, unlocked, inventory;" data-small-separator="&#10;">let objects, message, view, digits, unlocked, inventory, ventOpen, state;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>ventOpen</code> は換気口、<code>state</code> はゲームの状態を記録します。</p></div><div class="lesson-task"><h4>最初の状態を決める</h4><p><code>start()</code> の次の行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  inventory = new Inventory();</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  inventory = new Inventory();" data-small-separator="&#10;">  ventOpen = false;
   state = &quot;playing&quot;;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>換気口は閉じた状態、ゲームはプレイ中で始まります。R キーで <code>start()</code> を呼ぶと、部屋の物、番号、持ち物、状態を作り直します。ゲームループは増やさず、動いているループで続けます。</p></div><div class="lesson-task"><h4>開いた換気口を表示する</h4><p><code>draw()</code> で引き出しの「開いた」を描く条件の後、空行を含む次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>        ctx.fillText(&quot;開いた&quot;, object.x + 15, object.y + 84);
@@ -2032,6 +2078,39 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>道具なしでは換気口と扉は開きません。ドライバーを選んで換気口、鍵を選んで扉を押すとクリアです。Rで再開します。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>扉を先に調べても詰まらず、後から道具を集められることを確かめます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-escape-tutorial-html-step4">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：ゲーム全体をクラスにまとめる</h2>
 <details class="step-preview" id="preview-examples-advanced-escape-tutorial-html-step5">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>RでGameを作り直す（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">脱出した例</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">Rを押す</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>番号</span><strong>241</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>持ち物</span><strong>鍵あり</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>状態</span><strong>clear</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>game.state = &quot;clear&quot;</code></p>
+          <p data-diagram-result>遊んだ情報を保持</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>番号</span><strong>000</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>持ち物</span><strong>0個</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>状態</span><strong>playing</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>game = new Game()</code></p>
+          <p data-diagram-result>番号・持ち物・状態を初期化</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-escape-tutorial.webp" alt="" width="1920" height="540">
@@ -2052,6 +2131,7 @@ gameLoop();
       <p><a href="step5/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>部屋、持ち物、状態をGameの実体で管理します。</p><div class="lesson-task"><h4>ゲームのクラスを作る</h4><p><code>script.js</code> の次の変数宣言の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let objects, message, view, digits, unlocked, inventory, ventOpen, state;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="let objects, message, view, digits, unlocked, inventory, ventOpen, state;" data-small-separator="&#10;&#10;">class Game {
   constructor() {

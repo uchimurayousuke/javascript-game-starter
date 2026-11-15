@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>道具をつめるバッグの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>道具をつめるバッグの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：使えないマスを置く</a><a href="#lesson-section-3">ステップ 2：相性のよい組を作る</a><a href="#lesson-section-4">ステップ 3：複数の課題に挑戦する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：道具をつめるバッグの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：使えないマスを置く</a><a href="#lesson-section-3">ステップ 2：相性のよい組を作る</a><a href="#lesson-section-4">ステップ 3：複数の課題に挑戦する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li aria-current="page">道具をつめるバッグの発展</li></ol></nav><h1>道具をつめるバッグの発展</h1><p>道具を回転して置き、辺で接する組を考えます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-bag-layout-extension.zip" download="example-advanced-bag-layout-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。基本編の完成版から始めます。ZIPには基本編の3ファイルが入っています。</p></div>
@@ -14,6 +14,39 @@
 <p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p><p>クラスはデータと処理の設計図です。constructorはnewで作るときに呼ばれ、thisは作られた一つ一つのインスタンスを指します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：使えないマスを置く</h2>
 <details class="step-preview" id="preview-examples-advanced-bag-layout-extensions-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>右下の使えないマスを判定（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">座標(4,3)</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">座標(5,3)</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>x</span><strong>4</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>y</span><strong>3</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>blocked</span><strong>false</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>4===5 &amp;&amp; 3===3 → false</code></p>
+          <p data-diagram-result>このマスは使用可能</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>x</span><strong>5</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>y</span><strong>3</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>blocked</span><strong>true</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>5===5 &amp;&amp; 3===3 → true</code></p>
+          <p data-diagram-result>このマスを含む道具は置けない</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-bag-layout-extensions-tutorial.webp" alt="" width="1440" height="270">
@@ -34,6 +67,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>右下のマスを使えなくします。</p><p>小作業を順に進め、確認欄で保存して動きを確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>使えないマスを設定する</h4><p>作業用の <code>script.js</code> で次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  blocked(x, y) { return false; }
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  blocked(x, y) { return false; }&#10;" data-small-separator="">  blocked(x, y) { return x === 5 &amp;&amp; y === 3; }
@@ -284,6 +318,39 @@ start(); gameLoop();
 <p>右下が灰色になり、そこに道具を置けません。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：相性のよい組を作る</h2>
 <details class="step-preview" id="preview-examples-advanced-bag-layout-extensions-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>辺で接する1組の追加点（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">L字と棒</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">L字と四角</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>5点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>組の点数</span> <strong>3点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="60" style="--diagram-fill:0.6"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>相性の加点</span> <strong>0点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="0" style="--diagram-fill:0"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>3 + 0 = 3</code></p>
+          <p data-diagram-result>通常の隣接は3点</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>5点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>組の点数</span> <strong>5点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>相性の加点</span> <strong>2点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="40" style="--diagram-fill:0.4"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>3 + 2 = 5</code></p>
+          <p data-diagram-result>相性がよいので5点</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="2" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-bag-layout-extensions-tutorial.webp" alt="" width="1440" height="270">
@@ -304,6 +371,7 @@ start(); gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>L字と四角が接すると追加点を付けます。</p><p>小作業を順に進め、確認欄で保存して動きを確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>相性のよい組に2点を足す</h4><p>作業用の <code>script.js</code> で次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>        const extra = 0;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="        const extra = 0;&#10;" data-small-separator="">        const extra = (a.name === &quot;L字&quot; &amp;&amp; b.name === &quot;四角&quot;) || (a.name === &quot;四角&quot; &amp;&amp; b.name === &quot;L字&quot;) ? 2 : 0;
@@ -548,6 +616,51 @@ start(); gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>L字と四角が接すると組の点数が5と表示されます。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：複数の課題に挑戦する</h2>
 <details class="step-preview" id="preview-examples-advanced-bag-layout-extensions-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>Enterで課題の得点を判定（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">課題1・14点</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">課題1・15点</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">課題3・19点</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>19点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>現在の点</span> <strong>14点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="73.6842" style="--diagram-fill:0.736842"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>15点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="78.9474" style="--diagram-fill:0.789474"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>14 &gt;= [15,17,19][0] は false</code></p>
+          <p data-diagram-result>配置を調整する</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>19点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>現在の点</span> <strong>15点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="78.9474" style="--diagram-fill:0.789474"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>15点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="78.9474" style="--diagram-fill:0.789474"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>15 &gt;= 15 &amp;&amp; round&lt;3</code></p>
+          <p data-diagram-result>強化を選んで課題2へ</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>19点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>現在の点</span> <strong>19点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>19点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>19 &gt;= [15,17,19][2]; round===3</code></p>
+          <p data-diagram-result>全課題クリア</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="1" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-advanced-bag-layout-extensions-tutorial.webp" alt="" width="1440" height="270">
@@ -568,6 +681,7 @@ start(); gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>目標を達成しながら強化を選びます。</p><p>小作業を順に進め、確認欄で保存して動きを確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>課題ごとの目標を選ぶ</h4><p>作業用の <code>script.js</code> で次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>    const target = 17;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="    const target = 17;&#10;" data-small-separator="">    const target = ([15, 17, 19][this.round - 1]);

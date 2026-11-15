@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>横スクロールのジャンプアクションの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css">
   <link rel="stylesheet" href="../../../tutorial/diagrams.css">
-<link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：プレイヤーと地面を描く</a><a href="#lesson-section-3">ステップ 2：移動とジャンプ・重力</a><a href="#lesson-section-4">ステップ 3：複数の地形と衝突する</a><a href="#lesson-section-5">ステップ 4：長いステージとカメラ</a><a href="#lesson-section-6">ステップ 5：コインと敵を置く</a><a href="#lesson-section-7">ステップ 6：ゴール・失敗・再挑戦</a><a href="#lesson-section-8">次は発展課題に挑戦</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：横スクロールのジャンプアクション</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：プレイヤーと地面を描く</a><a href="#lesson-section-3">ステップ 2：移動とジャンプ・重力</a><a href="#lesson-section-4">ステップ 3：複数の地形と衝突する</a><a href="#lesson-section-5">ステップ 4：長いステージとカメラ</a><a href="#lesson-section-6">ステップ 5：コインと敵を置く</a><a href="#lesson-section-7">ステップ 6：ゴール・失敗・再挑戦</a><a href="#lesson-section-8">次は発展課題に挑戦</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">横スクロールのジャンプアクション</li></ol></nav><h1>横スクロールのジャンプアクション</h1><p class="tag">上級者向け</p><p>変数、関数、配列、if 文、for 文、キー入力と基本の当たり判定を知っている人向けです。これまでの知識を組み合わせ、クラス、重力、地形との衝突、長いステージとカメラを学びます。クラスはこの教材で初めて説明します。</p><p>左右の矢印キーで移動し、Space または上の矢印キーでジャンプします。コインを集め、赤い敵とすき間を避けて紫色のゴールへ進みます。失敗やクリアの後は R キーで再挑戦できます。キーボードを使えるパソコンで遊んでください。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
@@ -18,6 +18,39 @@
 <p>3つのファイルは同じフォルダーに入っています。</p><p>各段階では作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。ほかの2ファイルは変更しません。保存後に作業用の <code>index.html</code> をブラウザで開くか、すでに開いていれば再読み込みします。各段階の見本も別ページで開けます。</p><p><code>start()</code> は最初の設定、<code>update()</code> は動きと判定、<code>draw()</code> は描画を担当します。最後の <code>gameLoop()</code> が更新と描画を繰り返します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：プレイヤーと地面を描く</h2>
 <details class="step-preview" id="preview-examples-advanced-platformer-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>四角と地面を描く順番（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">1：地面</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">2：自分</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>位置</span><strong>(0,390)</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>大きさ</span><strong>800×60</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>描画</span><strong>緑の地面</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>fillRect(0,390,800,60)</code></p>
+          <p data-diagram-result>地面の上端はy=390</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>位置</span><strong>(80,350)</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>大きさ</span><strong>30×40</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>描画</span><strong>青い自分</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>350 + 40 = 390</code></p>
+          <p data-diagram-result>足元が地面の上端と一致</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:6;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-platformer-tutorial.webp" alt="" width="1920" height="1620">
@@ -38,6 +71,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <details class="lesson-operation-video" id="lesson-save-video">
   <summary>保存してゲーム画面を更新する（動画）</summary>
@@ -453,6 +487,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>左右キーで移動し、Space または上キーでジャンプします。空中で押し直しても二段ジャンプしません。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>Player の update メソッドにある重力の 0.5 を 0.6 に変え、ジャンプの高さを比べます。 練習後はこの段階のコードに戻してから次へ進んでください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-platformer-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：複数の地形と衝突する</h2>
 <details class="step-preview" id="preview-examples-advanced-platformer-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="track">
+      <figcaption>幅30の自分が壁に当たる（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">右へ進む前</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">右へ4px試す</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">押し戻した後</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>350px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>自分の左端</span> <strong>370px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="20" style="--diagram-position:20%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>壁の左端</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>370 + 30 = 400</code></p>
+          <p data-diagram-result>壁の直前</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>350px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>自分の左端</span> <strong>374px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="24" style="--diagram-position:24%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>壁の左端</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>374 + 30 = 404 &gt; 400</code></p>
+          <p data-diagram-result>横と縦が重なるので衝突</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>350px</span><span>450px</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>自分の左端</span> <strong>370px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="focus" data-diagram-position="20" style="--diagram-position:20%"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>壁の左端</span> <strong>400px</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-marker" data-diagram-role="target" data-diagram-position="50" style="--diagram-position:50%"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>x = 400 - 30 = 370</code></p>
+          <p data-diagram-result>壁の左で止める</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="7" data-columns="4" style="--tile-columns:4;--tile-rows:6;--tile-x:3;--tile-y:1">
       <img data-src="../../../tutorial/step-previews/examples-advanced-platformer-tutorial.webp" alt="" width="1920" height="1620">
@@ -473,6 +552,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><p><strong>目標：</strong>地面、壁、頭上の足場にぶつかるようにします。</p><div class="lesson-task"><h4>地形の横幅を決める</h4><p><code>script.js</code> の次の行の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let player;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="let player;" data-small-separator="&#10;">const WORLD_WIDTH = 800;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>地形の端を表す横幅を800にします。</p></div><div class="lesson-task"><h4>地形を並べる</h4><p>入力状態の宣言の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let left = false, right = false, jumpHeld = false, jumpPressed = false;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let left = false, right = false, jumpHeld = false, jumpPressed = false;" data-small-separator="&#10;">const terrain = [
   { x: 0, y: 390, width: 800, height: 60 },
@@ -1687,6 +1767,51 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>黄色いコインに触れると数が増えます。右へ進み、2体の赤い敵が別々の場所を動くことを確かめます。 <a href="step5/index.html">ステップ 5 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>1体目の new Enemy の最初の値だけを 900 から 880 に変えます。コードで1体目の開始位置の設定が変わり、2体目の開始位置の設定が 1700 のままであることを確かめます。画面でも2体が別々の場所を動くことを確かめます。 練習後はこの段階のコードに戻してから次へ進んでください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-platformer-tutorial-html-step5">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-7"></span><section><h2>ステップ 6：ゴール・失敗・再挑戦</h2>
 <details class="step-preview" id="preview-examples-advanced-platformer-tutorial-html-step6">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="flow">
+      <figcaption>プレイ中の終了条件（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">敵に触れる</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">下へ落ちる</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">ゴールに触れる</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>条件</span><strong>敵と重なる</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>判定</span><strong>true</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>状態</span><strong>over</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>overlaps(player,enemy) → over</code></p>
+          <p data-diagram-result>ゲームオーバー</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>条件</span><strong>y=451</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>判定</span><strong>451 &gt; 450</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>状態</span><strong>over</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>player.y &gt; canvas.height</code></p>
+          <p data-diagram-result>画面下に落下</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-flow" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>条件</span><strong>ゴールと重なる</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>判定</span><strong>true</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>状態</span><strong>clear</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>state===&quot;playing&quot; &amp;&amp; overlaps(player,goal)</code></p>
+          <p data-diagram-result>クリア。Rで再挑戦</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="14" data-frames="20" data-columns="4" style="--tile-columns:4;--tile-rows:6;--tile-x:0;--tile-y:5">
       <img data-src="../../../tutorial/step-previews/examples-advanced-platformer-tutorial.webp" alt="" width="1920" height="1620">
@@ -1707,6 +1832,7 @@ gameLoop();
       <p><a href="step6/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><p><strong>目標：</strong>敵と落下による失敗、ゴール、再挑戦を作ります。</p><div class="lesson-task"><h4>状態とゴールを用意する</h4><p><code>script.js</code> の <code>start()</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start() {" data-small-separator="&#10;&#10;">const goal = { x: 2300, y: 310, width: 35, height: 80 };
 let state;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>goal</code> は左上が (2300, 310)、幅35、高さ80の四角です。<code>state</code> は <code>playing</code>、<code>over</code>、<code>clear</code> のいずれかを表します。</p></div><div class="lesson-task"><h4>ゲームをプレイ中にする</h4><p><code>start()</code> の敵を作る次の行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  enemies = [new Enemy(900, 850, 990), new Enemy(1700, 1640, 1780)];" data-small-separator="&#10;">  state = &quot;playing&quot;;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>開始時に状態をプレイ中にします。</p></div><div class="lesson-task"><h4>終了後の更新を止める</h4><p>外側の <code>update()</code> の中に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function update() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function update() {" data-small-separator="&#10;">  if (state !== &quot;playing&quot;) return;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>!==</code> は同じでないという比較です。終了中は外側の <code>update()</code> をここで終えます。描画は続くので、結果を表示できます。</p></div><div class="lesson-task"><h4>落下の判定を移す</h4><p><code>update()</code> の次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  if (player.y &gt; canvas.height) { start(); return; }

@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>3つそろえるパズルの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>3つそろえるパズルの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：盤面を作る</a><a href="#lesson-section-3">ステップ 2：隣を交換する</a><a href="#lesson-section-4">ステップ 3：3つ以上を判定する</a><a href="#lesson-section-5">ステップ 4：消去と落下</a><a href="#lesson-section-6">ステップ 5：手数と勝敗</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：3つそろえるパズルを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：盤面を作る</a><a href="#lesson-section-3">ステップ 2：隣を交換する</a><a href="#lesson-section-4">ステップ 3：3つ以上を判定する</a><a href="#lesson-section-5">ステップ 4：消去と落下</a><a href="#lesson-section-6">ステップ 5：手数と勝敗</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">3つそろえるパズルを作る</li></ol></nav><h1>3つそろえるパズルを作る</h1><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
@@ -14,6 +14,41 @@
 <p>各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：盤面を作る</h2>
 <details class="step-preview" id="preview-examples-advanced-match3-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>最上段の左4マスを描く（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">数値の配列</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">文字に変える</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>3</span><strong>0</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>4</span><strong>2</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>cells[0].slice(0,4) = [1,0,0,2]</code></p>
+          <p data-diagram-result>6×6の盤面の一部</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:4">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>B</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>3</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>4</span><strong>C</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>letters=[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;]</code></p>
+          <p data-diagram-result>1→B、0→A、2→C</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:1;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-match3-tutorial.webp" alt="" width="1440" height="270">
@@ -34,6 +69,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>盤面と交換の仕組みを作ります。</p><p>作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>色と文字を用意する</h4><p>先頭の <code>ctx</code> の行の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">const palette = [&quot;#397ab4&quot;, &quot;#ca635c&quot;, &quot;#7d9a47&quot;, &quot;#9357a2&quot;];
 const letters = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;];</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>palette</code> は4種類の色、<code>letters</code> は対応するA〜Dの文字です。配列の番号0〜3で選びます。</p></div><div class="lesson-task"><h4>盤面とゲームの骨組みを作る</h4><p><code>letters</code> の行の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const letters = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;];</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const letters = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;];" data-small-separator="&#10;">class Board {
@@ -211,6 +247,37 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>6×6にA〜Dの文字が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：隣を交換する</h2>
 <details class="step-preview" id="preview-examples-advanced-match3-tutorial-html-step2">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>横に隣り合う2マス（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">交換前</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">交換後</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:2">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>B</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>|1-0| + |0-0| = 1</code></p>
+          <p data-diagram-result>隣なので交換できる</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:2">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>B</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>A</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>old=A; 左=B; 右=old</code></p>
+          <p data-diagram-result>2つの値が入れ替わる</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="画面の真ん中をクリックした例" data-previous="1" data-frames="2" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-match3-tutorial.webp" alt="" width="1440" height="270">
@@ -231,6 +298,7 @@ gameLoop();
       <p><a href="step2/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>盤面と交換の仕組みを作ります。</p><p>作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>クリックを扱う骨組みを作る</h4><p><code>Game</code> の <code>constructor</code> の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    this.board = new Board(); this.selected = null; this.score = 0; this.moves = 10; this.state = &quot;playing&quot;; this.message = &quot;隣を選んで交換&quot;;
   }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    this.board = new Board(); this.selected = null; this.score = 0; this.moves = 10; this.state = &quot;playing&quot;; this.message = &quot;隣を選んで交換&quot;;&#10;  }" data-small-separator="&#10;">  click(x, y) {
@@ -377,6 +445,39 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>隣同士をクリックすると交換されます。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：3つ以上を判定する</h2>
 <details class="step-preview" id="preview-examples-advanced-match3-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>3連続を見つける（横の一部）（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">A A B</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">A A A</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>3</span><strong>B</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>A === A &amp;&amp; A === B → false</code></p>
+          <p data-diagram-result>ほかにも一致がなければ交換を戻す</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>3</span><strong>A</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>A === A &amp;&amp; A === A → true</code></p>
+          <p data-diagram-result>この3マスを消去対象にする</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="2" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-match3-tutorial.webp" alt="" width="1440" height="270">
@@ -397,6 +498,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>盤面と交換の仕組みを作ります。</p><p>作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>そろったマスを集める関数を作る</h4><p><code>Board</code> の <code>swap()</code> の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  swap(a, b) { const old = this.cells[a.y][a.x]; this.cells[a.y][a.x] = this.cells[b.y][b.x]; this.cells[b.y][b.x] = old; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  swap(a, b) { const old = this.cells[a.y][a.x]; this.cells[a.y][a.x] = this.cells[b.y][b.x]; this.cells[b.y][b.x] = old; }" data-small-separator="&#10;">  matches() {
     const found = new Set();
@@ -521,6 +623,60 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>そろわない交換は元に戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：消去と落下</h2>
 <details class="step-preview" id="preview-examples-advanced-match3-tutorial-html-step4">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>1列の消去と落下（上→下）（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">消す前</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">落下後</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">補充例</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:1">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>B</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>3</span><strong>C</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>4</span><strong>C</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>5</span><strong>C</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>6</span><strong>D</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>y=2,3,4 のCを消す</code></p>
+          <p data-diagram-result>残る文字はA・B・D</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:1">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>1</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>2</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>空</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>4</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>5</span><strong>B</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>6</span><strong>D</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>下から kept=[D,B,A]</code></p>
+          <p data-diagram-result>残る文字を下へ詰める</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:1">
+          <div class="step-diagram-node" data-diagram-role="focus"><span>1</span><strong>B</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>2</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>3</span><strong>D</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>4</span><strong>A</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>5</span><strong>B</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>6</span><strong>D</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>空き3マスに0〜3の乱数</code></p>
+          <p data-diagram-result>乱数が1,0,3だった例</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="2" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-match3-tutorial.webp" alt="" width="1440" height="270">
@@ -541,6 +697,7 @@ gameLoop();
       <p><a href="step4/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>盤面と交換の仕組みを作ります。</p><p>作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>消した後にマスを落として補う</h4><p><code>Board</code> の <code>matches()</code> を閉じる次の範囲の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    return found;
   }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    return found;&#10;  }" data-small-separator="&#10;">  refill(found) {
@@ -720,6 +877,39 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>そろう交換で消えて補充されます。 <a href="step4/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：手数と勝敗</h2>
 <details class="step-preview" id="preview-examples-advanced-match3-tutorial-html-step5">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>最後の1手を使った後（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">110点・残り0手</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">120点・残り0手</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>120点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>得点</span> <strong>110点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="91.6667" style="--diagram-fill:0.916667"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>120点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>110 &gt;= 120 は false; moves &lt;= 0</code></p>
+          <p data-diagram-result>手数切れ</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0点</span><span>120点</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>得点</span> <strong>120点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>目標</span> <strong>120点</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="100" style="--diagram-fill:1"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>120 &gt;= 120 → clear</code></p>
+          <p data-diagram-result>手数判定より先にクリア</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="2" data-frames="2" data-columns="3" style="--tile-columns:3;--tile-rows:1;--tile-x:2;--tile-y:0">
       <img data-src="../../../tutorial/step-previews/examples-advanced-match3-tutorial.webp" alt="" width="1440" height="270">
@@ -740,6 +930,7 @@ gameLoop();
       <p><a href="step5/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>盤面と交換の仕組みを作ります。</p><p>作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>勝敗を決める</h4><p><code>Game</code> の <code>resolve()</code> の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    if (found.size || !this.board.hasMove()) { this.board = new Board(); this.message = &quot;盤面を整えました&quot;; }
   }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    if (found.size || !this.board.hasMove()) { this.board = new Board(); this.message = &quot;盤面を整えました&quot;; }&#10;  }" data-small-separator="&#10;">  finish() {

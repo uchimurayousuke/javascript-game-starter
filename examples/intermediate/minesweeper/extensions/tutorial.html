@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>マインスイーパーの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>マインスイーパーの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
 </head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：経過時間を表示する</a><a href="#lesson-section-3">ステップ 2：難易度を切り替える</a><a href="#lesson-section-4">ステップ 3：数字から周囲を開く</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：マインスイーパーの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：経過時間を表示する</a><a href="#lesson-section-3">ステップ 2：難易度を切り替える</a><a href="#lesson-section-4">ステップ 3：数字から周囲を開く</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">マインスイーパーの発展</li></ol></nav><h1>マインスイーパーの発展</h1><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-intermediate-minesweeper-extension.zip" download="example-intermediate-minesweeper-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPには基本編の3ファイルが入っています。</p></div>
@@ -14,6 +14,48 @@
 <p>各段階の変更を上から順に加え、保存したら index.html を開くか再読み込みします。</p><p><a href="../complete/index.html">基本の完成版を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：経過時間を表示する</h2>
 <details class="step-preview" id="preview-examples-intermediate-minesweeper-extensions-tutorial-html-step1">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="bars">
+      <figcaption>開始時刻と終了時刻から秒数を作る（例）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">開始から2.9秒</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">5.2秒で終了</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">その後も待つ</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0秒</span><span>6秒</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>表示時間</span> <strong>2秒</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="focus" data-diagram-position="33.3333" style="--diagram-fill:0.333333"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>Math.floor((3900 - 1000) / 1000) = 2</code></p>
+          <p data-diagram-result>最初に開いた時刻1000msから数える</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0秒</span><span>6秒</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>表示時間</span> <strong>5秒</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="83.3333" style="--diagram-fill:0.833333"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>Math.floor((6200 - 1000) / 1000) = 5</code></p>
+          <p data-diagram-result>stoppedAt=6200を保存</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene">
+          <div class="step-diagram-axis"><span>0秒</span><span>6秒</span></div>
+          <div class="step-diagram-row"><div class="step-diagram-row-label"><span>表示時間</span> <strong>5秒</strong></div><div class="step-diagram-lane" aria-hidden="true"><span class="step-diagram-bar" data-diagram-role="target" data-diagram-position="83.3333" style="--diagram-fill:0.833333"></span></div></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>終了後も (6200 - 1000) / 1000 を使う</code></p>
+          <p data-diagram-result>現在時刻が進んでも表示は5秒</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
       <img data-src="../../../../tutorial/step-previews/examples-intermediate-minesweeper-extensions-tutorial.webp" alt="" width="1920" height="540">
@@ -34,6 +76,7 @@
       <p><a href="step1/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>基本版に操作や表示を加えます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>開始と終了の時刻を覚える</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let size, bombCount, cells, state, first;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let size, bombCount, cells, state, first;&#10;" data-small-separator="">let size, bombCount, cells, state, first, startedAt, stoppedAt;
@@ -336,6 +379,69 @@ gameLoop();
 </code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Dで5×5と8×8を切り替え、表示される爆弾数を確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：数字から周囲を開く</h2>
 <details class="step-preview" id="preview-examples-intermediate-minesweeper-extensions-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
+    <figure class="step-diagram" data-step-diagram="cells">
+      <figcaption>数字1のまわりに旗が1本（例：3×3部分）</figcaption>
+      <div class="lesson-figure-controls step-diagram-controls" hidden>
+        <button type="button" data-diagram-choice="0" aria-pressed="true">旗なし</button>
+        <button type="button" data-diagram-choice="1" aria-pressed="false">旗を1本</button>
+        <button type="button" data-diagram-choice="2" aria-pressed="false">数字1を押す</button>
+        <button type="button" data-diagram-play>図を再生</button>
+      </div>
+      <div data-diagram-frame="0">
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>1</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>2</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>4</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>5</span><strong>1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>6</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>7</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>8</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>9</span><strong>閉</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>周囲の旗0 !== 数字1</code></p>
+          <p data-diagram-result>周りをまとめて開けない</p>
+        </div>
+      </div>
+      <div data-diagram-frame="1" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="blocked"><span>1</span><strong>旗</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>2</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>4</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>5</span><strong>1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>6</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>7</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>8</span><strong>閉</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>9</span><strong>閉</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>周囲の旗1 === 数字1</code></p>
+          <p data-diagram-result>旗が爆弾位置にある例。中央の1をクリックしよう</p>
+        </div>
+      </div>
+      <div data-diagram-frame="2" hidden>
+        <div class="step-diagram-scene step-diagram-grid" style="--diagram-columns:3">
+          <div class="step-diagram-node" data-diagram-role="blocked"><span>1</span><strong>旗</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>2</span><strong>開</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>3</span><strong>開</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>4</span><strong>開</strong></div>
+          <div class="step-diagram-node" data-diagram-role="focus"><span>5</span><strong>1</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>6</span><strong>開</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>7</span><strong>開</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>8</span><strong>開</strong></div>
+          <div class="step-diagram-node" data-diagram-role="neutral"><span>9</span><strong>開</strong></div>
+        </div>
+        <div class="step-diagram-readout">
+          <p data-diagram-equation><code>aroundの各マスをopenCell → 旗のマスはreturn</code></p>
+          <p data-diagram-result>旗以外の7マスが開く</p>
+        </div>
+      </div>
+      <p class="step-diagram-announcement" data-diagram-announcement role="status"></p>
+    </figure>
+    <details class="step-preview-game">
+      <summary>ゲーム画面とコードの前後を見る</summary>
   <figure>
     <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="画面の真ん中をクリックした例" data-previous="2" data-frames="4" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:0;--tile-y:1">
       <img data-src="../../../../tutorial/step-previews/examples-intermediate-minesweeper-extensions-tutorial.webp" alt="" width="1920" height="540">
@@ -356,6 +462,7 @@ gameLoop();
       <p><a href="step3/index.html">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
+    </details>
 </details>
 <h3>目標</h3><p>基本版に操作や表示を加えます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>数字をクリックする操作を案内する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;時間: &quot; + (startedAt === null ? 0 : Math.floor(((stoppedAt === null ? performance.now() : stoppedAt) - startedAt) / 1000)) + &quot;秒&quot;, 430, 200);
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;時間: &quot; + (startedAt === null ? 0 : Math.floor(((stoppedAt === null ? performance.now() : stoppedAt) - startedAt) / 1000)) + &quot;秒&quot;, 430, 200);&#10;" data-small-separator="">  ctx.fillText(&quot;数字をクリック: 旗の数で開く&quot;, 430, 240);
