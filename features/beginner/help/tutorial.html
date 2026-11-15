@@ -1,4 +1,41 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>遊び方画面の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"></head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：タイトル画面を表示する</a><a href="#lesson-section-3">ステップ 2：遊び方を開いて戻る</a><a href="#lesson-section-4">ステップ 3：ゲームへ進む</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：遊び方画面を作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：タイトル画面を表示する</a><a href="#lesson-section-3">ステップ 2：遊び方を開いて戻る</a><a href="#lesson-section-4">ステップ 3：ゲームへ進む</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">遊び方画面を作る</li></ol></nav><h1>遊び方画面を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div><p>変更前を探し、変更後に置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：タイトル画面を表示する</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>タイトル画面を表示する。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>画面の状態を覚える</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">let state;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>let</code> は後で値を変えられる変数を作ります。<code>state</code> は今の画面を覚えます。</p></div><div class="lesson-task"><h4>タイトルから始める</h4><p><code>start()</code> から <code>update()</code> の閉じ波括弧までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>function start() {
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>遊び方画面の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：タイトル画面を表示する</a><a href="#lesson-section-3">ステップ 2：遊び方を開いて戻る</a><a href="#lesson-section-4">ステップ 3：ゲームへ進む</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：遊び方画面を作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：タイトル画面を表示する</a><a href="#lesson-section-3">ステップ 2：遊び方を開いて戻る</a><a href="#lesson-section-4">ステップ 3：ゲームへ進む</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">遊び方画面を作る</li></ol></nav><h1>遊び方画面を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+<p>変更前を探し、変更後に置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：タイトル画面を表示する</h2>
+<details class="step-preview" id="preview-features-beginner-help-tutorial-html-step1">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/features-beginner-help-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/features-beginner-help-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル画面&quot;, 130, 140);</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>タイトル画面が表示されます。</p>
+      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>タイトル画面を表示する。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>画面の状態を覚える</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">let state;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>let</code> は後で値を変えられる変数を作ります。<code>state</code> は今の画面を覚えます。</p></div><div class="lesson-task"><h4>タイトルから始める</h4><p><code>start()</code> から <code>update()</code> の閉じ波括弧までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>function start() {
 }
 
 function update() {
@@ -86,7 +123,41 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>タイトル画面が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>タイトルの文を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-help-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：遊び方を開いて戻る</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>遊び方を開いて戻る。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>遊び方を開くキーを案内する</h4><p><code>draw()</code> のタイトル表示で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル画面&quot;, 130, 140);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル画面&quot;, 130, 140);" data-small-separator="&#10;">  if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル　H: 遊び方&quot;, 130, 140);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>タイトル画面に H で遊び方を開く案内を表示します。</p></div><div class="lesson-task"><h4>キー入力を受け取る</h4><p><code>draw()</code> の閉じ波括弧から <code>gameLoop()</code> の先頭行までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>}
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+<p>タイトル画面が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>タイトルの文を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-help-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：遊び方を開いて戻る</h2>
+<details class="step-preview" id="preview-features-beginner-help-tutorial-html-step2">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Esc キーを押した例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:2;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/features-beginner-help-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/features-beginner-help-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル<mark>画面</mark>&quot;, 130, 140);</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル<mark>　H: 遊び方</mark>&quot;, 130, 140);</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>Hで遊び方、Escでタイトルに戻ります。</p>
+      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>遊び方を開いて戻る。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>遊び方を開くキーを案内する</h4><p><code>draw()</code> のタイトル表示で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル画面&quot;, 130, 140);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル画面&quot;, 130, 140);" data-small-separator="&#10;">  if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル　H: 遊び方&quot;, 130, 140);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>タイトル画面に H で遊び方を開く案内を表示します。</p></div><div class="lesson-task"><h4>キー入力を受け取る</h4><p><code>draw()</code> の閉じ波括弧から <code>gameLoop()</code> の先頭行までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>}
 
 
 
@@ -157,7 +228,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Hで遊び方、Escでタイトルに戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>遊び方の文を自分の操作に変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-help-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：ゲームへ進む</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>ゲームへ進む。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>ゲームの位置と入力を覚える</h4><p>変数の宣言で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let state;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let state;" data-small-separator="&#10;">let state, gameX, keys;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>gameX</code> は四角の横位置、<code>keys</code> は押しているキーを記録します。</p></div><div class="lesson-task"><h4>ゲーム開始の状態を作る</h4><p>変数の行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let state, gameX, keys;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let state, gameX, keys;" data-small-separator="&#10;">function startGame() { state = &quot;playing&quot;; gameX = 100; keys = {}; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>startGame()</code> はゲーム画面に切り替え、横位置を 100、キーの記録を空にします。</p></div><div class="lesson-task"><h4>左右移動を用意する</h4><p><code>startGame()</code> の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function startGame() { state = &quot;playing&quot;; gameX = 100; keys = {}; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function startGame() { state = &quot;playing&quot;; gameX = 100; keys = {}; }" data-small-separator="&#10;">function updateGame() {
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Hで遊び方、Escでタイトルに戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>遊び方の文を自分の操作に変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-help-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：ゲームへ進む</h2>
+<details class="step-preview" id="preview-features-beginner-help-tutorial-html-step3" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Enter キーを押した例" data-previous="2" data-frames="3,4" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/features-beginner-help-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/features-beginner-help-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル　H: 遊び方&quot;, 130, 140);</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>if (state === &quot;title&quot;) ctx.fillText(&quot;タイトル　H: 遊び方<mark>　Enter: 開始</mark>&quot;, 130, 140);</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>Enterでゲーム中へ進み、Escで戻ります。</p>
+      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>ゲームへ進む。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>ゲームの位置と入力を覚える</h4><p>変数の宣言で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let state;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let state;" data-small-separator="&#10;">let state, gameX, keys;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>gameX</code> は四角の横位置、<code>keys</code> は押しているキーを記録します。</p></div><div class="lesson-task"><h4>ゲーム開始の状態を作る</h4><p>変数の行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let state, gameX, keys;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let state, gameX, keys;" data-small-separator="&#10;">function startGame() { state = &quot;playing&quot;; gameX = 100; keys = {}; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>startGame()</code> はゲーム画面に切り替え、横位置を 100、キーの記録を空にします。</p></div><div class="lesson-task"><h4>左右移動を用意する</h4><p><code>startGame()</code> の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function startGame() { state = &quot;playing&quot;; gameX = 100; keys = {}; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function startGame() { state = &quot;playing&quot;; gameX = 100; keys = {}; }" data-small-separator="&#10;">function updateGame() {
   gameX += (keys.ArrowRight ? 3 : 0) - (keys.ArrowLeft ? 3 : 0);
   gameX = Math.max(20, Math.min(780, gameX));
 }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>条件 ? A : B</code> は条件が正しければ A、違えば B を選びます。右キーなら 3 を足し、左キーなら 3 を引きます。<code>+=</code> は今の値に右側を足します。<code>Math.min</code> と <code>Math.max</code> で横位置を 20 から 780 に収めます。</p></div><div class="lesson-task"><h4>ゲーム画面を描く</h4><p><code>updateGame()</code> の後で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function updateGame() {

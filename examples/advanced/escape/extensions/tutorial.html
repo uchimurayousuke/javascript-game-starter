@@ -1,4 +1,41 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>脱出ゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js" defer></script></head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：アイテムを組み合わせる</a><a href="#lesson-section-3">ステップ 2：隣の部屋へ移動する</a><a href="#lesson-section-4">ステップ 3：暗い箱と出口の番号</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：脱出ゲームの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：アイテムを組み合わせる</a><a href="#lesson-section-3">ステップ 2：隣の部屋へ移動する</a><a href="#lesson-section-4">ステップ 3：暗い箱と出口の番号</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">脱出ゲームの発展</li></ol></nav><h1>脱出ゲームの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-escape-extension.zip" download="example-advanced-escape-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPには基本編の3ファイルが入っています。</p></div><p>自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：アイテムを組み合わせる</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>電池と懐中電灯を組み合わせて明かりを用意します。</p><h3>小さな作業</h3><p>上から順に作業します。示した目印を探し、その後のコードを追加または置き換えます。</p><div class="lesson-task"><h4>引き出しで懐中電灯を見つける</h4><p><code>Game</code> の <code>clickDrawer()</code> で次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>        this.message = &quot;ドライバーを手に入れた&quot;;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="        this.message = &quot;ドライバーを手に入れた&quot;;" data-small-separator="&#10;">        this.inventory.add(&quot;懐中電灯&quot;);
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>脱出ゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：アイテムを組み合わせる</a><a href="#lesson-section-3">ステップ 2：隣の部屋へ移動する</a><a href="#lesson-section-4">ステップ 3：暗い箱と出口の番号</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：脱出ゲームの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：アイテムを組み合わせる</a><a href="#lesson-section-3">ステップ 2：隣の部屋へ移動する</a><a href="#lesson-section-4">ステップ 3：暗い箱と出口の番号</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">脱出ゲームの発展</li></ol></nav><h1>脱出ゲームの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-escape-extension.zip" download="example-advanced-escape-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPには基本編の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+<p>自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：アイテムを組み合わせる</h2>
+<details class="step-preview" id="preview-examples-advanced-escape-extensions-tutorial-html-step1">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="0" data-columns="2" style="--tile-columns:2;--tile-rows:1;--tile-x:0;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-advanced-escape-extensions-tutorial.webp" alt="" width="960" height="270">
+      <noscript><img src="../../../../tutorial/step-previews/examples-advanced-escape-extensions-tutorial.webp" alt="" loading="lazy" width="960" height="270"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>if (object.name === &quot;本棚&quot;) <mark>this.message = &quot;メモに 241 と書いてある&quot;;</mark></code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>if (object.name === &quot;本棚&quot;) <mark>{</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>2つを続けて選ぶと点灯ライトが持ち物に現れます。</p>
+      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>電池と懐中電灯を組み合わせて明かりを用意します。</p><h3>小さな作業</h3><p>上から順に作業します。示した目印を探し、その後のコードを追加または置き換えます。</p><div class="lesson-task"><h4>引き出しで懐中電灯を見つける</h4><p><code>Game</code> の <code>clickDrawer()</code> で次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>        this.message = &quot;ドライバーを手に入れた&quot;;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="        this.message = &quot;ドライバーを手に入れた&quot;;" data-small-separator="&#10;">        this.inventory.add(&quot;懐中電灯&quot;);
         this.message = &quot;ドライバーと懐中電灯を見つけた&quot;;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>番号241を合わせるとドライバーに加えて懐中電灯を持ち物に入れます。<code>this</code> はこのゲームの実体、<code>inventory</code> は持ち物を管理する実体です。</p></div><div class="lesson-task"><h4>本棚で電池を見つける</h4><p><code>Game</code> の <code>click()</code> で次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>      if (object.name === &quot;本棚&quot;) this.message = &quot;メモに 241 と書いてある&quot;;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="      if (object.name === &quot;本棚&quot;) this.message = &quot;メモに 241 と書いてある&quot;;" data-small-separator="&#10;">      if (object.name === &quot;本棚&quot;) {
         this.inventory.add(&quot;電池&quot;);
         this.message = &quot;メモは241。電池も見つけた&quot;;
@@ -300,7 +337,41 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>2つを続けて選ぶと点灯ライトが持ち物に現れます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>組み合わせたときのメッセージを変えてみます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-escape-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：隣の部屋へ移動する</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>鍵を使って隣の部屋へ進み、戻れるようにします。</p><h3>小さな作業</h3><p>上から順に作業します。示した目印を探し、その後のコードを追加または置き換えます。</p><div class="lesson-task"><h4>隣の部屋を用意する</h4><p><code>Game</code> の <code>constructor()</code> で最初の部屋の配列の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+<p>2つを続けて選ぶと点灯ライトが持ち物に現れます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>組み合わせたときのメッセージを変えてみます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-escape-extensions-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：隣の部屋へ移動する</h2>
+<details class="step-preview" id="preview-examples-advanced-escape-extensions-tutorial-html-step2">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="2" style="--tile-columns:2;--tile-rows:1;--tile-x:1;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-advanced-escape-extensions-tutorial.webp" alt="" width="960" height="270">
+      <noscript><img src="../../../../tutorial/step-previews/examples-advanced-escape-extensions-tutorial.webp" alt="" loading="lazy" width="960" height="270"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>for (const object of <mark>this.objects</mark>) {</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>for (const object of <mark>(this.room === 1 ? this.objects : this.roomTwoObjects)</mark>) {</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>鍵で隣へ進み、戻る扉で戻れます。</p>
+      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>鍵を使って隣の部屋へ進み、戻れるようにします。</p><h3>小さな作業</h3><p>上から順に作業します。示した目印を探し、その後のコードを追加または置き換えます。</p><div class="lesson-task"><h4>隣の部屋を用意する</h4><p><code>Game</code> の <code>constructor()</code> で最初の部屋の配列の後に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)
     ];</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="      new RoomObject(625, 285, 120, 80, &quot;扉&quot;)&#10;    ];" data-small-separator="&#10;">    this.room = 1;
     this.roomTwoObjects = [
       new RoomObject(60, 105, 160, 180, &quot;暗い箱&quot;),
@@ -673,7 +744,31 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>鍵で隣へ進み、戻る扉で戻れます。隣の出口に鍵を使うとクリアです。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>隣の箱の位置を変えて調べます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-escape-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：暗い箱と出口の番号</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>明かりで番号を見つけ、鍵と番号を使って脱出します。</p><h3>小さな作業</h3><p>上から順に作業します。示した目印を探し、その後のコードを追加または置き換えます。</p><div class="lesson-task"><h4>出口の番号と手がかりを記録する</h4><p><code>Game</code> の <code>constructor()</code> の次の行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    this.digits = [0, 0, 0];</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    this.digits = [0, 0, 0];" data-small-separator="&#10;">    this.exitDigits = [0, 0, 0];
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>鍵で隣へ進み、戻る扉で戻れます。隣の出口に鍵を使うとクリアです。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>隣の箱の位置を変えて調べます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-escape-extensions-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：暗い箱と出口の番号</h2>
+<details class="step-preview" id="preview-examples-advanced-escape-extensions-tutorial-html-step3">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="1" data-columns="2" style="--tile-columns:2;--tile-rows:1;--tile-x:1;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-advanced-escape-extensions-tutorial.webp" alt="" width="960" height="270">
+      <noscript><img src="../../../../tutorial/step-previews/examples-advanced-escape-extensions-tutorial.webp" alt="" loading="lazy" width="960" height="270"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>for (let i = 0; i &lt; <mark>this.d</mark>igits.length; i++) {</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>for (let i = 0; i &lt; <mark>shownD</mark>igits.length; i++) {</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>電池と懐中電灯で箱を照らし、鍵と314で出口を開けます。</p>
+      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>明かりで番号を見つけ、鍵と番号を使って脱出します。</p><h3>小さな作業</h3><p>上から順に作業します。示した目印を探し、その後のコードを追加または置き換えます。</p><div class="lesson-task"><h4>出口の番号と手がかりを記録する</h4><p><code>Game</code> の <code>constructor()</code> の次の行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>    this.digits = [0, 0, 0];</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="    this.digits = [0, 0, 0];" data-small-separator="&#10;">    this.exitDigits = [0, 0, 0];
     this.hintRead = false;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>出口の3けたを別の配列に持ち、箱の手がかりを読んだかを <code>hintRead</code> に記録します。</p></div><div class="lesson-task"><h4>出口画面の処理を用意する</h4><p><code>Game</code> の <code>click()</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  click(x, y) {
     if (this.state !== &quot;playing&quot;) return;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="  click(x, y) {&#10;    if (this.state !== &quot;playing&quot;) return;" data-small-separator="&#10;&#10;">  clickExit(x, y) {
     if (x &gt;= 30 &amp;&amp; x &lt; 150 &amp;&amp; y &gt;= 390 &amp;&amp; y &lt; 435) {

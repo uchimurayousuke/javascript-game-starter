@@ -1,0 +1,31 @@
+.lesson-figure {
+  margin: 1rem 0;
+  padding: clamp(.75rem, 2vw, 1.25rem);
+  border: 2px solid #bbcbd5;
+  border-radius: 12px;
+  background: #fffdf5;
+  color: #263f51;
+  min-width: 0;
+}
+.lesson-figure figcaption { font-size: 1.15rem; font-weight: 800; margin-bottom: .75rem; }
+.lesson-figure [hidden] { display: none !important; }
+.lesson-figure svg { display: block; width: 100%; height: auto; max-width: 38rem; margin-inline: auto; }
+.lesson-figure svg text { font-family: inherit; fill: #263f51; font-size: 24px; font-weight: 700; }
+.lesson-figure svg .lf-small { font-size: 20px; }
+.lesson-figure svg .lf-number { font-size: 34px; font-weight: 800; }
+.lesson-figure svg .lf-paper { fill: #fff; stroke: #bbcbd5; stroke-width: 2; }
+.lesson-figure svg .lf-grid { fill: none; stroke: #dbe5e9; stroke-width: 1; }
+.lesson-figure svg .lf-arrow { fill: none; stroke: #245b8d; stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; }
+.lesson-figure svg .lf-guide { fill: none; stroke: #708694; stroke-width: 2; stroke-dasharray: 6 5; }
+.lesson-figure svg .lf-dot { fill: #f5c94e; stroke: #936818; stroke-width: 3; }
+.lesson-figure [data-figure-result] { margin: .75rem 0 0; padding: .65rem .8rem; border-left: 4px solid #245b8d; background: #eaf3fa; font-weight: 700; line-height: 1.7; }
+.lesson-figure-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.lesson-figure-controls button { min-height: 44px; padding: .5rem .8rem; border: 2px solid #245b8d; border-radius: 8px; background: #fff; color: #245b8d; font: inherit; font-weight: 700; cursor: pointer; }
+.lesson-figure-controls button[aria-pressed="true"], .lesson-figure-controls button:hover { color: #fff; background: #245b8d; }
+.lesson-figure-controls button:focus-visible { outline: 3px solid #b24f16; outline-offset: 3px; }
+.lesson-figure .lf-code { display: block; padding: .75rem; background: #edf3f7; border: 1px solid #bbcbd5; border-radius: 8px; font-size: clamp(1rem, 2vw, 1.25rem); overflow-wrap: anywhere; white-space: normal; }
+.lesson-figure .lf-browser { margin-top: .75rem; border: 2px solid #bbcbd5; border-radius: 8px; overflow: hidden; background: white; }
+.lesson-figure .lf-browser-label { padding: .4rem .75rem; background: #edf3f7; border-bottom: 1px solid #bbcbd5; font-size: .9rem; }
+.lesson-figure .lf-browser-output { margin: 0; padding: 1.25rem .75rem; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; }
+.lesson-figure .lf-browser-output strong { color: #245b8d; font-weight: 900; }
+@media print { .lesson-figure-controls { display: none; } .lesson-figure { break-inside: avoid; } }

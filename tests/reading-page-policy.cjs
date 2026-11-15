@@ -6,7 +6,7 @@ function assertReadingPage(html) {
   const scripts = [...html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map((m) => m[0]);
   assert.ok(scripts.length <= 1, "教材の補助スクリプトは1本まで");
   for (const script of scripts) {
-    assert.match(script, /^<script src="(?:\.\.\/)*(?:tutorial\/)?small-tasks\.js" defer><\/script>$/);
+    assert.match(script, /^<script src="(?:\.\.\/)*(?:tutorial\/)?small-tasks\.js(?:\?v=[a-z0-9-]+)?" defer><\/script>$/);
   }
 }
 

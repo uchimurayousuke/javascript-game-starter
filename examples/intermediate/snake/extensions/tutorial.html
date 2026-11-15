@@ -1,4 +1,43 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>スネークゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js" defer></script></head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：障害物を置く</a><a href="#lesson-section-3">ステップ 2：得点で速くする</a><a href="#lesson-section-4">ステップ 3：時間限定のボーナス</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：スネークゲームの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：障害物を置く</a><a href="#lesson-section-3">ステップ 2：得点で速くする</a><a href="#lesson-section-4">ステップ 3：時間限定のボーナス</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">スネークゲームの発展</li></ol></nav><h1>スネークゲームの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-intermediate-snake-extension.zip" download="example-intermediate-snake-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPには基本編の3ファイルが入っています。</p></div><p>自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：障害物を置く</h2><h3>目標</h3><p>障害物に当たると終了し、食べ物は障害物に出ないようにします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>障害物を用意する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const cell = 30, boardX = 80, boardY = 70;
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>スネークゲームの発展</title><link rel="stylesheet" href="../../../guide.css"><link rel="stylesheet" href="../../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：障害物を置く</a><a href="#lesson-section-3">ステップ 2：得点で速くする</a><a href="#lesson-section-4">ステップ 3：時間限定のボーナス</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：スネークゲームの発展</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：障害物を置く</a><a href="#lesson-section-3">ステップ 2：得点で速くする</a><a href="#lesson-section-4">ステップ 3：時間限定のボーナス</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">スネークゲームの発展</li></ol></nav><h1>スネークゲームの発展</h1><p>基本の完成版から3つの機能を順番に追加します。</p><p><a href="complete/index.html">発展編の完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-intermediate-snake-extension.zip" download="example-intermediate-snake-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPには基本編の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+<p>自分で作った基本版でも同じ内容なら使えます。</p><p>各段階の変更を上から順に作業用の <code>script.js</code> に加えます。変更前と同じ範囲を探して、変更後のコードに置き換えてください。保存したら <code>index.html</code> を開くか、再読み込みします。</p><p><a href="../complete/index.html">基本完成版を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：障害物を置く</h2>
+<details class="step-preview" id="preview-examples-intermediate-snake-extensions-tutorial-html-step1" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="0" data-frames="1,2" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-intermediate-snake-extensions-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../../tutorial/step-previews/examples-intermediate-snake-extensions-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const obstacles = [{x: 4, y: 2}, {x: 5, y: 2}, {x: 6, y: 2}];</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>灰色の3マスに当たると終了し、Rで再開できます。</p>
+      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>障害物に当たると終了し、食べ物は障害物に出ないようにします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>障害物を用意する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const cell = 30, boardX = 80, boardY = 70;
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const cell = 30, boardX = 80, boardY = 70;&#10;" data-small-separator="">const obstacles = [{x: 4, y: 2}, {x: 5, y: 2}, {x: 6, y: 2}];
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>3つの障害物のマスを配列に入れます。</p></div><div class="lesson-task"><h4>障害物に当たったら終了する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (head.x &lt; 0 || head.x &gt; 9 || head.y &lt; 0 || head.y &gt; 9) {
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (head.x &lt; 0 || head.x &gt; 9 || head.y &lt; 0 || head.y &gt; 9) {&#10;" data-small-separator="">    state = &quot;over&quot;;
@@ -213,7 +252,43 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>灰色の3マスに当たると終了し、Rで再開できます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：得点で速くする</h2><h3>目標</h3><p>食べ物を取ると、移動の間隔が短くなります。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>得点に応じて移動を速くする</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  if (performance.now() - lastMove &lt; 200) return;
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+<p>灰色の3マスに当たると終了し、Rで再開できます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：得点で速くする</h2>
+<details class="step-preview" id="preview-examples-intermediate-snake-extensions-tutorial-html-step2" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="3,4" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-intermediate-snake-extensions-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../../tutorial/step-previews/examples-intermediate-snake-extensions-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code><mark>if (performance.now() - lastMove &lt; 200) return</mark>;</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const interval = Math.max(80, 200 - score * 20)</mark>;</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>得点が増えると間隔の表示が小さくなり、動きが速くなります。</p>
+      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>食べ物を取ると、移動の間隔が短くなります。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>得点に応じて移動を速くする</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  if (performance.now() - lastMove &lt; 200) return;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  if (performance.now() - lastMove &lt; 200) return;&#10;" data-small-separator="">  const interval = Math.max(80, 200 - score * 20);
   if (performance.now() - lastMove &lt; interval) return;
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>間隔は <code>200 - score * 20</code> ミリ秒で、<code>Math.max()</code> により80未満にしません。得点2なら160ミリ秒です。</p></div><div class="lesson-task"><h4>現在の間隔を表示する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;得点: &quot; + score + &quot; / 5&quot;, 430, 130);
@@ -384,7 +459,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>得点が増えると間隔の表示が小さくなり、動きが速くなります。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：時間限定のボーナス</h2><h3>目標</h3><p>得点2以上で、5秒だけ取れるボーナスが出ます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>ボーナスを覚える</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let snake, direction, nextDirection, lastMove, food, score, state;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let snake, direction, nextDirection, lastMove, food, score, state;" data-small-separator="">let snake, direction, nextDirection, lastMove, food, score, state, bonus, bonusUntil;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>bonus</code> はボーナスの位置、<code>bonusUntil</code> は表示が終わる時刻です。</p></div><div class="lesson-task"><h4>空きマスにボーナスを置く準備をする</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function placeFood()</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function placeFood()" data-small-separator="">function placeBonus() {
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>得点が増えると間隔の表示が小さくなり、動きが速くなります。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：時間限定のボーナス</h2>
+<details class="step-preview" id="preview-examples-intermediate-snake-extensions-tutorial-html-step3" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="3" data-frames="5,6" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:1">
+      <img data-src="../../../../tutorial/step-previews/examples-intermediate-snake-extensions-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../../tutorial/step-previews/examples-intermediate-snake-extensions-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>score<mark>++</mark>;</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>score<mark> += bonusEaten ? 2 : 1</mark>;</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>得点2で紫の食べ物が現れ、5秒後に消えます。</p>
+      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>得点2以上で、5秒だけ取れるボーナスが出ます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>ボーナスを覚える</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let snake, direction, nextDirection, lastMove, food, score, state;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let snake, direction, nextDirection, lastMove, food, score, state;" data-small-separator="">let snake, direction, nextDirection, lastMove, food, score, state, bonus, bonusUntil;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>bonus</code> はボーナスの位置、<code>bonusUntil</code> は表示が終わる時刻です。</p></div><div class="lesson-task"><h4>空きマスにボーナスを置く準備をする</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function placeFood()</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function placeFood()" data-small-separator="">function placeBonus() {
 }
 
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>placeBonus()</code> に候補を探す処理を書きます。</p></div><div class="lesson-task"><h4>ボーナスの候補を探す</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function placeBonus() {

@@ -1,5 +1,54 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>タワーディフェンスの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js" defer></script></head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：敵をクラスで作り道を進む</a><a href="#lesson-section-3">ステップ 2：タワーを置く</a><a href="#lesson-section-4">ステップ 3：射程内の敵を探す</a><a href="#lesson-section-5">ステップ 4：弾を飛ばす</a><a href="#lesson-section-6">ステップ 5：3回の波と結果を作る</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：タワーディフェンス</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：敵をクラスで作り道を進む</a><a href="#lesson-section-3">ステップ 2：タワーを置く</a><a href="#lesson-section-4">ステップ 3：射程内の敵を探す</a><a href="#lesson-section-5">ステップ 4：弾を飛ばす</a><a href="#lesson-section-6">ステップ 5：3回の波と結果を作る</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">タワーディフェンス</li></ol></nav><h1>タワーディフェンス</h1><p class="tag">上級者向け</p><p>5つの場所から選んでタワーを置き、3回の敵の波からゴールを守ります。クリックで設置し、Rで再挑戦します。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div><p>3つのファイルは同じフォルダーに入っています。</p><p>各ステップでは作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存後、作業用の <code>index.html</code> を開くか再読み込みします。</p><p><code>document.querySelector("#game-canvas")</code> はHTMLのCanvasを選び、<code>getContext("2d")</code> で絵を描く道具を取り出します。<code>start()</code> は最初の設定、<code>update()</code> は更新、<code>draw()</code> は描画です。<code>gameLoop()</code> は <code>requestAnimationFrame</code> で更新と描画を繰り返します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：敵をクラスで作り道を進む</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>敵を作って、曲がり角の点を順に進ませます。</p><div class="lesson-task"><h4>道の点を並べる</h4><p>作業用 <code>script.js</code> の <code>start()</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start() {" data-small-separator="&#10;&#10;">const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>path</code> は (100, 300) から曲がり角を通り (700, 100) へ進む点の配列です。画面の左上を (0, 0) とし、右へ x、下へ y が増えます。</p></div><div class="lesson-task"><h4>敵の初期値を決める</h4><p><code>start()</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start() {" data-small-separator="&#10;&#10;">class Enemy {
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>タワーディフェンスの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：敵をクラスで作り道を進む</a><a href="#lesson-section-3">ステップ 2：タワーを置く</a><a href="#lesson-section-4">ステップ 3：射程内の敵を探す</a><a href="#lesson-section-5">ステップ 4：弾を飛ばす</a><a href="#lesson-section-6">ステップ 5：3回の波と結果を作る</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：タワーディフェンス</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：敵をクラスで作り道を進む</a><a href="#lesson-section-3">ステップ 2：タワーを置く</a><a href="#lesson-section-4">ステップ 3：射程内の敵を探す</a><a href="#lesson-section-5">ステップ 4：弾を飛ばす</a><a href="#lesson-section-6">ステップ 5：3回の波と結果を作る</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">タワーディフェンス</li></ol></nav><h1>タワーディフェンス</h1><p class="tag">上級者向け</p><p>5つの場所から選んでタワーを置き、3回の敵の波からゴールを守ります。クリックで設置し、Rで再挑戦します。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+<p>3つのファイルは同じフォルダーに入っています。</p><p>各ステップでは作業用の <code>script.js</code> を開き、示した部分を順番に置き換えます。<code>index.html</code> と <code>style.css</code> は変更しません。保存後、作業用の <code>index.html</code> を開くか再読み込みします。</p><p><code>document.querySelector("#game-canvas")</code> はHTMLのCanvasを選び、<code>getContext("2d")</code> で絵を描く道具を取り出します。<code>start()</code> は最初の設定、<code>update()</code> は更新、<code>draw()</code> は描画です。<code>gameLoop()</code> は <code>requestAnimationFrame</code> で更新と描画を繰り返します。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：敵をクラスで作り道を進む</h2>
+<details class="step-preview" id="preview-examples-advanced-tower-defense-tutorial-html-step1" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1,2,3,4,5,6" data-columns="4" style="--tile-columns:4;--tile-rows:4;--tile-x:1;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" width="1920" height="1080">
+      <noscript><img src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" loading="lazy" width="1920" height="1080"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>赤い敵が左から進み、曲がって右側へ向かいます。</p>
+      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>敵を作って、曲がり角の点を順に進ませます。</p><div class="lesson-task"><h4>道の点を並べる</h4><p>作業用 <code>script.js</code> の <code>start()</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start() {" data-small-separator="&#10;&#10;">const path = [{x: 100, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 700, y: 100}];</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>path</code> は (100, 300) から曲がり角を通り (700, 100) へ進む点の配列です。画面の左上を (0, 0) とし、右へ x、下へ y が増えます。</p></div><div class="lesson-task"><h4>敵の初期値を決める</h4><p><code>start()</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start() {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start() {" data-small-separator="&#10;&#10;">class Enemy {
   constructor() {
     this.x = path[0].x;
     this.y = path[0].y;
@@ -236,7 +285,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>赤い敵が左から進み、曲がって右側へ向かいます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>移動の2ピクセルを1にして速さを比べます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：タワーを置く</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>枠をクリックして、1基20のお金でタワーを置きます。</p><div class="lesson-task"><h4>タワーの形を作る</h4><p><code>script.js</code> の敵の一覧の宣言の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let enemies;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="let enemies;" data-small-separator="&#10;&#10;">class Tower {
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>赤い敵が左から進み、曲がって右側へ向かいます。 <a href="step1/index.html">ステップ 1 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>移動の2ピクセルを1にして速さを比べます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：タワーを置く</h2>
+<details class="step-preview" id="preview-examples-advanced-tower-defense-tutorial-html-step2" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="画面の真ん中をクリックした例" data-previous="1" data-frames="7,8,9,10,11,12" data-columns="4" style="--tile-columns:4;--tile-rows:4;--tile-x:3;--tile-y:1">
+      <img data-src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" width="1920" height="1080">
+      <noscript><img src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" loading="lazy" width="1920" height="1080"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>枠をクリックすると青いタワーが置かれ、所持金60から20減ります。</p>
+      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>枠をクリックして、1基20のお金でタワーを置きます。</p><div class="lesson-task"><h4>タワーの形を作る</h4><p><code>script.js</code> の敵の一覧の宣言の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let enemies;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="let enemies;" data-small-separator="&#10;&#10;">class Tower {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -592,7 +667,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>枠をクリックすると青いタワーが置かれ、所持金60から20減ります。同じ枠には重ねて置けません。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>タワーの色を変えてみます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：射程内の敵を探す</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>タワーが射程内の敵を見つけ、一定間隔で攻撃します。</p><div class="lesson-task"><h4>攻撃後の待ち時間を減らす</h4><p><code>Tower.draw()</code> の後、クラスの閉じ波括弧の前に追加します。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>枠をクリックすると青いタワーが置かれ、所持金60から20減ります。同じ枠には重ねて置けません。 <a href="step2/index.html">ステップ 2 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>タワーの色を変えてみます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：射程内の敵を探す</h2>
+<details class="step-preview" id="preview-examples-advanced-tower-defense-tutorial-html-step3" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="7" data-frames="7,8,9,10,11,12" data-columns="4" style="--tile-columns:4;--tile-rows:4;--tile-x:3;--tile-y:1">
+      <img data-src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" width="1920" height="1080">
+      <noscript><img src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" loading="lazy" width="1920" height="1080"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (this.cooldown &gt; 0) {</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>タワーを敵の近くに置くと、体力がなくなった敵が消えます。</p>
+      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>タワーが射程内の敵を見つけ、一定間隔で攻撃します。</p><div class="lesson-task"><h4>攻撃後の待ち時間を減らす</h4><p><code>Tower.draw()</code> の後、クラスの閉じ波括弧の前に追加します。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
   }
 
 }</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);&#10;  }&#10;&#10;}" data-small-separator="&#10;">    ctx.fillRect(this.x - 15, this.y - 15, 30, 30);
@@ -914,7 +1015,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>タワーを敵の近くに置くと、体力がなくなった敵が消えます。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>射程120を短くして、どこで攻撃するか比べます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：弾を飛ばす</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>攻撃を弾の実体に変え、敵へ向かって飛ばします。</p><div class="lesson-task"><h4>弾の形を作る</h4><p>設置場所を決める <code>spots</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200}," data-small-separator="&#10;&#10;">class Bullet {
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>タワーを敵の近くに置くと、体力がなくなった敵が消えます。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>射程120を短くして、どこで攻撃するか比べます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：弾を飛ばす</h2>
+<details class="step-preview" id="preview-examples-advanced-tower-defense-tutorial-html-step4" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="7" data-frames="7,8,9,10,11,12" data-columns="4" style="--tile-columns:4;--tile-rows:4;--tile-x:3;--tile-y:1">
+      <img data-src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" width="1920" height="1080">
+      <noscript><img src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" loading="lazy" width="1920" height="1080"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (distance &lt;= 8) {</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>敵が射程に入ると黄色い弾が飛び、2回当たると敵が消えます。</p>
+      <p><a href="step4/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>攻撃を弾の実体に変え、敵へ向かって飛ばします。</p><div class="lesson-task"><h4>弾の形を作る</h4><p>設置場所を決める <code>spots</code> の前に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200},</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="const spots = [{x: 300, y: 250}, {x: 400, y: 150}, {x: 600, y: 200}," data-small-separator="&#10;&#10;">class Bullet {
   constructor(x, y, target) {
     this.x = x;
     this.y = y;
@@ -1448,7 +1575,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>敵が射程に入ると黄色い弾が飛び、2回当たると敵が消えます。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>弾の速さ8を4にして、弾が追いつく様子を比べます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step4">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：3回の波と結果を作る</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>敵の波、残り回数、所持金、クリアと再挑戦を加えます。</p><div class="lesson-task"><h4>波と拠点の状態を用意する</h4><p>変数の宣言を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let enemies, towers, money, bullets;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let enemies, towers, money, bullets;" data-small-separator="&#10;">let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>wave</code> は今の敵の集団、<code>lives</code> は拠点の残り、<code>spawned</code> はその集団で出した敵の数、<code>spawnTimer</code> は次の敵までの待ち回数です。</p></div><div class="lesson-task"><h4>敵を空にして始める</h4><p><code>start()</code> の次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  enemies = [new Enemy()];</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  enemies = [new Enemy()];" data-small-separator="&#10;">  enemies = [];</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>敵は後で時間差で出すため、開始時は空にします。</p></div><div class="lesson-task"><h4>所持金と拠点を初期化する</h4><p><code>start()</code> の所持金と弾を初期化する2行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  money = 60;
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>敵が射程に入ると黄色い弾が飛び、2回当たると敵が消えます。 <a href="step4/index.html">ステップ 4 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>弾の速さ8を4にして、弾が追いつく様子を比べます。 練習後はこのステップのコードに戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-tower-defense-tutorial-html-step4">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：3回の波と結果を作る</h2>
+<details class="step-preview" id="preview-examples-advanced-tower-defense-tutorial-html-step5" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="7" data-frames="13,14,15" data-columns="4" style="--tile-columns:4;--tile-rows:4;--tile-x:1;--tile-y:3">
+      <img data-src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" width="1920" height="1080">
+      <noscript><img src="../../../tutorial/step-previews/examples-advanced-tower-defense-tutorial.webp" alt="" loading="lazy" width="1920" height="1080"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (spawned &lt; 3) {</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>3つの枠にタワーを置き、3回の波を防ぐとクリアです。</p>
+      <p><a href="step5/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>敵の波、残り回数、所持金、クリアと再挑戦を加えます。</p><div class="lesson-task"><h4>波と拠点の状態を用意する</h4><p>変数の宣言を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>let enemies, towers, money, bullets;</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="let enemies, towers, money, bullets;" data-small-separator="&#10;">let enemies, towers, money, bullets, state, lives, wave, spawned, spawnTimer;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>wave</code> は今の敵の集団、<code>lives</code> は拠点の残り、<code>spawned</code> はその集団で出した敵の数、<code>spawnTimer</code> は次の敵までの待ち回数です。</p></div><div class="lesson-task"><h4>敵を空にして始める</h4><p><code>start()</code> の次の行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  enemies = [new Enemy()];</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  enemies = [new Enemy()];" data-small-separator="&#10;">  enemies = [];</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>敵は後で時間差で出すため、開始時は空にします。</p></div><div class="lesson-task"><h4>所持金と拠点を初期化する</h4><p><code>start()</code> の所持金と弾を初期化する2行を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  money = 60;
   bullets = [];</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  money = 60;&#10;  bullets = [];" data-small-separator="&#10;">  bullets = [];
   money = 60;
   lives = 3;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>弾を空にし、所持金60、拠点の残り3で始めます。</p></div><div class="lesson-task"><h4>最初の集団を用意する</h4><p><code>start()</code> の拠点を初期化する行の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  lives = 3;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  lives = 3;" data-small-separator="&#10;">  wave = 1;

@@ -1,4 +1,41 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Canvasのボタンの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"></head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボタンの四角を描く</a><a href="#lesson-section-3">ステップ 2：座標と押下を調べる</a><a href="#lesson-section-4">ステップ 3：押したときの処理と無効状態</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：Canvasのボタンを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボタンの四角を描く</a><a href="#lesson-section-3">ステップ 2：座標と押下を調べる</a><a href="#lesson-section-4">ステップ 3：押したときの処理と無効状態</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">Canvasのボタンを作る</li></ol></nav><h1>Canvasのボタンを作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div><p>変更前を探し、変更後のコードに置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：ボタンの四角を描く</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>ボタンの四角を描く。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>タッチ操作の状態を用意する</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">canvas.style.touchAction = &quot;none&quot;;
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Canvasのボタンの作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボタンの四角を描く</a><a href="#lesson-section-3">ステップ 2：座標と押下を調べる</a><a href="#lesson-section-4">ステップ 3：押したときの処理と無効状態</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：Canvasのボタンを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボタンの四角を描く</a><a href="#lesson-section-3">ステップ 2：座標と押下を調べる</a><a href="#lesson-section-4">ステップ 3：押したときの処理と無効状態</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">Canvasのボタンを作る</li></ol></nav><h1>Canvasのボタンを作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+<p>変更前を探し、変更後のコードに置き換えて保存し、index.html を開き直します。</p><p><a href="../../../template/index.html">ひな型を開く</a></p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：ボタンの四角を描く</h2>
+<details class="step-preview" id="preview-features-intermediate-buttons-tutorial-html-step1">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" width="1920" height="270">
+      <noscript><img src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" loading="lazy" width="1920" height="270"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>ctx.fillText(enabled ? &quot;押す&quot; : &quot;無効&quot;, 370, 205);</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>「押す」と書いたボタンが表示されます。</p>
+      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>ボタンの四角を描く。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>タッチ操作の状態を用意する</h4><p>作業用の <code>script.js</code> の先頭近くで、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>const ctx = canvas.getContext(&quot;2d&quot;);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="const ctx = canvas.getContext(&quot;2d&quot;);" data-small-separator="&#10;&#10;">canvas.style.touchAction = &quot;none&quot;;
 let enabled, hover, pressed, count;</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>touchAction = "none"</code> は Canvas 上のタッチによるブラウザーの操作を抑えます。<code>let</code> で、使用可能か、重なっているか、押した入力の ID、押した回数を覚えます。</p></div><div class="lesson-task"><h4>ボタンを初期化する</h4><p><code>start()</code> から <code>update()</code> の閉じ波括弧までで、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>function start() {
 }
 
@@ -95,7 +132,41 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>「押す」と書いたボタンが表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ボタンの色を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-buttons-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：座標と押下を調べる</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>座標と押下を調べる。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>入力位置をCanvasの座標へ変える</h4><p>変数の宣言の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let enabled, hover, pressed, count;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let enabled, hover, pressed, count;" data-small-separator="&#10;">function point(event) {
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+<p>「押す」と書いたボタンが表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ボタンの色を変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-buttons-tutorial-html-step1">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：座標と押下を調べる</h2>
+<details class="step-preview" id="preview-features-intermediate-buttons-tutorial-html-step2">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:1;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" width="1920" height="270">
+      <noscript><img src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" loading="lazy" width="1920" height="270"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const rect = canvas.getBoundingClientRect();</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>ボタンに乗せると色が変わり、押して離すと元に戻ります。</p>
+      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>座標と押下を調べる。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>入力位置をCanvasの座標へ変える</h4><p>変数の宣言の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>let enabled, hover, pressed, count;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="let enabled, hover, pressed, count;" data-small-separator="&#10;">function point(event) {
   const rect = canvas.getBoundingClientRect();
   return {x: (event.clientX - rect.left) * canvas.width / rect.width, y: (event.clientY - rect.top) * canvas.height / rect.height};
 }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>表示上の左上からの距離を、Canvas の実際の幅や高さと表示上の幅や高さの比で換算します。幅 800 を 400 で表示するとき、左から 100 の位置は Canvas 内の x = 200 です。 <a href="../../../examples/beginner/target/tutorial.html#target-coordinate">クリック座標の図</a>も確認できます。</p></div><div class="lesson-task"><h4>ボタンの範囲を判定する</h4><p><code>point()</code> の後で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function point(event) {
@@ -242,7 +313,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>ボタンに乗せると色が変わり、押して離すと元に戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ボタンの幅とinsideの範囲を一緒に変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-buttons-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：押したときの処理と無効状態</h2><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>押したときの処理と無効状態。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>ボタンを実行する関数を作る</h4><p><code>inside()</code> の行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function inside(p) { return p.x &gt;= 280 &amp;&amp; p.x &lt; 520 &amp;&amp; p.y &gt;= 160 &amp;&amp; p.y &lt; 230; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function inside(p) { return p.x &gt;= 280 &amp;&amp; p.x &lt; 520 &amp;&amp; p.y &gt;= 160 &amp;&amp; p.y &lt; 230; }" data-small-separator="&#10;">function activate() { if (enabled) count++; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>有効なときに <code>count++</code> で回数を 1 増やします。</p></div><div class="lesson-task"><h4>離した位置でボタンを実行する</h4><p><code>up()</code> の中で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function up(event, id) {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function up(event, id) {" data-small-separator="&#10;">  if (pressed === id &amp;&amp; inside(point(event))) activate();</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>押した入力と同じ ID がボタン内で離されたときに実行します。範囲外で離したときは実行しません。</p></div><div class="lesson-task"><h4>キー操作を案内する</h4><p>回数を表示する行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;回数: &quot; + count, 100, 100);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;回数: &quot; + count, 100, 100);" data-small-separator="&#10;">  ctx.fillText(&quot;Enter/Space: 押す / D: 無効切替 / R: 再開&quot;, 90, 350);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>Enter と Space で実行、D で有効・無効を切り替え、R で初期化する操作を表示します。</p></div><div class="lesson-task"><h4>キー入力を受け取る</h4><p><code>blur</code> の処理の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>window.addEventListener(&quot;blur&quot;, () =&gt; { pressed = null; hover = false; });</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="window.addEventListener(&quot;blur&quot;, () =&gt; { pressed = null; hover = false; });" data-small-separator="&#10;">window.addEventListener(&quot;keydown&quot;, event =&gt; {
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>ボタンに乗せると色が変わり、押して離すと元に戻ります。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ボタンの幅とinsideの範囲を一緒に変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-buttons-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：押したときの処理と無効状態</h2>
+<details class="step-preview" id="preview-features-intermediate-buttons-tutorial-html-step3" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="D キーを押した例" data-previous="1" data-frames="2,3" data-columns="4" style="--tile-columns:4;--tile-rows:1;--tile-x:2;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" width="1920" height="270">
+      <noscript><img src="../../../tutorial/step-previews/features-intermediate-buttons-tutorial.webp" alt="" loading="lazy" width="1920" height="270"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>ctx.fillText(&quot;Enter/Space: 押す / D: 無効切替 / R: 再開&quot;, 90, 350);</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>内から内、外から内、内から外の操作を比べ、Dでも確認します。</p>
+      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>押したときの処理と無効状態。</p><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>ボタンを実行する関数を作る</h4><p><code>inside()</code> の行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function inside(p) { return p.x &gt;= 280 &amp;&amp; p.x &lt; 520 &amp;&amp; p.y &gt;= 160 &amp;&amp; p.y &lt; 230; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function inside(p) { return p.x &gt;= 280 &amp;&amp; p.x &lt; 520 &amp;&amp; p.y &gt;= 160 &amp;&amp; p.y &lt; 230; }" data-small-separator="&#10;">function activate() { if (enabled) count++; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>有効なときに <code>count++</code> で回数を 1 増やします。</p></div><div class="lesson-task"><h4>離した位置でボタンを実行する</h4><p><code>up()</code> の中で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function up(event, id) {</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="function up(event, id) {" data-small-separator="&#10;">  if (pressed === id &amp;&amp; inside(point(event))) activate();</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>押した入力と同じ ID がボタン内で離されたときに実行します。範囲外で離したときは実行しません。</p></div><div class="lesson-task"><h4>キー操作を案内する</h4><p>回数を表示する行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;回数: &quot; + count, 100, 100);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;回数: &quot; + count, 100, 100);" data-small-separator="&#10;">  ctx.fillText(&quot;Enter/Space: 押す / D: 無効切替 / R: 再開&quot;, 90, 350);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>Enter と Space で実行、D で有効・無効を切り替え、R で初期化する操作を表示します。</p></div><div class="lesson-task"><h4>キー入力を受け取る</h4><p><code>blur</code> の処理の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>window.addEventListener(&quot;blur&quot;, () =&gt; { pressed = null; hover = false; });</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="window.addEventListener(&quot;blur&quot;, () =&gt; { pressed = null; hover = false; });" data-small-separator="&#10;">window.addEventListener(&quot;keydown&quot;, event =&gt; {
   if (event.repeat) return;
   const key = event.key.toLowerCase();
   if (key === &quot;r&quot;) { start(); return; }

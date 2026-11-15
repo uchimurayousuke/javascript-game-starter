@@ -105,7 +105,7 @@ test("コピーはコード本文だけを使い、失敗時は選択を案内�
     const button = { hidden: true, dataset: { copyState: "copied" }, addEventListener: (_, fn) => { handler = fn; } };
     const task = { querySelector: (selector) => ({".task-copy-button":button, ".task-code code":code, ".task-copy-status":status}[selector] || null) };
     const selection = { removeAllRanges() {}, addRange(range) { selected = range.node; } };
-    const document = { querySelectorAll: () => [task, { querySelector: () => null }], createRange: () => ({ selectNodeContents(node) { this.node = node; } }) };
+    const document = { querySelectorAll: (selector) => selector === ".lesson-task" ? [task, { querySelector: () => null }] : [], createRange: () => ({ selectNodeContents(node) { this.node = node; } }) };
     const navigator = mode === "clipboard" ? { clipboard: { writeText: async (text) => { copied = text; } } } : {};
     const window = mode === "no-selection" ? {} : { getSelection: () => selection };
     vm.runInNewContext(script, { document, navigator, window });

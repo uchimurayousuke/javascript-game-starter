@@ -9,8 +9,8 @@
   const status = el("status"), result = el("result"), output = el("diff-output"), count = el("result-count");
   const description = el("chapter-description"), back = el("back-link"), game = el("game-link"), resultGame = el("result-game-link"), help = el("matching-help");
   const stepContext = el("step-context"), expectationHeading = el("expectation-heading"), expectations = el("step-expectations");
-  const coinGuide = el("coin-compare-video"), coinClip = el("coin-compare-clip");
-  coinGuide?.addEventListener("toggle", () => { if (!coinGuide.open) coinClip?.pause(); });
+  const videoGuide = el("coin-compare-video"), clip = el("coin-compare-clip");
+  videoGuide?.addEventListener("toggle", () => { if (!videoGuide.open) clip?.pause(); });
   let hasInput = false, pending = false, revision = 0, comparison = null;
 
   function setStatus(message) { status.textContent = message; }
@@ -32,13 +32,6 @@
   function updateChapter() {
     clearInput();
     const entry = byId.get(chapter.value);
-    if (coinGuide) {
-      coinGuide.hidden = entry?.page !== "tutorial/index.html";
-      if (coinGuide.hidden && coinGuide.open) {
-        coinClip?.pause();
-        coinGuide.open = false;
-      }
-    }
     back.hidden = !entry;
     game.hidden = !entry;
     if (!entry) {

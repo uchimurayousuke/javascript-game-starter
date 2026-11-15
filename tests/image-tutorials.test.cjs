@@ -68,8 +68,8 @@ test("各教材の図は最終段階にあり、代替テキストと正しい�
  for(const [level,name] of examples){
   const page=read(`features/${level}/${name}/tutorial.html`);
   const sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
-  assert.doesNotMatch(sections[0][0],/<figure/);
-  assert.doesNotMatch(sections[1][0],/<figure/);
+  assert.doesNotMatch(sections[0][0],/<figure class="learning-diagram"/);
+  assert.doesNotMatch(sections[1][0],/<figure class="learning-diagram"/);
   const matches=[...sections[2][0].matchAll(/<figure class="learning-diagram"[\s\S]*?<\/figure>/g)];
   assert.equal(matches.length,1,name);
   const figure=matches[0][0];

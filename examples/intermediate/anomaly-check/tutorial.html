@@ -1,4 +1,41 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>へんか探しを作る</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js" defer></script></head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の基準を描く</a><a href="#lesson-section-3">ステップ 2：表示側に変化を作る</a><a href="#lesson-section-4">ステップ 3：実際の差で答えを判定する</a><a href="#lesson-section-5">ステップ 4：連続正解を数える</a><a href="#lesson-section-6">ステップ 5：もう一度遊ぶ</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：へんか探しを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の基準を描く</a><a href="#lesson-section-3">ステップ 2：表示側に変化を作る</a><a href="#lesson-section-4">ステップ 3：実際の差で答えを判定する</a><a href="#lesson-section-5">ステップ 4：連続正解を数える</a><a href="#lesson-section-6">ステップ 5：もう一度遊ぶ</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">へんか探しを作る</li></ol></nav><h1>へんか探しを作る</h1><p>基準の部屋を覚え、図形の変化があるかを見分けます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div><p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：部屋の基準を描く</h2><h3>目標</h3><p>窓や時計などの基準の部屋を描きます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>部屋の基準を記録する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start()</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start()" data-small-separator="">const baseline = [
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>へんか探しを作る</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の基準を描く</a><a href="#lesson-section-3">ステップ 2：表示側に変化を作る</a><a href="#lesson-section-4">ステップ 3：実際の差で答えを判定する</a><a href="#lesson-section-5">ステップ 4：連続正解を数える</a><a href="#lesson-section-6">ステップ 5：もう一度遊ぶ</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：へんか探しを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：部屋の基準を描く</a><a href="#lesson-section-3">ステップ 2：表示側に変化を作る</a><a href="#lesson-section-4">ステップ 3：実際の差で答えを判定する</a><a href="#lesson-section-5">ステップ 4：連続正解を数える</a><a href="#lesson-section-6">ステップ 5：もう一度遊ぶ</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">へんか探しを作る</li></ol></nav><h1>へんか探しを作る</h1><p>基準の部屋を覚え、図形の変化があるかを見分けます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では変更前のscript.js全体を、変更後のコピー用コード全体に置き換えます。古い関数を残して同じ名前の関数を追加しないでください。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+<p>作業用フォルダーのscript.jsを編集します。各ステップで保存し、index.htmlを再読み込みしてください。</p></section><span class="toc-anchor" id="lesson-section-2"></span><section><h2>ステップ 1：部屋の基準を描く</h2>
+<details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step1">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:1;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>ctx.fillStyle = &quot;#f7f2df&quot;; ctx.fillRect(70, 55, 610, 285);</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>窓、時計、絵、机、箱が表示されます。</p>
+      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>窓や時計などの基準の部屋を描きます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>部屋の基準を記録する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function start()</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function start()" data-small-separator="">const baseline = [
   {id:&quot;窓&quot;, x:140, y:110, w:90, h:75, color:&quot;#7cbde4&quot;, visible:true},
   {id:&quot;時計&quot;, x:340, y:100, w:55, h:55, color:&quot;#ffd35a&quot;, visible:true},
   {id:&quot;絵&quot;, x:500, y:110, w:90, h:75, color:&quot;#e9919b&quot;, visible:true},
@@ -124,7 +161,41 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>窓、時計、絵、机、箱が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：表示側に変化を作る</h2><h3>目標</h3><p>色・位置・表示のいずれかを変えます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>変化させるかを決める</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  scene = baseline.map(item =&gt; ({...item}));
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+<p>窓、時計、絵、机、箱が表示されます。 <a href="step1/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-3"></span><section><h2>ステップ 2：表示側に変化を作る</h2>
+<details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step2">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="1" data-frames="2" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:2;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (Math.random() &lt; 0.5) {</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>再読み込みを繰り返すと、変化する場合としない場合があります。</p>
+      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>色・位置・表示のいずれかを変えます。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>変化させるかを決める</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  scene = baseline.map(item =&gt; ({...item}));
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  scene = baseline.map(item =&gt; ({...item}));&#10;" data-small-separator="">  if (Math.random() &lt; 0.5) {
   }
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>Math.random()</code> は0以上1未満の数です。0.5未満の回だけ変化を作ります。</p></div><div class="lesson-task"><h4>変える物の番号を選ぶ</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (Math.random() &lt; 0.5) {
@@ -266,7 +337,33 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>再読み込みを繰り返すと、変化する場合としない場合があります。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：実際の差で答えを判定する</h2><h3>目標</h3><p>変化あり・なしを選べるようにします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>最初は基準を見せる</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  nextRound();
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>再読み込みを繰り返すと、変化する場合としない場合があります。 <a href="step2/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：実際の差で答えを判定する</h2>
+<details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step3" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Enter キーを押した例" data-previous="2" data-frames="3,4" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (state === &quot;feedback&quot;) ctx.fillText(&quot;Enterで次へ&quot;, 480, 384);</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>Enterで開始し、1または2を押すと結果が表示されます。</p>
+      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>変化あり・なしを選べるようにします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>最初は基準を見せる</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  nextRound();
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  nextRound();&#10;" data-small-separator="">  state = &quot;reference&quot;; message = &quot;この部屋を覚えてEnterで開始&quot;;
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>"reference"</code> は基準を覚える場面です。Enter の案内も表示します。</p></div><div class="lesson-task"><h4>正解と連続数を記録する</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直前に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>function update()</code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="before" data-small-match="function update()" data-small-separator="">function finish(correct) {
   if (correct) streak++;
@@ -473,7 +570,31 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Enterで開始し、1または2を押すと結果が表示されます。 <a href="step3/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：連続正解を数える</h2><h3>目標</h3><p>5回続けて正解するとクリアします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>5回続いたらクリアする</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  state = &quot;feedback&quot;;
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Enterで開始し、1または2を押すと結果が表示されます。 <a href="step3/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>ステップ 4：連続正解を数える</h2>
+<details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step4">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>state = &quot;feedback&quot;;</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>state = <mark>streak &gt;= 5 ? &quot;clear&quot; : </mark>&quot;feedback&quot;;</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>5回続けて正解するとクリアになり、途中で間違えると0に戻ります。</p>
+      <p><a href="step4/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>5回続けて正解するとクリアします。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>5回続いたらクリアする</h4><p>作業用フォルダーの <code>script.js</code> で、次の範囲を探して置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  state = &quot;feedback&quot;;
 </code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  state = &quot;feedback&quot;;&#10;" data-small-separator="">  state = streak &gt;= 5 ? &quot;clear&quot; : &quot;feedback&quot;;
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>streak >= 5</code> は連続正解が5以上かを調べます。条件が成り立てば <code>"clear"</code>、そうでなければ <code>"feedback"</code> にします。</p></div><h3>保存後の確かめ方</h3><p class="task-check">5回続けて正解するとクリアになり、途中で間違えると0に戻ります。 <a href="step4/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>連続3回の後で不正解ならstreakはいくつですか。</p><details><summary>練習の答え</summary><p>0です。</p></details><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-intermediate-anomaly-check-tutorial-html-step4">このステップ終了時の見本と自分のコードを比べる</a></p><details class="task-reference"><summary>以前の比較と全文を見る</summary><span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>5回続けて正解するとクリアします。</p><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>書く場所と置き換えるコード</h3><p>作業用フォルダーのscript.jsを開き、先頭から最後までを選び、変更後のコード全体に置き換えます。変更前は確認用、変更後はコピー用です。</p><div class="reading-walkthrough"><p class="reading-label">読むための抜粋です。編集には下のコピー用コードを使います。</p><h5>正解の連続数を更新する</h5><pre class="reading-code"><code>if (correct) streak++;
   else streak = 0;</code></pre><p>正解では <code>streak</code> を1増やし、不正解では0に戻します。<code>correct</code> は答えが合っていたかです。</p><h5>5回続いたらクリアする</h5><pre class="reading-code"><code>state = streak &gt;= 5 ? "clear" : "feedback";</code></pre><p>連続正解が5以上なら <code>"clear"</code>、そうでなければ結果を示す <code>"feedback"</code> に切り替えます。</p></div><details class="instruction-code"><summary>比較とコピー用コードを開く</summary><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 1 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  else streak = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  message = (correct ? &quot;正解！ &quot; : &quot;おしい！ &quot;) + (differences.length ? &quot;変化：&quot; + differences.map(item =&gt; item.id + &quot;は&quot; + item.change).join(&quot;、&quot;) : &quot;変化はありません&quot;);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  state = &quot;feedback&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  state = streak &gt;= 5 ? &quot;clear&quot; : &quot;feedback&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
@@ -670,7 +791,31 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>5回続けて正解するとクリアになり、途中で間違えると0に戻ります。 <a href="step4/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：もう一度遊ぶ</h2><h3>目標</h3><p>クリア後に最初の基準画面からやり直します。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>クリア後の案内を描く</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (state === &quot;feedback&quot;) ctx.fillText(&quot;Enterで次へ&quot;, 480, 384);
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>5回続けて正解するとクリアになり、途中で間違えると0に戻ります。 <a href="step4/index.html">この段階の見本を開く</a></p></details></section><span class="toc-anchor" id="lesson-section-6"></span><section><h2>ステップ 5：もう一度遊ぶ</h2>
+<details class="step-preview" id="preview-examples-intermediate-anomaly-check-tutorial-html-step5">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="Space キーを押した例" data-previous="3" data-frames="3" data-columns="4" style="--tile-columns:4;--tile-rows:2;--tile-x:3;--tile-y:0">
+      <img data-src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" width="1920" height="540">
+      <noscript><img src="../../../tutorial/step-previews/examples-intermediate-anomaly-check-tutorial.webp" alt="" loading="lazy" width="1920" height="540"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Spaceで再挑戦&quot;, 470, 384);</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>クリア後にSpaceを押すと基準の部屋に戻ります。</p>
+      <p><a href="step5/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<h3>目標</h3><p>クリア後に最初の基準画面からやり直します。</p><p>確認欄までは準備中です。作業を順に進め、確認欄で保存して動作を確かめます。</p><h3>書く場所と置き換えるコード</h3><div class="lesson-task"><h4>クリア後の案内を描く</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (state === &quot;feedback&quot;) ctx.fillText(&quot;Enterで次へ&quot;, 480, 384);
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (state === &quot;feedback&quot;) ctx.fillText(&quot;Enterで次へ&quot;, 480, 384);&#10;" data-small-separator="">  if (state === &quot;clear&quot;) ctx.fillText(&quot;クリア！ Spaceで再挑戦&quot;, 470, 384);
 </code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>クリア状態のとき、Space キーで再挑戦する案内を表示します。</p></div><div class="lesson-task"><h4>Space で最初からやり直す</h4><p>作業用フォルダーの <code>script.js</code> で、次の目印を探し、その直後に書きます。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  else if (state === &quot;feedback&quot; &amp;&amp; event.key === &quot;Enter&quot;) nextRound();
 </code></pre><p class="task-code-label">書き足すコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  else if (state === &quot;feedback&quot; &amp;&amp; event.key === &quot;Enter&quot;) nextRound();&#10;" data-small-separator="">  else if (state === &quot;clear&quot; &amp;&amp; event.key === &quot; &quot;) { event.preventDefault(); start(); }

@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="../../../guide.css">
 <link rel="stylesheet" href="../../../../tutorial/code-changes.css">
   <link rel="stylesheet" href="../../../../tutorial/diagrams.css">
-<link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js" defer></script></head>
+<link rel="stylesheet" href="../../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../../downloads/starter.css"><link rel="stylesheet" href="../../../../tutorial/small-tasks.css"><script src="../../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../../tutorial/step-previews.css">
+<link rel="stylesheet" href="../../../../tutorial/learning-figures.css">
+<link rel="stylesheet" href="../../../../tutorial/operation-videos.css?v=20261115-visuals">
+</head>
 <body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">発展課題 1：敵を上から踏んで倒す</a><a href="#lesson-section-3">発展課題 2：Shift キーでダッシュする</a><a href="#lesson-section-4">発展課題 3：中間ポイントから再挑戦する</a><a href="#lesson-section-5">さらに自分で作るなら</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：横スクロールゲームの発展課題</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">発展課題 1：敵を上から踏んで倒す</a><a href="#lesson-section-3">発展課題 2：Shift キーでダッシュする</a><a href="#lesson-section-4">発展課題 3：中間ポイントから再挑戦する</a><a href="#lesson-section-5">さらに自分で作るなら</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../../learning/index.html">学びの入口</a></li><li><a href="../../../index.html">ゲーム制作例</a></li><li><a href="../tutorial.html">基本の作り方</a></li><li aria-current="page">横スクロールゲームの発展課題</li></ol></nav>
 <p><a href="../tutorial.html">← 基本の作り方へ</a>　<a href="../../../index.html">制作例の一覧へ</a></p>
 <h1>横スクロールゲームの発展課題</h1>
@@ -22,6 +25,16 @@
 <li><a href="#checkpoint">中間ポイントから再挑戦する</a></li>
 </ol></nav>
 <details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../../downloads/starters/example-advanced-platformer-extension.zip" download="example-advanced-platformer-extension.zip">発展のスタート用ZIPをダウンロード</a></p><p>基本編の完成版から始めます。ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPには基本編の3ファイルが入っています。</p></div>
+<details class="lesson-operation-video" id="lesson-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../../tutorial/operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="../../../../tutorial/operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。ZIPを右クリックし、「すべて展開」→「展開」を押します。</figcaption>
+  </figure>
+</details>
+
 <p>基本のステップ6まで作った作業用フォルダーを、別の名前でコピーしてください。コピーした <code>script.js</code> を編集します。<code>index.html</code> と <code>style.css</code> は変更しません。</p>
 <p>基本版を持っていない場合は、<code>examples/advanced/platformer/complete</code> にある3ファイルを、新しい作業用フォルダーにコピーします。<code>index.html</code>、<code>style.css</code>、<code>script.js</code> は同じフォルダーに置いてください。</p>
 <p>課題1から順番に追加します。各課題を終えたら保存し、作業用の <code>index.html</code> をブラウザで開くか、再読み込みしてください。見本のゲームは別ページで開きます。</p>
@@ -29,6 +42,40 @@
 
 <span class="toc-anchor" id="lesson-section-2"></span><section id="stomp" data-stage="stomp">
 <h2>発展課題 1：敵を上から踏んで倒す</h2>
+<details class="step-preview" id="preview-examples-advanced-platformer-extensions-tutorial-html-stomp">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="そのまま少し待った例" data-previous="0" data-frames="1" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:1;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" width="1920" height="810">
+      <noscript><img src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" loading="lazy" width="1920" height="810"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br>この行を足す前</span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (player.vy &gt; 0 &amp;&amp; previousBottom &lt;= enemy.y) {</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>敵の少し手前からジャンプし、敵の真上で移動キーを離して着地します。</p>
+      <p><a href="stomp/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+<details class="lesson-operation-video" id="lesson-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="../../../../tutorial/operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="../../../../tutorial/operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption>コインキャッチの例です。エディターで保存し、ブラウザーで作業用の <code>index.html</code> を再読み込みします。</figcaption>
+  </figure>
+</details>
+
+
 <p>赤い敵を上から踏むと、その敵が消え、プレイヤーが少しはねるようにします。横や下から触れると、これまでどおり失敗です。</p>
 <h3>できるようにすること</h3>
 <ul>
@@ -57,7 +104,24 @@
     } else {
       state = &quot;over&quot;;
       break;
-    }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>生きた敵と重なり、下向きで、動く前の足元が敵の上端以下なら踏みます。例えば敵の上端が360なら、足元が350から362に進むと踏めますが、380から382ではすでに上端より下なので踏めません。<code>cameraX</code> は引かずステージ座標で調べます。横や下から触れたときは失敗です。</p><figure class="learning-diagram" id="extension-stomp" aria-labelledby="extension-stomp-title"><figcaption id="extension-stomp-title">図：動く前と後の足元</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="敵より上から落ちてきたら、踏める！"><img src="../../../../tutorial/illustrations/astra/extension-stomp.svg" width="1200" height="1020" alt="足元が350から362へ動き、上端360の敵を踏んで足元を360にそろえます。"></div><p>説明用の例です。敵の上端は <code>enemy.y = 360</code>、プレイヤーの高さは40。前の足元は <code>previousBottom = 350</code>、動いた後は <code>player.y = 322</code> なので足元は362です。図は上下の間隔を同じ縮尺で描いています。</p><p>前の足元が敵の上以下 <code>350 &lt;= 360</code>、下向き <code>player.vy &gt; 0</code>、<code>overlaps</code> と敵の <code>alive</code> がすべて true なら踏めます。踏んだ後は <code>player.y = 320</code>、<code>vy = -8</code>。横からや上昇中の接触は踏めません。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/extension-stomp.svg" target="_blank" rel="noopener" aria-label="図：動く前と後の足元を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></div><div class="lesson-task"><h4>倒した数を表示する</h4><p>外側の <code>draw()</code> のコイン数の表示の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);" data-small-separator="&#10;">  ctx.fillText(&quot;倒した敵: &quot; + defeated + &quot; / &quot; + enemies.length, 520, 32);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>倒した数と敵の総数を表示します。</p><p class="task-check">保存して再読み込みし、敵を上から踏むと消えてはね返り、横から触れると失敗することを確かめます。</p></div><details><summary>ヒントを見る</summary>
+    }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>生きた敵と重なり、下向きで、動く前の足元が敵の上端以下なら踏みます。例えば敵の上端が360なら、足元が350から362に進むと踏めますが、380から382ではすでに上端より下なので踏めません。<code>cameraX</code> は引かずステージ座標で調べます。横や下から触れたときは失敗です。</p>
+<figure class="lesson-figure" data-lesson-figure="stomp-previous-bottom">
+<figcaption>図：今の重なりだけでなく、前の足元を見る</figcaption>
+<p>青はPlayer、赤はEnemy。青い枠は動く前、塗りつぶしは動いた後です。落下中でも、前の足元が敵の上端より下なら踏めません。</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="760" height="320" role="img" aria-label="上からの例。落下中で、前の足元350が敵の上端360以下なので踏めます。敵が消え、プレイヤーは vy = −8 ではねます。" data-figure-frame="0" data-frame-label="上からの例。落下中で、前の足元350が敵の上端360以下なので踏めます。敵が消え、プレイヤーは vy = −8 ではねます。" font-family="system-ui, sans-serif">
+<rect x="1" y="1" width="758" height="318" rx="6" fill="#f8fbfd" stroke="#d6e2eb" stroke-width="2"/><text x="28" y="36" font-size="22" fill="#26334a" font-weight="700">生きている敵と重なった後の判定</text><text x="28" y="66" font-size="17" fill="#26334a" font-weight="400">位置は説明用の例。敵の上端は実際のコードと同じ y = 360。</text><rect x="126" y="198" width="60" height="60" rx="6" fill="#d64b5c" stroke="none" stroke-width="2"/><text x="206" y="222" font-size="18" fill="#26334a" font-weight="400">Enemy</text><rect x="126" y="98" width="60" height="80" rx="6" fill="none" stroke="#2765b0" stroke-width="2"/><rect x="126" y="122" width="60" height="80" rx="6" fill="#2765b0" stroke="none" stroke-width="2"/><path d="M28 198 L294 198" fill="none" stroke="#a13b49" stroke-width="2" stroke-dasharray="5 4"/><text x="30" y="293" font-size="20" fill="#26334a" font-weight="700">足元 350 → 362</text><text x="330" y="107" font-size="20" fill="#26334a" font-weight="400">① 落下中：player.vy &gt; 0</text><text x="330" y="146" font-size="20" fill="#26334a" font-weight="400">② 動く前の足元 ≦ 敵の上端</text><text x="354" y="182" font-size="24" fill="#26334a" font-weight="700">350 ≦ 360 → true</text><rect x="316" y="205" width="414" height="88" rx="6" fill="#e8f3ec" stroke="none" stroke-width="2"/><text x="334" y="238" font-size="20" fill="#26334a" font-weight="700">踏める → 敵を消して上にはねる</text><text x="334" y="273" font-size="18" fill="#26334a" font-weight="400">Player.bounce：y = 320、vy = −8</text>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="760" height="320" role="img" aria-label="横からの例。落下中でも、前の足元380は敵の上端360より下です。重なるとゲームオーバーになります。" data-figure-frame="1" data-frame-label="横からの例。落下中でも、前の足元380は敵の上端360より下です。重なるとゲームオーバーになります。" hidden font-family="system-ui, sans-serif">
+<rect x="1" y="1" width="758" height="318" rx="6" fill="#f8fbfd" stroke="#d6e2eb" stroke-width="2"/><text x="28" y="36" font-size="22" fill="#26334a" font-weight="700">生きている敵と重なった後の判定</text><text x="28" y="66" font-size="17" fill="#26334a" font-weight="400">位置は説明用の例。敵の上端は実際のコードと同じ y = 360。</text><rect x="126" y="198" width="60" height="60" rx="6" fill="#d64b5c" stroke="none" stroke-width="2"/><text x="206" y="222" font-size="18" fill="#26334a" font-weight="400">Enemy</text><rect x="72" y="158" width="60" height="80" rx="6" fill="none" stroke="#2765b0" stroke-width="2"/><rect x="72" y="162" width="60" height="80" rx="6" fill="#2765b0" stroke="none" stroke-width="2"/><path d="M28 198 L294 198" fill="none" stroke="#a13b49" stroke-width="2" stroke-dasharray="5 4"/><text x="30" y="293" font-size="20" fill="#26334a" font-weight="700">足元 380 → 382</text><text x="330" y="107" font-size="20" fill="#26334a" font-weight="400">① 落下中：player.vy &gt; 0</text><text x="330" y="146" font-size="20" fill="#26334a" font-weight="400">② 動く前の足元 ≦ 敵の上端</text><text x="354" y="182" font-size="24" fill="#26334a" font-weight="700">380 ≦ 360 → false</text><rect x="316" y="205" width="414" height="88" rx="6" fill="#fff1e8" stroke="none" stroke-width="2"/><text x="334" y="238" font-size="20" fill="#26334a" font-weight="700">踏めない → ゲームオーバー</text><text x="334" y="273" font-size="18" fill="#26334a" font-weight="400">state = &quot;over&quot;</text>
+</svg>
+<div class="lesson-figure-controls" hidden>
+<button type="button" data-figure-pick="0" aria-pressed="true">上から：350 → 362</button>
+<button type="button" data-figure-pick="1" aria-pressed="false">横から：380 → 382</button>
+</div>
+<p data-figure-result role="status">上からの例。落下中で、前の足元350が敵の上端360以下なので踏めます。敵が消え、プレイヤーは vy = −8 ではねます。</p>
+</figure>
+<details class="earlier-figure"><summary>図をじっくり見る</summary><figure class="learning-diagram" id="extension-stomp" aria-labelledby="extension-stomp-title"><figcaption id="extension-stomp-title">図：動く前と後の足元</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="敵より上から落ちてきたら、踏める！"><img src="../../../../tutorial/illustrations/astra/extension-stomp.svg" width="1200" height="1020" alt="足元が350から362へ動き、上端360の敵を踏んで足元を360にそろえます。"></div><p>説明用の例です。敵の上端は <code>enemy.y = 360</code>、プレイヤーの高さは40。前の足元は <code>previousBottom = 350</code>、動いた後は <code>player.y = 322</code> なので足元は362です。図は上下の間隔を同じ縮尺で描いています。</p><p>前の足元が敵の上以下 <code>350 &lt;= 360</code>、下向き <code>player.vy &gt; 0</code>、<code>overlaps</code> と敵の <code>alive</code> がすべて true なら踏めます。踏んだ後は <code>player.y = 320</code>、<code>vy = -8</code>。横からや上昇中の接触は踏めません。</p><p class="diagram-expand"><a href="../../../../tutorial/illustrations/astra/extension-stomp.svg" target="_blank" rel="noopener" aria-label="図：動く前と後の足元を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></details>
+</div><div class="lesson-task"><h4>倒した数を表示する</h4><p>外側の <code>draw()</code> のコイン数の表示の下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + coins.length, 20, 32);" data-small-separator="&#10;">  ctx.fillText(&quot;倒した敵: &quot; + defeated + &quot; / &quot; + enemies.length, 520, 32);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>倒した数と敵の総数を表示します。</p><p class="task-check">保存して再読み込みし、敵を上から踏むと消えてはね返り、横から触れると失敗することを確かめます。</p></div><details><summary>ヒントを見る</summary>
 <p>判定は次の3つに分けます。</p><ol><li><code>overlaps(player, enemy)</code>：今、敵と重なっている。</li><li><code>player.vy &gt; 0</code>：今、下へ進んでいる。</li><li><code>previousBottom &lt;= enemy.y</code>：動く前の足元が敵の上端より上か同じ高さにあった。</li></ol><p>例えば敵の上端が y=360 の場合、足元が 350 から 362 に進むと、上端をまたぎます。一方、足元が 380 から 382 に進んだ場合は、すでに上端より下にいます。落下中でも、後者を踏んだことにはしません。</p><p>判定にはステージ全体の座標を使います。表示位置をずらす <code>cameraX</code> は引きません。</p>
 
 </details>
@@ -149,6 +213,32 @@
 <p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-platformer-extensions-tutorial-html-stomp">このステップ終了時の見本と自分のコードを比べる</a></p></section>
 <span class="toc-anchor" id="lesson-section-3"></span><section id="dash" data-stage="dash">
 <h2>発展課題 2：Shift キーでダッシュする</h2>
+<details class="step-preview" id="preview-examples-advanced-platformer-extensions-tutorial-html-dash" data-preview-motion>
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="→ キーを押した例" data-previous="1" data-frames="2,3,4,5,6,7" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:2;--tile-y:0">
+      <img data-src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" width="1920" height="810">
+      <noscript><img src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" loading="lazy" width="1920" height="810"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+        <button type="button" data-preview-action="advance">次のコマ</button>
+        <button type="button" data-preview-action="play">動きを見る</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>const <mark>dx = (right ? 4 : 0) - (left ? 4 : 0)</mark>;</code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>const <mark>speed = (dashLeft || dashRight) ? 6 : 4</mark>;</code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>同じ地面で、右キーだけの場合と、Shift と右キーを押した場合の速さを比べます。</p>
+      <p><a href="dash/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+
 <p>課題1のコードに追加します。左右どちらかの Shift キーを押している間、横へ進む速さを変えます。</p>
 <h3>できるようにすること</h3>
 <ul>
@@ -218,6 +308,30 @@ let dashLeft = false, dashRight = false;</code></pre>
 <p class="chapter-compare-link"><a href="../../../../tutorial/compare/index.html?chapter=examples-advanced-platformer-extensions-tutorial-html-dash">このステップ終了時の見本と自分のコードを比べる</a></p></section>
 <span class="toc-anchor" id="lesson-section-4"></span><section id="checkpoint" data-stage="checkpoint">
 <h2>発展課題 3：中間ポイントから再挑戦する</h2>
+<details class="step-preview" id="preview-examples-advanced-platformer-extensions-tutorial-html-checkpoint">
+  <summary>このステップの見本を図で見る</summary>
+  <figure>
+    <div class="step-preview-screen" role="img" aria-label="このステップの見本" data-previous-label="前の段階の画面" data-current-label="このステップの見本" data-action="R キーを押した例" data-previous="2" data-frames="8" data-columns="4" style="--tile-columns:4;--tile-rows:3;--tile-x:0;--tile-y:2">
+      <img data-src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" width="1920" height="810">
+      <noscript><img src="../../../../tutorial/step-previews/examples-advanced-platformer-extensions-tutorial.webp" alt="" loading="lazy" width="1920" height="810"></noscript>
+    </div>
+    <figcaption>
+      <p class="step-preview-status" data-preview-result role="status">このステップの見本</p>
+      <div class="lesson-figure-controls step-preview-controls" hidden>
+        <button type="button" data-preview-action="previous" aria-pressed="false">前の段階</button>
+        <button type="button" data-preview-action="current" aria-pressed="true">このステップ</button>
+      </div>
+
+<div class="step-preview-code">
+  <span data-preview-code="previous" hidden><strong>前のコードの一部</strong>（script.js）<br><code>if (state === &quot;over&quot;) <mark>ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);</mark></code></span>
+  <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>if (state === &quot;over&quot;) <mark>{</mark></code></span>
+</div>
+      <p class="step-preview-task"><strong>見本で確かめること</strong><br>目印に触れ、色と左上の表示が変わることを確かめます。</p>
+      <p><a href="checkpoint/index.html">見本を別ページで開く</a></p>
+    </figcaption>
+  </figure>
+</details>
+
 <p>課題2のコードに追加します。ステージの途中に目印を置き、通過した後に失敗したら、その場所から遊び直せるようにします。</p>
 <h3>できるようにすること</h3>
 <ul>
