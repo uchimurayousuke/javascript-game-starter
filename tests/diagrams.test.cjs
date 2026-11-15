@@ -75,7 +75,16 @@ test("全教材の図は説明と代替テキストを備え、ローカルの�
       const content=figure(file,id), img=content.match(/<img\b[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*>/);
       assert.match(content,new RegExp(`<figcaption id="${id}-title">図：`)); assert.match(content,/<p>[^]*?<\/p>/);
       assert.match(content,/class="diagram-scroll" role="region" tabindex="0"/);
-      assert.doesNotMatch(content,/<(?:script|canvas|iframe|svg)\b/i); assert.ok(img && img[2].length>10,`${id}: alt`);
+      assert.doesNotMatch(content,/<(?:script|canvas|iframe)\b/i);
+      if (file === "tutorial/index.html" && id === "coin-hit") {
+        assert.equal((content.match(/<svg\b/g) || []).length, 1);
+        assert.match(content, /<svg\b[^>]*class="coin-hit-scene"[^>]*aria-hidden="true"[^>]*>/);
+        assert.match(content, /data-coin-hit-demo hidden/);
+        assert.match(content, /data-coin-hit-still>/);
+      } else {
+        assert.doesNotMatch(content, /<svg\b/i);
+      }
+      assert.ok(img && img[2].length>10,`${id}: alt`);
       assert.equal(path.resolve(root,path.dirname(file),img[1]),path.resolve(root,`tutorial/illustrations/astra/${asset}.svg`));
       const svg=illustration(asset); assert.match(svg,/<title\b[^>]*>[^<]+<\/title>/); assert.match(svg,/<desc\b[^>]*>[^<]+<\/desc>/);
       assert.doesNotMatch(svg,/(?:href|src)="(?:https?:|\/\/)/i);

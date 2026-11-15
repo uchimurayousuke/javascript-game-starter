@@ -1,0 +1,106 @@
+.coin-hit-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  align-items: center;
+  gap: .75rem 1rem;
+  margin-top: .75rem;
+}
+
+.coin-hit-scene {
+  display: block;
+  justify-self: center;
+  width: 100%;
+  max-width: 22rem;
+  height: auto;
+}
+
+.coin-hit-readout dl {
+  margin: 0;
+}
+
+.coin-hit-readout dl > div + div {
+  margin-top: .65rem;
+}
+
+.coin-hit-readout dd {
+  margin: .15rem 0 0;
+}
+
+.learning-diagram .coin-hit-readout code {
+  color: var(--lesson-ink-diagram);
+  font-size: 1.125rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.coin-hit-result {
+  padding: .35em .6em;
+  border-left: 4px solid var(--lesson-practice);
+  background: var(--lesson-practice-wash);
+  font-weight: 700;
+}
+
+.coin-hit-readout[data-caught="true"] .coin-hit-result {
+  border-color: var(--lesson-check);
+  background: var(--lesson-check-wash);
+  color: var(--lesson-diff-added-ink);
+}
+
+.coin-hit-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: .75rem 0;
+}
+
+.coin-hit-controls button {
+  min-height: 44px;
+  padding: .4em .75em;
+  border: 2px solid var(--lesson-action);
+  border-radius: 8px;
+  background: var(--lesson-action);
+  color: var(--lesson-on-action);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.coin-hit-controls [data-coin-hit-reset] {
+  background: var(--lesson-paper);
+  color: var(--lesson-action);
+}
+
+.coin-hit-controls button:not([aria-disabled="true"]):hover {
+  border-color: var(--lesson-action-active);
+  background: var(--lesson-action-active);
+  color: var(--lesson-on-action);
+}
+
+.coin-hit-controls button[aria-disabled="true"] {
+  border-color: var(--lesson-line-diagram-inner);
+  background: var(--lesson-fold-wash);
+  color: var(--lesson-ink-muted);
+  cursor: default;
+}
+
+.coin-hit-controls button:focus-visible {
+  outline: 3px solid var(--lesson-focus);
+  outline-offset: 2px;
+}
+
+.coin-hit-note {
+  color: var(--lesson-ink-caption);
+  font-size: .9em;
+}
+
+@media (max-width: 480px) {
+  .coin-task #coin-hit {
+    margin-inline: -.6rem;
+    padding-inline: .5rem;
+  }
+}
+
+@media print {
+  .coin-hit-demo { display: none; }
+  [data-coin-hit-still][hidden] { display: block; }
+}

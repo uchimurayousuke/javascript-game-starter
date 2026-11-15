@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="code-changes.css">
   <link rel="stylesheet" href="diagrams.css">
-<link rel="stylesheet" href="learning-layout.css"><link rel="stylesheet" href="../downloads/starter.css"><link rel="stylesheet" href="coin-small-tasks.css"><script src="coin-small-tasks.js" defer></script></head>
+<link rel="stylesheet" href="learning-layout.css"><link rel="stylesheet" href="../downloads/starter.css"><link rel="stylesheet" href="coin-small-tasks.css"><link rel="stylesheet" href="coin-hit.css"><script src="coin-small-tasks.js" defer></script><script src="coin-hit.js" defer></script></head>
   <body class="lesson-page">
     <a class="skip-link" href="#preparation">本文へ移動</a>
     <div class="layout">
@@ -341,7 +341,63 @@ window.addEventListener(&quot;blur&quot;, clearKeys);
     coinX + coinRadius &gt;= playerX &amp;&amp;
     coinX - coinRadius &lt;= playerX + playerWidth
   );
-}</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>コインの上下左右の端と受け皿の端を比べます。上から順に、コインの下端が受け皿の上端に届いたか、上端が下端より上か、右端が左端に届いたか、左端が右端より左かを調べます。<code>&gt;=</code> は以上、<code>&lt;=</code> は以下なので、端が接したときも重なりです。<code>&amp;&amp;</code> ですべての条件をつなぎ、<code>return</code> で結果を返します。丸を囲む四角で調べるため、丸そのものが触れていなくても角が重なればキャッチになります。</p><figure class="learning-diagram" id="coin-hit" aria-labelledby="coin-hit-title"><figcaption id="coin-hit-title">図：下の端と上の端を比べよう</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインが届く場合と届かない場合"><img src="illustrations/astra/coin-catch.svg" width="1400" height="1000" alt="コインの下端と受け皿の上端を比べます。左はコインの中心が縦371で、下端385が受け皿の上端385に届くのでキャッチ。右は中心が縦370で、下端384が上端385に1届きません。形とすき間は見やすくした模式図です。"></div><p>説明用の例です。コインの中心は x = 400、半径 14、受け皿の上は y = 385。左の絵は中心の y が 371、右は 370 です。見やすいよう形を拡大し、右のすき間も強調した模式図です。</p><p>下端は <code>coinY + coinRadius</code>。左の例では <code>371 + 14 = 385</code>。ほかの3条件も成り立つとき、<code>coinY + coinRadius &gt;= playerY</code>、<code>coinY - coinRadius &lt;= playerY + playerHeight</code>、<code>coinX + coinRadius &gt;= playerX</code>、<code>coinX - coinRadius &lt;= playerX + playerWidth</code> をすべて満たせばキャッチです。円を囲む四角で調べるため、四角の角だけでも当たりになります。</p><p class="diagram-expand"><a href="illustrations/astra/coin-catch.svg" target="_blank" rel="noopener" aria-label="図：下の端と上の端を比べようを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></div><div class="coin-task"><h4>キャッチしたら得点を増やす</h4><p><code>update()</code> の中で、右移動の中の行からコインが落ちたか調べる <code>if</code> の閉じ波括弧まで、次の範囲をまとめて置き換えます。右移動と画面端の処理は残します。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    playerX += playerSpeed;
+}</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>コインの上下左右の端と受け皿の端を比べます。上から順に、コインの下端が受け皿の上端に届いたか、上端が下端より上か、右端が左端に届いたか、左端が右端より左かを調べます。<code>&gt;=</code> は以上、<code>&lt;=</code> は以下なので、端が接したときも重なりです。<code>&amp;&amp;</code> ですべての条件をつなぎ、<code>return</code> で結果を返します。丸を囲む四角で調べるため、丸そのものが触れていなくても角が重なればキャッチになります。</p><figure class="learning-diagram" id="coin-hit" aria-labelledby="coin-hit-title"><figcaption id="coin-hit-title">図：下の端と上の端を比べよう</figcaption>
+  <div class="coin-hit-demo" data-coin-hit-demo hidden>
+    <div class="coin-hit-panel">
+      <svg xmlns="http://www.w3.org/2000/svg" class="coin-hit-scene" viewBox="0 0 360 336" aria-hidden="true" focusable="false">
+        <rect width="360" height="336" rx="20" fill="#fffdf8"/>
+        <g font-family="'Yu Gothic', Meiryo, sans-serif" font-size="24" font-weight="700" fill="#20364b">
+          <text x="28" y="37" text-anchor="middle">縦</text>
+          <path d="M28 53V303" fill="none" stroke="#34495e" stroke-width="3"/>
+          <path d="M21 294L28 306L35 294" fill="none" stroke="#34495e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="160" y="37" text-anchor="middle">コイン</text>
+          <rect x="65" y="224" width="195" height="94" rx="0" fill="#d6e9ff"/>
+          <path d="M65 224H260" stroke="#28629e" stroke-width="4"/>
+          <path d="M65 226V318H260V226" fill="none" stroke="#28629e" stroke-width="2"/>
+          <text x="162" y="258" text-anchor="middle">受け皿</text>
+          <text x="89" y="296">上端</text>
+          <text x="158" y="296" font-size="26">385</text>
+          <g data-coin-hit-gap="" fill="#a64e16" stroke="#a64e16">
+            <path d="M72 200H84M78 200V224M72 224H84" fill="none" stroke-width="2"/>
+            <text x="61" y="220" text-anchor="end" stroke="none" font-size="24">1</text>
+          </g>
+          <g data-coin-hit-token="" data-step="24">
+            <circle cx="160" cy="130" r="70" fill="#ffe29a" stroke="#936315" stroke-width="2"/>
+            <circle cx="160" cy="130" r="61" fill="none" stroke="#e9c064" stroke-width="2"/>
+            <text x="160" y="112" text-anchor="middle">中心</text>
+            <text x="160" y="146" text-anchor="middle" font-size="26" data-coin-hit-center="">370</text>
+            <path d="M160 200H272" fill="none" stroke="#a64e16" stroke-width="2"/>
+            <circle cx="160" cy="200" r="4" fill="#a64e16"/>
+            <text x="282" y="175" font-size="22">下端</text>
+            <text x="280" y="208" font-size="26" data-coin-hit-bottom="">384</text>
+          </g>
+        </g>
+      </svg>
+      <div class="coin-hit-readout" data-caught="false" role="status" aria-atomic="true">
+        <dl>
+          <div>
+            <dt>下端（中心＋半径）</dt>
+            <dd><code data-coin-hit-sum>370 + 14 = 384</code></dd>
+          </div>
+          <div>
+            <dt>受け皿の上端と比べる</dt>
+            <dd><code data-coin-hit-comparison>384 &gt;= 385</code></dd>
+          </div>
+        </dl>
+        <p class="coin-hit-result" data-coin-hit-result>あと1ピクセルで届く</p>
+      </div>
+    </div>
+    <div class="coin-hit-controls">
+      <button type="button" data-coin-hit-lower>1ピクセル下げる</button>
+      <button type="button" data-coin-hit-reset aria-disabled="true">元に戻す</button>
+    </div>
+    <p class="coin-hit-note">ほかの3条件は満たしています。図では1ピクセルの差を大きく描いています。</p>
+  </div>
+  <div class="coin-hit-still" data-coin-hit-still>
+    <div class="diagram-scroll" role="region" tabindex="0" aria-label="コインが届く場合と届かない場合"><img src="illustrations/astra/coin-catch.svg" width="1400" height="1000" alt="コインの下端と受け皿の上端を比べます。左はコインの中心が縦371で、下端385が受け皿の上端385に届くのでキャッチ。右は中心が縦370で、下端384が上端385に1届きません。形とすき間は見やすくした模式図です。"></div><p>説明用の例です。コインの中心は x = 400、半径 14、受け皿の上は y = 385。左の絵は中心の y が 371、右は 370 です。見やすいよう形を拡大し、右のすき間も強調した模式図です。</p><p>下端は <code>coinY + coinRadius</code>。左の例では <code>371 + 14 = 385</code>。ほかの3条件も成り立つとき、<code>coinY + coinRadius &gt;= playerY</code>、<code>coinY - coinRadius &lt;= playerY + playerHeight</code>、<code>coinX + coinRadius &gt;= playerX</code>、<code>coinX - coinRadius &lt;= playerX + playerWidth</code> をすべて満たせばキャッチです。円を囲む四角で調べるため、四角の角だけでも当たりになります。</p>
+  </div>
+  <p class="diagram-expand"><a href="illustrations/astra/coin-catch.svg" target="_blank" rel="noopener">2つの位置を並べた図を見る（新しいタブ）</a></p>
+</figure></div><div class="coin-task"><h4>キャッチしたら得点を増やす</h4><p><code>update()</code> の中で、右移動の中の行からコインが落ちたか調べる <code>if</code> の閉じ波括弧まで、次の範囲をまとめて置き換えます。右移動と画面端の処理は残します。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    playerX += playerSpeed;
   }
 
   playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
