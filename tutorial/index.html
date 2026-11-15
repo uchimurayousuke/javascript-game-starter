@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="code-changes.css">
   <link rel="stylesheet" href="diagrams.css">
-<link rel="stylesheet" href="learning-layout.css"><link rel="stylesheet" href="../downloads/starter.css"><link rel="stylesheet" href="coin-small-tasks.css"><link rel="stylesheet" href="coin-hit.css"><script src="coin-small-tasks.js" defer></script><script src="coin-hit.js" defer></script></head>
+<link rel="stylesheet" href="learning-layout.css"><link rel="stylesheet" href="../downloads/starter.css"><link rel="stylesheet" href="coin-small-tasks.css"><link rel="stylesheet" href="coin-hit.css"><script src="coin-small-tasks.js" defer></script><link rel="stylesheet" href="coin-step-visuals.css">
+<link rel="stylesheet" href="operation-videos.css">
+<script src="coin-hit.js" defer></script><script src="coin-step-visuals.js" defer></script></head>
   <body class="lesson-page">
     <a class="skip-link" href="#preparation">本文へ移動</a>
     <div class="layout">
@@ -31,7 +33,17 @@
           <a class="primary-link" href="#preparation">準備から始める ↓</a>
         </header>
         <section id="preparation" class="lesson">
-<p class="eyebrow">準備</p><h2>自分の作業用フォルダーを作る</h2><div class="starter-download"><p><a class="download-link" href="../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開して、できたフォルダー（通常はmy-game）のindex.htmlを開きます。WindowsではZIPを右クリックして「すべて展開」を選びます。</p></div><ol><li>ひな型のZIPを展開し、できたフォルダーを作業用にします。ZIPの中で直接編集せず、展開したフォルダーを使ってください。</li><li>Webページを見るブラウザーと、コードを書くテキストエディターを用意します。</li><li>作業用フォルダーの <code>index.html</code> をブラウザーで開きます。空の白い Canvas が出れば準備できています。ここからは作業用フォルダーのファイルを編集します。</li></ol>
+<p class="eyebrow">準備</p><h2>自分の作業用フォルダーを作る</h2><div class="starter-download"><p><a class="download-link" href="../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p></div>
+<details class="coin-operation-video" id="coin-zip-video">
+  <summary>WindowsでZIPを展開する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="operation-videos/zip-expand.webp" aria-label="WindowsでZIPを展開する（動画）">
+      <source src="operation-videos/zip-expand.mp4" type="video/mp4">
+    </video>
+    <figcaption>ZIPを右クリックして「すべて展開」を選びます。できたフォルダーの <code>index.html</code> を開きます。</figcaption>
+  </figure>
+</details>
+<ol><li>ひな型のZIPを展開し、できたフォルダーを作業用にします。</li><li>そのフォルダーの <code>index.html</code> をブラウザーで開きます。空のゲーム画面が出れば準備できています。</li><li>エディターで同じフォルダーを開きます。</li></ol>
 <p class="notice">このページは教材です。ゲームは埋め込んでいません。「制作物を別ページで開く」で見本だけを開けます。自分の制作物は <code>my-game/index.html</code> を開いて確かめます。</p>
 <div class="coin-task"><h4>ページの名前を変える</h4><p>作業用フォルダーの <code>index.html</code> を開き、次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="index.html" data-small-action="replace" data-small-match="    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;" data-small-separator="&#10;">    &lt;title&gt;コインキャッチ&lt;/title&gt;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>ブラウザーのタブに表示する名前を変えます。</p></div><div class="coin-task"><h4>画面の説明を変える</h4><p>同じ <code>index.html</code> の次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="index.html" data-small-action="replace" data-small-match="      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;" data-small-separator="&#10;">      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;コインキャッチのゲーム画面&quot;&gt;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>canvas</code> は絵を描く場所です。幅 800、高さ 450 の画面に名前を付け、<code>aria-label</code> で画面の内容を伝えます。</p></div><div class="coin-task"><h4>画面の背景色を変える</h4><p>作業用フォルダーの <code>style.css</code> を開き、<code>canvas</code> の波括弧の中にある次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>  background: #fff;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="style.css" data-small-action="replace" data-small-match="  background: #fff;" data-small-separator="&#10;">  background: #f7fbff;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>#f7fbff</code> は少し青みのある白です。</p></div><p class="coin-check">保存して、作業用の <code>index.html</code> を再読み込みします。タブ名と画面の色が変われば準備完了です。</p><details class="coin-reference"><summary>準備の変更前後とファイル全体を見る</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div><h3>HTML と CSS を整える</h3>
 <p>まず、作業用フォルダーの <code>index.html</code> 全体を次のコードに置き換えます。タイトルと Canvas の説明をゲームの名前にします。表示する要素は Canvas だけです。</p>
@@ -89,10 +101,33 @@ const playerHeight = 18;
 const playerY = 385;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>変数は値に名前を付けて覚えるものです。<code>const playerWidth = 110;</code> は、後から入れ直さない変数 <code>playerWidth</code> を作り、幅 110 を入れます。<code>=</code> は右の値を左に入れ、<code>;</code> は文の区切りです。続く行では高さ 18、左上の縦位置 385 を決めます。</p></div><div class="coin-task"><h4>受け皿を中央に置く</h4><p>次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>const playerY = 385;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="const playerY = 385;" data-small-separator="&#10;">let playerX = (canvas.width - playerWidth) / 2;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>let</code> は後から値を変えられます。画面の幅 800 から受け皿の幅 110 を引き、2 で割ると左上の横位置は 345 です。</p></div><div class="coin-task"><h4>コインの大きさと位置を決める</h4><p>次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>let playerX = (canvas.width - playerWidth) / 2;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="let playerX = (canvas.width - playerWidth) / 2;" data-small-separator="&#10;&#10;">const coinRadius = 14;
 let coinX = canvas.width / 2;
 let coinY = 80;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>半径は 14、中心の横位置は 400、縦位置は 80 です。場所を表す数字を座標と呼びます。画面の左上が (0, 0) で、右ほど横の値が、下ほど縦の値が大きくなります。</p><figure class="learning-diagram" id="coin-coordinates" aria-labelledby="coin-coordinates-title"><figcaption id="coin-coordinates-title">図：画面の位置と大きさ</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="コインと受け皿の位置と大きさ"><img src="illustrations/astra/coin-position.svg" width="1200" height="1180" alt="画面は横800、縦450。コインの中心は横400、縦80で半径14。受け皿の左上は横345、縦385、幅110、高さ18。下にコインを10倍、受け皿を4倍にした拡大図があります。"></div><p>画面全体は実際の比率です。下の絵ではコインを10倍、受け皿を4倍に拡大しています。図の数字はゲームで使う値です。</p><p><code>coinX = 400</code>、<code>coinY = 80</code>、<code>coinRadius = 14</code>。受け皿の <code>playerX = 345</code>、<code>playerY = 385</code>、幅 110、高さ 18 です。</p><p class="diagram-expand"><a href="illustrations/astra/coin-position.svg" target="_blank" rel="noopener" aria-label="図：画面の位置と大きさを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></div><div class="coin-task"><h4>受け皿を描く</h4><p><code>draw()</code> の波括弧の中で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.clearRect(0, 0, canvas.width, canvas.height);</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.clearRect(0, 0, canvas.width, canvas.height);" data-small-separator="&#10;&#10;">  ctx.fillStyle = &quot;#2563eb&quot;;
-  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>ひな型の <code>canvas.getContext("2d")</code> は絵を描く道具を取り出し、<code>ctx</code> に入れます。<code>draw()</code> は描画する命令をまとめた関数で、先に <code>clearRect</code> で前の画面を消します。<code>fillStyle</code> で色を選び、<code>fillRect</code> に左上の横・縦、幅、高さを順に渡して受け皿を描きます。</p><p class="coin-check">保存して作業用の index.html を再読み込みします。青い受け皿が中央に表示されます。</p></div><div class="coin-task"><h4>丸いコインを描く</h4><p><code>draw()</code> の中で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);" data-small-separator="&#10;&#10;">  ctx.fillStyle = &quot;#f5b942&quot;;
+  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>ひな型の <code>canvas.getContext("2d")</code> は絵を描く道具を取り出し、<code>ctx</code> に入れます。<code>draw()</code> は描画する命令をまとめた関数で、先に <code>clearRect</code> で前の画面を消します。<code>fillStyle</code> で色を選び、<code>fillRect</code> に左上の横・縦、幅、高さを順に渡して受け皿を描きます。</p><p class="coin-check">保存して作業用の index.html を再読み込みします。青い受け皿が中央に表示されます。</p></div><div class="coin-task"><h4>丸いコインを描く</h4>
+<figure class="coin-step-visual" id="coin-arc-demo" data-coin-visual="arc">
+  <svg class="coin-step-scene" viewBox="0 0 360 260" role="img" aria-labelledby="coin-arc-interactive-title">
+    <title id="coin-arc-interactive-title">右端から時計回りに描く。Math.PI は半周、Math.PI * 2 は一周。</title>
+    <circle cx="166" cy="124" r="76" fill="#fff4cb" stroke="#d7cda9" stroke-width="2" stroke-dasharray="5 5"/>
+    <path data-arc-stroke pathLength="100" d="M242 124 A76 76 0 1 1 90 124 A76 76 0 1 1 242 124"/>
+    <path class="coin-visual-guide" d="M166 124 H242"/>
+    <circle cx="166" cy="124" r="4" fill="#263f51"/>
+    <circle cx="242" cy="124" r="7" fill="#fff" stroke="#245b8d" stroke-width="3"/>
+    <text x="253" y="115">出発</text><text x="253" y="140" class="coin-visual-small">角度 0</text>
+    <path class="coin-visual-arrow" d="M263 154 Q252 192 219 211 M219 211 L233 210 M219 211 L223 197"/>
+    <text x="166" y="96" text-anchor="middle" class="coin-visual-number" data-arc-value>半周</text>
+    <text x="166" y="242" text-anchor="middle">時計回り ↻</text>
+  </svg>
+  <figcaption>
+    <p>円の右端から、<code>Math.PI</code> で<strong>半周</strong>、<code>Math.PI * 2</code> で<strong>一周</strong>描きます。</p>
+    <p data-visual-result role="status">Math.PI → 半周（180度）</p>
+    <div class="coin-visual-controls" hidden>
+      <button type="button" data-visual-action="half" aria-pressed="true">半周にする</button>
+      <button type="button" data-visual-action="full" aria-pressed="false">一周にする</button>
+    </div>
+  </figcaption>
+</figure>
+<p><code>draw()</code> の中で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);" data-small-separator="&#10;&#10;">  ctx.fillStyle = &quot;#f5b942&quot;;
   ctx.beginPath();
   ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
-  ctx.fill();</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>色を決め、<code>beginPath()</code> で新しい形を始めます。<code>arc</code> には中心の横位置、中心の縦位置、半径、始まりの角度、終わりの角度を順に渡します。0 から <code>Math.PI * 2</code> までで円を一周します。<code>fill()</code> で塗ります。</p><figure class="learning-diagram" id="coin-arc" aria-labelledby="coin-arc-title"><figcaption id="coin-arc-title">図：円の右から1周</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="円は、右から時計回りに描く"><img src="illustrations/astra/coin-arc.svg" width="1200" height="745" alt="円は右から下を通り、半周でπ、1周で2πになります。"></div><p>右端の 0 から下へ進みます。半周が <code>Math.PI</code>、1周が <code>Math.PI * 2</code> です。下端は <code>Math.PI / 2</code>。角度はラジアンで表し、円周を半径で割ると1周は 2π になります。</p><p class="diagram-expand"><a href="illustrations/astra/coin-arc.svg" target="_blank" rel="noopener" aria-label="図：円の右から1周を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></div><div class="coin-task"><h4>得点の文字を描く</h4><p><code>draw()</code> の中で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fill();</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fill();" data-small-separator="&#10;&#10;">  ctx.fillStyle = &quot;#172b4d&quot;;
+  ctx.fill();</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>色を決め、<code>beginPath()</code> で新しい形を始めます。<code>arc</code> には中心の横位置、中心の縦位置、半径、始まりの角度、終わりの角度を順に渡します。0 から <code>Math.PI * 2</code> までで円を一周します。<code>fill()</code> で塗ります。</p><details class="coin-arc-more"><summary>角度の名前と図を確認する</summary><figure class="learning-diagram" id="coin-arc" aria-labelledby="coin-arc-title"><figcaption id="coin-arc-title">図：円の右から1周</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="円は、右から時計回りに描く"><img src="illustrations/astra/coin-arc.svg" width="1200" height="745" alt="円は右から下を通り、半周でπ、1周で2πになります。"></div><p>右端の 0 から下へ進みます。半周が <code>Math.PI</code>、1周が <code>Math.PI * 2</code> です。下端は <code>Math.PI / 2</code>。角度はラジアンで表し、円周を半径で割ると1周は 2π になります。</p><p class="diagram-expand"><a href="illustrations/astra/coin-arc.svg" target="_blank" rel="noopener" aria-label="図：円の右から1周を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></details></div><div class="coin-task"><h4>得点の文字を描く</h4><p><code>draw()</code> の中で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fill();</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fill();" data-small-separator="&#10;&#10;">  ctx.fillStyle = &quot;#172b4d&quot;;
   ctx.font = &quot;22px sans-serif&quot;;
   ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>font</code> で文字の大きさと書体を決めます。<code>fillText</code> に文字、横位置 24、縦位置 38 を順に渡して描きます。</p></div><details class="coin-reference"><summary>変更前後の比較や関数全体を確認する</summary><h3>2. 編集するファイルと場所</h3><p>作業用フォルダーの <code>script.js</code> を編集します。ファイルの初めにある <code>canvas</code> と <code>ctx</code> の宣言の下に、ゲーム用の変数（数値などに名前を付けて保存するもの）を追加し、<code>draw()</code> だけを置き換えます。<code>start()</code>・<code>update()</code>・<code>gameLoop()</code> はひな型のままです。</p>
 <h3>3. 追加または置換するコード</h3><h4>1. 位置と大きさの変数を追加する</h4>
@@ -135,7 +170,17 @@ ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p><code>font</code>
 }
 </code></pre></details>
 <p>ひな型の <code>gameLoop()</code> は <code>update()</code> と <code>draw()</code> を順に実行し、<code>requestAnimationFrame(gameLoop)</code> で次の実行を予約します。このくり返しがゲームループです。画面を1回描き直す区切りを1フレームと呼びます。今は位置が変わらないので止まって見えます。</p>
-</details><h3>4. 保存・再読み込み後の確認</h3><ol><li>script.js を保存し、作業用フォルダーの index.html を開いて再読み込みします。</li><li>上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。</li><li>しばらく待っても位置が変わらないことを確かめます。</li></ol>
+</details><h3>4. 保存・再読み込み後の確認</h3>
+<details class="coin-operation-video" id="coin-save-video">
+  <summary>保存してゲーム画面を更新する（動画）</summary>
+  <figure>
+    <video controls playsinline preload="none" width="768" height="480" poster="operation-videos/save-reload.webp" aria-label="保存してゲーム画面を更新する（動画）">
+      <source src="operation-videos/save-reload.mp4" type="video/mp4">
+    </video>
+    <figcaption><code>script.js</code> を保存してから、作業用の <code>index.html</code> を再読み込みします。動画では <code>coinRadius</code> を14から24に変えます。</figcaption>
+  </figure>
+</details>
+<ol><li>script.js を保存し、作業用フォルダーの index.html を開いて再読み込みします。</li><li>上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。</li><li>しばらく待っても位置が変わらないことを確かめます。</li></ol>
 <h3>5. 小さな練習</h3><p><code>coinRadius</code> を <code>24</code> にして丸を大きくしましょう。<code>draw()</code> の <code>#2563eb</code> を <code>#16a34a</code> にして、受け皿を緑にしてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
 <p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-01-draw">このステップ終了時の見本と自分のコードを比べる</a></p></section>
@@ -144,7 +189,35 @@ ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p><code>font</code>
 <div class="result-links"><a href="02-update/index.html" target="_blank" rel="noopener">制作物を別ページで開く ↗</a><a href="02-update/script.js" target="_blank" rel="noopener">この段階の script.js 全体 ↗</a></div>
 <h3>1. 目標</h3><p>毎フレーム、コインの縦位置を変えます。画面の下まで落ちたら、横位置を変えて上へ戻します。</p>
 <h3>2. 小さな作業</h3><p>上から順に書きます。各欄の「目印」は場所を探すためのもので、コピーするのは「追加」または「置き換え」のコードです。</p><div class="coin-task"><h4>落ちる速さを決める</h4><p>ファイルの先頭近くで、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>const coinRadius = 14;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="const coinRadius = 14;" data-small-separator="&#10;">const coinSpeed = 3;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>1 回の更新でコインを下へ 3 動かします。</p></div><div class="coin-task"><h4>開始位置を戻す</h4><p><code>start()</code> の開き波括弧の内側、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function start() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="function start() {" data-small-separator="&#10;">  coinX = canvas.width / 2;
-  coinY = 80;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>start()</code> はゲームの開始時に呼ばれます。コインの中心を横 400、縦 80 に戻します。</p></div><div class="coin-task"><h4>落とす</h4><p><code>update()</code> の開き波括弧の内側、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function update() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="function update() {" data-small-separator="&#10;">  coinY += coinSpeed;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>coinY</code> はコインの縦位置、<code>coinSpeed</code> は 1 回に進む量です。<code>+=</code> は今の値に右側の値を足すので、縦位置は 80 → 83 → 86 と増えます。ひな型の <code>gameLoop()</code> が <code>update()</code> と <code>draw()</code> を繰り返すので、コインが下に動きます。</p><p class="coin-check">保存して作業用の index.html を再読み込みします。コインが下へ動くことを確かめます。</p></div><div class="coin-task"><h4>画面の上に戻す関数を作る</h4><p><code>update()</code> の閉じ波括弧の外側です。次の <code>draw()</code> の行より前に関数全体を追加し、その後に空行を入れます。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function draw() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="before" data-small-match="function draw() {" data-small-separator="&#10;&#10;">function resetCoin() {
+  coinY = 80;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>start()</code> はゲームの開始時に呼ばれます。コインの中心を横 400、縦 80 に戻します。</p></div><div class="coin-task"><h4>落とす</h4>
+<figure class="coin-step-visual" id="coin-fall-demo" data-coin-visual="fall" data-visual-scale="8" data-visual-min="80" data-visual-max="98">
+  <svg class="coin-step-scene" viewBox="0 0 360 280" role="img" aria-labelledby="coin-fall-title">
+    <title id="coin-fall-title">コインの中心の y は80。3ずつ足すと83、86となり、下へ進む。</title>
+    <rect class="coin-visual-paper" x="76" y="36" width="250" height="220" rx="12"/>
+    <path class="coin-visual-grid" d="M76 80 H326 M76 104 H326 M76 128 H326 M76 152 H326 M76 176 H326 M76 200 H326 M76 224 H326 M116 36 V256 M164 36 V256 M212 36 V256 M260 36 V256 M308 36 V256"/>
+    <text x="64" y="87" text-anchor="end">80</text><text x="64" y="111" text-anchor="end">83</text><text x="64" y="135" text-anchor="end">86</text>
+    <path class="coin-visual-arrow" d="M42 154 V215 M42 215 L35 204 M42 215 L49 204"/>
+    <text x="42" y="242" text-anchor="middle">下へ</text>
+    <text x="86" y="23" class="coin-visual-small">y はコインの中心の位置</text>
+    <circle cx="188" cy="80" r="24" fill="none" stroke="#708694" stroke-width="2" stroke-dasharray="4 4"/>
+    <g data-fall-coin transform="translate(0 0)">
+      <circle class="coin-visual-coin" cx="188" cy="80" r="24"/>
+      <text x="188" y="89" text-anchor="middle" class="coin-visual-number" data-fall-y>80</text>
+    </g>
+  </svg>
+  <figcaption>
+    <p><code>coinY += coinSpeed;</code></p>
+    <p data-visual-result role="status">今は y = 80。次の更新で 3 を足すと 83。</p>
+    <div class="coin-visual-controls" hidden>
+      <button type="button" data-visual-action="speed-3" aria-pressed="true">速さ 3</button>
+      <button type="button" data-visual-action="speed-6" aria-pressed="false">速さ 6</button>
+      <button type="button" data-visual-action="advance">1コマ進める ↓</button>
+      <button type="button" data-visual-action="reset" aria-label="80に戻す">戻す</button>
+    </div>
+    <p class="coin-visual-note">速さ3なら 80 → 83 → 86。図の動きは8倍に拡大しています。</p>
+  </figcaption>
+</figure>
+<p><code>update()</code> の開き波括弧の内側、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function update() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="function update() {" data-small-separator="&#10;">  coinY += coinSpeed;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>+=</code> は今の値に足します。<code>gameLoop()</code> が <code>update()</code> と <code>draw()</code> を繰り返すたびに、コインが下がります。</p><p class="coin-check">保存して作業用の index.html を再読み込みします。コインが下へ動くことを確かめます。</p></div><div class="coin-task"><h4>画面の上に戻す関数を作る</h4><p><code>update()</code> の閉じ波括弧の外側です。次の <code>draw()</code> の行より前に関数全体を追加し、その後に空行を入れます。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function draw() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="before" data-small-match="function draw() {" data-small-separator="&#10;&#10;">function resetCoin() {
   coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
   coinY = -coinRadius;
 }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>Math.random()</code> は 0 以上 1 未満の数を作ります。半径の分だけ両端を避けた横位置にし、縦位置は画面のすぐ上にします。</p></div><div class="coin-task"><h4>画面の下まで落ちたか調べる</h4><p><code>update()</code> の波括弧の内側で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  coinY += coinSpeed;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  coinY += coinSpeed;" data-small-separator="&#10;&#10;">  if (coinY - coinRadius &gt; canvas.height) {
@@ -198,7 +271,35 @@ ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p><code>font</code>
 let rightPressed = false;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>false</code> は押されていない状態です。左右を別々に記録します。</p></div><div class="coin-task"><h4>開始時に受け皿を戻す</h4><p><code>start()</code> の開き波括弧の内側、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function start() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="function start() {" data-small-separator="&#10;">  playerX = (canvas.width - playerWidth) / 2;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>開始時に受け皿を中央へ戻します。</p></div><div class="coin-task"><h4>キーの状態を消す関数を作る</h4><p><code>resetCoin()</code> の閉じ波括弧の外側、次の <code>draw()</code> の行の前に追加し、その後に空行を入れます。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function draw() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="before" data-small-match="function draw() {" data-small-separator="&#10;&#10;">function clearKeys() {
   leftPressed = false;
   rightPressed = false;
-}</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>左右の記録を両方とも押されていない状態に戻します。</p></div><div class="coin-task"><h4>開始時にキーの状態を戻す</h4><p><code>start()</code> の波括弧の内側にある次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  coinY = 80;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  coinY = 80;" data-small-separator="&#10;">  clearKeys();</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>開始するときに、キーを押したままという記録を消します。</p></div><div class="coin-task"><h4>押した方向に動かす</h4><p><code>update()</code> の波括弧の内側で、次の行の前に追加し、その後に空行を入れます。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  coinY += coinSpeed;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="before" data-small-match="  coinY += coinSpeed;" data-small-separator="&#10;&#10;">  if (leftPressed) {
+}</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>左右の記録を両方とも押されていない状態に戻します。</p></div><div class="coin-task"><h4>開始時にキーの状態を戻す</h4><p><code>start()</code> の波括弧の内側にある次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  coinY = 80;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  coinY = 80;" data-small-separator="&#10;">  clearKeys();</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>開始するときに、キーを押したままという記録を消します。</p></div><div class="coin-task"><h4>押した方向に動かす</h4>
+<figure class="coin-step-visual" id="coin-keys-demo" data-coin-visual="keys" data-visual-scale="1" data-visual-min="255" data-visual-max="435">
+  <svg class="coin-step-scene" viewBox="0 0 360 210" role="img" aria-labelledby="coin-keys-title">
+    <title id="coin-keys-title">受け皿の左端は x = 345。左キーで6引き、右キーで6足す。</title>
+    <rect class="coin-visual-paper" x="16" y="30" width="328" height="155" rx="12"/>
+    <text x="180" y="58" text-anchor="middle" class="coin-visual-small">ゲーム画面の中央を拡大</text>
+    <path class="coin-visual-guide" d="M35 155 H325 M125 77 V163"/>
+    <text x="180" y="203" text-anchor="middle" class="coin-visual-small">x が増える方向 →</text>
+    <g data-key-tray transform="translate(0 0)">
+      <path d="M125 92 V109 Q125 118 134 118 H226 Q235 118 235 109 V92" fill="#dcebf7" stroke="#245b8d" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="125" cy="92" r="5" fill="#245b8d"/>
+      <text x="180" y="145" text-anchor="middle" class="coin-visual-number" data-key-x>345</text>
+      <text x="125" y="80" text-anchor="middle" class="coin-visual-small">左端の x</text>
+    </g>
+    <path class="coin-visual-arrow" d="M88 103 H43 M43 103 L53 96 M43 103 L53 110 M272 103 H317 M317 103 L307 96 M317 103 L307 110"/>
+    <text x="65" y="134" text-anchor="middle">−6</text><text x="295" y="134" text-anchor="middle">＋6</text>
+  </svg>
+  <figcaption>
+    <p>受け皿の左端 <code>playerX</code> は、左へ6引き、右へ6足します。</p>
+    <p data-visual-result role="status">今は x = 345。左へ −6、右へ ＋6。</p>
+    <div class="coin-visual-controls" hidden>
+      <button type="button" data-visual-action="left">← 左へ6</button>
+      <button type="button" data-visual-action="right">右へ6 →</button>
+      <button type="button" data-visual-action="reset">中央に戻す</button>
+    </div>
+    <p class="coin-visual-note">ゲーム画面の中央だけを表示しています。</p>
+  </figcaption>
+</figure>
+<p><code>update()</code> の波括弧の内側で、次の行の前に追加し、その後に空行を入れます。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  coinY += coinSpeed;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="before" data-small-match="  coinY += coinSpeed;" data-small-separator="&#10;&#10;">  if (leftPressed) {
     playerX -= playerSpeed;
   }
   if (rightPressed) {
@@ -514,7 +615,29 @@ let lives = startingLives;</code></pre><button type="button" class="coin-copy-bu
   gameState = &quot;playing&quot;;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>開始時に残り回数を元に戻し、状態をプレイ中にします。</p></div><div class="coin-task"><h4>終了後は更新を止める</h4><p><code>update()</code> の開き波括弧の内側、次の行のすぐ下に追加します。コードの末尾の改行を含めると、後ろに空行が入ります。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function update() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="function update() {" data-small-separator="&#10;">  if (gameState !== &quot;playing&quot;) {
     return;
   }
-</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>!==</code> は同じではないという比較です。プレイ中でなければ <code>return</code> で更新を終えます。</p></div><div class="coin-task"><h4>目標に届いたらクリアにする</h4><p><code>update()</code> の <code>if (coinTouchesPlayer())</code> の内側で、次の 2 行をまとめて置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    score += 1;
+</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>!==</code> は同じではないという比較です。プレイ中でなければ <code>return</code> で更新を終えます。</p></div><div class="coin-task"><h4>目標に届いたらクリアにする</h4>
+<figure class="coin-step-visual" id="coin-score-demo" data-coin-visual="score">
+  <svg class="coin-step-scene" viewBox="0 0 360 210" role="img" aria-labelledby="coin-score-title">
+    <title id="coin-score-title">5枚がクリアの目標。今は4枚なので、あと1枚。</title>
+    <text x="180" y="30" text-anchor="middle">目標は 5 枚</text>
+    <g data-score-coin="1" data-filled="true"><circle cx="52" cy="79" r="25"/><text x="52" y="88" text-anchor="middle" class="coin-visual-number">1</text></g>
+    <g data-score-coin="2" data-filled="true"><circle cx="116" cy="79" r="25"/><text x="116" y="88" text-anchor="middle" class="coin-visual-number">2</text></g>
+    <g data-score-coin="3" data-filled="true"><circle cx="180" cy="79" r="25"/><text x="180" y="88" text-anchor="middle" class="coin-visual-number">3</text></g>
+    <g data-score-coin="4" data-filled="true"><circle cx="244" cy="79" r="25"/><text x="244" y="88" text-anchor="middle" class="coin-visual-number">4</text></g>
+    <g data-score-coin="5" data-filled="false"><circle cx="308" cy="79" r="25"/><text x="308" y="88" text-anchor="middle" class="coin-visual-number">5</text></g>
+    <rect x="56" y="130" width="248" height="59" rx="10" fill="#eaf3fa"/>
+    <text x="180" y="168" text-anchor="middle" class="coin-visual-number" data-score-test>4 &gt;= 5</text>
+  </svg>
+  <figcaption>
+    <p><code>targetScore</code> は5。<code>score &gt;= targetScore</code> を満たすと<strong>クリア</strong>です。</p>
+    <p data-visual-result role="status">4枚。目標は5枚。あと1枚！</p>
+    <div class="coin-visual-controls" hidden>
+      <button type="button" data-visual-action="score-4" aria-pressed="true">4枚のとき</button>
+      <button type="button" data-visual-action="score-5" aria-pressed="false">5枚のとき</button>
+    </div>
+  </figcaption>
+</figure>
+<p><code>update()</code> の <code>if (coinTouchesPlayer())</code> の内側で、次の 2 行をまとめて置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    score += 1;
     resetCoin();</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="replace" data-small-match="    score += 1;&#10;    resetCoin();" data-small-separator="&#10;">    score += 1;
     if (score &gt;= targetScore) {
       gameState = &quot;clear&quot;;

@@ -75,7 +75,8 @@ class Element {
  fire(type){return Promise.all((this.listeners[type]||[]).map(fn=>fn({target:this})));}
 }
 function ui(query=""){
- const ids=["chapter","file-kind","file-input","own-code","ignore-space","ignore-blank","differences-only","compare-button","status","result","diff-output","result-count","chapter-description","back-link","game-link","result-game-link","matching-help","step-context","expectation-heading","step-expectations"], elements=Object.fromEntries(ids.map(id=>[id,new Element()]));elements["file-kind"].value="script.js";
+ const ids=["chapter","file-kind","file-input","own-code","ignore-space","ignore-blank","differences-only","compare-button","status","result","diff-output","result-count","chapter-description","back-link","game-link","result-game-link","matching-help","step-context","expectation-heading","step-expectations","coin-compare-video","coin-compare-clip"], elements=Object.fromEntries(ids.map(id=>[id,new Element()]));elements["file-kind"].value="script.js";
+ elements["coin-compare-clip"].pause=()=>{elements["coin-compare-clip"].paused=true;};
  const document={getElementById:id=>elements[id],createElement:tag=>new Element(tag),createTextNode:text=>{const n=new Element("#text");n.textContent=text;return n;},createDocumentFragment:()=>new Element("#fragment")};
  const context=vm.createContext({document,window:{location:{search:query}},URLSearchParams,Uint16Array,Map,console});
  vm.runInContext(read("tutorial/compare/references.js"),context);vm.runInContext(read("tutorial/compare/diff.js"),context);vm.runInContext(read("tutorial/compare/compare.js"),context);
@@ -94,6 +95,12 @@ test("コインのステップ03とデバッグ修正版は、それぞれの終
  const coin=chapters.find(c=>c.id==="tutorial-index-html-03-input"),view=ui(`?chapter=${coin.id}`);
  assert.match(view["chapter-description"].textContent,/ステップ 03/);assert.match(view["step-expectations"].textContent,/移動し、離すと止まります/);assert.match(view["step-expectations"].textContent,/得点はまだ増えません/);assert.equal(view["step-context"].hidden,false);
  const debug=chapters.find(c=>c.id==="learning-debug-index-html-input"),practice=ui(`?chapter=${debug.id}`);assert.match(practice["chapter-description"].textContent,/修正版/);assert.match(practice["expectation-heading"].textContent,/練習の修正版/);assert.match(practice["step-expectations"].textContent,/100から110/);assert.match(practice["game-link"].textContent,/修正版/);
+});
+test("コインキャッチの操作動画は、別の教材を選ぶと閉じて止まる",async()=>{
+ const view=ui("?chapter=tutorial-index-html-03-input"),guide=view["coin-compare-video"],clip=view["coin-compare-clip"];
+ assert.equal(guide.hidden,false);guide.open=true;
+ view.chapter.value="learning-debug-index-html-input";await view.chapter.fire("change");
+ assert.equal(guide.hidden,true);assert.equal(guide.open,false);assert.equal(clip.paused,true);
 });
 test("種類違い、空ファイル、失敗、古い読込結果と入力超過を扱う",async()=>{
  const c=chapters[0],e=ui(`?chapter=${c.id}`);let called=0;

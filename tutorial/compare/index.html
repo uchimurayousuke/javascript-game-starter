@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../../examples/guide.css">
   <link rel="stylesheet" href="../learning-layout.css">
   <link rel="stylesheet" href="compare.css">
+  <link rel="stylesheet" href="../operation-videos.css">
   <script src="references.js" defer></script>
   <script src="diff.js" defer></script>
   <script src="compare.js" defer></script>
@@ -31,6 +32,15 @@
     </section>
     <section aria-labelledby="input-heading">
       <h2 id="input-heading">2. 自分のコードを用意する</h2>
+      <details class="coin-operation-video" id="coin-compare-video" hidden>
+        <summary>ファイルを選んで見本と比べる（動画）</summary>
+        <figure>
+          <video id="coin-compare-clip" controls playsinline preload="none" width="768" height="480" poster="../operation-videos/compare-step.webp" aria-label="ファイルを選んで見本と比べる（動画）">
+            <source src="../operation-videos/compare-step.mp4" type="video/mp4">
+          </video>
+          <figcaption>自分の <code>script.js</code> を選んで「比べる」を押すと、違う行が色付きで出ます。</figcaption>
+        </figure>
+      </details>
       <label for="file-input">自分のファイルを選ぶ</label>
       <input id="file-input" type="file" accept=".js,.html,.htm,.css,.txt,text/plain">
       <p>または、下の欄にコードを貼り付けます。ファイルの種類を変えると入力欄は空になります。</p>
