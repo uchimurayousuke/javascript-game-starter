@@ -4,7 +4,9 @@
 <link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261115-visuals" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
-</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボールを動かす</a><a href="#lesson-section-3">ステップ 2：板を左右に動かす</a><a href="#lesson-section-4">ステップ 3：板で反射して得点する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：ボールをはね返すゲーム</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：ボールを動かす</a><a href="#lesson-section-3">ステップ 2：板を左右に動かす</a><a href="#lesson-section-4">ステップ 3：板で反射して得点する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">ボールをはね返すゲーム</li></ol></nav><h1>ボールをはね返すゲーム</h1><p class="tag">初心者向け</p><p>変数、if 文、関数と Canvas の基本の描画を知っている人向けです。 座標の更新、キー操作、壁と板での反射を学びます。</p><p>左右の矢印キーで板を動かし、ボールを受け止めます。落としたら R キーで再挑戦できます。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
+<link rel="stylesheet" href="../../../tutorial/workshop.css">
+<link rel="stylesheet" href="../../../tutorial/game-workbook.css">
+</head><body class="lesson-page polish-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：ボールを動かす">ボールを動かす</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：板を左右に動かす">板を左右に動かす</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：板で反射して得点する">板で反射して得点する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：ボールをはね返すゲーム</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：ボールを動かす">ボールを動かす</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：板を左右に動かす">板を左右に動かす</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：板で反射して得点する">板で反射して得点する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">ボールをはね返すゲーム</li></ol></nav><h1>ボールをはね返すゲーム</h1><p class="tag">初心者向け</p><p>変数、if 文、関数と Canvas の基本の描画を知っている人向けです。 座標の更新、キー操作、壁と板での反射を学びます。</p><p>左右の矢印キーで板を動かし、ボールを受け止めます。落としたら R キーで再挑戦できます。</p><p><a href="complete/index.html" data-workbook-action="play">完成版で遊ぶ</a></p>
 <details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
 <details class="lesson-operation-video" id="lesson-zip-video">
   <summary>WindowsでZIPを展開する（動画）</summary>
@@ -37,7 +39,7 @@
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>x = 400; y = 225; dx = 4; dy = 4; paddleX = 345;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>ボールが四方の端ではね返ることを確かめます。</p>
-      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+      <p><a href="step1/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -190,7 +192,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (left) paddleX -= 7;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>左右の矢印キーで板が動き、画面の端で止まることを確かめます。</p>
-      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+      <p><a href="step2/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -351,7 +353,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>let left = false, right = false<mark>, score, over</mark>;</code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>板に当たると回数が増え、落とすと終了します。</p>
-      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+      <p><a href="step3/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -534,4 +536,4 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>板に当たると回数が増え、落とすと終了します。R で初期状態に戻ります。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p></details></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../../index.html">一覧へ戻る</a></p><p><a href="extensions/tutorial.html">基本の完成後、発展編に挑戦する</a></p></main></div></body></html>
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>板に当たると回数が増え、落とすと終了します。R で初期状態に戻ります。 <a href="step3/index.html">ステップ 3 の見本を開く</a></p></details></section><p><a href="complete/index.html" data-workbook-action="play">完成版で遊ぶ</a>　<a href="../../index.html">一覧へ戻る</a></p><p><a href="extensions/tutorial.html">基本の完成後、発展編に挑戦する</a></p></main></div></body></html>

@@ -1,0 +1,253 @@
+.game-workbook {
+  --workbook-rail: #3b82f6;
+  --workbook-old-paper: #fef2f2;
+  --workbook-old-line: #b91c1c;
+  --workbook-old-ink: #751d1d;
+  --workbook-note-line: #8fa2b6;
+  --lesson-font-code: var(--workshop-mono);
+  --lesson-font-code-legacy: var(--workshop-mono);
+}
+
+.game-workbook main :is(.intro > h1, h1:first-of-type) {
+  font-weight: 900;
+  word-break: auto-phrase;
+}
+body.lesson-page.game-workbook main > section {
+  margin-block: 0 1.25rem;
+  padding: clamp(1.35rem, 3vw, 2.3rem) 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.game-workbook main > section + :is(section, .toc-anchor) { margin-top: 1.1rem; }
+body.lesson-page.game-workbook main > section:not(:last-of-type) { border-block-end: 1px dashed var(--workshop-rule); }
+.game-workbook main > section:has(> .lesson-stage--goal) > h2 {
+  padding: 0 0 .5em;
+  border: 0;
+  border-block-end: 2px solid var(--lesson-line-soft);
+  border-radius: 0;
+  background: transparent;
+}
+.game-workbook main h2, .game-workbook main h3 { font-weight: 900; word-break: auto-phrase; }
+.game-workbook main .lesson-stage + h3 { background: transparent; }
+.game-workbook main .lesson[data-step] > .eyebrow {
+  padding: 0 .05em;
+  border-block-end: 4px solid var(--lesson-step-gold);
+  border-radius: 0;
+  background: transparent;
+  font-size: 1rem;
+  letter-spacing: .08em;
+}
+.game-workbook main .starter-download:not(section) {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-workbook main :is(.lesson-task, .coin-task) {
+  margin-block: clamp(1.8rem, 4vw, 3.1rem);
+  padding: .15rem 0 .35rem clamp(.85rem, 2.3vw, 1.3rem);
+  border: 0;
+  border-inline-start: 4px solid var(--workbook-rail);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.game-workbook main :is(.lesson-task, .coin-task) h4 {
+  margin: 0 0 .45rem;
+  font-size: clamp(1.14rem, 2.2vw, 1.36rem);
+  font-weight: 900;
+  line-height: 1.45;
+  word-break: auto-phrase;
+}
+
+body.lesson-page.game-workbook main pre {
+  padding: .8rem .95rem;
+  border: 1px solid var(--workshop-edge);
+  border-radius: 6px;
+  background: var(--workshop-edge);
+  color: var(--lesson-code-ink-legacy);
+}
+.game-workbook main pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+.game-workbook main :is(.change-view, .change-row, .change-code, .diff-output, .step-preview-code) {
+  font-family: var(--workshop-mono);
+}
+.game-workbook main :is(.task-marker-label, .coin-marker-label, .task-code-label, .coin-code-label) {
+  width: fit-content;
+  max-width: 100%;
+  margin: .9rem 0 0;
+  padding: .18rem .6rem;
+  border: 1px solid var(--lesson-line-diagram);
+  border-block-end: 0;
+  border-radius: 6px 6px 0 0;
+  background: var(--lesson-blue-wash);
+  font-size: .92em;
+  font-weight: 900;
+}
+.game-workbook main :is(.task-marker-label, .coin-marker-label, .task-code-label, .coin-code-label) + pre {
+  margin-block-start: 0;
+  border-start-start-radius: 0;
+}
+body.lesson-page.game-workbook main :is(pre.task-marker, pre.coin-marker) {
+  border-color: var(--lesson-line-diagram);
+  background: var(--lesson-blue-wash);
+  color: var(--lesson-ink-deep);
+}
+body.lesson-page.game-workbook main :is(.lesson-task, .coin-task):has(code[data-small-action="replace"]) :is(.task-marker-label, .coin-marker-label, pre.task-marker, pre.coin-marker),
+body.lesson-page.game-workbook main .old-code pre {
+  border-color: var(--workbook-old-line);
+  background: var(--workbook-old-paper);
+  color: var(--workbook-old-ink);
+}
+.game-workbook main :is(.task-code-label, .coin-code-label) {
+  border-color: var(--workshop-edge);
+  background: var(--workshop-edge);
+  color: var(--lesson-code-ink-legacy);
+}
+
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav {
+  gap: 0;
+  padding: .15rem .35rem .5rem .1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav :is(h2, .lesson-nav-title) {
+  margin-block: 0 .5rem;
+  padding-block-end: .4rem;
+  border-block-end: 1px solid var(--workshop-rule);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav p { font-size: .9rem; }
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  align-items: center;
+  column-gap: .65rem;
+  padding: .45rem .25rem;
+  text-decoration: none;
+  word-break: auto-phrase;
+}
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a::before {
+  content: "";
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: .65rem;
+  height: .65rem;
+  border: 2px solid var(--lesson-link);
+  border-radius: 50%;
+  background: var(--workshop-paper);
+}
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset-inline-start: calc(1.25rem - 1px);
+  inset-block: 0;
+  width: 2px;
+  background: var(--lesson-line-diagram);
+}
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a:first-of-type::after { inset-block-start: 50%; }
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a:last-of-type::after { inset-block-end: 50%; }
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a[data-workbook-step]::before {
+  content: attr(data-workbook-step) / "";
+  width: 2rem;
+  height: 2rem;
+  border-color: var(--workshop-edge);
+  background: var(--lesson-step-gold);
+  color: var(--workshop-edge);
+  font: 700 .92rem/1 var(--workshop-mono);
+}
+.game-workbook :is(.lesson-sidebar, .layout > aside) nav a:hover { text-decoration: underline; }
+
+.game-workbook main :is(a.primary-link, .starter-download a.download-link, a[data-workbook-action="play"]) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  max-width: 100%;
+  margin: .12rem .28rem .25rem 0;
+  padding: .48em .72em;
+  border: 2px solid var(--workshop-edge);
+  border-radius: 6px;
+  background: var(--lesson-action);
+  box-shadow: 3px 3px 0 var(--workshop-edge);
+  color: var(--lesson-on-action);
+  font-weight: 900;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.game-workbook main :is(a.primary-link, .starter-download a.download-link, a[data-workbook-action="play"]):hover {
+  border-color: var(--workshop-edge);
+  background: var(--lesson-action-hover);
+  color: var(--lesson-on-action);
+}
+.game-workbook main :is(a.primary-link, .starter-download a.download-link, a[data-workbook-action="play"]):active {
+  background: var(--lesson-action-active);
+  box-shadow: none;
+}
+.game-workbook main a[data-workbook-action="source"] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  max-width: 100%;
+  padding: .42em .65em;
+  border: 1px dashed var(--workbook-note-line);
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--lesson-link-tutorial);
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: underline;
+}
+
+.game-workbook main details, .game-workbook .lesson-mobile-toc {
+  border: 2px dashed var(--workbook-note-line);
+  border-radius: 4px;
+  background: var(--lesson-ground);
+  box-shadow: none;
+}
+.game-workbook main details { margin-block: .9rem; }
+.game-workbook main details details {
+  border: 0;
+  border-inline-start: 2px dashed var(--workbook-note-line);
+  border-radius: 0;
+  background: transparent;
+}
+.game-workbook main details > summary, .game-workbook .lesson-mobile-toc > summary {
+  padding: .55em .7em;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--lesson-link-tutorial);
+  font-weight: 900;
+}
+.game-workbook main details > summary:hover, .game-workbook .lesson-mobile-toc > summary:hover { background: var(--lesson-practice-wash); }
+.game-workbook main details > :where(p, ul, ol, pre, .change-view, .change-guide) { margin-inline: .75rem; }
+.game-workbook main .change-guide { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.game-workbook .lesson-mobile-toc nav { padding: .4rem .6rem .6rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .game-workbook main :is(a.primary-link, .starter-download a.download-link, a[data-workbook-action="play"]) {
+    transition: transform 120ms ease-out, box-shadow 120ms ease-out, background-color 140ms ease-out;
+  }
+  .game-workbook main :is(a.primary-link, .starter-download a.download-link, a[data-workbook-action="play"]):active { transform: translateY(2px); }
+}
+
+@media print {
+  .game-workbook main :is(a.primary-link, .starter-download a.download-link, a[data-workbook-action="play"]) { box-shadow: none; }
+  body.lesson-page.game-workbook main pre { background: var(--lesson-paper); color: var(--lesson-print-ink); }
+}

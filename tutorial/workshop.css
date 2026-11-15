@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap");
+
+body:is(.workshop-home, .game-workbook) {
+  --workshop-paper: #fffdf7;
+  --workshop-edge: #1e293b;
+  --workshop-rule: #c4cbd4;
+  --workshop-font: "Zen Maru Gothic", var(--lesson-font-body);
+  --workshop-mono: Consolas, Monaco, monospace;
+  --lesson-action: var(--lesson-link);
+  min-height: 100vh;
+  background: var(--workshop-paper);
+  font-family: var(--workshop-font);
+}
+
+:is(.workshop-home, .game-workbook) :is(h1, h2, h3, h4, summary, button) { font-family: inherit; }
+:is(.workshop-home, .game-workbook) :is(pre, code, kbd, samp) { font-family: var(--workshop-mono); }
+
+body.workshop-home {
+  background-image: radial-gradient(circle, rgba(31, 61, 91, .115) .7px, transparent .85px);
+  background-size: 18px 18px;
+}
+
+.workshop-home > main {
+  max-width: 1320px;
+  padding: clamp(20px, 4vw, 52px) clamp(18px, 4vw, 48px) clamp(42px, 6vw, 72px);
+}
+
+.workshop-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(12px, 3vw, 42px);
+  margin-block: 0 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.workshop-home .workshop-hero h1 {
+  margin: 0 0 .42em;
+  font-size: clamp(2rem, 4.1vw, 3.45rem);
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -.028em;
+  word-break: auto-phrase;
+}
+.workshop-hero-copy p {
+  max-width: 33em;
+  margin: .8rem 0 1.2rem;
+  text-wrap: pretty;
+  word-break: auto-phrase;
+}
+.workshop-hero img { display: block; width: 100%; height: auto; }
+
+.workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link) {
+  border: 2px solid var(--workshop-edge);
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 var(--workshop-edge);
+  text-decoration: none;
+}
+.workshop-home :is(a.workshop-primary, .starter-download a.download-link) {
+  display: inline-flex;
+  align-items: center;
+  gap: .55em;
+  min-height: 48px;
+  padding: .55em .95em;
+  background: var(--lesson-action);
+  color: var(--lesson-on-action);
+  font-weight: 900;
+}
+.workshop-home .workshop-primary::after { content: "→" / ""; }
+.workshop-home .starter-download .download-link::after { content: "↓" / ""; }
+.workshop-home :is(a.workshop-primary, .starter-download a.download-link):hover {
+  border-color: var(--workshop-edge);
+  background: var(--lesson-action-hover);
+  color: var(--lesson-on-action);
+}
+.workshop-home :is(a.workshop-primary, .starter-download a.download-link):active { background: var(--lesson-action-active); }
+.workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link):active { box-shadow: none; }
+
+.workshop-routes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 22px);
+  margin: 0 0 2.8rem;
+  padding-inline-end: 4px;
+}
+.workshop-home .workshop-route {
+  display: grid;
+  grid-template-columns: clamp(54px, 7.5vw, 92px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 16px);
+  min-width: 0;
+  min-height: 90px;
+  padding: .75rem;
+  background: var(--lesson-blue-wash);
+  color: var(--lesson-ink);
+}
+.workshop-home .workshop-route:nth-child(2) { background: var(--lesson-paper); }
+.workshop-home .workshop-route:nth-child(3) { background: var(--lesson-ground); }
+.workshop-route img { display: block; width: 100%; height: auto; }
+.workshop-route span { min-width: 0; }
+.workshop-route strong, .workshop-route small { display: block; word-break: auto-phrase; }
+.workshop-route strong { font-size: clamp(1rem, 1.7vw, 1.3rem); font-weight: 900; line-height: 1.32; }
+.workshop-route small { margin-top: .32em; font-size: .84em; line-height: 1.5; }
+.workshop-route::after { content: "→" / ""; color: var(--lesson-link); font-weight: 900; }
+
+.workshop-home main > section, .workshop-home main .starter-download {
+  margin-inline: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.workshop-home main > :is(section, .starter-download) { padding-block: 1.6rem; border-block-start: 1px solid var(--workshop-rule); }
+.workshop-home main > section > h2 {
+  margin: 0 0 .85rem;
+  padding-inline-start: .6em;
+  border-inline-start: 5px solid var(--lesson-link);
+  font-weight: 900;
+}
+.workshop-home main > .starter-download > h2 { border-inline-start-color: var(--lesson-step-gold); }
+.workshop-home main > section > ul { padding-inline-start: 1.25em; }
+.workshop-home main > section > ul > li::marker { color: var(--lesson-link); }
+.workshop-home main > section > h3 { margin-top: 1.5em; font-weight: 900; }
+.workshop-home .starter-download p { margin-block: .7em; }
+.workshop-home .starter-download .download-link { margin-block-end: .2em; }
+.workshop-home .lesson-sidebar nav {
+  border: 0;
+  border-inline-start: 2px solid var(--workshop-rule);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (hover: hover) {
+  .workshop-home .workshop-route:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link) {
+    transition: transform 120ms ease-out, box-shadow 120ms ease-out, background-color 140ms ease-out;
+  }
+  .workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link):active { transform: translateY(4px); }
+  .workshop-route img { transition: transform 180ms ease-out; }
+  @media (hover: hover) {
+    .workshop-route:hover img { transform: translateX(4px); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link):active { transform: none; }
+}
+
+@media (min-width: 950px) {
+  .workshop-home > main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: clamp(32px, 6vw, 88px);
+    align-items: start;
+  }
+  .workshop-home > main > :is(.workshop-hero, .workshop-routes) { grid-column: 1 / -1; }
+  .workshop-home > main > section { margin-block: 0; }
+}
+
+@media (min-width: 1051px) {
+  .workshop-home .lesson-shell { max-width: 1460px; grid-template-columns: minmax(190px, 235px) minmax(0, 1fr); }
+}
+
+@media (min-width: 721px) and (max-width: 900px) {
+  .workshop-home .workshop-route { grid-template-columns: minmax(0, 1fr) auto; align-content: start; }
+  .workshop-route img { width: 64px; grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .workshop-routes { grid-template-columns: minmax(0, 1fr); margin-bottom: 2rem; }
+}
+
+@media (max-width: 560px) {
+  .workshop-hero { grid-template-columns: minmax(0, 1fr); margin-block-end: 1.35rem; }
+  .workshop-hero img { width: min(100%, 390px); justify-self: center; }
+  .workshop-home main > :is(section, .starter-download) { padding-block: 1.25rem; }
+}
+
+@media print {
+  body:is(.workshop-home, .game-workbook) { background: var(--lesson-paper); }
+  .workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link) { box-shadow: none; }
+}

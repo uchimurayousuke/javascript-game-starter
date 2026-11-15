@@ -2,7 +2,7 @@
   color-scheme: light;
   --lesson-paper: #fffefa;
   --lesson-print-ink: #171b21;
-  --lesson-action: #0f548d;
+  --lesson-action: var(--lesson-link);
   --lesson-action-active: #0a3d68;
   --lesson-on-action: #fffefa;
   --lesson-font-body: "Yu Gothic", "游ゴシック", Meiryo, "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
@@ -222,21 +222,6 @@ body.lesson-page {
 .lesson-sidebar nav a:hover, .lesson-page .layout aside nav a:hover { background: var(--lesson-blue-wash); }
 .lesson-page .learning-diagram { background: var(--lesson-blue-wash); border-radius: 14px; }
 .lesson-page pre { border-radius: 10px; }
-.workshop-home > main { max-width: 1440px; padding: clamp(20px, 4vw, 56px); }
-.workshop-home .lesson-shell { max-width: 1600px; grid-template-columns: minmax(180px, 235px) minmax(0, 1fr); }
-.workshop-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: clamp(20px, 4vw, 60px); padding: clamp(24px, 4vw, 52px); border: 1px solid var(--lesson-line-soft); border-radius: 26px; background: var(--lesson-blue-wash); }
-.workshop-hero h1 { margin: .25em 0 .55em; font-size: clamp(2rem, 3.3vw, 3.3rem); }
-.workshop-hero-copy p { max-width: 38em; text-wrap: balance; word-break: auto-phrase; }
-.workshop-hero img { display: block; width: 100%; height: auto; border-radius: 16px; }
-.lesson-page .workshop-primary { display: inline-block; margin-top: .7em; padding: .65em 1.2em; border-radius: 10px; color: var(--lesson-paper); background: var(--lesson-link); font-weight: 700; text-decoration: none; }
-.lesson-page .workshop-primary:hover { background: var(--lesson-action-hover); }
-.workshop-routes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 24px 0 36px; }
-.lesson-page .workshop-route { display: flex; align-items: center; gap: 14px; min-width: 0; padding: 16px; border: 1px solid var(--lesson-line-soft); border-radius: 18px; background: var(--lesson-paper); color: var(--lesson-ink); text-decoration: none; box-shadow: 0 5px 18px var(--lesson-shadow-card); }
-.workshop-route img { flex: 0 1 110px; width: min(38%, 110px); height: auto; }
-.workshop-route span { min-width: 0; }
-.workshop-route strong, .workshop-route small { display: block; }
-.workshop-route strong { color: var(--lesson-link); font-size: 1.15em; }
-.workshop-route small { margin-top: .25em; color: var(--lesson-ink); font-size: .85em; line-height: 1.5; }
 .catalog-page .lesson-shell { max-width: 1600px; grid-template-columns: minmax(180px, 235px) minmax(0, 1fr); }
 .catalog-page .lesson-shell main { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 18px; align-items: stretch; }
 .catalog-page main > :not(article) { grid-column: 1 / -1; }
@@ -265,7 +250,7 @@ body.lesson-page {
 .lesson-page .chapter-compare-link a { font-weight: 700; }
 
 
-.lesson-page a.primary-link, .lesson-page a.workshop-primary, .lesson-page .starter-download a.download-link {
+.lesson-page a.primary-link, .lesson-page .starter-download a.download-link {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -276,12 +261,12 @@ body.lesson-page {
   font-weight: 700;
   text-decoration: none;
 }
-.lesson-page a.primary-link:hover, .lesson-page a.workshop-primary:hover, .lesson-page .starter-download a.download-link:hover {
+.lesson-page a.primary-link:hover, .lesson-page .starter-download a.download-link:hover {
   color: var(--lesson-on-action);
   background: var(--lesson-link-tutorial-hover);
   border-color: var(--lesson-link-tutorial-hover);
 }
-.lesson-page a.primary-link:active, .lesson-page a.workshop-primary:active, .lesson-page .starter-download a.download-link:active {
+.lesson-page a.primary-link:active, .lesson-page .starter-download a.download-link:active {
   color: var(--lesson-on-action);
   background: var(--lesson-action-active);
 }
@@ -416,14 +401,14 @@ body.lesson-page {
 .feature-lesson .lesson-stage--check + h3 + p a[href^="step"]:hover, .polish-lesson .lesson-stage--check + h3 + p a[href^="step"]:hover { color: var(--lesson-link-tutorial-hover); background: var(--lesson-blue-wash); }
 .feature-lesson .lesson-stage--check + h3 + p a[href^="step"]:active, .polish-lesson .lesson-stage--check + h3 + p a[href^="step"]:active { color: var(--lesson-action-active); background: var(--lesson-goal-wash); }
 
-.lesson-page .workshop-route:focus-visible, .catalog-page main > article:focus-within {
+.catalog-page main > article:focus-within {
   border-color: var(--lesson-link);
   box-shadow: 0 8px 20px var(--lesson-shadow-hover);
 }
 .lesson-page :is(.task-copy-button, .coin-copy-button) { min-height: 44px; }
 
 @media (hover: hover) {
-  .lesson-page .workshop-route:hover, .catalog-page main > article:has(.links a:hover) {
+  .catalog-page main > article:has(.links a:hover) {
     border-color: var(--lesson-link);
     box-shadow: 0 8px 20px var(--lesson-shadow-hover);
   }
@@ -448,22 +433,19 @@ body.lesson-page {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .lesson-page .workshop-route, .catalog-page main > article {
+  .catalog-page main > article {
     transition: border-color 160ms ease, box-shadow 160ms ease;
   }
-  .workshop-route img, .lesson-page details > summary::after { transition: transform 180ms ease-out; }
+  .lesson-page details > summary::after { transition: transform 180ms ease-out; }
   .lesson-page details > summary { transition: background-color 160ms ease; }
-  .lesson-page :is(.workshop-primary, .primary-link, .download-link, .catalog-page .links a, .task-copy-button, .coin-copy-button) {
+  .lesson-page :is(.primary-link, .download-link, .catalog-page .links a, .task-copy-button, .coin-copy-button) {
     transition: background-color 160ms ease, border-color 160ms ease, transform 100ms ease-out;
   }
-  .lesson-page :is(.workshop-primary, .primary-link, .download-link, .catalog-page .links a, .task-copy-button, .coin-copy-button):active {
+  .lesson-page :is(.primary-link, .download-link, .catalog-page .links a, .task-copy-button, .coin-copy-button):active {
     transform: translateY(1px);
   }
   .lesson-page [data-copy-state="copied"] + :is(.task-copy-status, .coin-copy-status)::before {
     animation: lesson-copy-check 180ms ease-out;
-  }
-  @media (hover: hover) {
-    .workshop-route:hover img { transform: translateX(4px); }
   }
 }
 
@@ -472,14 +454,9 @@ body.lesson-page {
   to { opacity: 1; transform: rotate(45deg) scale(1); }
 }
 
-@media (min-width: 701px) and (max-width: 1300px) {
-  .lesson-page .workshop-route { flex-direction: column; align-items: flex-start; }
-  .workshop-route img { flex: none; width: 80px; }
-}
-
 @media (max-width: 1050px) {
   .lesson-shell, .lesson-page .layout { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 20px 16px 48px; }
-  .workshop-home .lesson-shell, .catalog-page .lesson-shell { grid-template-columns: minmax(0, 1fr); }
+  .catalog-page .lesson-shell { grid-template-columns: minmax(0, 1fr); }
   .lesson-sidebar > nav, .lesson-page .layout aside > nav { display: none; }
   .lesson-mobile-toc { display: block; border: 1px solid var(--lesson-line); border-radius: 8px; background: var(--lesson-paper); }
   .lesson-page .lesson-mobile-toc > summary { padding: 12px 16px; color: var(--lesson-link); }
@@ -487,10 +464,6 @@ body.lesson-page {
 }
 
 @media (max-width: 700px) {
-  .workshop-hero { grid-template-columns: minmax(0, 1fr); }
-  .workshop-hero img { max-width: 360px; justify-self: center; }
-  .workshop-routes { grid-template-columns: minmax(0, 1fr); }
-  .workshop-route img { flex: 0 0 80px; width: 80px; }
   .catalog-page main > .catalog-feature { grid-template-columns: minmax(0, 1fr); }
 }
 

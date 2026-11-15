@@ -1,7 +1,9 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>お絵かきロジックの作り方</title><link rel="stylesheet" href="../../guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
-</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：5×5の盤面を描く</a><a href="#lesson-section-3">ステップ 2：行と列のヒントを出す</a><a href="#lesson-section-4">ステップ 3：マスを塗る</a><a href="#lesson-section-5">ステップ 4：完成を判定する</a><a href="#lesson-section-6">ステップ 5：再開する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：お絵かきロジックを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：5×5の盤面を描く</a><a href="#lesson-section-3">ステップ 2：行と列のヒントを出す</a><a href="#lesson-section-4">ステップ 3：マスを塗る</a><a href="#lesson-section-5">ステップ 4：完成を判定する</a><a href="#lesson-section-6">ステップ 5：再開する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">お絵かきロジックを作る</li></ol></nav><h1>お絵かきロジックを作る</h1><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+<link rel="stylesheet" href="../../../tutorial/workshop.css">
+<link rel="stylesheet" href="../../../tutorial/game-workbook.css">
+</head><body class="lesson-page polish-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：5×5の盤面を描く">5×5の盤面を描く</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：行と列のヒントを出す">行と列のヒントを出す</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：マスを塗る">マスを塗る</a><a href="#lesson-section-5" data-workbook-step="04" aria-label="ステップ 4：完成を判定する">完成を判定する</a><a href="#lesson-section-6" data-workbook-step="05" aria-label="ステップ 5：再開する">再開する</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：お絵かきロジックを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：5×5の盤面を描く">5×5の盤面を描く</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：行と列のヒントを出す">行と列のヒントを出す</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：マスを塗る">マスを塗る</a><a href="#lesson-section-5" data-workbook-step="04" aria-label="ステップ 4：完成を判定する">完成を判定する</a><a href="#lesson-section-6" data-workbook-step="05" aria-label="ステップ 5：再開する">再開する</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">お絵かきロジックを作る</li></ol></nav><h1>お絵かきロジックを作る</h1><details class="task-reference"><summary>以前の比較の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
 <details class="lesson-operation-video" id="lesson-zip-video">
   <summary>WindowsでZIPを展開する（動画）</summary>
   <figure>
@@ -76,7 +78,7 @@
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const cell = cells[y][x]; ctx.fillStyle = cell === 1 ? &quot;#3984c6&quot; : &quot;#e8eff2&quot;;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>5×5の盤面が表示されます。</p>
-      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+      <p><a href="step1/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -298,7 +300,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>else if (count) { result.push(count); count = 0; }</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>行と列に続くマスの数が表示されます。</p>
-      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+      <p><a href="step2/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -432,7 +434,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>cells[y][x] = cells[y][x] === mark ? 0 : mark;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>クリックと右クリックを試します。</p>
-      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+      <p><a href="step3/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -617,7 +619,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (state === &quot;clear&quot;) ctx.fillText(&quot;完成！&quot;, 475, 350);</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>ヒントを見て塗り、正しければ完成です。</p>
-      <p><a href="step4/index.html">見本を別ページで開く</a></p>
+      <p><a href="step4/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -763,7 +765,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (key === &quot;r&quot;) { resetBoard(); return; }</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>Rで空の盤面に戻ります。</p>
-      <p><a href="step5/index.html">見本を別ページで開く</a></p>
+      <p><a href="step5/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -868,4 +870,4 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Rで空の盤面に戻ります。 <a href="step5/index.html">この段階の見本を開く</a></p></details></section><p><a href="complete/index.html">完成版で遊ぶ</a></p><p><a href="extensions/tutorial.html">発展編に挑戦する</a></p></main></div></body></html>
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Rで空の盤面に戻ります。 <a href="step5/index.html">この段階の見本を開く</a></p></details></section><p><a href="complete/index.html" data-workbook-action="play">完成版で遊ぶ</a></p><p><a href="extensions/tutorial.html">発展編に挑戦する</a></p></main></div></body></html>

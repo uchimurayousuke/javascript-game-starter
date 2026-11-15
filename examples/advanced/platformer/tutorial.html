@@ -4,7 +4,9 @@
 <link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
-</head><body class="lesson-page polish-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：プレイヤーと地面を描く</a><a href="#lesson-section-3">ステップ 2：移動とジャンプ・重力</a><a href="#lesson-section-4">ステップ 3：複数の地形と衝突する</a><a href="#lesson-section-5">ステップ 4：長いステージとカメラ</a><a href="#lesson-section-6">ステップ 5：コインと敵を置く</a><a href="#lesson-section-7">ステップ 6：ゴール・失敗・再挑戦</a><a href="#lesson-section-8">次は発展課題に挑戦</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：横スクロールのジャンプアクション</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：プレイヤーと地面を描く</a><a href="#lesson-section-3">ステップ 2：移動とジャンプ・重力</a><a href="#lesson-section-4">ステップ 3：複数の地形と衝突する</a><a href="#lesson-section-5">ステップ 4：長いステージとカメラ</a><a href="#lesson-section-6">ステップ 5：コインと敵を置く</a><a href="#lesson-section-7">ステップ 6：ゴール・失敗・再挑戦</a><a href="#lesson-section-8">次は発展課題に挑戦</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">横スクロールのジャンプアクション</li></ol></nav><h1>横スクロールのジャンプアクション</h1><p class="tag">上級者向け</p><p>変数、関数、配列、if 文、for 文、キー入力と基本の当たり判定を知っている人向けです。これまでの知識を組み合わせ、クラス、重力、地形との衝突、長いステージとカメラを学びます。クラスはこの教材で初めて説明します。</p><p>左右の矢印キーで移動し、Space または上の矢印キーでジャンプします。コインを集め、赤い敵とすき間を避けて紫色のゴールへ進みます。失敗やクリアの後は R キーで再挑戦できます。キーボードを使えるパソコンで遊んでください。</p><p><a href="complete/index.html">完成版で遊ぶ</a></p>
+<link rel="stylesheet" href="../../../tutorial/workshop.css">
+<link rel="stylesheet" href="../../../tutorial/game-workbook.css">
+</head><body class="lesson-page polish-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：プレイヤーと地面を描く">プレイヤーと地面を描く</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：移動とジャンプ・重力">移動とジャンプ・重力</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：複数の地形と衝突する">複数の地形と衝突する</a><a href="#lesson-section-5" data-workbook-step="04" aria-label="ステップ 4：長いステージとカメラ">長いステージとカメラ</a><a href="#lesson-section-6" data-workbook-step="05" aria-label="ステップ 5：コインと敵を置く">コインと敵を置く</a><a href="#lesson-section-7" data-workbook-step="06" aria-label="ステップ 6：ゴール・失敗・再挑戦">ゴール・失敗・再挑戦</a><a href="#lesson-section-8">次は発展課題に挑戦</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：横スクロールのジャンプアクション</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：プレイヤーと地面を描く">プレイヤーと地面を描く</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：移動とジャンプ・重力">移動とジャンプ・重力</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：複数の地形と衝突する">複数の地形と衝突する</a><a href="#lesson-section-5" data-workbook-step="04" aria-label="ステップ 4：長いステージとカメラ">長いステージとカメラ</a><a href="#lesson-section-6" data-workbook-step="05" aria-label="ステップ 5：コインと敵を置く">コインと敵を置く</a><a href="#lesson-section-7" data-workbook-step="06" aria-label="ステップ 6：ゴール・失敗・再挑戦">ゴール・失敗・再挑戦</a><a href="#lesson-section-8">次は発展課題に挑戦</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">ゲーム制作例</a></li><li aria-current="page">横スクロールのジャンプアクション</li></ol></nav><h1>横スクロールのジャンプアクション</h1><p class="tag">上級者向け</p><p>変数、関数、配列、if 文、for 文、キー入力と基本の当たり判定を知っている人向けです。これまでの知識を組み合わせ、クラス、重力、地形との衝突、長いステージとカメラを学びます。クラスはこの教材で初めて説明します。</p><p>左右の矢印キーで移動し、Space または上の矢印キーでジャンプします。コインを集め、赤い敵とすき間を避けて紫色のゴールへ進みます。失敗やクリアの後は R キーで再挑戦できます。キーボードを使えるパソコンで遊んでください。</p><p><a href="complete/index.html" data-workbook-action="play">完成版で遊ぶ</a></p>
 <details class="task-reference"><summary>比較欄の読み方</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div></details><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
 <details class="lesson-operation-video" id="lesson-zip-video">
   <summary>WindowsでZIPを展開する（動画）</summary>
@@ -68,7 +70,7 @@
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>ctx.fillRect(0, 390, 800, 60);</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>青い四角が緑の地面の上に見えます。</p>
-      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+      <p><a href="step1/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -224,7 +226,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>this.vy = 0;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>左右キーで移動し、Space または上キーでジャンプします。</p>
-      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+      <p><a href="step2/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -549,7 +551,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>const dx = (right ? 4 : 0) - (left ? 4 : 0)</mark>;</code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>壁に向かうと止まり、ジャンプで乗れます。</p>
-      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+      <p><a href="step3/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -909,7 +911,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>const WORLD_WIDTH = <mark>24</mark>00;</code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>右へ進むと背景が左へ流れます。</p>
-      <p><a href="step4/index.html">見本を別ページで開く</a></p>
+      <p><a href="step4/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -1290,7 +1292,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>this.y = 360;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>黄色いコインに触れると数が増えます。</p>
-      <p><a href="step5/index.html">見本を別ページで開く</a></p>
+      <p><a href="step5/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -1829,7 +1831,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (state === &quot;over&quot;) ctx.fillText(&quot;ゲームオーバー！ R キーでもう一度&quot;, 180, 210);</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>敵に触れるか落下すると終了し、右端の紫色のゴールに触れるとクリアです。</p>
-      <p><a href="step6/index.html">見本を別ページで開く</a></p>
+      <p><a href="step6/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -2362,4 +2364,4 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>敵に触れるか落下すると終了し、右端の紫色のゴールに触れるとクリアです。R で最初から遊べます。 <a href="step6/index.html">ステップ 6 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>コインを別の地面の上に一つ追加し、表示される総数が増えるか確かめます。 練習後はこの段階のコードに戻してから次へ進んでください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-platformer-tutorial-html-step6">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-8"></span><section><h2>次は発展課題に挑戦</h2><p>「敵を上から踏んで倒す」「Shift キーでダッシュする」「中間ポイントから再挑戦する」の3つを追加します。目標を見て自分で考え、必要に応じてヒントとコードの例を開けます。</p><p><a href="extensions/tutorial.html">横スクロールゲームの発展課題へ進む</a></p></section><p><a href="complete/index.html">完成版で遊ぶ</a>　<a href="../../index.html">一覧へ戻る</a></p></main></div></body></html>
+</code></pre></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確かめ方</h3><p>敵に触れるか落下すると終了し、右端の紫色のゴールに触れるとクリアです。R で最初から遊べます。 <a href="step6/index.html">ステップ 6 の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>コインを別の地面の上に一つ追加し、表示される総数が増えるか確かめます。 練習後はこの段階のコードに戻してから次へ進んでください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=examples-advanced-platformer-tutorial-html-step6">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-8"></span><section><h2>次は発展課題に挑戦</h2><p>「敵を上から踏んで倒す」「Shift キーでダッシュする」「中間ポイントから再挑戦する」の3つを追加します。目標を見て自分で考え、必要に応じてヒントとコードの例を開けます。</p><p><a href="extensions/tutorial.html">横スクロールゲームの発展課題へ進む</a></p></section><p><a href="complete/index.html" data-workbook-action="play">完成版で遊ぶ</a>　<a href="../../index.html">一覧へ戻る</a></p></main></div></body></html>
