@@ -19,7 +19,9 @@ if (coinHitDemo && coinHitStill) {
   const coinRadius = 14;
   const playerY = 385;
   const diagramStep = Number(token.dataset.step);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let coinY = startY;
+  let moving = false;
 
   function drawCoinHit() {
     const bottomY = coinY + coinRadius;
@@ -39,17 +41,43 @@ if (coinHitDemo && coinHitStill) {
     reset.setAttribute("aria-disabled", String(!lowered));
   }
 
-  lower.addEventListener("click", () => {
-    if (coinY !== startY) return;
-    coinY += 1;
-    drawCoinHit();
-  });
+  function moveCoin(nextY) {
+    if (moving || coinY === nextY) return;
 
-  reset.addEventListener("click", () => {
-    if (coinY === startY) return;
-    coinY = startY;
-    drawCoinHit();
-  });
+    if (reduceMotion.matches || typeof token.animate !== "function") {
+      coinY = nextY;
+      drawCoinHit();
+      return;
+    }
+
+    const from = (coinY - startY) * diagramStep;
+    const to = (nextY - startY) * diagramStep;
+    const animation = token.animate(
+      [{ transform: `translateY(${from}px)` }, { transform: `translateY(${to}px)` }],
+      { duration: 500, easing: "ease-in-out", fill: "forwards" },
+    );
+
+    moving = true;
+    lower.setAttribute("aria-disabled", "true");
+    reset.setAttribute("aria-disabled", "true");
+    gap.setAttribute("visibility", "hidden");
+    readout.setAttribute("aria-busy", "true");
+    readout.removeAttribute("data-caught");
+    result.textContent = "移動中…";
+
+    function finishMove() {
+      coinY = nextY;
+      drawCoinHit();
+      animation.cancel();
+      readout.removeAttribute("aria-busy");
+      moving = false;
+    }
+
+    animation.finished.then(finishMove, finishMove);
+  }
+
+  lower.addEventListener("click", () => moveCoin(startY + 1));
+  reset.addEventListener("click", () => moveCoin(startY));
 
   drawCoinHit();
   coinHitStill.hidden = true;

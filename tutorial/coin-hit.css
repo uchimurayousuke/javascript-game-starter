@@ -98,6 +98,11 @@
     margin-inline: -.6rem;
     padding-inline: .5rem;
   }
+
+  .coin-hit-result {
+    box-sizing: border-box;
+    min-block-size: 4.1em;
+  }
 }
 
 @media print {
