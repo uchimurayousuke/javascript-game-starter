@@ -1,5 +1,6 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path");
+const {assertReadingPage}=require("./reading-page-policy.cjs");
 const root=path.resolve(__dirname,".."),read=p=>fs.readFileSync(path.join(root,p),"utf8");
 function crc32(data){let crc=0xffffffff;for(const byte of data){crc^=byte;for(let bit=0;bit<8;bit++)crc=(crc>>>1)^((crc&1)?0xedb88320:0);}return (crc^0xffffffff)>>>0;}
 function unzipStored(buffer,count=3,flags=0){
@@ -21,7 +22,7 @@ test("5つのページからひな型ZIPをダウンロードでき、入口か�
   const page=read(file);assert.ok(page.includes(`href="${zip}" download="my-game.zip"`),file);assert.ok(fs.existsSync(path.resolve(root,path.dirname(file),zip)),file);
  }
  const entry=read("教材を開く.html");for(const dest of ["learning/index.html","tutorial/index.html","examples/index.html","features/index.html"])assert.ok(entry.includes(`href="${dest}"`),dest);
- assert.doesNotMatch(entry,/<(?:canvas|iframe|object|embed|script)\b/i);assert.match(read("README.md"),/https:\/\/uchimurayousuke\.github\.io\/javascript-game-starter\//);
+ assertReadingPage(entry);assert.match(read("README.md"),/https:\/\/uchimurayousuke\.github\.io\/javascript-game-starter\//);
  assert.match(read("learning/setup.html"),/展開したフォルダーを作業用にします/);assert.match(read("tutorial/index.html"),/ひな型のZIPを展開し、できたフォルダーを作業用にします/);
 });
 function directories(dir){return fs.readdirSync(dir,{withFileTypes:true}).filter(x=>x.isDirectory()).map(x=>path.join(dir,x.name)).sort();}

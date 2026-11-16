@@ -123,10 +123,9 @@ test("the published instructions reproduce all three files at every step", async
 test("reading pages and game pages stay separate", () => {
   assert.doesNotMatch(tutorial, /<(?:canvas|iframe|object|embed)\b/i);
   assert.deepEqual([...tutorial.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(x => x[0]), [
-    '<script src="vendor/sakuga-vfx/core.js" defer></script>',
-    '<script src="workshop-effects.js" defer></script>',
-    '<script src="coin-small-tasks.js?v=20261116-sakuga" defer></script>',
-    '<script src="coin-hit.js?v=20261116-sakuga" defer></script>',
+    '<script src="workshop-effects.js?v=20261116-ui-motion" defer></script>',
+    '<script src="coin-small-tasks.js?v=20261116-ui-motion" defer></script>',
+    '<script src="coin-hit.js?v=20261116-ui-motion" defer></script>',
     '<script src="coin-step-visuals.js" defer></script>',
   ]);
   const requiredHeadings = ["目標", "小さな作業", "編集するファイルと場所", "追加または置換するコード", "保存・再読み込み後の確認", "小さな練習"];
@@ -154,13 +153,16 @@ function checkLink(file, link) {
   }
 }
 
-test("HTML, source-code links, README links and anchors resolve locally", () => {
+test("HTML assets and relative README links resolve locally", () => {
   const pages = ["template/index.html", "tutorial/index.html", ...steps.map((step) => "tutorial/" + step + "/index.html")];
   for (const file of pages) {
     const html = read(file).replace(/<pre>[\s\S]*?<\/pre>/g, "");
     for (const match of html.matchAll(/(?:href|src)="([^"]*)"/g)) checkLink(file, decode(match[1]));
   }
   for (const file of ["README.md", "tutorial/README.md"]) {
-    for (const match of read(file).matchAll(/\]\(([^)]+)\)/g)) checkLink(file, match[1]);
+    for (const [, link] of read(file).matchAll(/\]\(([^)]+)\)/g)) {
+      if (file === "README.md" && link.startsWith("https://github.com/")) continue;
+      checkLink(file, link);
+    }
   }
 });

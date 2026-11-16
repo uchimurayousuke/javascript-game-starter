@@ -32,6 +32,7 @@ document.querySelectorAll(".lesson-task").forEach((task) => {
     } finally {
       copying = false;
     }
+    if (button.dataset.copyState === "copied") globalThis.WorkshopEffects?.copied(button);
   });
 });
 

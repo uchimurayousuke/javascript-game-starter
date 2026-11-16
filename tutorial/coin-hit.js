@@ -72,7 +72,9 @@ if (coinHitDemo && coinHitStill) {
       animation.cancel();
       readout.removeAttribute("aria-busy");
       moving = false;
-      if (readout.dataset.caught === "true") globalThis.WorkshopEffects?.celebrate(contact);
+      if (readout.dataset.caught === "true") {
+        globalThis.WorkshopEffects?.celebrate(contact, 0.5, () => readout.dataset.caught === "true");
+      }
     }
 
     animation.finished.then(finishMove, finishMove);

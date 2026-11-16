@@ -117,3 +117,9 @@ HTML・CSS・JavaScript を学ぶ人が、自分のゲームを作り始める�
 [共通機能の一覧](features/index.html)には、タイトル、遊び方、カウント、結果、ステージ選択、一時停止、難易度、音、保存、暗転、粒、タッチ操作の作例に加え、画像やゲームの基本処理を学ぶ作例があり、全部で36作例です。各機能は3段階で作り、自分のゲームへ組み込む方法も説明します。
 
 [画像と共通機能の作例](features/index.html)では、画像の差し替え、位置と大きさ、体力バー、背景、当たり判定、ボタン、中間地点、アニメーション、反転と回転、経過時間、カメラも学べます。画像を使う見本は、3ファイルと `assets/` を一緒にコピーしてください。
+
+## 教材ページのアニメーション
+
+- 星や波紋の演出には Sakuga VFX を使っています。[Sakuga VFX](https://github.com/finktheartist/sakuga-vfx/tree/c3dabb173928a3ad2372183103caf2e6f50953d0) · [MITライセンス](tutorial/vendor/sakuga-vfx/LICENSE)
+- カードが弾む動きと見出しがめくれる動きは、Animate.css 3.7.2の動きを短く調整したものです。[rubberBand](https://github.com/animate-css/animate.css/blob/3.7.2/source/attention_seekers/rubberBand.css) · [flipInX](https://github.com/animate-css/animate.css/blob/3.7.2/source/flippers/flipInX.css) · [MITライセンス](tutorial/vendor/animate-css/LICENSE)
+- コードが見本と一致したときの紙吹雪には canvas-confetti 1.9.4 を使っています。[canvas-confetti](https://github.com/catdad/canvas-confetti/releases/tag/1.9.4) · [ISCライセンス](tutorial/vendor/canvas-confetti/LICENSE)
