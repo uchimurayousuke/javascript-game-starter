@@ -1,0 +1,109 @@
+.lesson-page:is(.grammar-page, .exercise-workbook) main > section {
+  margin: 0;
+  padding: clamp(1.3rem, 3vw, 2.3rem) 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.lesson-page:is(.grammar-page, .exercise-workbook) main > section:not(:last-of-type) {
+  border-block-end: 2px dashed #cbd5e1;
+}
+.grammar-page main h2 { font-weight: 900; word-break: auto-phrase; }
+.grammar-page main .lesson-task {
+  margin-block: 1.7rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.grammar-page main .task-code-label {
+  max-width: 100%;
+  width: fit-content;
+  margin: .95rem 0 0;
+  padding: .38em .8em;
+  border-radius: 6px 6px 0 0;
+  background: var(--workshop-edge);
+  color: #fff;
+  font-weight: 900;
+}
+.lesson-page.grammar-page main .task-code-label + pre.task-code {
+  margin-block-start: 0;
+  border: 1px solid var(--workshop-edge);
+  border-radius: 0 6px 6px 6px;
+  background: var(--workshop-edge);
+  color: #fff;
+  font-family: var(--workshop-mono);
+}
+.lesson-page.grammar-page main pre.task-code code { color: inherit; }
+
+.lesson-page main details:is(.workbook-quiz, .exercise-hint, .exercise-answer) {
+  margin-block: 1rem;
+  padding: 0;
+  border: var(--reveal-border);
+  border-radius: 5px;
+  background: var(--reveal-paper);
+  box-shadow: none;
+}
+.workbook-quiz {
+  --reveal-border: 2px dashed #ad6633;
+  --reveal-paper: #fff1de;
+  --reveal-ink: #673510;
+  --reveal-hover: #ffe6c3;
+}
+.lesson-page main details.exercise-hint {
+  --reveal-border: 1px solid #e5cf69;
+  --reveal-paper: #fef9c3;
+  --reveal-ink: #61500e;
+  --reveal-hover: #fcf0a2;
+  border-inline-start: 4px solid #eab308;
+}
+.exercise-answer {
+  --reveal-border: 2px solid #589370;
+  --reveal-paper: #dcfce7;
+  --reveal-ink: #195535;
+  --reveal-hover: #cdf4dc;
+}
+.lesson-page main details:is(.workbook-quiz, .exercise-hint, .exercise-answer) > summary {
+  gap: .7em;
+  padding: .65em .9em;
+  border-radius: 0;
+  background: transparent;
+  color: var(--reveal-ink);
+  font-weight: 900;
+  word-break: auto-phrase;
+}
+.lesson-page main details:is(.workbook-quiz, .exercise-hint, .exercise-answer) > summary:is(:hover, :active) {
+  background: var(--reveal-hover);
+}
+.lesson-page main details.workbook-quiz > summary::before {
+  content: "?" / "";
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: 1.7em;
+  block-size: 1.7em;
+  border-radius: 50%;
+  background: var(--reveal-ink);
+  color: #fff;
+  line-height: 1;
+}
+.lesson-page main details.workbook-quiz > summary { justify-content: flex-start; }
+.lesson-page main details.workbook-quiz > summary::after { margin-inline-start: auto; }
+.lesson-page main details:is(.workbook-quiz, .exercise-hint, .exercise-answer)[open] > summary {
+  border-block-end: 1px solid var(--reveal-ink);
+}
+.lesson-page main details:is(.workbook-quiz, .exercise-hint, .exercise-answer) > :where(p, ul, ol, pre, .lesson-task, .change-view, details) {
+  margin-inline: .9rem;
+}
+
+@media print {
+  .lesson-page:is(.grammar-page, .exercise-workbook) main > section { padding: .7rem 0; }
+  .grammar-page main .task-code-label,
+  .lesson-page.grammar-page main .task-code-label + pre.task-code {
+    border: 1px solid var(--workshop-edge);
+    background: var(--lesson-paper);
+    color: var(--lesson-print-ink);
+  }
+}

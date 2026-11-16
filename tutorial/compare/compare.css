@@ -4,7 +4,16 @@
   padding: 32px 24px 80px;
 }
 
-.compare-page section { margin: 24px 0; }
+.compare-page.lesson-page main > section {
+  margin: 0;
+  padding: clamp(1.3rem, 3vw, 2.3rem) 0;
+  border: 0;
+  border-block-start: 2px dashed #cbd5e1;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.compare-page main h2.workbook-heading { margin: 0 0 .85rem; }
 .compare-page label:not(.check-option) { display: block; margin: 1em 0 0.35em; font-weight: 700; }
 .compare-page select, .compare-page input[type="file"], .compare-page textarea {
   display: block;
@@ -12,29 +21,60 @@
   max-width: 100%;
   padding: 0.7em;
   border: 1px solid var(--lesson-control-border);
-  border-radius: 10px;
+  border-radius: 6px;
   background: var(--lesson-paper);
   color: var(--lesson-control-ink);
   font: inherit;
 }
-.compare-page select, .compare-page input[type="file"] { min-height: 44px; }
-.compare-page textarea { font: 16px/1.6 var(--lesson-font-code); white-space: pre; overflow: auto; }
-.compare-page select:hover, .compare-page input[type="file"]:hover, .compare-page textarea:hover { border-color: var(--lesson-link-tutorial); }
-.compare-page select:focus-visible, .compare-page input[type="file"]:focus-visible, .compare-page textarea:focus-visible { outline: 3px solid var(--lesson-focus); outline-offset: 3px; }
+.compare-page :is(select, input[type="file"], button) { min-height: 44px; }
+.compare-page :is(select, button) {
+  border: 2px solid var(--workshop-edge);
+  box-shadow: 3px 3px 0 var(--workshop-edge);
+}
+.compare-page select { width: calc(100% - 3px); }
+.compare-page select:hover { background: var(--lesson-blue-wash); }
+.compare-page select:disabled { box-shadow: none; cursor: not-allowed; }
+.compare-page textarea {
+  min-height: 13rem;
+  resize: vertical;
+  border: 2px solid var(--workshop-edge);
+  background: var(--workshop-edge);
+  color: #fff;
+  caret-color: #fff;
+  font: 16px/1.6 var(--workshop-mono);
+  white-space: pre;
+  overflow: auto;
+}
+.compare-page textarea::placeholder { color: #cbd5e1; opacity: 1; }
+.compare-page :is(select, input[type="file"], textarea, button):focus-visible {
+  outline: 3px solid var(--lesson-focus);
+  outline-offset: 3px;
+}
 .compare-page .check-option { display: flex; align-items: flex-start; gap: 0.6em; min-height: 44px; margin: 1em 0; padding-block: 6px; }
 .compare-page .check-option input { width: 1.2em; height: 1.2em; flex: 0 0 auto; margin: 0.3em 0 0; accent-color: var(--lesson-action); }
-.compare-page button { min-height: 44px; padding: 0.6em 1.2em; border: 2px solid var(--lesson-action); border-radius: 10px; color: var(--lesson-on-action); background: var(--lesson-action); font: inherit; font-weight: 700; cursor: pointer; }
-.compare-page button:hover:not(:disabled) { background: var(--lesson-link-tutorial-hover); border-color: var(--lesson-link-tutorial-hover); }
-.compare-page button:active:not(:disabled) { background: var(--lesson-action-active); border-color: var(--lesson-action-active); }
-.compare-page button:focus-visible { outline: 3px solid var(--lesson-focus); outline-offset: 3px; }
-.compare-page button:disabled { color: var(--lesson-ink-muted); background: var(--lesson-old-code-wash); border-color: var(--lesson-line-old); cursor: not-allowed; }
+.compare-page #compare-button {
+  padding: .6em 1.3em;
+  border-radius: 6px;
+  background: var(--lesson-step-gold);
+  color: var(--workshop-edge);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+.compare-page #compare-button:hover { background: #ffc546; }
+.compare-page :is(select, button):active:not(:disabled) { box-shadow: none; }
+.compare-page #compare-button:disabled {
+  border-color: var(--lesson-line-old);
+  background: var(--lesson-old-code-wash);
+  color: var(--lesson-ink-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
 .compare-page #status { padding: 0.7em 0.9em; border-left: 5px solid var(--lesson-stage); background: var(--lesson-goal-wash); }
 .compare-page #chapter-description { font-weight: 700; }
 .compare-page #step-context { margin: 1em 0; padding: 0.7em 1em; border-left: 4px solid var(--lesson-stage); background: var(--lesson-goal-wash); }
 .compare-page #expectation-heading { margin: 0; font-weight: 700; }
 .compare-page #step-expectations { margin: 0.4em 0; padding-left: 1.5em; }
-.compare-page #result { border-color: var(--lesson-compare-result-line); }
-.compare-page #result-heading { margin-top: 0; padding: .55em .8em; border-left: 6px solid var(--lesson-link); border-radius: 0 10px 10px 0; background: var(--lesson-blue-wash); }
 .compare-page #result-count { font-weight: 700; }
 .compare-page .reference-links a { display: inline-block; margin-right: 1em; }
 .compare-page .diff-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin: 10px 0; }
@@ -48,6 +88,11 @@
 .compare-page mark { background: var(--lesson-compare-mark); color: var(--lesson-control-ink); text-decoration: underline; text-decoration-thickness: 2px; }
 .compare-page [hidden] { display: none !important; }
 
+@media (prefers-reduced-motion: no-preference) {
+  .compare-page #compare-button { transition: transform 120ms ease-out, box-shadow 120ms ease-out; }
+  .compare-page #compare-button:active:not(:disabled) { transform: translateY(3px); }
+}
+
 @media (max-width: 1050px) {
   .compare-page main { padding: 20px 16px 48px; }
   .compare-page .diff-row { grid-template-columns: minmax(0, 1fr); }
@@ -56,6 +101,8 @@
 
 @media print {
   .compare-page main { max-width: none; padding: 0; }
+  .compare-page :is(select, button) { box-shadow: none; }
+  .compare-page textarea { background: var(--lesson-paper); color: var(--lesson-print-ink); }
   .compare-page .diff-row { break-inside: avoid; }
   .compare-page .diff-cell pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
 }

@@ -16,7 +16,9 @@ test("全381ステップのリンクと終了時の見本データが、それ�
   assert.equal(c.sources["index.html"],`${base}/index.html`);assert.equal(c.sources["style.css"],`${base}/style.css`);
   const page=read(c.page);assert.ok(page.includes(`id="${c.anchor}"`),c.id);const parts=[...page.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)];const chosen=parts.filter(m=>m[0].includes(`?chapter=${c.id}"`));assert.equal(chosen.length,1,c.id);
   const open=chosen[0][0].match(/^<section\b[^>]*>/)[0],sectionId=open.match(/\bid="([^"]+)"/),previous=page.slice(0,chosen[0].index).match(/<span class="toc-anchor" id="([^"]+)"><\/span>\s*$/);assert.equal(sectionId?sectionId[1]:previous&&previous[1],c.anchor,c.id);
-  const heading=chosen[0][0].match(/<h2[^>]*>([\s\S]*?)<\/h2>/);assert.ok(heading,c.id);assert.equal(heading[1].replace(/<[^>]+>/g,"").replace(/&amp;/g,"&"),c.chapter,c.id);
+  const heading=chosen[0][0].match(/<h2[^>]*>([\s\S]*?)<\/h2>/);assert.ok(heading,c.id);
+  const headingText=heading[1].replace(/^<span class="workbook-number">\d+<\/span>\s*/,"").replace(/<[^>]+>/g,"").replace(/&amp;/g,"&");
+  assert.equal(headingText,c.chapter,c.id);
   if(c.page!=="learning/debug/index.html"){
    const confirmation=chosen[0][0].match(/<h3[^>]*>[^<]*保存[^<]*(?:確認|確かめ)[^<]*<\/h3>([\s\S]*?)(?=<h3|<\/section>)/);assert.ok(confirmation,c.id);
    const plain=confirmation[1].replace(/<[^>]+>/g,"").replace(/&(?:amp|lt|gt|quot|#39|#x27);/g,x=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#39;":"'","&#x27;":"'"}[x])).replace(/\s+/g," ");

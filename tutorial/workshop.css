@@ -1,19 +1,57 @@
 @import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap");
 
-body:is(.workshop-home, .game-workbook) {
+body:is(.workshop-home, .game-workbook, .grammar-page, .exercise-workbook, .catalog-page, .compare-page) {
   --workshop-paper: #fffdf7;
   --workshop-edge: #1e293b;
   --workshop-rule: #c4cbd4;
   --workshop-font: "Zen Maru Gothic", var(--lesson-font-body);
   --workshop-mono: Consolas, Monaco, monospace;
   --lesson-action: var(--lesson-link);
+  --lesson-font-code: var(--workshop-mono);
+  --lesson-font-code-legacy: var(--workshop-mono);
   min-height: 100vh;
   background: var(--workshop-paper);
   font-family: var(--workshop-font);
 }
 
-:is(.workshop-home, .game-workbook) :is(h1, h2, h3, h4, summary, button) { font-family: inherit; }
-:is(.workshop-home, .game-workbook) :is(pre, code, kbd, samp) { font-family: var(--workshop-mono); }
+.lesson-page :is(h1, h2, h3, h4, summary, button) { font-family: inherit; }
+.lesson-page :is(pre, code, kbd, samp) { font-family: var(--workshop-mono); }
+
+:is(.game-workbook, .grammar-page, .exercise-workbook) main figure:is(.learning-diagram, .lesson-figure, .step-diagram) {
+  border: 2px solid var(--workshop-edge);
+  border-radius: 8px;
+  background: var(--lesson-paper);
+  box-shadow: none;
+}
+.lesson-page main h2.workbook-heading {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
+  gap: .2em .6em;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-weight: 900;
+  word-break: auto-phrase;
+}
+.lesson-page main h2.workbook-heading::after {
+  grid-column: 2;
+  margin-top: 0;
+  font-family: inherit;
+}
+.workbook-number {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.25em;
+  block-size: 2.25em;
+  border-radius: 50%;
+  background: var(--lesson-link);
+  color: #fff;
+  font-size: .75em;
+  font-weight: 900;
+  line-height: 1;
+}
 
 body.workshop-home {
   background-image: radial-gradient(circle, rgba(31, 61, 91, .115) .7px, transparent .85px);
@@ -184,6 +222,6 @@ body.workshop-home {
 }
 
 @media print {
-  body:is(.workshop-home, .game-workbook) { background: var(--lesson-paper); }
+  body:is(.workshop-home, .game-workbook, .grammar-page, .exercise-workbook, .catalog-page, .compare-page) { background: var(--lesson-paper); }
   .workshop-home :is(a.workshop-primary, a.workshop-route, .starter-download a.download-link) { box-shadow: none; }
 }

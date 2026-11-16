@@ -6,11 +6,13 @@
   <title>ステップ終了時のコードを見本と比べる</title>
   <link rel="stylesheet" href="../../examples/guide.css">
   <link rel="stylesheet" href="../learning-layout.css">
-  <link rel="stylesheet" href="compare.css">
+  <link rel="stylesheet" href="compare.css?v=20261116-workbook">
   <link rel="stylesheet" href="../operation-videos.css?v=20261115-visuals">
   <script src="references.js" defer></script>
   <script src="diff.js" defer></script>
   <script src="compare.js?v=20261115-visuals" defer></script>
+
+<link rel="stylesheet" href="../workshop.css?v=20261116-workbook">
 </head>
 <body class="lesson-page compare-page">
   <a class="lesson-skip" href="#lesson-main">本文へ移動</a>
@@ -20,7 +22,7 @@
     <p>今の自分のコードを、そのステップを終えたときの見本と比べます。ファイルを選ぶか、コードを貼り付けてから「比べる」を押します。コードはこのブラウザーの中で文字として比べます。実行したり、送信・保存・上書きしたりしません。</p>
     <noscript><p>比較にはJavaScriptを有効にしてください。教材の見本は別のページで開けます。</p></noscript>
     <section aria-labelledby="choose-heading">
-      <h2 id="choose-heading">1. ステップとファイルを選ぶ</h2>
+      <h2 id="choose-heading" class="workbook-heading"><span class="workbook-number">1</span> ステップとファイルを選ぶ</h2>
       <label for="chapter">比べるステップ</label>
       <select id="chapter" aria-describedby="chapter-description"><option value="">ステップを選んでください</option></select>
       <p id="chapter-description">教材から開くと、そのステップが選ばれます。</p>
@@ -31,7 +33,7 @@
       <p>HTMLとCSSは教材の手順で用意した内容を見本にします。見本ゲームのタイトルとは異なる場合があります。</p>
     </section>
     <section aria-labelledby="input-heading">
-      <h2 id="input-heading">2. 自分のコードを用意する</h2>
+      <h2 id="input-heading" class="workbook-heading"><span class="workbook-number">2</span> 自分のコードを用意する</h2>
       <details class="coin-operation-video" id="coin-compare-video">
         <summary>ファイルを選んで見本と比べる（動画）</summary>
         <figure>
@@ -54,7 +56,7 @@
       <p id="status" role="status" aria-live="polite">ステップを選び、ファイルを選ぶかコードを貼り付けてください。</p>
     </section>
     <section id="result" hidden tabindex="-1" aria-labelledby="result-heading">
-      <h2 id="result-heading">3. 違いを確かめる</h2>
+      <h2 id="result-heading" class="workbook-heading"><span class="workbook-number">3</span> 違いを確かめる</h2>
       <p>左が自分、右が見本です。色だけでなく「自分だけ」「見本だけ」「違う」と行番号でも示します。狭い画面では自分、見本の順に並びます。</p>
       <p>違いがあっても不正解とは限りません。小さな練習や自分の改造も違いとして表示されます。</p>
       <label class="check-option"><input id="differences-only" type="checkbox"> 違う行だけ表示する</label>

@@ -1,7 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>敵やアイテムの出現の作り方</title><link rel="stylesheet" href="../../../examples/guide.css"><link rel="stylesheet" href="../../../tutorial/code-changes.css"><link rel="stylesheet" href="../../../tutorial/diagrams.css"><link rel="stylesheet" href="../../../tutorial/learning-layout.css"><link rel="stylesheet" href="../../../tutorial/small-tasks.css"><script src="../../../tutorial/small-tasks.js?v=20261116-diagrams" defer></script><link rel="stylesheet" href="../../../downloads/starter.css"><link rel="stylesheet" href="../../../tutorial/step-previews.css?v=20261116-diagrams">
 <link rel="stylesheet" href="../../../tutorial/learning-figures.css">
 <link rel="stylesheet" href="../../../tutorial/operation-videos.css?v=20261115-visuals">
-</head><body class="lesson-page feature-lesson"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：Spaceで1個出し上限10個</a><a href="#lesson-section-3">ステップ 2：1秒ごとに自動で出現</a><a href="#lesson-section-4">ステップ 3：出現から3秒で消しRで初期化</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：敵やアイテムの出現</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2">ステップ 1：Spaceで1個出し上限10個</a><a href="#lesson-section-3">ステップ 2：1秒ごとに自動で出現</a><a href="#lesson-section-4">ステップ 3：出現から3秒で消しRで初期化</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">敵やアイテムの出現</li></ol></nav><h1>敵やアイテムの出現を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+
+<link rel="stylesheet" href="../../../tutorial/workshop.css?v=20261116-workbook">
+<link rel="stylesheet" href="../../../tutorial/game-workbook.css?v=20261116-workbook">
+</head><body class="lesson-page feature-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：Spaceで1個出し上限10個">Spaceで1個出し上限10個</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：1秒ごとに自動で出現">1秒ごとに自動で出現</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：出現から3秒で消しRで初期化">出現から3秒で消しRで初期化</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：敵やアイテムの出現</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：Spaceで1個出し上限10個">Spaceで1個出し上限10個</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：1秒ごとに自動で出現">1秒ごとに自動で出現</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：出現から3秒で消しRで初期化">出現から3秒で消しRで初期化</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">敵やアイテムの出現</li></ol></nav><h1>敵やアイテムの出現を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
 <details class="lesson-operation-video" id="lesson-zip-video">
   <summary>WindowsでZIPを展開する（動画）</summary>
   <figure>
@@ -33,7 +36,7 @@
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>if (event.code === &quot;Space&quot;) { if (items.length &lt; 10) items.push({born: performance.now()}); }</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>Spaceを押すたび1個増え、10個を超えません。</p>
-      <p><a href="step1/index.html">見本を別ページで開く</a></p>
+      <p><a href="step1/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
 </details>
@@ -196,7 +199,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code>items = [];<mark> nextSpawn = performance.now() + 1000;</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>何もしなくても1秒ごとに1個増え、最大10個です。</p>
-      <p><a href="step2/index.html">見本を別ページで開く</a></p>
+      <p><a href="step2/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -343,7 +346,7 @@ gameLoop();
   <span data-preview-code="current"><strong>変わったコードの一例</strong>（script.js）<br><code><mark>items = items.filter(item =&gt; now - item.born &lt; 3000);</mark></code></span>
 </div>
       <p class="step-preview-task"><strong>見本で確かめること</strong><br>出現した個々の箱が3秒で消え、Rで空になります。</p>
-      <p><a href="step3/index.html">見本を別ページで開く</a></p>
+      <p><a href="step3/index.html" data-workbook-action="play">見本を別ページで開く</a></p>
     </figcaption>
   </figure>
     </details>
@@ -435,4 +438,4 @@ function gameLoop() {
 
 start();
 gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>出現した個々の箱が3秒で消え、Rで空になります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>filterの now - item.born &lt; 3000 の3000を2000に変えます。最初にSpaceで1個出すと、自動出現も含めて2秒後は合計2個になることを確かめます。3000に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-spawner-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>items</code> と <code>nextSpawn</code> を自分のゲームの状態に加えます。プレイ中だけ出現と寿命の更新を行い、上限・期限・再開始時の配列初期化も一緒に移します。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：Space:1個追加、R:最初から。</p></section><p><a href="complete/index.html">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>
+</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>出現した個々の箱が3秒で消え、Rで空になります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>filterの now - item.born &lt; 3000 の3000を2000に変えます。最初にSpaceで1個出すと、自動出現も含めて2秒後は合計2個になることを確かめます。3000に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-spawner-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>items</code> と <code>nextSpawn</code> を自分のゲームの状態に加えます。プレイ中だけ出現と寿命の更新を行い、上限・期限・再開始時の配列初期化も一緒に移します。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：Space:1個追加、R:最初から。</p></section><p><a href="complete/index.html" data-workbook-action="play">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>

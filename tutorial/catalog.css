@@ -1,0 +1,169 @@
+.catalog-page .lesson-shell { max-width: 1600px; }
+.catalog-page .lesson-sidebar nav {
+  border: 0;
+  border-inline-start: 2px solid var(--workshop-rule);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.catalog-page .lesson-shell main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.4rem;
+  align-items: stretch;
+  padding-inline-end: 4px;
+}
+.catalog-page main > :not(article) { grid-column: 1 / -1; }
+.catalog-page main > :is(h1, p, .lesson-breadcrumb) { margin: 0; }
+.catalog-page main > h1 { font-weight: 900; word-break: auto-phrase; }
+.catalog-page main > p { max-width: 48em; text-wrap: pretty; }
+.catalog-page main > .toc-anchor { margin-block: -.6rem; }
+
+.catalog-page :is(#lesson-section-1 + h2, article:has(.links a[href^="beginner/"]), .catalog-feature) {
+  --catalog-level-ink: #225d44;
+  --catalog-level-paper: #e5f3e9;
+  --catalog-level-shadow: #244d3f;
+}
+.catalog-page :is(#lesson-section-2 + h2, article:has(.links a[href^="intermediate/"])) {
+  --catalog-level-ink: #1e5182;
+  --catalog-level-paper: #e7f1fb;
+  --catalog-level-shadow: #284b73;
+}
+.catalog-page :is(#lesson-section-3 + h2, article:has(.links a[href^="advanced/"])) {
+  --catalog-level-ink: #563983;
+  --catalog-level-paper: #eee7f8;
+  --catalog-level-shadow: #493468;
+}
+.catalog-page main > h2 {
+  justify-self: start;
+  margin: .9rem 0 0;
+  padding: .25em .75em;
+  border-inline-start: 6px solid var(--catalog-level-ink);
+  border-radius: 4px;
+  background: var(--catalog-level-paper);
+  color: var(--catalog-level-ink);
+  font-weight: 900;
+}
+.catalog-page main > :is(article, .catalog-feature) {
+  min-width: 0;
+  margin: 0;
+  border: 2px solid var(--workshop-edge);
+  border-radius: 12px;
+  background: var(--lesson-paper);
+  box-shadow: 4px 4px 0 var(--catalog-level-shadow, var(--workshop-edge));
+}
+.catalog-page main > article {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 .95rem;
+}
+.catalog-page .catalog-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-block-end: 2px solid var(--workshop-edge);
+  border-radius: 10px 10px 0 0;
+  background: var(--catalog-level-paper, var(--lesson-blue-wash));
+  object-fit: contain;
+}
+.catalog-page main > article :is(h3, p) { margin: 0 1rem .65rem; }
+.catalog-page main > article .catalog-badge {
+  align-self: start;
+  margin-block: .85rem .35rem;
+  padding: .15em .55em;
+  border-radius: 4px;
+  background: var(--catalog-level-paper);
+  color: var(--catalog-level-ink);
+  font-size: .8rem;
+  font-weight: 900;
+}
+.catalog-page main > article h3 {
+  font-size: clamp(1.12rem, 2vw, 1.3rem);
+  font-weight: 900;
+  line-height: 1.4;
+  word-break: auto-phrase;
+}
+.catalog-page main > article .links {
+  margin-block: auto 0;
+  padding-block-start: .85rem;
+  border-block-start: 1px solid var(--catalog-level-paper);
+}
+.catalog-page .links { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
+.catalog-page .links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  max-width: 100%;
+  margin: 0;
+  font-weight: 900;
+  line-height: 1.4;
+}
+.catalog-page .links a.catalog-play {
+  padding: .45em .75em;
+  border: 2px solid var(--workshop-edge);
+  border-radius: 6px;
+  background: var(--lesson-step-gold);
+  color: var(--workshop-edge);
+  box-shadow: 3px 3px 0 var(--workshop-edge);
+  text-decoration: none;
+}
+.catalog-page .links a.catalog-play:hover { background: #ffc546; }
+.catalog-page .links a.catalog-play:active { box-shadow: none; }
+.catalog-page .links a.catalog-read {
+  padding: .45em .75em;
+  border: 2px solid var(--lesson-link);
+  border-radius: 6px;
+  background: var(--lesson-link);
+  color: var(--lesson-on-action);
+  text-decoration: none;
+}
+.catalog-page .links a.catalog-read:is(:hover, :active) {
+  border-color: var(--lesson-link-tutorial-hover);
+  background: var(--lesson-link-tutorial-hover);
+}
+.catalog-page .links a.catalog-extension {
+  padding-inline: .3em;
+  color: var(--lesson-link-tutorial);
+  font-weight: 700;
+  text-underline-offset: .2em;
+}
+.catalog-page main > .catalog-feature {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: 0;
+  align-items: center;
+  padding: 0;
+  background: var(--catalog-level-paper);
+}
+.catalog-page .catalog-feature .catalog-thumb {
+  height: 100%;
+  border-block-end: 0;
+  border-inline-end: 2px solid var(--workshop-edge);
+  border-radius: 10px 0 0 10px;
+}
+.catalog-page .catalog-feature > div { padding: 1rem clamp(.85rem, 3vw, 1.6rem); }
+.catalog-page .catalog-feature h2 { margin: 0; font-weight: 900; }
+.catalog-page .catalog-feature p { margin: .6rem 0 0; }
+
+@media (min-width: 1051px) {
+  .catalog-page .lesson-shell { grid-template-columns: minmax(180px, 235px) minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  .catalog-page main > .catalog-feature { grid-template-columns: minmax(0, 1fr); }
+  .catalog-page .catalog-feature .catalog-thumb {
+    height: auto;
+    border-inline-end: 0;
+    border-block-end: 2px solid var(--workshop-edge);
+    border-radius: 10px 10px 0 0;
+    object-fit: contain;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .catalog-page .links a.catalog-play { transition: transform 120ms ease-out, box-shadow 120ms ease-out; }
+  .catalog-page .links a.catalog-play:active { transform: translateY(3px); }
+}
+@media print {
+  .catalog-page main > :is(article, .catalog-feature) { break-inside: avoid; box-shadow: none; }
+  .catalog-page .links a.catalog-play { box-shadow: none; }
+}

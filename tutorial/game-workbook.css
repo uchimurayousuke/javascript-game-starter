@@ -1,11 +1,11 @@
 .game-workbook {
   --workbook-rail: #3b82f6;
+  --workbook-marker-paper: #f7f5ef;
+  --workbook-marker-line: #94a3b8;
   --workbook-old-paper: #fef2f2;
   --workbook-old-line: #b91c1c;
   --workbook-old-ink: #751d1d;
   --workbook-note-line: #8fa2b6;
-  --lesson-font-code: var(--workshop-mono);
-  --lesson-font-code-legacy: var(--workshop-mono);
 }
 
 .game-workbook main :is(.intro > h1, h1:first-of-type) {
@@ -85,10 +85,10 @@ body.lesson-page.game-workbook main pre {
   max-width: 100%;
   margin: .9rem 0 0;
   padding: .18rem .6rem;
-  border: 1px solid var(--lesson-line-diagram);
+  border: 1px dashed var(--workbook-marker-line);
   border-block-end: 0;
   border-radius: 6px 6px 0 0;
-  background: var(--lesson-blue-wash);
+  background: var(--workbook-marker-paper);
   font-size: .92em;
   font-weight: 900;
 }
@@ -97,21 +97,24 @@ body.lesson-page.game-workbook main pre {
   border-start-start-radius: 0;
 }
 body.lesson-page.game-workbook main :is(pre.task-marker, pre.coin-marker) {
-  border-color: var(--lesson-line-diagram);
-  background: var(--lesson-blue-wash);
+  border: 1px dashed var(--workbook-marker-line);
+  background: var(--workbook-marker-paper);
   color: var(--lesson-ink-deep);
 }
 body.lesson-page.game-workbook main :is(.lesson-task, .coin-task):has(code[data-small-action="replace"]) :is(.task-marker-label, .coin-marker-label, pre.task-marker, pre.coin-marker),
 body.lesson-page.game-workbook main .old-code pre {
   border-color: var(--workbook-old-line);
+  border-style: solid;
   background: var(--workbook-old-paper);
   color: var(--workbook-old-ink);
 }
 .game-workbook main :is(.task-code-label, .coin-code-label) {
   border-color: var(--workshop-edge);
+  border-style: solid;
   background: var(--workshop-edge);
-  color: var(--lesson-code-ink-legacy);
+  color: #fff;
 }
+body.lesson-page.game-workbook main :is(pre.task-code, pre.coin-copy) { color: #fff; }
 
 .game-workbook :is(.lesson-sidebar, .layout > aside) nav {
   gap: 0;

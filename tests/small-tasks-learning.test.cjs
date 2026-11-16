@@ -65,7 +65,7 @@ test("デバッグの修正は答えの中にあり、各壊れたファイル�
   for (const name of ["syntax", "name", "input", "score", "reset", "image"]) {
     const section = page.match(new RegExp(`<section id="${name}">([\\s\\S]*?)</section>`))[1];
     const edits = tasks(section); assert.equal(edits.length, 1, name);
-    const answer = section.indexOf('<details><summary>答えと変更箇所</summary>');
+    const answer = section.indexOf('<details class="exercise-answer"><summary>答えと変更箇所</summary>');
     assert.ok(answer >= 0 && answer < section.indexOf('<div class="lesson-task">'), name);
     assert.equal(apply(read(`learning/debug/${name}/broken/script.js`), edits[0]), read(`learning/debug/${name}/fixed/script.js`), name);
   }
@@ -73,8 +73,8 @@ test("デバッグの修正は答えの中にあり、各壊れたファイル�
 
 test("デバッグの見出しは原因を明かさず、画像は作業前に準備できる", () => {
   const page = read("learning/debug/index.html");
-  for (const [id, symptom] of [["syntax", "青い四角が表示されない"], ["name", "得点が表示されない"], ["image", "青い画像が表示されない"]]) {
-    assert.match(page, new RegExp(`<section id="${id}">[\\s\\S]*?<h2>${symptom}</h2>`));
+  for (const [id, number, symptom] of [["syntax", 1, "青い四角が表示されない"], ["name", 2, "得点が表示されない"], ["image", 6, "青い画像が表示されない"]]) {
+    assert.match(page, new RegExp(`<section id="${id}">[\\s\\S]*?<h2 class="workbook-heading"><span class="workbook-number">${number}</span> ${symptom}</h2>`));
   }
   for (const answer of ["閉じ括弧が足りない", "変数名が違う", "画像の場所が違う"]) assert.doesNotMatch(page, new RegExp(answer));
   const combine = read("learning/combine/tutorial.html");
