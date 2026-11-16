@@ -49,53 +49,7 @@
 </details>
 <ol><li>ひな型のZIPを展開し、できたフォルダーを作業用にします。</li><li>そのフォルダーの <code>index.html</code> をブラウザーで開きます。空のゲーム画面が出れば準備できています。</li><li>エディターで同じフォルダーを開きます。</li></ol>
 <p class="notice">このページは教材です。ゲームは埋め込んでいません。「制作物を別ページで開く」で見本だけを開けます。自分の制作物は <code>my-game/index.html</code> を開いて確かめます。</p>
-<div class="coin-task"><h4>ページの名前を変える</h4><p>作業用フォルダーの <code>index.html</code> を開き、次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="index.html" data-small-action="replace" data-small-match="    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;" data-small-separator="&#10;">    &lt;title&gt;コインキャッチ&lt;/title&gt;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>ブラウザーのタブに表示する名前を変えます。</p></div><div class="coin-task"><h4>画面の説明を変える</h4><p>同じ <code>index.html</code> の次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="index.html" data-small-action="replace" data-small-match="      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;" data-small-separator="&#10;">      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;コインキャッチのゲーム画面&quot;&gt;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>canvas</code> は絵を描く場所です。幅 800、高さ 450 の画面に名前を付け、<code>aria-label</code> で画面の内容を伝えます。</p></div><div class="coin-task"><h4>画面の背景色を変える</h4><p>作業用フォルダーの <code>style.css</code> を開き、<code>canvas</code> の波括弧の中にある次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>  background: #fff;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="style.css" data-small-action="replace" data-small-match="  background: #fff;" data-small-separator="&#10;">  background: #f7fbff;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>#f7fbff</code> は少し青みのある白です。</p></div><p class="coin-check">保存して、作業用の <code>index.html</code> を再読み込みします。タブ名と画面の色が変われば準備完了です。</p><details class="coin-reference"><summary>準備の変更前後とファイル全体を見る</summary><div class="change-guide"><p><strong>コードの比較の読み方</strong></p><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。長い比較では変更のない途中の行を省略することがあります。比較欄は読むためのもので、選択してコピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>「置き換える」場合は、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコード全体に置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。「追加する」場合は、指定された場所にコピー用のコードを加えます。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較欄のラベルや記号はコードに入りません。全文の見本は手元のコードを見比べるための参考です。</p></div><h3>HTML と CSS を整える</h3>
-<p>まず、作業用フォルダーの <code>index.html</code> 全体を次のコードに置き換えます。タイトルと Canvas の説明をゲームの名前にします。表示する要素は Canvas だけです。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    &lt;title&gt;コインキャッチ&lt;/title&gt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    &lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  &lt;body&gt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    &lt;main&gt;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;コインキャッチのゲーム画面&quot;&gt;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">        このブラウザは Canvas に対応していません。</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">      &lt;/canvas&gt;</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="index.html" data-action="replace-file">&lt;!doctype html&gt;
-&lt;html lang=&quot;ja&quot;&gt;
-  &lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot; /&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
-    &lt;title&gt;コインキャッチ&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;
-    &lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;main&gt;
-      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;コインキャッチのゲーム画面&quot;&gt;
-        このブラウザは Canvas に対応していません。
-      &lt;/canvas&gt;
-    &lt;/main&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p><code>&lt;canvas&gt;</code> は絵を描く場所を作ります。<code>id="game-canvas"</code> は JavaScript がその場所を見つけるための名前です。</p>
-<p><code>width="800"</code> と <code>height="450"</code> は、絵を描くときに使う横幅と高さをピクセル（画面上の小さな点）で決めています。絵を描く場所は、横と縦の位置を数字で表した「座標」で指定します。</p>
-<p><code>&lt;link&gt;</code> は同じフォルダーの CSS を、<code>&lt;script&gt;</code> は JavaScript を読み込みます。<code>defer</code> を付けると、HTML を読み終えてから JavaScript が動くので、Canvas を見つけられます。</p>
-<p><code>charset="UTF-8"</code> は日本語の文字を正しく扱う指定です。</p>
-<p>次に、作業用フォルダーの <code>style.css</code> 全体を次のコードに置き換えます。元のひな型から Canvas の背景色だけを変えています。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  max-width: 100vw;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  height: auto;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  background: #fff;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  background: #f7fbff;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="style.css" data-action="replace-file">body {
-  min-height: 100vh;
-  margin: 0;
-  display: grid;
-  place-items: center;
-  background: #202635;
-}
-
-canvas {
-  display: block;
-  max-width: 100vw;
-  height: auto;
-  background: #f7fbff;
-}
-</code></pre>
-<p>CSS は <code>対象 { プロパティ: 値; }</code> の形で、見た目を指定します。<code>body</code> の中にはページ全体の設定、<code>canvas</code> の中には Canvas の設定を書きます。<code>display: grid</code> と <code>place-items: center</code> で Canvas を中央に置き、<code>background</code> で色を決めます。<code>#f7fbff</code> は薄い青を表す色のコードです。</p>
-<p><code>100vh</code> はブラウザに表示される部分の高さ、<code>100vw</code> はその幅です。<code>max-width: 100vw</code> と <code>height: auto</code> で、画面が狭いときも縦横の形を保ったまま Canvas を縮めます。画面上の見た目が縮んでも、JavaScript で使う横800・縦450の座標は変わりません。</p>
-<p>保存して再読み込みし、中央の Canvas が薄い青になれば準備完了です。以降、HTML と CSS は変えず、<code>script.js</code> に書き足します。</p>
-<h3>コードを追加・置換するときの約束</h3>
-<p>関数は、いくつかの命令をまとめて名前を付けたものです。ひな型には、絵を描く命令をまとめる <code>draw()</code> などの関数があります。</p>
-<ul><li>各 STEP は直前の STEP を終えたコードから始めます。掲載した追加・置換を、上からすべて実行してから保存します。</li><li>「関数を置き換える」は <code>function 名前(...) {</code> から、その関数の終わりの <code>}</code> までです。古い関数を残して同名の関数を追加しないようにします。</li><li>追加する関数は、ほかの関数の中に入れません。閉じる <code>}</code> を確認してから、その下へ書きます。</li><li>小さな練習で変えた値は、次の STEP の前に元に戻します。書く場所が分からなくなったら、各段階の「script.js 全体」を開いて見比べられます。</li></ul>
-</details></section>
+<div class="coin-task"><h4>ページの名前を変える</h4><p>作業用フォルダーの <code>index.html</code> を開き、次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="index.html" data-small-action="replace" data-small-match="    &lt;title&gt;JavaScript ゲーム制作ひな型&lt;/title&gt;" data-small-separator="&#10;">    &lt;title&gt;コインキャッチ&lt;/title&gt;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>ブラウザーのタブに表示する名前を変えます。</p></div><div class="coin-task"><h4>画面の説明を変える</h4><p>同じ <code>index.html</code> の次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="index.html" data-small-action="replace" data-small-match="      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;ゲーム画面&quot;&gt;" data-small-separator="&#10;">      &lt;canvas id=&quot;game-canvas&quot; width=&quot;800&quot; height=&quot;450&quot; aria-label=&quot;コインキャッチのゲーム画面&quot;&gt;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>canvas</code> は絵を描く場所です。幅 800、高さ 450 の画面に名前を付け、<code>aria-label</code> で画面の内容を伝えます。</p></div><div class="coin-task"><h4>画面の背景色を変える</h4><p>作業用フォルダーの <code>style.css</code> を開き、<code>canvas</code> の波括弧の中にある次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>  background: #fff;</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="style.css" data-small-action="replace" data-small-match="  background: #fff;" data-small-separator="&#10;">  background: #f7fbff;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>#f7fbff</code> は少し青みのある白です。</p></div><p class="coin-check">保存して、作業用の <code>index.html</code> を再読み込みします。タブ名と画面の色が変われば準備完了です。</p></section>
         <section class="lesson" id="step-01" data-step="01-draw">
 <p class="eyebrow">STEP 01</p><h2>丸と四角を描く</h2>
 <div class="result-links"><a href="01-draw/index.html" target="_blank" rel="noopener" data-workbook-action="play">制作物を別ページで開く ↗</a><a href="01-draw/script.js" target="_blank" rel="noopener" data-workbook-action="source">この段階の script.js 全体 ↗</a></div>
@@ -133,48 +87,7 @@ let coinY = 80;</code></pre><button type="button" class="coin-copy-button" hidde
   ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
   ctx.fill();</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>色を決め、<code>beginPath()</code> で新しい形を始めます。<code>arc</code> には中心の横位置、中心の縦位置、半径、始まりの角度、終わりの角度を順に渡します。0 から <code>Math.PI * 2</code> までで円を一周します。<code>fill()</code> で塗ります。</p><details class="coin-arc-more"><summary>角度の名前と図を確認する</summary><figure class="learning-diagram" id="coin-arc" aria-labelledby="coin-arc-title"><figcaption id="coin-arc-title">図：円の右から1周</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="円は、右から時計回りに描く"><img src="illustrations/astra/coin-arc.svg" width="1200" height="745" alt="円は右から下を通り、半周でπ、1周で2πになります。"></div><p>右端の 0 から下へ進みます。半周が <code>Math.PI</code>、1周が <code>Math.PI * 2</code> です。下端は <code>Math.PI / 2</code>。角度はラジアンで表し、円周を半径で割ると1周は 2π になります。</p><p class="diagram-expand"><a href="illustrations/astra/coin-arc.svg" target="_blank" rel="noopener" aria-label="図：円の右から1周を大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></details></div><div class="coin-task"><h4>得点の文字を描く</h4><p><code>draw()</code> の中で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fill();</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fill();" data-small-separator="&#10;&#10;">  ctx.fillStyle = &quot;#172b4d&quot;;
   ctx.font = &quot;22px sans-serif&quot;;
-  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>font</code> で文字の大きさと書体を決めます。<code>fillText</code> に文字、横位置 24、縦位置 38 を順に渡して描きます。</p></div><details class="coin-reference"><summary>変更前後の比較や関数全体を確認する</summary><h3>2. 編集するファイルと場所</h3><p>作業用フォルダーの <code>script.js</code> を編集します。ファイルの初めにある <code>canvas</code> と <code>ctx</code> の宣言の下に、ゲーム用の変数（数値などに名前を付けて保存するもの）を追加し、<code>draw()</code> だけを置き換えます。<code>start()</code>・<code>update()</code>・<code>gameLoop()</code> はひな型のままです。</p>
-<h3>3. 追加または置換するコード</h3><h4>1. 位置と大きさの変数を追加する</h4>
-<p>ひな型の <code>document.querySelector("#game-canvas")</code> は、HTML の同じ id を持つ Canvas を見つけます。<code>getContext("2d")</code> で取り出した <code>ctx</code> を使い、2D（平面）に絵を描きます。</p>
-<p><code>const ctx = canvas.getContext("2d");</code> の行の直後に、空行を1行挟んで追加します。<code>start()</code> の中には入れません。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const playerWidth = 110;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const playerHeight = 18;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const playerY = 385;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let playerX = (canvas.width - playerWidth) / 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const coinRadius = 14;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coinX = canvas.width / 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let coinY = 80;</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="const ctx = canvas.getContext(&quot;2d&quot;);" data-gap="blank">const playerWidth = 110;
-const playerHeight = 18;
-const playerY = 385;
-let playerX = (canvas.width - playerWidth) / 2;
-
-const coinRadius = 14;
-let coinX = canvas.width / 2;
-let coinY = 80;
-</code></pre>
-<p>変数は、数値などのデータに名前を付けて保存するものです。<code>playerWidth = 110</code> は受け皿の幅、<code>playerHeight = 18</code> は高さ、<code>playerY = 385</code> は左上の縦位置です。<code>const</code> はあとから別の値を入れ直さない変数、<code>let</code> は入れ直せる変数を作ります。幅や半径は <code>const</code>、これから動かす位置は <code>let</code> です。<code>=</code> は右の値を左に入れる代入、行末の <code>;</code> は文の区切りです。</p><p><code>canvas.width</code> は画面の幅 800 です。<code>playerX = (canvas.width - playerWidth) / 2</code> は、画面の幅から受け皿の幅を引いて左右に半分ずつ分け、受け皿を中央に置きます。<code>-</code> は引き算、<code>/</code> は割り算で、丸括弧の中を先に計算します。<code>(800 - 110) / 2 = 345</code> です。</p><p><code>coinRadius</code> は半径、<code>coinX</code> と <code>coinY</code> は中心の横と縦の位置です。幅 800 の半分なので <code>coinX</code> は 400、<code>coinY</code> は 80 です。座標は場所を表す数字の組です。画面の左上が <code>(0, 0)</code> で、右へ行くほど x が、下へ行くほど y が大きくなります。受け皿は左上、コインは中心の座標で置きます。</p>
-<h4>2. draw() を置き換える</h4>
-<p><code>draw()</code> は画面を描く関数です。関数は、いくつかの命令をまとめて名前を付けたものです。<code>function draw() { ... }</code> は <code>draw</code> という関数を作ります。</p><div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>前の絵を消す</h5><p>描き直す前に画面全体を空にします。</p><pre class="reading-code"><code>ctx.clearRect(0, 0, canvas.width, canvas.height);</code></pre><p><code>clearRect</code> には、消す四角の左上の x・y、幅、高さを順に渡します。<code>(0, 0)</code> から画面の幅と高さまで消します。</p><h5>受け皿を描く</h5><p>青色を選び、四角を塗ります。</p><pre class="reading-code"><code>ctx.fillStyle = &quot;#2563eb&quot;;
-ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</code></pre><p><code>fillStyle</code> はこれから塗る色です。すでに描いた絵の色は変わりません。<code>fillRect</code> には左上の x・y、幅、高さを順に渡します。ここでは左上 <code>(345, 385)</code>、幅 110、高さ 18 の四角です。</p><h5>コインを描く</h5><p>円の線を作ってから、内側を金色で塗ります。</p><pre class="reading-code"><code>ctx.fillStyle = &quot;#f5b942&quot;;
-ctx.beginPath();
-ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
-ctx.fill();</code></pre><p><code>beginPath()</code> で新しい線を作り始め、前の線を引き継がないようにします。<code>arc</code> の最初の3つは中心の x・y と半径、次の2つは始めと終わりの角度です。<code>0</code> から <code>Math.PI * 2</code> までで1周します。<code>*</code> は掛け算、<code>Math.PI</code> は円周率で、角度の単位はラジアンです。<code>fill()</code> で内側を塗ります。</p><h5>文字を描く</h5><p>文字の色と大きさを決めて表示します。</p><pre class="reading-code"><code>ctx.fillStyle = &quot;#172b4d&quot;;
-ctx.font = &quot;22px sans-serif&quot;;
-ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p><code>font</code> で文字の大きさと書体を決めます。<code>fillText</code> には文字、左端の x、文字の基準線の y を順に渡します。文字は引用符で囲み、数値は引用符なしで書きます。</p></div>
-
-<p><code>function draw() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#2563eb&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#f5b942&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.beginPath();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fill();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="draw">function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = &quot;#2563eb&quot;;
-  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
-
-  ctx.fillStyle = &quot;#f5b942&quot;;
-  ctx.beginPath();
-  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = &quot;#172b4d&quot;;
-  ctx.font = &quot;22px sans-serif&quot;;
-  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);
-}
-</code></pre></details>
-<p>ひな型の <code>gameLoop()</code> は <code>update()</code> と <code>draw()</code> を順に実行し、<code>requestAnimationFrame(gameLoop)</code> で次の実行を予約します。このくり返しがゲームループです。画面を1回描き直す区切りを1フレームと呼びます。今は位置が変わらないので止まって見えます。</p>
-</details><h3>4. 保存・再読み込み後の確認</h3>
+  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>font</code> で文字の大きさと書体を決めます。<code>fillText</code> に文字、横位置 24、縦位置 38 を順に渡して描きます。</p></div><h3>3. 保存・再読み込み後の確認</h3>
 <details class="coin-operation-video" id="coin-save-video">
   <summary>保存してゲーム画面を更新する（動画）</summary>
   <figure>
@@ -185,7 +98,7 @@ ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p><code>font</code>
   </figure>
 </details>
 <ol><li>script.js を保存し、作業用フォルダーの index.html を開いて再読み込みします。</li><li>上の中央に金色の丸、下の中央に青い受け皿、左上に「コイン: 0」が出ます。</li><li>しばらく待っても位置が変わらないことを確かめます。</li></ol>
-<h3>5. 小さな練習</h3><p><code>coinRadius</code> を <code>24</code> にして丸を大きくしましょう。<code>draw()</code> の <code>#2563eb</code> を <code>#16a34a</code> にして、受け皿を緑にしてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+<h3>4. 小さな練習</h3><p><code>coinRadius</code> を <code>24</code> にして丸を大きくしましょう。<code>draw()</code> の <code>#2563eb</code> を <code>#16a34a</code> にして、受け皿を緑にしてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
 <p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-01-draw">このステップ終了時の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-02" data-step="02-update">
@@ -226,45 +139,8 @@ ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p><code>font</code>
   coinY = -coinRadius;
 }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>Math.random()</code> は 0 以上 1 未満の数を作ります。半径の分だけ両端を避けた横位置にし、縦位置は画面のすぐ上にします。</p></div><div class="coin-task"><h4>画面の下まで落ちたか調べる</h4><p><code>update()</code> の波括弧の内側で、次の行のすぐ下に空行を入れて追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  coinY += coinSpeed;</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  coinY += coinSpeed;" data-small-separator="&#10;&#10;">  if (coinY - coinRadius &gt; canvas.height) {
     resetCoin();
-  }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>if</code> は条件が成り立つときだけ波括弧の中を実行します。<code>coinY - coinRadius</code> はコインの上端、<code>&gt;</code> は左が右より大きいという意味です。上端が画面の高さをこえたら、<code>resetCoin()</code> で上に戻します。</p></div><details class="coin-reference"><summary>変更前後の比較や関数全体を確認する</summary><h3>2. 編集するファイルと場所</h3><p>STEP 01 を終えた <code>script.js</code> に続けて書きます。速度の変数を追加し、<code>start()</code> と <code>update()</code> を置き換え、新しい <code>resetCoin()</code> を追加します。<code>draw()</code> は変えません。</p>
-<h3>3. 追加または置換するコード</h3><h4>1. 落下速度を追加する</h4>
-
-<p><code>const coinRadius = 14;</code> の行の直後に追加します。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const coinRadius = 14;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const coinSpeed = 3;</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="const coinRadius = 14;">const coinSpeed = 3;
-</code></pre>
-<p><code>coinSpeed</code> はコインの落下速度です。1フレームごとに縦位置を3ピクセル増やします。この教材の速度の単位はピクセル／フレームです。</p>
-<h4>2. start() を置き換える</h4>
-
-<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinX = canvas.width / 2;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
-  coinX = canvas.width / 2;
-  coinY = 80;
-}
-</code></pre>
-<p><code>start()</code> は最初の1回、コインを中央上部に置きます。<code>coinX</code> に画面幅の半分を、<code>coinY</code> に80を入れます。</p>
-<h4>3. update() を置き換える</h4>
-
-<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (coinY - coinRadius &gt; canvas.height) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    resetCoin();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
-  coinY += coinSpeed;
-
-  if (coinY - coinRadius &gt; canvas.height) {
-    resetCoin();
-  }
-}
-</code></pre>
-<p><code>coinY += coinSpeed</code> は <code>coinY = coinY + coinSpeed</code> の短い書き方です。下へ行くほど y が大きくなるので、コインは下へ動きます。描画を変えなくても、<code>update()</code> が変えた座標を <code>draw()</code> が使うことで動いて見えます。</p><p><code>if (条件) { 処理 }</code> は条件を満たすときだけ処理します。<code>&gt;</code> は「より大きい」の比較です。<code>coinY - coinRadius</code> はコインの上端なので、<code>canvas.height</code>（450）を超えると丸全体が下へ出ています。そこで <code>resetCoin()</code> を呼びます。関数名の後ろに <code>()</code> を付けると、その関数を実行します。</p>
-<h4>4. resetCoin() を追加する</h4>
-
-<p><code>function draw() {</code> の行のすぐ上に、次の関数を追加します。前後の関数の外側に書き、<code>draw()</code> との間は空行を1行挟みます。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function resetCoin() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  coinY = -coinRadius;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-before-line" data-anchor="function draw() {" data-gap="blank">function resetCoin() {
-  coinX = coinRadius + Math.random() * (canvas.width - coinRadius * 2);
-  coinY = -coinRadius;
-}
-</code></pre>
-<p><code>Math.random()</code> は0以上1未満の数を返します。その数に <code>canvas.width - coinRadius * 2</code>（画面の幅から半径2個分を引いた長さ）を掛け、最後に半径 <code>coinRadius</code> を足すと、コインの左右が画面からはみ出さない横位置を選べます。<code>coinY = -coinRadius</code> は中心を画面上端より少し上に置きます。</p>
-</details><h3>4. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。上からコインが落ちてきます。</li><li>コインが画面の下まで落ちると、次は別の横位置から現れます。</li><li>受け皿は動かず、コインは受け皿を通り抜けます。</li></ol>
-<h3>5. 小さな練習</h3><p><code>coinSpeed</code> を <code>1</code> と <code>5</code> に変え、速さを比べましょう。次に <code>resetCoin()</code> の <code>coinX = ...;</code> を <code>coinX = canvas.width / 2;</code> にすると、毎回中央から落ちます。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+  }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>if</code> は条件が成り立つときだけ波括弧の中を実行します。<code>coinY - coinRadius</code> はコインの上端、<code>&gt;</code> は左が右より大きいという意味です。上端が画面の高さをこえたら、<code>resetCoin()</code> で上に戻します。</p></div><h3>3. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。上からコインが落ちてきます。</li><li>コインが画面の下まで落ちると、次は別の横位置から現れます。</li><li>受け皿は動かず、コインは受け皿を通り抜けます。</li></ol>
+<h3>4. 小さな練習</h3><p><code>coinSpeed</code> を <code>1</code> と <code>5</code> に変え、速さを比べましょう。次に <code>resetCoin()</code> の <code>coinX = ...;</code> を <code>coinX = canvas.width / 2;</code> にすると、毎回中央から落ちます。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
 <p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-02-update">このステップ終了時の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-03" data-step="03-input">
@@ -331,108 +207,8 @@ let rightPressed = false;</code></pre><button type="button" class="coin-copy-but
   }
 }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>離された方向の記録を <code>false</code> に戻します。</p></div><div class="coin-task"><h4>キーの操作を受け取る</h4><p><code>draw()</code> の閉じ波括弧の外側、次の <code>gameLoop()</code> の前に追加し、その後に空行を入れます。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>function gameLoop() {</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="before" data-small-match="function gameLoop() {" data-small-separator="&#10;&#10;">document.addEventListener(&quot;keydown&quot;, handleKeyDown);
 document.addEventListener(&quot;keyup&quot;, handleKeyUp);
-window.addEventListener(&quot;blur&quot;, clearKeys);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>addEventListener</code> は出来事が起きたときに呼ぶ関数を登録します。<code>keydown</code> は押す、<code>keyup</code> は離す、<code>blur</code> は別のタブに移るなどして操作を受け取れなくなる出来事です。</p></div><div class="coin-task"><h4>操作の案内を表示する</h4><p><code>draw()</code> の波括弧の内側で、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);" data-small-separator="&#10;">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>画面の下に操作方法を描きます。</p></div><details class="coin-reference"><summary>変更前後の比較や関数全体を確認する</summary><h3>2. 編集するファイルと場所</h3><p>STEP 02 の <code>script.js</code> に続けます。変数を追加し、<code>start()</code> と <code>update()</code> を置き換えます。キーが押されたときなどの出来事を「イベント」と呼びます。キー用の3つの関数とイベントの登録を追加し、<code>draw()</code> に操作表示を1行加えます。</p>
-<h3>3. 追加または置換するコード</h3><h4>1. 移動速度を追加する</h4>
-
-<p><code>const playerY = 385;</code> の行の直後に追加します。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const playerY = 385;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const playerSpeed = 6;</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="const playerY = 385;">const playerSpeed = 6;
-</code></pre>
-<p><code>playerSpeed</code> は受け皿が1フレームで動くピクセル数です。</p>
-<h4>2. キーの状態を覚える変数を追加する</h4>
-
-<p>先頭の変数宣言にある <code>let coinY = 80;</code> の行の直後に、空行を1行挟んで追加します。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let coinY = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let leftPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let rightPressed = false;</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="let coinY = 80;" data-gap="blank">let leftPressed = false;
-let rightPressed = false;
-</code></pre>
-<p><code>leftPressed</code> と <code>rightPressed</code> に左右キーの状態を覚えます。<code>true</code> と <code>false</code> は「はい／いいえ」を表す真偽値です。最初はどちらも押されていないので <code>false</code> にします。</p>
-<h4>3. start() を置き換える</h4>
-
-<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = (canvas.width - playerWidth) / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinX = canvas.width / 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
-  playerX = (canvas.width - playerWidth) / 2;
-  coinX = canvas.width / 2;
-  coinY = 80;
-  clearKeys();
-}
-</code></pre>
-<p><code>start()</code> で受け皿を中央、コインを中央上部に置き、<code>clearKeys()</code> でキーの記録を解除します。</p>
-<h4>4. update() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>キーの状態で左右に動かす</h5><p>押されている方向へ受け皿を動かします。</p><pre class="reading-code"><code>if (leftPressed) {
-  playerX -= playerSpeed;
-}
-if (rightPressed) {
-  playerX += playerSpeed;
-}</code></pre><p><code>if (leftPressed)</code> は左キーが押されているときに中の処理を行います。<code>-=</code> は引いて代入、<code>+=</code> は足して代入する書き方です。</p><h5>画面の端で止める</h5><p>受け皿が画面から出ない位置に直します。</p><pre class="reading-code"><code>playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));</code></pre><p><code>Math.min</code> は2つの値の小さい方を選び、右端から出ないようにします。<code>Math.max</code> は0とその結果の大きい方を選び、左端より左へ出ないようにします。受け皿の左端が動ける右側の限界は、画面幅から受け皿の幅を引いた <code>800 - 110 = 690</code> です。</p></div>
-
-<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (leftPressed) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    playerX -= playerSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (rightPressed) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    playerX += playerSpeed;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinY - coinRadius &gt; canvas.height) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    resetCoin();</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
-  if (leftPressed) {
-    playerX -= playerSpeed;
-  }
-  if (rightPressed) {
-    playerX += playerSpeed;
-  }
-
-  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
-
-  coinY += coinSpeed;
-  if (coinY - coinRadius &gt; canvas.height) {
-    resetCoin();
-  }
-}
-</code></pre></details>
-
-<h4>5. キー用の関数を3つ追加する</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>押したキーを記録する</h5><p>左右キーが押されたら対応する値を変えます。</p><pre class="reading-code"><code>if (event.code === &quot;ArrowLeft&quot;) {
-  leftPressed = true;
-  event.preventDefault();
-}</code></pre><p>ブラウザが関数を呼ぶと、押されたキーなどの情報が <code>event</code> に渡されます。<code>event.code</code> が <code>"ArrowLeft"</code> かを <code>===</code> で比べます。<code>===</code> は同じかを調べ、代入の <code>=</code> とは役割が違います。<code>event.preventDefault()</code> は矢印キーによるページのスクロールを防ぎます。右キーは <code>"ArrowRight"</code> かを同じように調べます。</p><h5>キーを離したら記録を戻す</h5><p>離されたキーだけを解除します。</p><pre class="reading-code"><code>if (event.code === &quot;ArrowLeft&quot;) {
-  leftPressed = false;
-}</code></pre><p><code>handleKeyUp()</code> は離したキーに対応する値を <code>false</code> に戻します。右キーも同様です。<code>clearKeys()</code> は両方を <code>false</code> にします。</p></div>
-
-<p><code>function draw() {</code> の行のすぐ上に追加します。<code>resetCoin()</code> の閉じる <code>}</code> より後です。<code>draw()</code> との間は空行を1行挟みます。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function handleKeyDown(event) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    leftPressed = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    rightPressed = true;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function handleKeyUp(event) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    leftPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    rightPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function clearKeys() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  leftPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  rightPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-before-line" data-anchor="function draw() {" data-gap="blank">function handleKeyDown(event) {
-  if (event.code === &quot;ArrowLeft&quot;) {
-    leftPressed = true;
-    event.preventDefault();
-  }
-  if (event.code === &quot;ArrowRight&quot;) {
-    rightPressed = true;
-    event.preventDefault();
-  }
-}
-
-function handleKeyUp(event) {
-  if (event.code === &quot;ArrowLeft&quot;) {
-    leftPressed = false;
-  }
-  if (event.code === &quot;ArrowRight&quot;) {
-    rightPressed = false;
-  }
-}
-
-function clearKeys() {
-  leftPressed = false;
-  rightPressed = false;
-}
-</code></pre></details>
-
-<h4>6. イベントを登録する</h4>
-
-<p><code>function gameLoop() {</code> の行のすぐ上、<code>draw()</code> の外側に追加します。<code>gameLoop()</code> との間は空行を1行挟みます。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">document.addEventListener(&quot;keydown&quot;, handleKeyDown);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">document.addEventListener(&quot;keyup&quot;, handleKeyUp);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;blur&quot;, clearKeys);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-before-line" data-anchor="function gameLoop() {" data-gap="blank">document.addEventListener(&quot;keydown&quot;, handleKeyDown);
-document.addEventListener(&quot;keyup&quot;, handleKeyUp);
-window.addEventListener(&quot;blur&quot;, clearKeys);
-</code></pre>
-<p><code>addEventListener("keydown", handleKeyDown)</code> は、キーが押されたら呼ぶ関数を登録します。ここでは <code>handleKeyDown()</code> と実行せず、関数名だけを渡します。<code>keyup</code> はキーを離した出来事です。<code>blur</code> は別のタブへ移るなどしてウィンドウが操作を受け取らなくなった出来事です。<code>keyup</code> を受け取れなくても <code>clearKeys()</code> が入力を解除し、受け皿が動き続けるのを防ぎます。</p>
-<h4>7. ゲーム内に操作表示を追加する</h4>
-
-<p><code>draw()</code> 内の <code>ctx.fillText("コイン: 0", 24, 38);</code> の直後に追加します。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);
-</code></pre>
-<p>画面の横24、縦430に操作方法を表示します。</p>
-</details><h3>4. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みし、ゲームのタブをクリックして、ゲームがキー操作を受け取れるようにします。</li><li>← と → を押し続けると移動し、離すと止まります。両端でも受け皿全体が画面に収まります。</li><li>移動中に別のタブへ切り替えて戻り、キーを離したあとに動き続けないことを確認します。コインに触れても得点はまだ増えません。</li></ol>
-<h3>5. 小さな練習</h3><p><code>playerSpeed</code> を <code>3</code>、次に <code>9</code> に変えて操作感を比べましょう。両方の矢印キーを同時に押すと、左右の移動量が打ち消し合うことも確かめましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+window.addEventListener(&quot;blur&quot;, clearKeys);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p><code>addEventListener</code> は出来事が起きたときに呼ぶ関数を登録します。<code>keydown</code> は押す、<code>keyup</code> は離す、<code>blur</code> は別のタブに移るなどして操作を受け取れなくなる出来事です。</p></div><div class="coin-task"><h4>操作の案内を表示する</h4><p><code>draw()</code> の波括弧の内側で、次の行のすぐ下に追加します。</p><p class="coin-marker-label">目印</p><pre class="coin-marker"><code>  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p class="coin-code-label">追加するコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="after" data-small-match="  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);" data-small-separator="&#10;">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>画面の下に操作方法を描きます。</p></div><h3>3. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みし、ゲームのタブをクリックして、ゲームがキー操作を受け取れるようにします。</li><li>← と → を押し続けると移動し、離すと止まります。両端でも受け皿全体が画面に収まります。</li><li>移動中に別のタブへ切り替えて戻り、キーを離したあとに動き続けないことを確認します。コインに触れても得点はまだ増えません。</li></ol>
+<h3>4. 小さな練習</h3><p><code>playerSpeed</code> を <code>3</code>、次に <code>9</code> に変えて操作感を比べましょう。両方の矢印キーを同時に押すと、左右の移動量が打ち消し合うことも確かめましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
 <p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-03-input">このステップ終了時の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-04" data-step="04-collision">
@@ -521,92 +297,8 @@ window.addEventListener(&quot;blur&quot;, clearKeys);
     resetCoin();
   } else if (coinY - coinRadius &gt; canvas.height) {
     resetCoin();
-  }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>重なっていたら 1 点を加えて次のコインを出します。重ならず画面の下に落ちた場合も次のコインを出します。</p></div><div class="coin-task"><h4>得点の値を表示する</h4><p><code>draw()</code> の波括弧の内側にある次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);" data-small-separator="&#10;">  ctx.fillText(&quot;コイン: &quot; + score, 24, 38);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>文字と <code>score</code> を <code>+</code> でつなぐと、集めた枚数が表示されます。</p></div><details class="coin-reference"><summary>変更前後の比較や関数全体を確認する</summary><h3>2. 編集するファイルと場所</h3><p>STEP 03 の <code>script.js</code> に続けます。得点の変数を追加し、<code>start()</code>・<code>update()</code>・<code>draw()</code> を置き換えます。<code>coinTouchesPlayer()</code> も追加します。</p>
-<h3>3. 追加または置換するコード</h3><h4>1. 得点の変数を追加する</h4>
-
-<p>先頭の変数宣言にある <code>let rightPressed = false;</code> の行の直後に追加します。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let rightPressed = false;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let score = 0;</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="let rightPressed = false;">let score = 0;
-</code></pre>
-<p><code>score</code> は集めたコインの枚数です。最初は0で、キャッチしたときに増えます。</p>
-<h4>2. start() を置き換える</h4>
-
-<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY = 80;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  score = 0;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
-  playerX = (canvas.width - playerWidth) / 2;
-  coinX = canvas.width / 2;
-  coinY = 80;
-  clearKeys();
-  score = 0;
-}
-</code></pre>
-<p><code>start()</code> は位置と入力を初期状態に戻し、<code>score = 0</code> で得点も0に戻します。</p>
-<h4>3. update() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>キャッチしたら得点を増やす</h5><p>当たり判定が成り立つときに1点を加えます。</p><pre class="reading-code"><code>if (coinTouchesPlayer()) {
-  score += 1;
-  resetCoin();
-}</code></pre><p><code>coinTouchesPlayer()</code> が <code>true</code> を返すと中の処理が動きます。<code>score += 1</code> で得点を1増やし、<code>resetCoin()</code> でコインを上に戻します。同じ1枚で何度も点が増えるのを防ぐためです。</p><h5>画面の外に落ちたら戻す</h5><p>キャッチしていない場合に、画面の下へ抜けたか調べます。</p><pre class="reading-code"><code>else if (coinY - coinRadius &gt; canvas.height) {
-  resetCoin();
-}</code></pre><p><code>coinY - coinRadius</code> はコインの上端、<code>canvas.height</code> は画面の高さです。上端が画面の下より大きくなると、コイン全体が外に出ています。<code>else if</code> なので、キャッチした場合はこの判定をしません。</p></div>
-
-<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    playerX += playerSpeed;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  coinY += coinSpeed;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  if (coinY - coinRadius &gt; canvas.height) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (coinTouchesPlayer()) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    score += 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    resetCoin();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  } else if (coinY - coinRadius &gt; canvas.height) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    resetCoin();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
-  if (leftPressed) {
-    playerX -= playerSpeed;
-  }
-  if (rightPressed) {
-    playerX += playerSpeed;
-  }
-  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
-
-  coinY += coinSpeed;
-
-  if (coinTouchesPlayer()) {
-    score += 1;
-    resetCoin();
-  } else if (coinY - coinRadius &gt; canvas.height) {
-    resetCoin();
-  }
-}
-</code></pre></details>
-
-<h4>4. 当たり判定の関数を追加する</h4>
-<p>当たり判定では、丸いコインを囲む四角と受け皿の四角を比べます。上下左右の4つの条件が全部成り立つとき、重なったとみなします。</p><div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>コインの下端が受け皿の上端に届いたか</h5><p>下に進むほど y が大きくなることを使います。</p><pre class="reading-code"><code>coinY + coinRadius &gt;= playerY</code></pre><p><code>coinY + coinRadius</code> はコインの下端、<code>playerY</code> は受け皿の上端です。<code>&gt;=</code> は「以上」なので、同じ位置になったときも条件を満たします。</p><h5>コインの上端が受け皿の下端を通り過ぎていないか</h5><p>縦方向のもう一方の端を比べます。</p><pre class="reading-code"><code>coinY - coinRadius &lt;= playerY + playerHeight</code></pre><p>左辺はコインの上端、右辺は受け皿の下端です。<code>&lt;=</code> は「以下」なので、上端が下端と同じ位置か、それより上にあれば条件を満たします。</p><h5>コインの右端が受け皿の左端に届いたか</h5><p>横方向の端を比べます。</p><pre class="reading-code"><code>coinX + coinRadius &gt;= playerX</code></pre><p>左辺はコインの右端、右辺は受け皿の左端です。右端が左端と同じ位置か、それより右にあれば条件を満たします。</p><h5>コインの左端が受け皿の右端を通り過ぎていないか</h5><p>横方向のもう一方の端を比べます。</p><pre class="reading-code"><code>coinX - coinRadius &lt;= playerX + playerWidth</code></pre><p>左辺はコインの左端、右辺は受け皿の右端です。左端が右端と同じ位置か、それより左にあれば条件を満たします。</p></div>
-<p>関数では4つの条件を <code>&amp;&amp;</code> でつなぎ、全部成り立てば <code>true</code>、そうでなければ <code>false</code> を <code>return</code> で呼び出し元に返します。端が接しているときも重なりです。コインを囲む四角で判定するため、四角の角だけが重なり、丸自体は触れていなくてもキャッチになる場合があります。</p>
-<p><code>function resetCoin() {</code> の行のすぐ上に追加します。<code>update()</code> の閉じる <code>}</code> より後です。<code>resetCoin()</code> との間は空行を1行挟みます。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">function coinTouchesPlayer() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  return (</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinY + coinRadius &gt;= playerY &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinX + coinRadius &gt;= playerX &amp;&amp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    coinX - coinRadius &lt;= playerX + playerWidth</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  );</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function resetCoin() {</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-before-line" data-anchor="function resetCoin() {" data-gap="blank">function coinTouchesPlayer() {
-  return (
-    coinY + coinRadius &gt;= playerY &amp;&amp;
-    coinY - coinRadius &lt;= playerY + playerHeight &amp;&amp;
-    coinX + coinRadius &gt;= playerX &amp;&amp;
-    coinX - coinRadius &lt;= playerX + playerWidth
-  );
-}
-</code></pre></details>
-
-<h4>5. draw() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>変わる得点を表示する</h5><p>固定の0の代わりに、変数の値を表示します。</p><pre class="reading-code"><code>ctx.fillText(&quot;コイン: &quot; + score, 24, 38);</code></pre><p><code>+</code> は片方が文字列のとき、文字をつなげます。たとえば <code>score</code> が2なら「コイン: 2」と表示されます。数値も文字に変わって表示されます。</p></div>
-
-<p><code>function draw() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを丸ごと置き換えます。得点を固定の0から変数に変更します。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score, 24, 38);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="draw">function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = &quot;#2563eb&quot;;
-  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
-
-  ctx.fillStyle = &quot;#f5b942&quot;;
-  ctx.beginPath();
-  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = &quot;#172b4d&quot;;
-  ctx.font = &quot;22px sans-serif&quot;;
-  ctx.fillText(&quot;コイン: &quot; + score, 24, 38);
-  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);
-}
-</code></pre></details>
-
-</details><h3>4. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。最初のコインは中央に落ちるので、動かずに待つと1点増えます。</li><li>次のコインを左右キーで追いかけます。1回のキャッチで1点だけ増え、コインは上に戻ります。</li><li>わざと落としても得点が減らず、次のコインが現れます。受け皿の端でもキャッチできるか試します。</li></ol>
-<h3>5. 小さな練習</h3><p><code>playerWidth</code> を <code>60</code> に変え、キャッチしにくくなるか確かめましょう。次に <code>score += 1</code> を <code>score += 2</code> にして、1枚の得点を変えてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
+  }</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>重なっていたら 1 点を加えて次のコインを出します。重ならず画面の下に落ちた場合も次のコインを出します。</p></div><div class="coin-task"><h4>得点の値を表示する</h4><p><code>draw()</code> の波括弧の内側にある次の行を置き換えます。</p><p class="coin-marker-label">置き換える範囲</p><pre class="coin-marker"><code>  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);</code></pre><p class="coin-code-label">置き換えるコード</p><pre class="coin-copy"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillText(&quot;コイン: 0&quot;, 24, 38);" data-small-separator="&#10;">  ctx.fillText(&quot;コイン: &quot; + score, 24, 38);</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>文字と <code>score</code> を <code>+</code> でつなぐと、集めた枚数が表示されます。</p></div><h3>3. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。最初のコインは中央に落ちるので、動かずに待つと1点増えます。</li><li>次のコインを左右キーで追いかけます。1回のキャッチで1点だけ増え、コインは上に戻ります。</li><li>わざと落としても得点が減らず、次のコインが現れます。受け皿の端でもキャッチできるか試します。</li></ol>
+<h3>4. 小さな練習</h3><p><code>playerWidth</code> を <code>60</code> に変え、キャッチしにくくなるか確かめましょう。次に <code>score += 1</code> を <code>score += 2</code> にして、1枚の得点を変えてみましょう。</p><p class="practice-note">次の STEP に進む前に、練習で変えた部分を上のコードの値に戻しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
 <p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-04-collision">このステップ終了時の見本と自分のコードを比べる</a></p></section>
 <section class="lesson" id="step-05" data-step="05-game">
@@ -681,162 +373,8 @@ let lives = startingLives;</code></pre><button type="button" class="coin-copy-bu
     ctx.font = &quot;24px sans-serif&quot;;
     ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
     ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
-    ctx.textAlign = &quot;left&quot;;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>結果と集めた枚数、Space キーの案内を中央に描きます。最後に文字の位置合わせを左に戻します。</p></div><details class="coin-reference"><summary>変更前後の比較や関数全体を確認する</summary><h3>2. 編集するファイルと場所</h3><p>STEP 04 の <code>script.js</code> に続けます。ゲームの状態とルールの変数を追加し、<code>start()</code>・<code>update()</code>・<code>handleKeyDown()</code>・<code>draw()</code> を置き換えます。イベントの登録やゲームループは追加しません。</p>
-<h3>3. 追加または置換するコード</h3><h4>1. ルールと状態の変数を追加する</h4>
-
-<p>先頭の変数宣言にある <code>let score = 0;</code> の行の直後に、空行を1行挟んで追加します。</p>
-<div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let score = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const targetScore = 5;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const startingLives = 3;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let lives = startingLives;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let gameState = &quot;playing&quot;;</span></div></div><p class="copy-label">追加するコード（コピー用）</p><pre><code data-file="script.js" data-action="insert-after-line" data-anchor="let score = 0;" data-gap="blank">const targetScore = 5;
-const startingLives = 3;
-let lives = startingLives;
-let gameState = &quot;playing&quot;;
-</code></pre>
-<p><code>targetScore</code> はクリアに必要な枚数、<code>startingLives</code> は最初の残り回数です。<code>lives</code> はコインを落とすたびに1減り、0になるとゲームオーバーです。<code>gameState</code> には <code>"playing"</code>（プレイ中）、<code>"clear"</code>（クリア）、<code>"gameover"</code>（ゲームオーバー）のどれかを入れます。状態の名前はコードと同じつづりで書きます。</p>
-<h4>2. start() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>再挑戦に向けて値を戻す</h5><p>位置と入力に加え、得点と残り回数と状態を初期値に戻します。</p><pre class="reading-code"><code>score = 0;
-lives = startingLives;
-gameState = &quot;playing&quot;;</code></pre><p><code>score</code> は0、<code>lives</code> は最初の回数、<code>gameState</code> はプレイ中に戻ります。</p></div>
-
-<p><code>function start() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  clearKeys();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  score = 0;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  lives = startingLives;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  gameState = &quot;playing&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="start">function start() {
-  playerX = (canvas.width - playerWidth) / 2;
-  coinX = canvas.width / 2;
-  coinY = 80;
-  clearKeys();
-  score = 0;
-  lives = startingLives;
-  gameState = &quot;playing&quot;;
-}
-</code></pre></details>
-
-<h4>3. update() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>終了後は更新を止める</h5><p>プレイ中以外は位置や得点を変えません。</p><pre class="reading-code"><code>if (gameState !== &quot;playing&quot;) {
-  return;
-}</code></pre><p><code>!==</code> は「同じではない」という比較です。プレイ中でなければ <code>return</code> で <code>update()</code> を終えます。ゲームループの <code>draw()</code> は呼ばれ続けます。</p><h5>必要な枚数を集めたらクリア</h5><p>得点を増やしてから、目標に届いたか調べます。</p><pre class="reading-code"><code>if (score &gt;= targetScore) {
-  gameState = &quot;clear&quot;;
-} else {
-  resetCoin();
-}</code></pre><p><code>score &gt;= targetScore</code> は得点が目標以上という意味です。届いたら状態を <code>"clear"</code> にし、まだなら次のコインを出します。</p><h5>残りが0ならゲームオーバー</h5><p>落としたときは残り回数を1減らします。</p><pre class="reading-code"><code>lives -= 1;
-if (lives === 0) {
-  gameState = &quot;gameover&quot;;
-} else {
-  resetCoin();
-}</code></pre><p><code>lives -= 1</code> で残りを1減らします。<code>lives === 0</code> なら <code>"gameover"</code>、まだ残っていれば次のコインを出します。</p></div>
-
-<p><code>function update() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (leftPressed) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    playerX -= playerSpeed;</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (coinTouchesPlayer()) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    score += 1;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    resetCoin();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (score &gt;= targetScore) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      gameState = &quot;clear&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      resetCoin();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  } else if (coinY - coinRadius &gt; canvas.height) {</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    resetCoin();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    lives -= 1;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (lives === 0) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      gameState = &quot;gameover&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    } else {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      resetCoin();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="update">function update() {
-  if (gameState !== &quot;playing&quot;) {
-    return;
-  }
-
-  if (leftPressed) {
-    playerX -= playerSpeed;
-  }
-  if (rightPressed) {
-    playerX += playerSpeed;
-  }
-  playerX = Math.max(0, Math.min(playerX, canvas.width - playerWidth));
-
-  coinY += coinSpeed;
-
-  if (coinTouchesPlayer()) {
-    score += 1;
-    if (score &gt;= targetScore) {
-      gameState = &quot;clear&quot;;
-    } else {
-      resetCoin();
-    }
-  } else if (coinY - coinRadius &gt; canvas.height) {
-    lives -= 1;
-    if (lives === 0) {
-      gameState = &quot;gameover&quot;;
-    } else {
-      resetCoin();
-    }
-  }
-}
-</code></pre></details>
-
-<h4>4. handleKeyDown() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>Space キーで再挑戦する</h5><p>終了後に Space を押したときだけ初期状態へ戻します。</p><pre class="reading-code"><code>if (event.code === &quot;Space&quot;) {
-  event.preventDefault();
-  if (gameState !== &quot;playing&quot;) {
-    start();
-  }
-}</code></pre><p><code>start()</code> だけを呼びます。すでに続いているゲームループが次のフレームを描きます。ここで <code>gameLoop()</code> をもう一度呼ぶと更新と描画のくり返しが二重になり、動きが速くなります。初回の末尾にある <code>start(); gameLoop();</code> と STEP 03 のイベント登録は各1回のままにします。</p></div>
-
-<p><code>function handleKeyDown(event) {</code> の行から、その関数を閉じる行頭の <code>}</code> までを、次のコードで丸ごと置き換えます。前後の関数は含めません。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;ArrowLeft&quot;) {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    leftPressed = true;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.code === &quot;ArrowRight&quot;) {</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.code === &quot;Space&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    event.preventDefault();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (gameState !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      start();</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="handleKeyDown">function handleKeyDown(event) {
-  if (event.code === &quot;ArrowLeft&quot;) {
-    leftPressed = true;
-    event.preventDefault();
-  }
-  if (event.code === &quot;ArrowRight&quot;) {
-    rightPressed = true;
-    event.preventDefault();
-  }
-  if (event.code === &quot;Space&quot;) {
-    event.preventDefault();
-    if (gameState !== &quot;playing&quot;) {
-      start();
-    }
-  }
-}
-</code></pre></details>
-
-<h4>5. draw() を置き換える</h4>
-<div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集には、この後の「比較とコピー用コード」を開いて使います。</p><h5>得点と残り回数を表示する</h5><p>現在の値とルールを画面に描きます。</p><pre class="reading-code"><code>ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
-ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);</code></pre><p><code>+</code> で文字と数値をつなぎます。画面下のルール表示にも <code>targetScore</code> と <code>startingLives</code> を使います。</p><h5>結果画面を重ねる</h5><p>終了したとき、通常の絵の上に半透明の四角を描きます。</p><pre class="reading-code"><code>if (gameState !== &quot;playing&quot;) {
-  ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);</code></pre><p><code>rgba(..., 0.92)</code> の最後の数は色の透けにくさです。1なら下の絵が透けず、0なら色が見えません。</p><h5>結果の文字を中央に描く</h5><p>状態に応じたメッセージを表示します。</p><pre class="reading-code"><code>let message = &quot;ゲームオーバー&quot;;
-if (gameState === &quot;clear&quot;) {
-  message = &quot;クリア！&quot;;
-}
-ctx.textAlign = &quot;center&quot;;
-ctx.fillText(message, canvas.width / 2, 195);</code></pre><p>最初はゲームオーバーの文字を用意し、クリアなら入れ直します。<code>textAlign = "center"</code> は文字を指定座標の中央に寄せます。描き終わったら <code>"left"</code> に戻します。次のフレームの得点表示にも同じ描画設定が使われるためです。</p></div>
-
-<p><code>function draw() {</code> の行から、その関数を閉じる行頭の <code>}</code> までを丸ごと置き換えます。ゲームの操作表示と結果画面も Canvas の中に描きます。</p>
-<details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;22px sans-serif&quot;;</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score, 24, 38);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;← → キーで移動&quot;, 24, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;18px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (gameState !== &quot;playing&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    let message = &quot;ゲームオーバー&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    if (gameState === &quot;clear&quot;) {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">      message = &quot;クリア！&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillStyle = &quot;#172b4d&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.textAlign = &quot;center&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;bold 40px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(message, canvas.width / 2, 195);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.font = &quot;24px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">    ctx.textAlign = &quot;left&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  }</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><p class="copy-label">置き換えるコード（コピー用）</p><pre><code data-file="script.js" data-action="replace-function" data-name="draw">function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = &quot;#2563eb&quot;;
-  ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
-
-  ctx.fillStyle = &quot;#f5b942&quot;;
-  ctx.beginPath();
-  ctx.arc(coinX, coinY, coinRadius, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = &quot;#172b4d&quot;;
-  ctx.font = &quot;22px sans-serif&quot;;
-  ctx.fillText(&quot;コイン: &quot; + score + &quot; / &quot; + targetScore, 24, 38);
-  ctx.fillText(&quot;のこり: &quot; + lives, 650, 38);
-
-  ctx.font = &quot;18px sans-serif&quot;;
-  ctx.fillText(&quot;← →：移動 / &quot; + targetScore + &quot;枚でクリア / &quot; + startingLives + &quot;回ミスで終了&quot;, 24, 430);
-
-  if (gameState !== &quot;playing&quot;) {
-    ctx.fillStyle = &quot;rgba(247, 251, 255, 0.92)&quot;;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    let message = &quot;ゲームオーバー&quot;;
-    if (gameState === &quot;clear&quot;) {
-      message = &quot;クリア！&quot;;
-    }
-
-    ctx.fillStyle = &quot;#172b4d&quot;;
-    ctx.textAlign = &quot;center&quot;;
-    ctx.font = &quot;bold 40px sans-serif&quot;;
-    ctx.fillText(message, canvas.width / 2, 195);
-    ctx.font = &quot;24px sans-serif&quot;;
-    ctx.fillText(&quot;集めたコイン: &quot; + score + &quot; 枚&quot;, canvas.width / 2, 245);
-    ctx.fillText(&quot;Space キーでもう一度&quot;, canvas.width / 2, 295);
-    ctx.textAlign = &quot;left&quot;;
-  }
-}
-</code></pre></details>
-
-</details><h3>4. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。画面に得点、残り回数、操作とルールが表示されます。</li><li>5枚集めて「クリア！」を確認します。終了後に左右キーを押しても受け皿は動きません。Space キーで得点0・残り3・中央の位置に戻ります。</li><li>今度は3回落とし「ゲームオーバー」を確認します。こちらも Space キーで再挑戦でき、何度繰り返しても動きが速くならないことを確認します。</li></ol>
-<h3>5. 小さな練習</h3><p><code>targetScore</code> を <code>8</code>、<code>startingLives</code> を <code>5</code> に変えましょう。画面下のルール表示も変数から描いているので一緒に変わります。さらに受け皿の幅と落下速度を調整し、遊びやすい組み合わせを探しましょう。</p>
+    ctx.textAlign = &quot;left&quot;;</code></pre><button type="button" class="coin-copy-button" hidden>コードをコピー</button><span class="coin-copy-status" role="status" aria-live="polite"></span><p>結果と集めた枚数、Space キーの案内を中央に描きます。最後に文字の位置合わせを左に戻します。</p></div><h3>3. 保存・再読み込み後の確認</h3><ol><li>保存して再読み込みします。画面に得点、残り回数、操作とルールが表示されます。</li><li>5枚集めて「クリア！」を確認します。終了後に左右キーを押しても受け皿は動きません。Space キーで得点0・残り3・中央の位置に戻ります。</li><li>今度は3回落とし「ゲームオーバー」を確認します。こちらも Space キーで再挑戦でき、何度繰り返しても動きが速くならないことを確認します。</li></ol>
+<h3>4. 小さな練習</h3><p><code>targetScore</code> を <code>8</code>、<code>startingLives</code> を <code>5</code> に変えましょう。画面下のルール表示も変数から描いているので一緒に変わります。さらに受け皿の幅と落下速度を調整し、遊びやすい組み合わせを探しましょう。</p>
 <a class="back-top" href="#contents">目次へ戻る ↑</a>
 <p class="chapter-compare-link"><a href="compare/index.html?chapter=tutorial-index-html-05-game">このステップ終了時の見本と自分のコードを比べる</a></p></section>
         <section id="help" class="lesson">

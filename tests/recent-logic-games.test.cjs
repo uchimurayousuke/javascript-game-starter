@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("./lesson-edits.cjs");
 const {test}=require("node:test"), assert=require("node:assert/strict"), fs=require("node:fs"), path=require("node:path"), vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
 function load(level,name,stage="complete") {
@@ -72,24 +73,22 @@ test("工場は編集時の材料を守り、加工品だけ納品し、長時�
  g.run("factory.materials=[{x:6,y:1,kind:'round'}];factory.tick(false)");assert.equal(g.run("factory.delivered"),1);assert.equal(g.run("factory.discarded"),1);
  g.run("factory.running=true");g.document.hidden=true;g.fire("visibilitychange");g.tick(60000);assert.equal(g.run("factory.running"),false);assert.equal(g.run("factory.tickCount"),8);
 });
-test("3教材の24段階は変更前後の全文と実際のコードが一致する",()=>{
- const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27);/g,x=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#x27;":"'"})[x]);
- for(const [level,name] of [["intermediate","number-cards"],["advanced","bag-layout"],["advanced","conveyor-factory"]]) for(const extension of [false,true]){
-  const base=path.join(root,"examples",level,name),folder=path.join(base,extension?"extensions":""),page=fs.readFileSync(path.join(folder,"tutorial.html"),"utf8");
-  const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,extension?3:5);
-  let previous=fs.readFileSync(extension?path.join(base,"complete/script.js"):path.join(root,"template/script.js"),"utf8").replace(/\r\n/g,"\n");
-  for(const [index,match] of sections.entries()){
-   const section=match[0],pair=section.match(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/);
-   assert.ok(pair,`${name} ${index+1}`);assert.equal(decode(pair[1]),previous);
-   const next=decode(pair[2]);assert.equal(next,fs.readFileSync(path.join(folder,`step${index+1}/script.js`),"utf8"));
-   for(const label of ["目標","保存後の確認","小さな練習"])assert.ok(section.includes(`<h3>${label}</h3>`));
-   if(!section.includes('<h3>コードの意味</h3>')) assert.ok(require('./lesson-explanation.cjs').hasInlineExplanation(section),`${name}: ステップ内にコードと説明`);
-   assert.match(section,/<summary>練習の答え<\/summary>/);
-   const rows=[...section.matchAll(/<div class="change-row change-(same|removed|added)"><span class="change-label">[^<]*<\/span><span class="change-code">([\s\S]*?)<\/span><\/div>/g)];assert.ok(rows.length);
-   const before=previous.split("\n"),after=next.split("\n");let a=0,b=0;
-   for(const [,kind,text] of rows){const line=text==="（空行）"?"":decode(text);if(kind!=="added"){a=before.indexOf(line,a);assert.ok(a>=0);a++;}if(kind!=="removed"){b=after.indexOf(line,b);assert.ok(b>=0);b++;}}
-   previous=next;
+test("3教材の24段階は小作業で見本を再現できる", () => {
+  const games = [["intermediate","number-cards"],["advanced","bag-layout"],["advanced","conveyor-factory"]];
+  for (const [level, name] of games) {
+    const dir = "examples/" + level + "/" + name + "/";
+    for (const [subdir, count] of [["", 5], ["extensions/", 3]]) {
+      const relative = dir + subdir + "tutorial.html";
+      const page = fs.readFileSync(path.join(root, relative), "utf8");
+      assert.equal(verifyLessonSteps(relative).length, count, name);
+      const sections = [...page.matchAll(/<section><h2>ステップ \d：[\s\S]*?<\/section>/g)];
+      assert.equal(sections.length, count, name);
+      for (const [section] of sections) {
+        for (const label of ["目標", "小さな練習"]) assert.ok(section.includes("<h3>" + label + "</h3>"), name + " " + label);
+        assert.match(section, /<h3>保存後の(?:確認|確かめ方)<\/h3>/, name);
+        assert.ok(require("./lesson-explanation.cjs").hasInlineExplanation(section), name);
+        assert.match(section, /<summary>練習の答え<\/summary>/);
+      }
+    }
   }
-  assert.equal(previous,fs.readFileSync(path.join(folder,"complete/script.js"),"utf8"));
- }
 });

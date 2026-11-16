@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="../../../tutorial/workshop.css?v=20261116-workbook">
 <link rel="stylesheet" href="../../../tutorial/game-workbook.css?v=20261116-workbook">
-</head><body class="lesson-page feature-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：体力5と回復薬2個を表示">体力5と回復薬2個を表示</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：1で1個使い体力を3回復">1で1個使い体力を3回復</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：Gで拾い最大5個、Rで元に戻す">Gで拾い最大5個、Rで元に戻す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：持ち物とアイテム使用</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：体力5と回復薬2個を表示">体力5と回復薬2個を表示</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：1で1個使い体力を3回復">1で1個使い体力を3回復</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：Gで拾い最大5個、Rで元に戻す">Gで拾い最大5個、Rで元に戻す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">持ち物とアイテム使用</li></ol></nav><h1>持ち物とアイテム使用を作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄は読むための表示です。消す行と追加する行を色と名前で示します。コピーするのは「変更後（コピー用）」の欄です。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>この教材では、変更前の <code>script.js</code> 全体を変更後の全体に置き換えます。前のコードを残して重ねて追加しないでください。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+</head><body class="lesson-page feature-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：体力5と回復薬2個を表示">体力5と回復薬2個を表示</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：1で1個使い体力を3回復">1で1個使い体力を3回復</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：Gで拾い最大5個、Rで元に戻す">Gで拾い最大5個、Rで元に戻す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：持ち物とアイテム使用</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：体力5と回復薬2個を表示">体力5と回復薬2個を表示</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：1で1個使い体力を3回復">1で1個使い体力を3回復</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：Gで拾い最大5個、Rで元に戻す">Gで拾い最大5個、Rで元に戻す</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">持ち物とアイテム使用</li></ol></nav><h1>持ち物とアイテム使用を作る</h1><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
 <details class="lesson-operation-video" id="lesson-zip-video">
   <summary>WindowsでZIPを展開する（動画）</summary>
   <figure>
@@ -94,65 +94,7 @@ function gameLoop() {</code></pre><p class="task-code-label">置き換えるコ�
 
 
 
-function gameLoop() {</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>画面の案内を表示します。使う操作は次のステップで作ります。</p></div><p class="task-check">保存して作業用の index.html を再読み込みし、体力 5 と回復薬 2 が表示されることを確かめます。使う操作は次に作ります。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><div class="reading-walkthrough"><p class="reading-label">読むための抜粋です。編集には下のコピー用コードを使います。</p><h5>体力と回復薬の数を用意する</h5><pre class="reading-code"><code>hp = 5; potions = 2;</code></pre><p><code>hp</code> は体力、<code>potions</code> は薬の数です。<code>start()</code> でそれぞれ5と2にし、別々に覚えます。</p><h5>2つの値を画面に表示する</h5><pre class="reading-code"><code>ctx.fillText("体力: " + hp + " / 10", 230, 150);
-  ctx.fillText("回復薬: " + potions, 230, 210);</code></pre><p><code>+</code> で文字と数をつなぎ、体力と回復薬の数を別々に表示します。体力の上限は10です。</p></div><details class="instruction-code"><summary>比較とコピー用コードを開く</summary><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 11 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let hp, potions;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  hp = 5; potions = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;持ち物を表示&quot;, 120, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-function start() {
-}
-
-function update() {
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-let hp, potions;
-
-function start() {
-  hp = 5; potions = 2;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;;
-  ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);
-  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);
-  ctx.fillText(&quot;持ち物を表示&quot;, 120, 300);
-}
-
-
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+function gameLoop() {</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>画面の案内を表示します。使う操作は次のステップで作ります。</p></div><p class="task-check">保存して作業用の index.html を再読み込みし、体力 5 と回復薬 2 が表示されることを確かめます。使う操作は次に作ります。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
 <details class="lesson-operation-video" id="lesson-save-video">
   <summary>保存してゲーム画面を更新する（動画）</summary>
   <figure>
@@ -243,80 +185,7 @@ window.addEventListener(&quot;keydown&quot;, event =&gt; {
   if (event.repeat) return;
 });
 
-function gameLoop() {</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>keydown</code> はキーを押したときに起きます。<code>||</code> はどれか一つが成り立つという意味です。修飾キーや日本語入力中と、押し続けた繰り返しは <code>return</code> で処理を終えます。</p></div><div class="lesson-task"><h4>回復薬を1個使う</h4><p>キー入力処理の繰り返しを除く行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.repeat) return;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.repeat) return;" data-small-separator="&#10;">  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>===</code> は同じか、<code>&gt;</code> はより大きい、<code>&lt;</code> はより小さいという比較です。<code>&amp;&amp;</code> はすべての条件が必要で、1 を押し、薬があり、体力が 10 未満なら使います。<code>Math.min</code> は小さい方を選んで体力を 10 以下にし、<code>-= 1</code> で薬を 1 個減らします。例えば体力 8 なら 10 に回復します。</p></div><p class="task-check">保存して再読み込みし、1 を押すと体力が 8 に増えて薬が 1 個減り、もう一度押すと体力が 10 になることを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><div class="reading-walkthrough"><p class="reading-label">読むための抜粋です。編集には下のコピー用コードを使います。</p><h5>使う条件と回復量を決める</h5><pre class="reading-code"><code>if (event.key === "1" &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</code></pre><p>1キーを押し、<code>potions &gt; 0</code> で薬があり、<code>hp &lt; 10</code> で体力が満タンでないときだけ使います。<code>&amp;&amp;</code> は条件がすべて必要です。<code>Math.min(10, hp + 3)</code> で3回復しても10を超えず、<code>potions -= 1</code> で薬を1個減らします。体力8なら回復後は10です。</p><h5>繰り返し入力や変換中を除く</h5><pre class="reading-code"><code>if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
-  if (event.repeat) return;</code></pre><p>Ctrl・Alt・Metaとの組み合わせや変換中、押しっぱなしの繰り返し入力なら <code>return</code> し、薬を続けて使わないようにします。</p></div><details class="instruction-code"><summary>比較とコピー用コードを開く</summary><details class="change-fold"><summary>行ごとの比較を見る（消す 2 行・追加 6 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let hp, potions;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hp = 5; potions = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;持ち物を表示&quot;, 120, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;1: 使う&quot;, 120, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-let hp, potions;
-
-function start() {
-  hp = 5; potions = 2;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;;
-  ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);
-  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);
-  ctx.fillText(&quot;持ち物を表示&quot;, 120, 300);
-}
-
-
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-let hp, potions;
-
-function start() {
-  hp = 5; potions = 2;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;;
-  ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);
-  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);
-  ctx.fillText(&quot;1: 使う&quot;, 120, 300);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
-  if (event.repeat) return;
-  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }
-});
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>1を2回押すと体力10、回復薬0です。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>hp + 3 の3を2に変え、1を押すと体力が5から7になることを確かめます。3に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-inventory-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：Gで拾い最大5個、Rで元に戻す</h2>
+function gameLoop() {</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>keydown</code> はキーを押したときに起きます。<code>||</code> はどれか一つが成り立つという意味です。修飾キーや日本語入力中と、押し続けた繰り返しは <code>return</code> で処理を終えます。</p></div><div class="lesson-task"><h4>回復薬を1個使う</h4><p>キー入力処理の繰り返しを除く行の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.repeat) return;</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.repeat) return;" data-small-separator="&#10;">  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>===</code> は同じか、<code>&gt;</code> はより大きい、<code>&lt;</code> はより小さいという比較です。<code>&amp;&amp;</code> はすべての条件が必要で、1 を押し、薬があり、体力が 10 未満なら使います。<code>Math.min</code> は小さい方を選んで体力を 10 以下にし、<code>-= 1</code> で薬を 1 個減らします。例えば体力 8 なら 10 に回復します。</p></div><p class="task-check">保存して再読み込みし、1 を押すと体力が 8 に増えて薬が 1 個減り、もう一度押すと体力が 10 になることを確かめます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>1を2回押すと体力10、回復薬0です。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>hp + 3 の3を2に変え、1を押すと体力が5から7になることを確かめます。3に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-inventory-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：Gで拾い最大5個、Rで元に戻す</h2>
 <details class="step-preview" id="preview-features-intermediate-inventory-tutorial-html-step3">
   <summary>このステップの見本を図で見る</summary>
     <figure class="step-diagram" data-step-diagram="bars">
@@ -386,82 +255,4 @@ gameLoop();
   </figure>
     </details>
 </details>
-<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>Gで拾い最大5個、Rで元に戻す。</p><h3>予想してみる</h3><p>薬0個で1を押すと？</p><details><summary>答えを確認する</summary><p>体力も個数も変わりません。</p></details><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>拾う操作と再開を案内する</h4><p><code>draw()</code> の操作案内で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  ctx.fillText(&quot;1: 使う&quot;, 120, 300);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillText(&quot;1: 使う&quot;, 120, 300);" data-small-separator="&#10;">  ctx.fillText(&quot;1: 使う　G: 拾う　R: 最初から&quot;, 120, 300);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>G で拾い、R で最初から始める案内を加えます。</p></div><div class="lesson-task"><h4>回復薬を拾う</h4><p>1 キーの判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }" data-small-separator="&#10;">  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>toLowerCase()</code> で小文字にしたキーが G なら薬を 1 個増やします。<code>Math.min</code> で上限の 5 個を超えないようにします。</p></div><div class="lesson-task"><h4>Rで最初から始める</h4><p>G の判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);" data-small-separator="&#10;">  if (event.key.toLowerCase() === &quot;r&quot;) start();</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>R なら <code>start()</code> で体力と回復薬を最初の値に戻します。</p></div><figure class="learning-diagram" id="feature-inventory" aria-labelledby="feature-inventory-title"><figcaption id="feature-inventory-title">図：薬を1個使うとHP＋3。ただしHPは10まで</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="薬を1個使うとHP＋3。ただしHPは10まで"><img src="../../../tutorial/illustrations/astra/feature-inventory.svg" width="1200" height="850" alt="初期HP5と薬2。1キーで薬を1個使いHP8薬1、次はHP10薬0。薬0またはHP10では使用せず薬も減らない。拾う薬は最大5個。"></div><p>初期HP5と薬2。1キーで薬を1個使いHP8薬1、次はHP10薬0。薬0またはHP10では使用せず薬も減らない。拾う薬は最大5個。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-inventory.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：薬を1個使うとHP＋3。ただしHPは10まで（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p class="task-check">保存して再読み込みし、G で薬を拾い、5 個を超えないことと、R で体力 5・薬 2 個に戻ることを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><div class="reading-walkthrough"><p class="reading-label">読むための抜粋です。編集には下のコピー用コードを使います。</p><h5>拾う数を5個までにする</h5><pre class="reading-code"><code>if (event.key.toLowerCase() === "g") potions = Math.min(5, potions + 1);</code></pre><p>Gを押すと薬を1個増やします。<code>Math.min(5, potions + 1)</code> は5と増やした数の小さい方を選ぶので、上限は5個です。<code>toLowerCase()</code> で大文字と小文字を同じに扱います。</p><h5>体力と薬を元に戻す</h5><pre class="reading-code"><code>if (event.key.toLowerCase() === "r") start();</code></pre><p>Rで <code>start()</code> を呼び、体力5・薬2個に戻します。薬が0個のときや体力が満タンのときは使わず、個数も減りません。</p><span id="diagram-feature-inventory"></span></div><details class="instruction-code"><summary>比較とコピー用コードを開く</summary><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">この段階の変更</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">&quot;use strict&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const canvas = document.querySelector(&quot;#game-canvas&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">let hp, potions;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  hp = 5; potions = 2;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">  ctx.fillText(&quot;1: 使う&quot;, 120, 300);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;1: 使う　G: 拾う　R: 最初から&quot;, 120, 300);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  update();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  draw();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  requestAnimationFrame(gameLoop);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">start();</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">gameLoop();</span></div></div></details><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-let hp, potions;
-
-function start() {
-  hp = 5; potions = 2;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;;
-  ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);
-  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);
-  ctx.fillText(&quot;1: 使う&quot;, 120, 300);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
-  if (event.repeat) return;
-  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }
-});
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-let hp, potions;
-
-function start() {
-  hp = 5; potions = 2;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;;
-  ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;体力: &quot; + hp + &quot; / 10&quot;, 230, 150);
-  ctx.fillText(&quot;回復薬: &quot; + potions, 230, 210);
-  ctx.fillText(&quot;1: 使う　G: 拾う　R: 最初から&quot;, 120, 300);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
-  if (event.repeat) return;
-  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }
-  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);
-  if (event.key.toLowerCase() === &quot;r&quot;) start();
-});
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Gで拾うと最大5個まで増えます。Rで体力5、回復薬2に戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>拾うときの Math.min(5, potions + 1) の5を3に変え、Gを2回押しても薬が3個までになることを確かめます。5に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-inventory-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>potions</code> と自分のゲームの体力・上限を使い、薬があるときだけ使って数を減らします。拾った物は地図や配列から1回だけ取り除き、同じ物を繰り返し拾えないようにします。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：1:使う、G:拾う、R:最初から。</p></section><p><a href="complete/index.html" data-workbook-action="play">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>
+<span class="lesson-stage lesson-stage--goal" aria-hidden="true"></span><h3>目標</h3><p>Gで拾い最大5個、Rで元に戻す。</p><h3>予想してみる</h3><p>薬0個で1を押すと？</p><details><summary>答えを確認する</summary><p>体力も個数も変わりません。</p></details><h3>小さな作業</h3><p>上から順に作業します。目印を探し、その下のコードを書きます。</p><div class="lesson-task"><h4>拾う操作と再開を案内する</h4><p><code>draw()</code> の操作案内で、次の範囲を置き換えます。</p><p class="task-marker-label">置き換える範囲</p><pre class="task-marker"><code>  ctx.fillText(&quot;1: 使う&quot;, 120, 300);</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  ctx.fillText(&quot;1: 使う&quot;, 120, 300);" data-small-separator="&#10;">  ctx.fillText(&quot;1: 使う　G: 拾う　R: 最初から&quot;, 120, 300);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>G で拾い、R で最初から始める案内を加えます。</p></div><div class="lesson-task"><h4>回復薬を拾う</h4><p>1 キーの判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key === &quot;1&quot; &amp;&amp; potions &gt; 0 &amp;&amp; hp &lt; 10) { hp = Math.min(10, hp + 3); potions -= 1; }" data-small-separator="&#10;">  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>toLowerCase()</code> で小文字にしたキーが G なら薬を 1 個増やします。<code>Math.min</code> で上限の 5 個を超えないようにします。</p></div><div class="lesson-task"><h4>Rで最初から始める</h4><p>G の判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key.toLowerCase() === &quot;g&quot;) potions = Math.min(5, potions + 1);" data-small-separator="&#10;">  if (event.key.toLowerCase() === &quot;r&quot;) start();</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p>R なら <code>start()</code> で体力と回復薬を最初の値に戻します。</p></div><span id="diagram-feature-inventory"></span><figure class="learning-diagram" id="feature-inventory" aria-labelledby="feature-inventory-title"><figcaption id="feature-inventory-title">図：薬を1個使うとHP＋3。ただしHPは10まで</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="薬を1個使うとHP＋3。ただしHPは10まで"><img src="../../../tutorial/illustrations/astra/feature-inventory.svg" width="1200" height="850" alt="初期HP5と薬2。1キーで薬を1個使いHP8薬1、次はHP10薬0。薬0またはHP10では使用せず薬も減らない。拾う薬は最大5個。"></div><p>初期HP5と薬2。1キーで薬を1個使いHP8薬1、次はHP10薬0。薬0またはHP10では使用せず薬も減らない。拾う薬は最大5個。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-inventory.svg" target="_blank" rel="noopener" aria-label="図を大きく見る：薬を1個使うとHP＋3。ただしHPは10まで（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure><p class="task-check">保存して再読み込みし、G で薬を拾い、5 個を超えないことと、R で体力 5・薬 2 個に戻ることを確かめます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>Gで拾うと最大5個まで増えます。Rで体力5、回復薬2に戻ります。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>拾うときの Math.min(5, potions + 1) の5を3に変え、Gを2回押しても薬が3個までになることを確かめます。5に戻します。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-intermediate-inventory-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p><code>potions</code> と自分のゲームの体力・上限を使い、薬があるときだけ使って数を減らします。拾った物は地図や配列から1回だけ取り除き、同じ物を繰り返し拾えないようにします。</p><p>見本の状態、入力、更新、描画を自分のゲームの名前に合わせて移します。すでにある <code>start()</code>、<code>update()</code>、<code>draw()</code> に必要な部分を加え、ゲームループは増やしません。やり直すときは追加した状態も初期化してください。</p><p>操作：1:使う、G:拾う、R:最初から。</p></section><p><a href="complete/index.html" data-workbook-action="play">完成版で試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>

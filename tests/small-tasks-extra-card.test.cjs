@@ -20,7 +20,7 @@ test("カードバトルの基本・発展は小作業を順に行うと各段�
     assert.equal(sections.length, sub ? 3 : 5);
     let source = read(sub ? `${base}/complete/script.js` : "template/script.js");
     for (const [i, section] of sections.entries()) {
-      const main = section[0].split('<details class="task-reference">')[0];
+      const main = section[0];
       const edits = blocks(main);
       assert.ok(edits.length > 0);
       assert.equal((main.match(/class="lesson-task"/g) || []).length, edits.length);
@@ -38,7 +38,7 @@ test("カードバトルの基本・発展は小作業を順に行うと各段�
         assert.doesNotThrow(() => new vm.Script(source));
       }
       assert.equal(source, read(`${base}${sub}/step${i + 1}/script.js`), `${sub || "basic"} step${i + 1}`);
-      assert.match(section[0], /<details class="task-reference">/);
+      assert.doesNotMatch(section[0], /<details class="task-reference">/);
     }
   }
 });

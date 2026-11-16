@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("./lesson-edits.cjs");
 const {test} = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -7,22 +8,6 @@ const vm = require("node:vm");
 const root = path.resolve(__dirname, "..");
 const read = p => fs.readFileSync(path.join(root, p), "utf8").replace(/\r\n/g, "\n");
 const decode = s => s.replace(/&(?:amp|lt|gt|quot|#39|#x27);/g, x => ({"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"', "&#39;":"'", "&#x27;":"'"}[x]));
-function checkComparison(oldCode,newCode,view) {
-  const oldLines=oldCode.replace(/\n$/,"").split("\n"),newLines=newCode.replace(/\n$/,"").split("\n");
-  const groups=[];let group;
-  for(const [,kind,label,raw] of view.matchAll(/<div class="change-row change-(removed|added|same|hunk)"><span class="change-label">([^<]*)<\/span><span class="change-code">([^<]*)<\/span><\/div>/g)){
-    assert.equal(decode(label),{removed:"− 消す",added:"＋ 追加",same:"そのまま",hunk:"比較する場所"}[kind]);
-    if(kind==="hunk"){group=[];groups.push(group);}else{assert.ok(group);group.push({kind,text:raw==="（空行）"?"":decode(raw)});}
-  }
-  assert.ok(groups.length);let oi=0,ni=0;
-  const equal=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
-  for(const rows of groups){
-    const before=rows.filter(r=>r.kind!=="added").map(r=>r.text),after=rows.filter(r=>r.kind!=="removed").map(r=>r.text);let found;
-    for(let a=oi;a<=oldLines.length&&!found;a++)if(equal(oldLines.slice(a,a+before.length),before))for(let b=ni;b<=newLines.length;b++)if(equal(newLines.slice(b,b+after.length),after)&&equal(oldLines.slice(oi,a),newLines.slice(ni,b))){found=[a,b];break;}
-    assert.ok(found,"比較欄が変更と一致しません");oi=found[0]+before.length;ni=found[1]+after.length;
-  }
-  assert.ok(equal(oldLines.slice(oi),newLines.slice(ni)),"比較欄に変更の抜けがあります");
-}
 function harness(file, value = null, failStorage = false) {
   const events = {}, calls = [], images = [], writes = [];
   const listen = (type, fn) => (events[type] ??= []).push(fn);
@@ -34,17 +19,8 @@ function harness(file, value = null, failStorage = false) {
   vm.runInContext(read(file),context);
   return {calls,images,writes,run:s=>vm.runInContext(s,context),key:code=>(events.keydown||[]).forEach(fn=>fn({code,repeat:false,preventDefault(){}}))};
 }
-test("4段階の変更を出発点から再現し、完成版と一致する",()=>{
- const page=read("learning/combine/tutorial.html"), sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)]; assert.equal(sections.length,4);
- let code=read("tutorial/05-game/script.js");
- for(const [i,section] of sections.entries()){
-  const target=read(`learning/combine/step${i+1}/script.js`);
-  const overview=section[0].match(/<details class="change-fold">[\s\S]*?<div class="change-view"[\s\S]*?<\/div><\/details>/);assert.ok(overview);checkComparison(code,target,overview[0]);
-  const pairs=[...section[0].matchAll(/<details class="old-code"><summary>変更前を確認<\/summary><pre><code>([\s\S]*?)<\/code><\/pre><\/details>(?:<\/details>)?<p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length);
-  for(const pair of pairs){const old=decode(pair[1]),next=decode(pair[2]);assert.equal(code.split(old).length,2);code=code.replace(old,next);}
-  assert.equal(code,target);
- }
- assert.equal(code,read("learning/combine/complete/script.js"));
+test("4段階の変更を出発点から再現し、完成版と一致する", () => {
+  assert.equal(verifyLessonSteps("learning/combine/tutorial.html").length, 4);
 });
 test("ゲームの画面ごとに入力が分かれ、再挑戦で初期化される",()=>{
  for(const stage of ["step1","step2","step3","step4","complete"]){

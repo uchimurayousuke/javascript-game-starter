@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("./lesson-edits.cjs");
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
 function game(level,name,dir="complete",random=0.5){
@@ -78,16 +79,13 @@ test("戦術ゲームは両方の味方を操作し、敵を倒して勝利で�
  assert.equal(g.run("game.state"),"clear",`turns ${turns}, units ${g.run("JSON.stringify(game.units)")}`);
 });
 
-test("8教材の変更手順から基本5段階と発展3段階の見本を再現できる",()=>{
- const games=[["beginner","quiz"],["beginner","story"],["intermediate","sokoban"],["intermediate","minesweeper"],["advanced","falling-blocks"],["advanced","quest-rpg"],["advanced","tactics"],["advanced","soccer"]];
- const read=p=>fs.readFileSync(p,"utf8").replace(/\r\n/g,"\n");const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27);/g,m=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":"\"","&#x27;":"'"})[m]);
- for(const [level,name] of games){const folder=path.join(root,"examples",level,name);let code=read(path.join(root,"template/script.js"));
-  for(const [dir,count] of [["",5],["extensions",3]]){const page=read(path.join(folder,dir,"tutorial.html"));const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,count,name);
-   for(let i=0;i<count;i++){const section=sections[i][0],pairs=[...section.matchAll(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details>(?:<\/details>)?<p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length,name);
-    for(const p of pairs){const old=decode(p[1]),after=decode(p[2]);assert.equal(code.split(old).length,2,`${name} ${dir} ${i+1}`);code=code.replace(old,after);}
-    assert.equal(code,read(path.join(folder,dir,`step${i+1}/script.js`)),`${name} ${dir} ${i+1}`);for(const f of ["index.html","style.css","script.js"])assert.ok(fs.existsSync(path.join(folder,dir,`step${i+1}`,f)));
-   }assert.equal(code,read(path.join(folder,dir,"complete/script.js")));}
- }
+test("8教材の変更手順から基本5段階と発展3段階の見本を再現できる", () => {
+  const games = [["beginner","quiz"],["beginner","story"],["intermediate","sokoban"],["intermediate","minesweeper"],["advanced","falling-blocks"],["advanced","quest-rpg"],["advanced","tactics"],["advanced","soccer"]];
+  for (const [level, name] of games) {
+    const folder = "examples/" + level + "/" + name + "/";
+    assert.equal(verifyLessonSteps(folder + "tutorial.html").length, 5, name);
+    assert.equal(verifyLessonSteps(folder + "extensions/tutorial.html").length, 3, name);
+  }
 });
 
 test("サッカーはキー操作だけで3点取り、ためとフォーカス解除を扱う",()=>{

@@ -21,7 +21,7 @@ test("バッグ整理の小作業は各段階の見本と対応する3ファイ�
     assert.equal(sections.length, sub ? 3 : 5);
     let source = read(sub ? `${base}/complete/script.js` : "template/script.js");
     for (const [i, section] of sections.entries()) {
-      const main = section[0].split('<details class="task-reference">')[0], edits = blocks(main);
+      const main = section[0], edits = blocks(main);
       assert.ok(edits.length > 0);
       assert.equal((main.match(/class="lesson-task"/g) || []).length, edits.length);
       assert.equal((main.match(/class="task-marker"/g) || []).length, edits.length);
@@ -41,7 +41,7 @@ test("バッグ整理の小作業は各段階の見本と対応する3ファイ�
       assert.ok(chapter, `${file} step${i + 1}`);
       assert.equal(source, read(chapter.sources["script.js"]));
       for (const name of ["index.html", "style.css"]) assert.equal(read(`${base}${sub}/step${i + 1}/${name}`), read(chapter.sources[name]));
-      assert.match(section[0], /<details class="task-reference">/);
+      assert.doesNotMatch(section[0], /<details class="task-reference">/);
     }
   }
 });

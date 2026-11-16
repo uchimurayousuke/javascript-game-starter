@@ -37,7 +37,7 @@ test("発展と組み合わせの小作業を順に行うと各段階の見本�
       for (const edit of edits) source = apply(source, edit);
       assert.equal(source, read(`${folder}/step${i + 1}/script.js`), `${file} step ${i + 1}`);
       assert.match(section[0], /<p class="task-check">/);
-      assert.match(section[0], /<details class="task-reference">/);
+      assert.doesNotMatch(section[0], /<details class="task-reference">/);
     }
   }
 });

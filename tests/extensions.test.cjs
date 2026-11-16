@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("./lesson-edits.cjs");
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
 function setup(relative,stage="complete",randoms=[]){
@@ -135,14 +136,11 @@ test("レース発展は入力で2周し、ブーストと最速記録を再挑�
 
 test("15教材の手順は各見本を再現し、図と導線が有効",()=>{
  const paths=["tutorial","examples/beginner/target","examples/beginner/bounce","examples/beginner/timing","examples/beginner/typing","examples/beginner/number-guess","examples/intermediate/breakout","examples/intermediate/shooting","examples/intermediate/snake","examples/intermediate/memory","examples/intermediate/shop","examples/advanced/escape","examples/advanced/tower-defense","examples/advanced/card-battle","examples/advanced/racing"];
- const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27);/g,m=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":"\"","&#x27;":"'"})[m]);
- for(const base of paths){const folder=path.join(root,base),page=fs.readFileSync(path.join(folder,"extensions/tutorial.html"),"utf8").replace(/\r\n/g,"\n");let code=fs.readFileSync(path.join(folder,base==="tutorial"?"05-game":"complete","script.js"),"utf8").replace(/\r\n/g,"\n");
-  const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,3,base);
-  for(let i=0;i<3;i++){const section=sections[i][0];const pairs=[...section.matchAll(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];assert.ok(pairs.length,base);
-   for(const pair of pairs){const old=decode(pair[1]),next=decode(pair[2]);assert.equal(code.split(old).length,2,base + " step " + (i+1) + " snippet " + old.slice(0,90));code=code.replace(old,next);}
-   assert.equal(code,fs.readFileSync(path.join(folder,`extensions/step${i+1}/script.js`),"utf8"),base);
-  }
-  assert.equal(code,fs.readFileSync(path.join(folder,"extensions/complete/script.js"),"utf8"),base);
+ for (const base of paths) {
+  const folder = path.join(root, base);
+  const relative = base + "/extensions/tutorial.html";
+  const page = fs.readFileSync(path.join(root, relative), "utf8");
+  assert.equal(verifyLessonSteps(relative).length, 3, base);
   const figure=page.match(/<figure class="learning-diagram"[\s\S]*?<\/figure>/g);assert.equal(figure.length,base==="examples/beginner/typing"?2:1,base);for(const item of figure){assert.match(item,/<img [^>]*alt="[^"]+"/);const src=item.match(/<img src="([^"]+)"/)[1];assert.ok(fs.existsSync(path.resolve(folder,"extensions",src)),base);}
   const basic=fs.readFileSync(path.join(folder,base==="tutorial"?"index.html":"tutorial.html"),"utf8");assert.ok(basic.includes('href="extensions/tutorial.html"'),base);
  }

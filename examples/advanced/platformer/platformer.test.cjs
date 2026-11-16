@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("../../../tests/lesson-edits.cjs");
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -7,24 +8,10 @@ const vm = require("node:vm");
 const { assertReadingPage } = require("../../../tests/reading-page-policy.cjs");
 const here = __dirname;
 const read = (...p) => fs.readFileSync(path.join(here, ...p), "utf8").replace(/\r\n/g, "\n");
-const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#x27);/g, (x) => ({"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"', "&#x27;":"'"}[x]));
-
-test("各段階の置換手順を適用すると見本と一致する", () => {
-  const sections = [...read("tutorial.html").matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
-  assert.equal(sections.length, 6);
-  let script = read("..", "..", "..", "template", "script.js");
-  for (const [i, section] of sections.entries()) {
-    const edits = [...section[0].matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
-    assert.ok(edits.length);
-    for (const [, beforeHtml, afterHtml] of edits) {
-      const before = decode(beforeHtml);
-      assert.equal(script.split(before).length, 2);
-      script = script.replace(before, () => decode(afterHtml));
-    }
-    const step = "step" + (i + 1);
-    assert.equal(script, read(step, "script.js"));
-    for (const file of ["index.html", "style.css"]) assert.equal(read(step, file), read("..", "..", "..", "template", file));
-    new vm.Script(script);
+test("各段階の小作業を順に行うと見本と一致する", () => {
+  assert.equal(verifyLessonSteps("examples/advanced/platformer/tutorial.html").length, 6);
+  for (let step = 1; step <= 6; step++) {
+    for (const file of ["index.html", "style.css"]) assert.equal(read("step" + step, file), read("..", "..", "..", "template", file));
   }
   for (const file of ["index.html", "style.css", "script.js"]) assert.equal(read("complete", file), read("step6", file));
   assertReadingPage(read("tutorial.html"));

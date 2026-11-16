@@ -12,7 +12,7 @@ const steps = ["01-draw", "02-update", "03-input", "04-collision", "05-game"];
 const section = id => {
   const match = page.match(new RegExp('<section\\b[^>]*id="' + id + '"[^>]*>([\\s\\S]*?)</section>'));
   assert.ok(match, id);
-  return match[1].split('<details class="coin-reference">')[0];
+  return match[1];
 };
 const blocks = text => [...text.matchAll(/<pre class="coin-copy"><code\b([^>]*)>([\s\S]*?)<\/code><\/pre>/g)].map(m => ({
   attrs: Object.fromEntries([...m[1].matchAll(/([\w-]+)="([^"]*)"/g)].map(x => [x[1], decode(x[2])])), code: decode(m[2])
@@ -47,7 +47,7 @@ test("主画面の小作業は各操作後に起動でき、各段階の完成�
     for (const file of i === 0 ? ["index.html", "style.css"] : Object.keys(files)) assert.equal(files[file], read(`tutorial/${expected}/${file}`), `${id}: ${file}`);
   }
 });
-test("基本説明と図は小作業内で見え、比較は閉じた補助欄にある", () => {
+test("基本説明と図は小作業内で見える", () => {
   for (const id of ["preparation", ...steps.map((_, i) => `step-0${i + 1}`)]) {
     const main = section(id);
     assert.doesNotMatch(main, /説明用の抜粋|class="change-view"/);

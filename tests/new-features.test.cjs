@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("./lesson-edits.cjs");
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,".."),read=p=>fs.readFileSync(path.join(root,p),"utf8").replace(/\r\n/g,"\n");
 const list=[["beginner","score-combo"],["beginner","lives"],["beginner","dialog"],["beginner","input-edges"],["intermediate","timer"],["intermediate","inventory"],["intermediate","spawner"],["intermediate","invincibility"],["advanced","tilemap"],["advanced","enemy-ai"],["advanced","hit-effects"],["advanced","save-file"]];
@@ -11,16 +12,17 @@ function game(name,level=list.find(x=>x[1]===name)[0],stage="step3",source=null)
  const fire=(type,event={})=>{let prevented=false;const e={key:"",code:"",repeat:false,preventDefault(){prevented=true},...event};(events[type]||[]).forEach(fn=>fn(e));return prevented;};
  return {clock,draw,labels,offsets,rects,elements,downloads,run:s=>vm.runInContext(s,context),key:(key,extra={})=>fire("keydown",{key,code:key===" "?"Space":key,...extra}),up:key=>fire("keyup",{key}),blur:()=>fire("blur"),update:()=>vm.runInContext("update()",context)};
 }
-test("12教材は36段階のコピー欄と色分けを適用すると各見本を再現する",()=>{
- for(const [level,name] of list){const dir=`features/${level}/${name}`,page=read(`${dir}/tutorial.html`),sections=[...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];assert.equal(sections.length,3,name);let previous=read("template/script.js");
-  for(const [i,match] of sections.entries()){
-   const section=match[0],pair=section.match(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/);assert.ok(pair,name);assert.equal(decode(pair[1]),previous);const next=decode(pair[2]);assert.equal(next,read(`${dir}/step${i+1}/script.js`));
-   const rows=[...section.matchAll(/<div class="change-row change-(same|removed|added)"><span class="change-label">([^<]*)<\/span><span class="change-code">([^<]*)<\/span><\/div>/g)].map(m=>({kind:m[1],label:decode(m[2]),line:m[3]==="（空行）"?"":decode(m[3])}));assert.ok(rows.length);const counts=section.match(/<summary>行ごとの比較を見る（消す (\d+) 行・追加 (\d+) 行）<\/summary>/);assert.ok(counts);assert.equal(Number(counts[1]),rows.filter(r=>r.kind==="removed").length);assert.equal(Number(counts[2]),rows.filter(r=>r.kind==="added").length);for(const row of rows)assert.equal(row.label,{same:"そのまま",removed:"− 消す",added:"＋ 追加"}[row.kind]);
-   assert.deepEqual(rows.filter(r=>r.kind!=="added").map(r=>r.line),previous.replace(/\n$/,"").split("\n"),`${name}: old`);assert.deepEqual(rows.filter(r=>r.kind!=="removed").map(r=>r.line),next.replace(/\n$/,"").split("\n"),`${name}: new`);
-   for(const file of ["index.html","style.css"])assert.equal(read(`${dir}/step${i+1}/${file}`),read(`template/${file}`));assert.doesNotThrow(()=>new vm.Script(next));previous=next;
+test("12教材は36段階の小作業で各見本を再現する", () => {
+  for (const [level, name] of list) {
+    const dir = "features/" + level + "/" + name;
+    const page = dir + "/tutorial.html";
+    assert.equal(verifyLessonSteps(page).length, 3, name);
+    for (let step = 1; step <= 3; step++) {
+      for (const file of ["index.html", "style.css"]) assert.equal(read(dir + "/step" + step + "/" + file), read("template/" + file));
+    }
+    for (const file of ["index.html", "style.css", "script.js"]) assert.equal(read(dir + "/complete/" + file), read(dir + "/step3/" + file));
+    assert.match(read(page), /自分のゲームに組み込むには/);
   }
-  for(const file of ["index.html","style.css","script.js"])assert.equal(read(`${dir}/complete/${file}`),read(`${dir}/step3/${file}`));assert.match(page,/自分のゲームに組み込むには/);
- }
 });
 test("得点・残り・持ち物は上限と再開始を守る",()=>{
  let g=game("score-combo");g.key(" ");assert.equal(g.key(" ",{repeat:true}),true);g.key(" ");assert.equal(g.run("score"),30);g.key("f");g.key(" ");assert.equal(g.run("score"),40);g.key("r");assert.equal(g.run("score"),0);

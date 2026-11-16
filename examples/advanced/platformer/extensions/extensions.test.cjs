@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("../../../../tests/lesson-edits.cjs");
 
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
@@ -10,24 +11,11 @@ const { assertReadingPage } = require("../../../../tests/reading-page-policy.cjs
 const here = __dirname;
 const stages = ["stomp", "dash", "checkpoint"];
 const read = (...parts) => fs.readFileSync(path.join(here, ...parts), "utf8").replace(/\r\n/g, "\n");
-const decode = (text) => text.replace(/&(?:amp|lt|gt|quot|#x27);/g,
-  (entity) => ({ "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#x27;": "'" }[entity]));
-
 test("発展課題の変更手順から、3段階の見本を再現できる", () => {
-  const html = read("tutorial.html");
-  const sections = [...html.matchAll(/<section id="([^"]+)" data-stage="[^"]+">([\s\S]*?)<\/section>/g)];
-  assert.deepEqual(sections.map((section) => section[1]), stages);
-  let script = read("..", "complete", "script.js");
-  for (const [, stage, section] of sections) {
-    const edits = [...section.matchAll(/<p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/g)];
-    assert.ok(edits.length > 0, stage);
-    for (const [, before, after] of edits) {
-      const original = decode(before);
-      assert.equal(script.split(original).length, 2, `${stage}: 書き換える場所が一つに決まる`);
-      script = script.replace(original, () => decode(after));
-    }
-    assert.equal(script, read(stage, "script.js"), stage);
-    new vm.Script(script);
+const html = read("tutorial.html");
+  const lessons = verifyLessonSteps("examples/advanced/platformer/extensions/tutorial.html");
+  assert.deepEqual(lessons.map(chapter => chapter.anchor), stages);
+  for (const stage of stages) {
     assert.equal(read(stage, "style.css"), read("..", "complete", "style.css"));
     assert.match(read(stage, "index.html"), /<canvas id="game-canvas" width="800" height="450"/);
     assert.doesNotMatch(read(stage, "index.html"), /<(?:h[1-6]|details|nav)\b/i);

@@ -22,13 +22,13 @@ test("爆弾迷路の小作業は基本と発展の全段階の見本を再現�
     const sections = [...page.matchAll(/<section><h2>ステップ (\d)[\s\S]*?<\/section>/g)];
     assert.equal(sections.length,count);
     for (const [i, section] of sections.entries()) {
-      const main = section[0].split('<details class="task-reference">')[0], edits = blocks(main);
+      const main = section[0], edits = blocks(main);
       assert.ok(edits.length>0, `${ext} step${i+1}`);
       assert.equal((main.match(/class="lesson-task"/g)||[]).length,edits.length);
       assert.equal((main.match(/class="task-marker"/g)||[]).length,edits.length);
       assert.equal((main.match(/class="task-copy-button" hidden/g)||[]).length,edits.length);
       assert.match(section[0],/<p class="task-check">/);
-      assert.match(section[0],/<details class="task-reference">/);
+      assert.doesNotMatch(section[0], /<details class="task-reference">/);
       for (const item of edits) {
         const a=item.attrs, mark=a["data-small-match"], sep=a["data-small-separator"], action=a["data-small-action"];
         assert.equal(a["data-small-file"],"script.js");

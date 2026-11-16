@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="../../../tutorial/workshop.css?v=20261116-workbook">
 <link rel="stylesheet" href="../../../tutorial/game-workbook.css?v=20261116-workbook">
-</head><body class="lesson-page feature-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：残り体力を表示する">残り体力を表示する</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：ダメージと回復を加える">ダメージと回復を加える</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：体力バーを描く">体力バーを描く</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：体力バーを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：残り体力を表示する">残り体力を表示する</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：ダメージと回復を加える">ダメージと回復を加える</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：体力バーを描く">体力バーを描く</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">体力バーを作る</li></ol></nav><h1>体力バーを作る</h1><div class="change-guide"><details><summary>コードの比較の読み方</summary><p>比較欄では消す行、追加する行、そのままの行を色とラベルで示します。変更のない途中の行を省略することがあります。比較欄は読むためのもので、コピーする欄ではありません。</p><div class="change-key"><span class="change-removed">− 消す</span><span class="change-added">＋ 追加</span><span class="change-same">そのまま</span></div><p>置き換えるときは、赤い行だけを消すのではなく、指定された変更前の範囲すべてをコピー用のコードに置き換えます。そのままの行もコピー用のコードに含まれます。古い関数を残して同じ名前の関数を追加しないでください。</p><p>コピーするのは「コピー用」と書かれたコード欄です。比較の記号はコードに入りません。</p></details></div><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
+</head><body class="lesson-page feature-lesson game-workbook"><a class="lesson-skip" href="#lesson-main">本文へ移動</a><div class="lesson-shell"><aside class="lesson-sidebar"><details class="lesson-mobile-toc"><summary>このページの目次を開く</summary><nav aria-label="このページの目次"><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：残り体力を表示する">残り体力を表示する</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：ダメージと回復を加える">ダメージと回復を加える</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：体力バーを描く">体力バーを描く</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></details><nav aria-label="このページの目次"><p class="lesson-nav-title">このページの目次</p><p>今の教材：体力バーを作る</p><a href="#lesson-section-1">始める前に</a><a href="#lesson-section-2" data-workbook-step="01" aria-label="ステップ 1：残り体力を表示する">残り体力を表示する</a><a href="#lesson-section-3" data-workbook-step="02" aria-label="ステップ 2：ダメージと回復を加える">ダメージと回復を加える</a><a href="#lesson-section-4" data-workbook-step="03" aria-label="ステップ 3：体力バーを描く">体力バーを描く</a><a href="#lesson-section-5">自分のゲームに組み込むには</a></nav></aside><main id="lesson-main" tabindex="-1"><nav class="lesson-breadcrumb" aria-label="今いる場所"><ol><li><a href="../../../learning/index.html">学びの入口</a></li><li><a href="../../index.html">共通機能</a></li><li aria-current="page">体力バーを作る</li></ol></nav><h1>体力バーを作る</h1><span class="toc-anchor" id="lesson-section-1"></span><section><h2>始める前に</h2><div class="starter-download"><p><a class="download-link" href="../../../downloads/my-game.zip" download="my-game.zip">ひな型をダウンロード（ZIP）</a></p><p>ZIPを展開してできたフォルダーでindex.htmlを開きます。ZIPにはひな型の3ファイルが入っています。</p></div>
 <details class="lesson-operation-video" id="lesson-zip-video">
   <summary>WindowsでZIPを展開する（動画）</summary>
   <figure>
@@ -89,80 +89,7 @@ function update() {
   if (event.repeat) return;
   if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
 
-});</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>keydown</code> はキーを押したときに起きます。押し続けた繰り返しを除き、<code>toLowerCase()</code> で小文字にして R と比べます。<code>===</code> は同じかを調べ、R なら <code>start()</code> で体力を戻します。</p></div><p class="task-check">保存して作業用の index.html を再読み込みし、「HP（残り体力） 100 / 100」が表示されることを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 13 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">const ctx = canvas.getContext(&quot;2d&quot;);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const maxHp = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let hp;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  hp = maxHp;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1：体力の最大値と現在値を用意する</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">const maxHp = 100;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">let hp;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function start() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  hp = maxHp;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
-function start() {
-}
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>
-const maxHp = 100;
-let hp;
-
-function start() {
-  hp = maxHp;
-}
-</code></pre><p><code>maxHp</code> は最大体力100、<code>hp</code> は現在の体力です。<code>start()</code> で <code>hp = maxHp</code> とし、100から始めます。</p><h4>変更 2：体力を数字で表示する</h4><div class="reading-walkthrough"><p class="reading-label">次は説明用の抜粋です。編集するときは、後の「比較とコピー用コード」を開き、変更前の範囲を変更後の全体に置き換えます。</p><h5>体力と最大値を描く</h5><pre class="reading-code"><code>ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</code></pre><p><code>+</code> で文字と現在値、最大値をつなぎます。開始時は「HP（残り体力） 100 / 100」と横120、縦100に表示されます。</p><h5>Rで体力を戻す</h5><pre class="reading-code"><code>if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</code></pre><p>Rを押すと <code>start()</code> で最大値に戻し、<code>return</code> でこの入力の処理を終えます。押しっぱなしの連続入力は <code>event.repeat</code> で除きます。</p></div><details class="instruction-code"><summary>比較とコピー用コードを開く</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function update() {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function draw() {</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.clearRect(0, 0, canvas.width, canvas.height);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">window.addEventListener(&quot;keydown&quot;, event =&gt; {</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">});</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">（空行）</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">function gameLoop() {</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>
-function update() {
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-function gameLoop() {
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.repeat) return;
-  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
-
-});
-
-function gameLoop() {
-</code></pre></details><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-const maxHp = 100;
-let hp;
-
-function start() {
-  hp = maxHp;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.repeat) return;
-  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
-
-});
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
+});</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>keydown</code> はキーを押したときに起きます。押し続けた繰り返しを除き、<code>toLowerCase()</code> で小文字にして R と比べます。<code>===</code> は同じかを調べ、R なら <code>start()</code> で体力を戻します。</p></div><p class="task-check">保存して作業用の index.html を再読み込みし、「HP（残り体力） 100 / 100」が表示されることを確かめます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3>
 <details class="lesson-operation-video" id="lesson-save-video">
   <summary>保存してゲーム画面を更新する（動画）</summary>
   <figure>
@@ -202,57 +129,7 @@ gameLoop();
 
 });</code></pre><p class="task-code-label">置き換えるコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="replace" data-small-match="  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }&#10;&#10;});" data-small-separator="&#10;">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
   if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);
-});</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>Math.max(0, hp - 30)</code> は 0 と減らした値の大きい方です。残り 20 なら 0 になり、負の値にはなりません。</p></div><div class="lesson-task"><h4>Hキーで体力を回復する</h4><p>D キーの判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);" data-small-separator="&#10;">  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>else if</code> は前の条件が成り立たず、次の条件が成り立つときに実行します。<code>Math.min</code> は最大体力と増やした値の小さい方を選び、100 を超えないようにします。</p></div><p class="task-check">保存して再読み込みし、D で体力が 30 減り、H で 20 回復し、0 と 100 の範囲に収まることを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 1 行・追加 3 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.repeat) return;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">（空行）</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1：ダメージと回復の操作を表示する</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-}
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);
-}
-</code></pre><p>Dで30ダメージ、Hで20回復、Rで再開する案内を横120・縦260に描きます。</p><h4>変更 2：体力を0から最大値の範囲に収める</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }</span></div><div class="change-row change-removed"><span class="change-label">− 消す</span><span class="change-code">（空行）</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">});</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
-
-});
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
-  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);
-  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);
-});
-</code></pre><p>Dは <code>hp - 30</code> と0の大きい方を <code>Math.max</code> で選び、0未満を防ぎます。Hは <code>hp + 20</code> と最大体力100の小さい方を <code>Math.min</code> で選び、最大値を超えないようにします。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-const maxHp = 100;
-let hp;
-
-function start() {
-  hp = maxHp;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.repeat) return;
-  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
-  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);
-  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);
-});
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>DとHを押し、0〜100の範囲を確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ダメージ30を20に変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-health-bar-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：体力バーを描く</h2>
+});</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>Math.max(0, hp - 30)</code> は 0 と減らした値の大きい方です。残り 20 なら 0 になり、負の値にはなりません。</p></div><div class="lesson-task"><h4>Hキーで体力を回復する</h4><p>D キーの判定の下で、次の目印のすぐ下に追加します。</p><p class="task-marker-label">目印</p><pre class="task-marker"><code>  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);</code></pre><p class="task-code-label">追加するコード</p><pre class="task-code"><code data-small-file="script.js" data-small-action="after" data-small-match="  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);" data-small-separator="&#10;">  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);</code></pre><button type="button" class="task-copy-button" hidden>コードをコピー</button><span class="task-copy-status" role="status" aria-live="polite"></span><p><code>else if</code> は前の条件が成り立たず、次の条件が成り立つときに実行します。<code>Math.min</code> は最大体力と増やした値の小さい方を選び、100 を超えないようにします。</p></div><p class="task-check">保存して再読み込みし、D で体力が 30 減り、H で 20 回復し、0 と 100 の範囲に収まることを確かめます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>DとHを押し、0〜100の範囲を確かめます。 <a href="step2/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>ダメージ30を20に変えます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-health-bar-tutorial-html-step2">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-4"></span><section><h2>ステップ 3：体力バーを描く</h2>
 <details class="step-preview" id="preview-features-beginner-health-bar-tutorial-html-step3" data-preview-motion>
   <summary>このステップの見本を図で見る</summary>
   <figure>
@@ -295,50 +172,4 @@ gameLoop();
 <p data-figure-result role="status">HP 100 / 100。割合は1、バーの幅は300pxです。</p>
 </figure>
 <details class="earlier-figure"><summary>図をじっくり見る</summary><figure class="learning-diagram" id="feature-health-bar" aria-labelledby="feature-health-bar-title"><figcaption id="feature-health-bar-title">図：体力バー：残りの割合を長さにする</figcaption><div class="diagram-scroll" role="region" tabindex="0" aria-label="体力バー：残りの割合を長さにする"><img src="../../../tutorial/illustrations/astra/feature-health-bar.svg" width="1000" height="800" alt="HPが半分なら、バーの長さも半分です。最大100に対してHP50なら、最大幅300pxの半分の150pxになります。HP0なら緑の部分はなくなります。"></div><p>HPが半分なら、バーの長さも半分です。最大100に対してHP50なら、最大幅300pxの半分の150pxになります。HP0なら緑の部分はなくなります。</p><p class="diagram-expand"><a href="../../../tutorial/illustrations/astra/feature-health-bar.svg" target="_blank" rel="noopener" aria-label="図：体力バー：残りの割合を長さにするを大きく見る（新しいタブ）">図を大きく見る（新しいタブ）</a></p></figure></details>
-<p class="task-check">保存して再読み込みし、D と H で数値とバーの長さが変わり、R で最大に戻ることを確かめます。</p><details class="task-reference"><summary>変更前後の比較と以前の説明を見る</summary><h3>この段階で変えるところ</h3><details class="change-fold"><summary>行ごとの比較を見る（消す 0 行・追加 2 行）</summary><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#dce8ef&quot;; ctx.fillRect(120, 150, 300, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#3f9b68&quot;; ctx.fillRect(120, 150, 300 * hp / maxHp, 30);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">}</span></div></div></details><span class="lesson-stage lesson-stage--code" aria-hidden="true"></span><h3>編集する場所とコード</h3><p>次の変更を上から順に行い、変更前の範囲を変更後の範囲に置き換えます。</p><h4>変更 1：残り体力の割合でバーを描く</h4><div class="change-view" aria-label="コードの変更の比較"><p class="change-view-title">比較（読むための表示）</p><div class="change-row change-hunk"><span class="change-label">比較する場所</span><span class="change-code">変更のない途中の行は省略することがあります</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#dce8ef&quot;; ctx.fillRect(120, 150, 300, 30);</span></div><div class="change-row change-added"><span class="change-label">＋ 追加</span><span class="change-code">  ctx.fillStyle = &quot;#3f9b68&quot;; ctx.fillRect(120, 150, 300 * hp / maxHp, 30);</span></div><div class="change-row change-same"><span class="change-label">そのまま</span><span class="change-code">  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);</span></div></div><details class="old-code"><summary>変更前のコードを確認する</summary><p>変更前（確認用）：</p><pre><code>  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);
-</code></pre></details><p>変更後（コピー用）：</p><pre><code>  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-  ctx.fillStyle = &quot;#dce8ef&quot;; ctx.fillRect(120, 150, 300, 30);
-  ctx.fillStyle = &quot;#3f9b68&quot;; ctx.fillRect(120, 150, 300 * hp / maxHp, 30);
-  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);
-</code></pre><p>まず幅300、高さ30の背景を描き、その上に緑色の幅 <code>300 * hp / maxHp</code> を描きます。体力50なら <code>300 * 50 / 100 = 150</code> ピクセル、0なら緑の幅は0です。数値も表示します。</p><details><summary>この段階の script.js 全文を確認する</summary><pre><code>&quot;use strict&quot;;
-
-const canvas = document.querySelector(&quot;#game-canvas&quot;);
-const ctx = canvas.getContext(&quot;2d&quot;);
-
-const maxHp = 100;
-let hp;
-
-function start() {
-  hp = maxHp;
-}
-
-function update() {
-
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = &quot;#26334a&quot;; ctx.font = &quot;28px sans-serif&quot;;
-  ctx.fillText(&quot;HP（残り体力） &quot; + hp + &quot; / &quot; + maxHp, 120, 100);
-  ctx.fillStyle = &quot;#dce8ef&quot;; ctx.fillRect(120, 150, 300, 30);
-  ctx.fillStyle = &quot;#3f9b68&quot;; ctx.fillRect(120, 150, 300 * hp / maxHp, 30);
-  ctx.fillText(&quot;D: 30ダメージ / H: 20回復 / R: 再開&quot;, 120, 260);
-}
-
-window.addEventListener(&quot;keydown&quot;, event =&gt; {
-  if (event.repeat) return;
-  if (event.key.toLowerCase() === &quot;r&quot;) { start(); return; }
-  if (event.key.toLowerCase() === &quot;d&quot;) hp = Math.max(0, hp - 30);
-  else if (event.key.toLowerCase() === &quot;h&quot;) hp = Math.min(maxHp, hp + 20);
-});
-
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
-
-start();
-gameLoop();
-</code></pre></details></details><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>HPに応じてバーが短くなり、回復すると伸びます。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>バーの幅を変え、両方の四角を合わせます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-health-bar-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p>hpとmaxHp、0〜最大への制限、バーを描く式を自分のゲームへ移します。</p><p>startでhpを初期化し、敵に当たった処理でhpを減らし、回復時に増やします。drawで数字とバーを描きます。</p><p>gameLoopを増やさず、既存のstart・update・drawから処理を呼びます。再挑戦では持ち込んだ位置や状態、時刻を初期化します。</p></section><p><a href="complete/index.html" data-workbook-action="play">完成版を試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>
+<p class="task-check">保存して再読み込みし、D と H で数値とバーの長さが変わり、R で最大に戻ることを確かめます。</p><span class="lesson-stage lesson-stage--check" aria-hidden="true"></span><h3>保存後の確認</h3><p>HPに応じてバーが短くなり、回復すると伸びます。 <a href="step3/index.html">この段階の見本を開く</a></p><span class="lesson-stage lesson-stage--practice" aria-hidden="true"></span><h3>小さな練習</h3><p>バーの幅を変え、両方の四角を合わせます。 練習後はコードを元に戻してください。</p><p class="chapter-compare-link"><a href="../../../tutorial/compare/index.html?chapter=features-beginner-health-bar-tutorial-html-step3">このステップ終了時の見本と自分のコードを比べる</a></p></section><span class="toc-anchor" id="lesson-section-5"></span><section><h2>自分のゲームに組み込むには</h2><p>hpとmaxHp、0〜最大への制限、バーを描く式を自分のゲームへ移します。</p><p>startでhpを初期化し、敵に当たった処理でhpを減らし、回復時に増やします。drawで数字とバーを描きます。</p><p>gameLoopを増やさず、既存のstart・update・drawから処理を呼びます。再挑戦では持ち込んだ位置や状態、時刻を初期化します。</p></section><p><a href="complete/index.html" data-workbook-action="play">完成版を試す</a>　<a href="../../index.html">機能の一覧へ戻る</a></p></main></div></body></html>

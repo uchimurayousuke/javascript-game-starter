@@ -1,4 +1,5 @@
 "use strict";
+const { verifyLessonSteps } = require("./lesson-edits.cjs");
 const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),vm=require("node:vm");
 const root=path.resolve(__dirname,"..");
 function load(level,name,stage="complete"){
@@ -76,22 +77,23 @@ test("サバイバルの発展は3発、種類ごとの敵、各数の上限を�
  g.run("game.bullets=Array.from({length:99},()=>new Bullet(100,100,0,0));game.shoot()");assert.equal(g.run("game.bullets.length"),100);
  g.run("game.enemies=[];game.elapsed=29.99;game.spawnTimer=100;game.last=performance.now()");g.tick(50);assert.equal(g.run("game.enemies.filter(e=>e.kind==='boss').length"),1);g.tick(50);assert.equal(g.run("game.enemies.filter(e=>e.kind==='boss').length"),1);
 });
-test("4教材の手順と比較表示は32段階のコードを再現する",()=>{
- const games=[["intermediate","word-guess"],["intermediate","anomaly-check"],["advanced","fruit-merge"],["advanced","survivor"]];
- const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#x27);/g,x=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#x27;":"'"})[x]);
- for(const [level,name] of games)for(const extension of [false,true]){
-  const base=path.join(root,"examples",level,name),folder=path.join(base,extension?"extensions":""),page=fs.readFileSync(path.join(folder,"tutorial.html"),"utf8");
-  const sections=[...page.matchAll(/<section><h2>ステップ (\d)：[\s\S]*?<\/section>/g)];assert.equal(sections.length,extension?3:5,name);require('./reading-page-policy.cjs').assertReadingPage(page);
-  let previous=fs.readFileSync(extension?path.join(base,"complete/script.js"):path.join(root,"template/script.js"),"utf8").replace(/\r\n/g,"\n");
-  for(const [index,match] of sections.entries()){
-   const section=match[0],pair=section.match(/<details class="old-code"><summary>変更前のコードを確認する<\/summary><p>変更前（確認用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre><\/details><p>変更後（コピー用）：<\/p><pre><code>([\s\S]*?)<\/code><\/pre>/);assert.ok(pair,`${name} ${index+1}`);
-   const old=decode(pair[1]),next=decode(pair[2]);assert.equal(old,previous);assert.equal(next,fs.readFileSync(path.join(folder,`step${index+1}/script.js`),"utf8"));
-   assert.match(section,/<h3>目標<\/h3>/);if(!section.includes('<h3>コードの意味</h3>')) assert.ok(require('./lesson-explanation.cjs').hasInlineExplanation(section),`${name}: ステップ内にコードと説明`);assert.match(section,/<h3>保存後の確認<\/h3>/);assert.match(section,/<h3>小さな練習<\/h3>/);assert.match(section,/<summary>練習の答え<\/summary>/);
-   const rows=[...section.matchAll(/<div class="change-row change-(same|removed|added)"><span class="change-label">[^<]*<\/span><span class="change-code">([\s\S]*?)<\/span><\/div>/g)];assert.ok(rows.length);
-   const before=old.split("\n"),after=next.split("\n");let a=0,b=0;
-   for(const [,kind,text] of rows){const line=text==="（空行）"?"":decode(text);if(kind!=="added"){a=before.indexOf(line,a);assert.ok(a>=0,`${name} old ${line}`);a++;}if(kind!=="removed"){b=after.indexOf(line,b);assert.ok(b>=0,`${name} new ${line}`);b++;}}
-   previous=next;
+test("4教材の小作業は32段階の見本を再現する", () => {
+  const games = [["intermediate","word-guess"],["intermediate","anomaly-check"],["advanced","fruit-merge"],["advanced","survivor"]];
+  for (const [level, name] of games) {
+    const dir = "examples/" + level + "/" + name + "/";
+    for (const [subdir, count] of [["", 5], ["extensions/", 3]]) {
+      const relative = dir + subdir + "tutorial.html";
+      const page = fs.readFileSync(path.join(root, relative), "utf8");
+      assert.equal(verifyLessonSteps(relative).length, count, name);
+      const sections = [...page.matchAll(/<section><h2>ステップ \d：[\s\S]*?<\/section>/g)];
+      assert.equal(sections.length, count, name);
+      for (const [section] of sections) {
+        for (const label of ["目標", "小さな練習"]) assert.ok(section.includes("<h3>" + label + "</h3>"), name + " " + label);
+        assert.match(section, /<h3>保存後の(?:確認|確かめ方)<\/h3>/, name);
+        assert.ok(require("./lesson-explanation.cjs").hasInlineExplanation(section), name);
+        assert.match(section, /<summary>練習の答え<\/summary>/);
+      }
+      require("./reading-page-policy.cjs").assertReadingPage(page);
+    }
   }
-  assert.equal(previous,fs.readFileSync(path.join(folder,"complete/script.js"),"utf8"));
- }
 });
