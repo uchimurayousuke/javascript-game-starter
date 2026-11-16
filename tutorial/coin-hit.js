@@ -5,6 +5,7 @@ const coinHitStill = document.querySelector("[data-coin-hit-still]");
 
 if (coinHitDemo && coinHitStill) {
   const token = coinHitDemo.querySelector("[data-coin-hit-token]");
+  const contact = coinHitDemo.querySelector("[data-coin-hit-contact]");
   const centerLabel = coinHitDemo.querySelector("[data-coin-hit-center]");
   const bottomLabel = coinHitDemo.querySelector("[data-coin-hit-bottom]");
   const gap = coinHitDemo.querySelector("[data-coin-hit-gap]");
@@ -71,6 +72,7 @@ if (coinHitDemo && coinHitStill) {
       animation.cancel();
       readout.removeAttribute("aria-busy");
       moving = false;
+      if (readout.dataset.caught === "true") globalThis.WorkshopEffects?.celebrate(contact);
     }
 
     animation.finished.then(finishMove, finishMove);

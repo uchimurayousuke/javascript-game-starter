@@ -118,5 +118,8 @@ test("種類違い、空ファイル、失敗、古い読込結果と入力超�
  e["own-code"].value="x\n".repeat(601);await e["own-code"].fire("input");await e["compare-button"].fire("click");assert.match(e.status.textContent,/600行/);
 });
 test("比較ページはローカルのスクリプトだけを読み、教材のコードを実行・送信しない",()=>{
- const html=read("tutorial/compare/index.html"),scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);assert.deepEqual(scripts,["references.js","diff.js","compare.js?v=20261115-visuals"]);for(const f of scripts)assert.ok(fs.existsSync(path.join(compareDir,f.split("?")[0])));const js=read("tutorial/compare/compare.js");assert.doesNotMatch(js,/\b(?:fetch|XMLHttpRequest|localStorage|sessionStorage|eval|Function)\b/);assert.doesNotMatch(js,/innerHTML/);
+ const html=read("tutorial/compare/index.html"),scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
+ assert.deepEqual(scripts,["references.js","diff.js","../vendor/sakuga-vfx/core.js","../workshop-effects.js","compare.js?v=20261116-sakuga"]);
+ for(const f of scripts)assert.ok(fs.existsSync(path.join(compareDir,f.split("?")[0])));
+ const js=read("tutorial/compare/compare.js");assert.doesNotMatch(js,/\b(?:fetch|XMLHttpRequest|localStorage|sessionStorage|eval|Function)\b/);assert.doesNotMatch(js,/innerHTML/);
 });

@@ -191,7 +191,11 @@
       help.hidden = !comparison.identical;
       showRows();
       result.focus();
-    } catch (error) { setStatus(error instanceof RangeError ? error.message : "比較できませんでした。入力を確かめてください。"); }
+    } catch (error) {
+      setStatus(error instanceof RangeError ? error.message : "比較できませんでした。入力を確かめてください。");
+      return;
+    }
+    if (comparison.identical) globalThis.WorkshopEffects?.celebrate(el("result-heading"), 0.9);
   });
   const requested = new URLSearchParams(window.location.search).get("chapter");
   if (requested && byId.has(requested)) { chapter.value = requested; updateChapter(); }

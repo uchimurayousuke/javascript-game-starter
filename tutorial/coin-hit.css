@@ -76,6 +76,15 @@
   color: var(--lesson-on-action);
 }
 
+.coin-hit-controls [data-coin-hit-lower]:not([aria-disabled="true"]) {
+  border-color: var(--workshop-edge);
+  box-shadow: 3px 3px 0 var(--workshop-edge);
+}
+
+.coin-hit-controls [data-coin-hit-lower]:not([aria-disabled="true"]):active {
+  box-shadow: none;
+}
+
 .coin-hit-controls button[aria-disabled="true"] {
   border-color: var(--lesson-line-diagram-inner);
   background: var(--lesson-fold-wash);
@@ -91,6 +100,16 @@
 .coin-hit-note {
   color: var(--lesson-ink-caption);
   font-size: .9em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .coin-hit-controls [data-coin-hit-lower] {
+    transition: transform 100ms ease-out, box-shadow 100ms ease-out;
+  }
+
+  .coin-hit-controls [data-coin-hit-lower]:not([aria-disabled="true"]):active {
+    transform: translateY(2px);
+  }
 }
 
 @media (max-width: 480px) {

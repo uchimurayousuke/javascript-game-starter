@@ -123,8 +123,10 @@ test("the published instructions reproduce all three files at every step", async
 test("reading pages and game pages stay separate", () => {
   assert.doesNotMatch(tutorial, /<(?:canvas|iframe|object|embed)\b/i);
   assert.deepEqual([...tutorial.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(x => x[0]), [
-    '<script src="coin-small-tasks.js" defer></script>',
-    '<script src="coin-hit.js" defer></script>',
+    '<script src="vendor/sakuga-vfx/core.js" defer></script>',
+    '<script src="workshop-effects.js" defer></script>',
+    '<script src="coin-small-tasks.js?v=20261116-sakuga" defer></script>',
+    '<script src="coin-hit.js?v=20261116-sakuga" defer></script>',
     '<script src="coin-step-visuals.js" defer></script>',
   ]);
   const requiredHeadings = ["目標", "小さな作業", "編集するファイルと場所", "追加または置換するコード", "保存・再読み込み後の確認", "小さな練習"];
